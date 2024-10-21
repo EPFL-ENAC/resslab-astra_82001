@@ -25,3 +25,5 @@ coverage
 *.sln
 *.sw?
 tsconfig.vitest.tsbuildinfo
+.internal_doc.md
+*.tsbuildinfo

@@ -11,5 +11,3 @@ Template with licences / github templates and contributing processes
 - [x] Check if you need all those labels: https://github.com/EPFL-ENAC/resslab-astra_82001/labels
 - [ ] Create your first milestone: https://github.com/EPFL-ENAC/resslab-astra_82001/milestones
 - [ ] Protect your branch if you're a pro user: https://github.com/EPFL-ENAC/resslab-astra_82001/settings/branches
-
-

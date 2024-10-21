@@ -1,0 +1,15 @@
+{
+    "name": "astra_82001",
+    "short_name": "astra_82001",
+    "start_url": "/",
+    "icons": [
+        {
+            "src": "/EPFL_Logo_184X53.svg",
+            "sizes": "184x53",
+            "type": "image/svg"
+        }
+    ],
+    "theme_color": "#ffffff",
+    "background_color": "#ffffff",
+    "display": "standalone"
+}
