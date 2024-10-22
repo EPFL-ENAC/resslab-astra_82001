@@ -5,7 +5,6 @@ name: build-push-deploy
   push:
     branches:
       - dev
-      - main
     tags: [ 'v*.*.*' ]
 
 env:
