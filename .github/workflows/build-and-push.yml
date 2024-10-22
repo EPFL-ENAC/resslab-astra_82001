@@ -21,7 +21,7 @@ jobs:
         include:
           - Dockerfile: ./Dockerfile
             context: ./
-            image: ghcr.io/epfl-enac/resslab-astra_82001
+            image: ghcr.io/epfl-enac/resslab-astra-82001-frontend
     permissions:
       contents: read
       packages: write
