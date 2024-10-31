@@ -1,0 +1,19 @@
+[
+  {
+    "Type": "Box",
+    "SubType": "Stand",
+    "Width": "Wid12",
+    "Layout": "Uni",
+    "Support": "Simp",
+    "Trans": "p0",
+    "AE": "Mn",
+    "Traffic": "Uni2L",
+    "Span": 30,
+    "All": 0.527832751,
+    "ClassOW": 0.281046696,
+    "Class": 0.214219347,
+    "BestFitAll": "gevGumbel",
+    "BestFitClassOW": "LognormalTF",
+    "BestFitClass": "LognormalTF"
+  }
+]
