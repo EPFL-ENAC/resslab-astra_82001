@@ -2,56 +2,64 @@
   <q-form class="flex items-center justify-center">
     <q-select
       :model-value="modelValue.Type"
-      @update:model-value="$emit('update:modelValue', { ...modelValue, Type: $event })"
+      @update:model-value="updateField('Type', $event)"
       :options="TypeOptions"
       label="Type of Bridge"
       style="width: 200px" />
     <q-select
       :model-value="modelValue.SubType"
-      @update:model-value="$emit('update:modelValue', { ...modelValue, SubType: $event })"
+      @update:model-value="updateField('SubType', $event)"
       :options="SubTypeOptions"
+      :disable="isFieldDisabled('SubType')"
       label="Bridge SubType"
       style="width: 200px" />
     <q-select
       :model-value="modelValue.Width"
-      @update:model-value="$emit('update:modelValue', { ...modelValue, Width: $event })"
+      @update:model-value="updateField('Width', $event)"
       :options="WidthOptions"
+      :disable="isFieldDisabled('Width')"
       label="Width"
       style="width: 200px" />
     <q-select
       :model-value="modelValue.Layout"
-      @update:model-value="$emit('update:modelValue', { ...modelValue, Layout: $event })"
+      @update:model-value="updateField('Layout', $event)"
       :options="LayoutOptions"
+      :disable="isFieldDisabled('Layout')"
       label="Layout"
       style="width: 200px" />
     <q-select
       :model-value="modelValue.Support"
-      @update:model-value="$emit('update:modelValue', { ...modelValue, Support: $event })"
+      @update:model-value="updateField('Support', $event)"
       :options="SupportOptions"
+      :disable="isFieldDisabled('Support')"
       label="Support"
       style="width: 200px" />
     <q-select
       :model-value="modelValue.Trans"
-      @update:model-value="$emit('update:modelValue', { ...modelValue, Trans: $event })"
+      @update:model-value="updateField('Trans', $event)"
       :options="TransOptions"
+      :disable="isFieldDisabled('Trans')"
       label="Trans"
       style="width: 200px" />
     <q-select
       :model-value="modelValue.AE"
-      @update:model-value="$emit('update:modelValue', { ...modelValue, AE: $event })"
+      @update:model-value="updateField('AE', $event)"
       :options="AEOptions"
+      :disable="isFieldDisabled('AE')"
       label="AE"
       style="width: 200px" />
     <q-select
       :model-value="modelValue.Span"
-      @update:model-value="$emit('update:modelValue', { ...modelValue, Span: $event })"
+      @update:model-value="updateField('Span', $event)"
       :options="SpanOptions"
+      :disable="isFieldDisabled('Span')"
       label="Span"
       style="width: 200px" />
     <q-select
       :model-value="modelValue.Traffic"
-      @update:model-value="$emit('update:modelValue', { ...modelValue, Traffic: $event })"
+      @update:model-value="updateField('Traffic', $event)"
       :options="TrafficOptions"
+      :disable="isFieldDisabled('Traffic')"
       label="Traffic Class"
       style="width: 200px" />
   </q-form>
@@ -124,7 +132,28 @@ const SpanOptions = computed(() =>
 );
 const TrafficOptions = computed(() => ['All', 'ClassOW', 'Class'] as Traffic[]);
 
-defineEmits<{
+const emit = defineEmits<{
   'update:modelValue': [value: Record<string, string|number|null>]
 }>();
+
+const fieldOrder = ['Type', 'SubType', 'Width', 'Layout', 'Support', 'Trans', 'AE', 'Span', 'Traffic'];
+
+function updateField(field: string, value: string|number|null) {
+  const newValue = { ...props.modelValue };
+  newValue[field] = value;
+
+  // Reset all fields that come after the current field
+  const fieldIndex = fieldOrder.indexOf(field);
+  fieldOrder.slice(fieldIndex + 1).forEach(f => {
+    newValue[f] = null;
+  });
+
+  emit('update:modelValue', newValue);
+}
+
+// Optional: Add a helper computed function to check if a field should be disabled
+const isFieldDisabled = (field: string) => {
+  const currentIndex = fieldOrder.indexOf(field);
+  return fieldOrder.slice(0, currentIndex).some(f => !props.modelValue[f]);
+};
 </script>
