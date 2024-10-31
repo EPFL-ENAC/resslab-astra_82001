@@ -2,7 +2,7 @@
   <q-page class="row items-center justify-center">
     <div class="container" style="max-width: 800px">
       <div class="row items-center justify-center">
-        <div class="col col-6 form items-center justify-center flex">
+        <div class="col col-6 form items-center justify-center flex q-gutter-sm">
           <BridgeSelectionForm v-model="selected" />
         </div>
         <div class="col col-6 results items-center justify-center flex">

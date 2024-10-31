@@ -14,36 +14,43 @@
       style="width: 200px" />
     <q-select
       :model-value="modelValue.Width"
+      @update:model-value="$emit('update:modelValue', { ...modelValue, Width: $event })"
       :options="WidthOptions"
       label="Width"
       style="width: 200px" />
     <q-select
       :model-value="modelValue.Layout"
+      @update:model-value="$emit('update:modelValue', { ...modelValue, Layout: $event })"
       :options="LayoutOptions"
       label="Layout"
       style="width: 200px" />
     <q-select
       :model-value="modelValue.Support"
+      @update:model-value="$emit('update:modelValue', { ...modelValue, Support: $event })"
       :options="SupportOptions"
       label="Support"
       style="width: 200px" />
     <q-select
       :model-value="modelValue.Trans"
+      @update:model-value="$emit('update:modelValue', { ...modelValue, Trans: $event })"
       :options="TransOptions"
       label="Trans"
       style="width: 200px" />
     <q-select
       :model-value="modelValue.AE"
+      @update:model-value="$emit('update:modelValue', { ...modelValue, AE: $event })"
       :options="AEOptions"
       label="AE"
       style="width: 200px" />
     <q-select
       :model-value="modelValue.Span"
+      @update:model-value="$emit('update:modelValue', { ...modelValue, Span: $event })"
       :options="SpanOptions"
       label="Span"
       style="width: 200px" />
     <q-select
       :model-value="modelValue.Traffic"
+      @update:model-value="$emit('update:modelValue', { ...modelValue, Traffic: $event })"
       :options="TrafficOptions"
       label="Traffic Class"
       style="width: 200px" />
@@ -116,4 +123,8 @@ const SpanOptions = computed(() =>
   ).map(x => x.Span)))
 );
 const TrafficOptions = computed(() => ['All', 'ClassOW', 'Class'] as Traffic[]);
+
+defineEmits<{
+  'update:modelValue': [value: Record<string, string|number|null>]
+}>();
 </script>
