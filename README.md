@@ -1,49 +1,13 @@
-# TODO:
+# enac-it4r-repo
 
-- Reset select btn on previous change!
+Template with licences / github templates and contributing processes
 
-- Rewrite Wid ?
+# Todo when setting up your github repo
 
-# Quasar App (astra-82001)
-
-A Quasar Project
-
-## Install the dependencies
-
-```bash
-yarn
-# or
-npm install
-```
-
-### Start the app in development mode (hot-code reloading, error reporting, etc.)
-
-```bash
-quasar dev
-```
-
-### Lint the files
-
-```bash
-yarn lint
-# or
-npm run lint
-```
-
-### Format the files
-
-```bash
-yarn format
-# or
-npm run format
-```
-
-### Build the app for production
-
-```bash
-quasar build
-```
-
-### Customize the configuration
-
-See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-vite/quasar-config-js).
+- [ ] Learn how to use github template repository: https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template
+- [x] Activate discussion (https://github.com/EPFL-ENAC/resslab-astra_82001/settings)
+- [x] Replace `resslab-astra_82001` by the name of your repo
+- [x] Modifiy or remove the `CITATION.cff` file. [How to format it ?](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-citation-files)
+- [x] Check if you need all those labels: https://github.com/EPFL-ENAC/resslab-astra_82001/labels
+- [ ] Create your first milestone: https://github.com/EPFL-ENAC/resslab-astra_82001/milestones
+- [ ] Protect your branch if you're a pro user: https://github.com/EPFL-ENAC/resslab-astra_82001/settings/branches

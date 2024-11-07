@@ -1,0 +1,21 @@
+# EXAMPLE USAGE:
+#
+#   Refer for explanation to following link:
+#   https://github.com/evilmartians/lefthook/blob/master/docs/configuration.md
+#
+pre-push:
+  commands:
+    eslint-audit:
+      tags: frontend eslint
+      run: npm run lint
+    typescript-audit:
+      tags: frontend typescript
+      run: npm run type-check
+
+pre-commit:
+  parallel: true
+  commands:
+    eslint:
+      glob: "*.{js,ts,jsx,tsx,css,scss,vue}"
+      tags: frontend eslint
+      run: npx eslint {staged_files} --fix
