@@ -18,14 +18,15 @@
       @update:model-value="updateField('Width', $event)"
       :options="WidthOptions"
       :disable="isFieldDisabled('Width')"
+      :suffix="WidthSuffix"
       label="Width"
       style="width: 200px" />
     <q-select
-      :model-value="modelValue.Layout"
-      @update:model-value="updateField('Layout', $event)"
-      :options="LayoutOptions"
-      :disable="isFieldDisabled('Layout')"
-      label="Layout"
+      :model-value="modelValue.Traffic"
+      @update:model-value="updateField('Traffic', $event)"
+      :options="TrafficOptions"
+      :disable="isFieldDisabled('Traffic')"
+      label="Traffic"
       style="width: 200px" />
     <q-select
       :model-value="modelValue.Support"
@@ -39,7 +40,7 @@
       @update:model-value="updateField('Trans', $event)"
       :options="TransOptions"
       :disable="isFieldDisabled('Trans')"
-      label="Trans"
+      label="Transversal or Longitudinal"
       style="width: 200px" />
     <q-select
       :model-value="modelValue.AE"
@@ -53,13 +54,14 @@
       @update:model-value="updateField('Span', $event)"
       :options="SpanOptions"
       :disable="isFieldDisabled('Span')"
+      suffix="m"
       label="Span"
       style="width: 200px" />
     <q-select
-      :model-value="modelValue.Traffic"
-      @update:model-value="updateField('Traffic', $event)"
-      :options="TrafficOptions"
-      :disable="isFieldDisabled('Traffic')"
+      :model-value="modelValue.TrafficClass"
+      @update:model-value="updateField('TrafficClass', $event)"
+      :options="TrafficClassOptions"
+      :disable="isFieldDisabled('TrafficClass')"
       label="Traffic Class"
       style="width: 200px" />
   </q-form>
@@ -69,7 +71,7 @@
 import { computed } from 'vue';
 import data from '../assets/data/data.json';
 
-type Traffic = 'All' | 'ClassOW' | 'Class';
+type TrafficClass = 'ClassOW' | 'Class';
 
 const props = defineProps<{
   modelValue: Record<string, string|number|null>
@@ -79,33 +81,34 @@ const TypeOptions = computed(() => Array.from(new Set(data.map(x => x.Type))).so
 const SubTypeOptions = computed(() =>
   Array.from(new Set(data.filter(x => x.Type === props.modelValue.Type).map(x => x.SubType)))
 );
+const WidthSuffix = computed(() => props.modelValue.Width ? 'm' : '');
 const WidthOptions = computed(() =>
   Array.from(new Set(data.filter(x =>
     x.Type === props.modelValue.Type &&
     x.SubType === props.modelValue.SubType
-  ).map(x => x.Width)))
+  ).map(x => x.Width.replace('Wid', ''))))
 );
-const LayoutOptions = computed(() =>
+const TrafficOptions = computed(() =>
   Array.from(new Set(data.filter(x =>
     x.Type === props.modelValue.Type &&
     x.SubType === props.modelValue.SubType &&
-    x.Width === props.modelValue.Width
-  ).map(x => x.Layout)))
+    x.Width === `Wid${props.modelValue.Width}`
+  ).map(x => x.Traffic)))
 );
 const SupportOptions = computed(() =>
   Array.from(new Set(data.filter(x =>
     x.Type === props.modelValue.Type &&
     x.SubType === props.modelValue.SubType &&
-    x.Width === props.modelValue.Width &&
-    x.Layout === props.modelValue.Layout
+    x.Width === `Wid${props.modelValue.Width}` &&
+    x.Traffic === props.modelValue.Traffic
   ).map(x => x.Support)))
 );
 const TransOptions = computed(() =>
   Array.from(new Set(data.filter(x =>
     x.Type === props.modelValue.Type &&
     x.SubType === props.modelValue.SubType &&
-    x.Width === props.modelValue.Width &&
-    x.Layout === props.modelValue.Layout &&
+    x.Width === `Wid${props.modelValue.Width}` &&
+    x.Traffic === props.modelValue.Traffic &&
     x.Support === props.modelValue.Support
   ).map(x => x.Trans)))
 );
@@ -113,8 +116,8 @@ const AEOptions = computed(() =>
   Array.from(new Set(data.filter(x =>
     x.Type === props.modelValue.Type &&
     x.SubType === props.modelValue.SubType &&
-    x.Width === props.modelValue.Width &&
-    x.Layout === props.modelValue.Layout &&
+    x.Width === `Wid${props.modelValue.Width}` &&
+    x.Traffic === props.modelValue.Traffic &&
     x.Support === props.modelValue.Support &&
     x.Trans === props.modelValue.Trans
   ).map(x => x.AE)))
@@ -123,20 +126,23 @@ const SpanOptions = computed(() =>
   Array.from(new Set(data.filter(x =>
     x.Type === props.modelValue.Type &&
     x.SubType === props.modelValue.SubType &&
-    x.Width === props.modelValue.Width &&
-    x.Layout === props.modelValue.Layout &&
+    x.Width === `Wid${props.modelValue.Width}` &&
+    x.Traffic === props.modelValue.Traffic &&
     x.Support === props.modelValue.Support &&
     x.Trans === props.modelValue.Trans &&
     x.AE === props.modelValue.AE
   ).map(x => x.Span)))
 );
-const TrafficOptions = computed(() => ['All', 'ClassOW', 'Class'] as Traffic[]);
+const TrafficClassOptions = computed(() => [
+  { value: 'ClassOW', label: 'Class+ (40T + Mobile Crane up to 96T)' },
+  { value: 'Class', label: 'Standard Class (40T max)' }
+] as { value: TrafficClass, label: string }[]);
 
 const emit = defineEmits<{
   'update:modelValue': [value: Record<string, string|number|null>]
 }>();
 
-const fieldOrder = ['Type', 'SubType', 'Width', 'Layout', 'Support', 'Trans', 'AE', 'Span', 'Traffic'];
+const fieldOrder = ['Type', 'SubType', 'Width', 'Traffic', 'Support', 'Trans', 'AE', 'Span', 'TrafficClass'];
 
 function updateField(field: string, value: string|number|null) {
   const newValue = { ...props.modelValue };

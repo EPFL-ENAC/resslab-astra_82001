@@ -10,20 +10,40 @@
       &alpha;<sub>Q2</sub> &equals; {{ alphaQ2 }}
     </div>
     <div class="alpha-item">
-      &alpha;<sub>q</sub> &equals;
-      <span v-if="traffic">{{ selectedValue }}</span>
-      <span v-else>0.40</span>
+      &alpha;<sub>q</sub>
+      <span v-if="trafficClass && selectedValue">
+        <span v-if="selectedValue <= minAlphaQ">
+          &LessSlantEqual;
+          {{ minAlphaQ }} !
+        <q-tooltip>
+            Exact value: {{ selectedValue }}
+          </q-tooltip>
+        </span>
+        <span v-else>
+          &equals;
+          {{ selectedValue.toFixed(2) }}
+          <q-tooltip>
+            Exact value: {{ selectedValue }}
+          </q-tooltip>
+        </span>
+      </span>
+      <span v-else>&equals; {{ minAlphaQ }}</span>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-defineProps<{
+import { computed } from 'vue';
+
+const props = defineProps<{
   alphaQ1: number;
   alphaQ2: number;
-  traffic: string | null;
-  selectedValue?: number | string;
+  trafficClass: string | null;
+  selectedValue?: number;
 }>();
+
+const minAlphaQ = computed(() => props.trafficClass === 'ClassOW' ? 0.40 : 0.30);
+
 </script>
 
 <style scoped>
