@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.0.0 (2024-11-07)
+
+
+### Features
+
+* **docker:** add proper docker build ([e7d80e7](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/e7d80e7f94fce4f0460383c8451b30b380663868))
+
+
+### Bug Fixes
+
+* better logic for form ([7dd2a8e](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/7dd2a8eb7de5cf0b2dd153f97e2595d3045bdc21))
+* correct ([8ab1a10](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/8ab1a102b133bac6b6261a1f1b849d1de9fc44f0))
+
 ## [1.1.0](https://github.com/EPFL-ENAC/resslab-astra_82001/compare/v1.0.0...v1.1.0) (2024-10-22)
 
 
