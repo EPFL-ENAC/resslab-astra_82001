@@ -1,13 +1,26 @@
-# enac-it4r-repo
+# ASTRA 82001 Calculation tool
 
 Template with licences / github templates and contributing processes
 
-# Todo when setting up your github repo
+# Tech stack
 
-- [ ] Learn how to use github template repository: https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template
-- [x] Activate discussion (https://github.com/EPFL-ENAC/resslab-astra_82001/settings)
-- [x] Replace `resslab-astra_82001` by the name of your repo
-- [x] Modifiy or remove the `CITATION.cff` file. [How to format it ?](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-citation-files)
-- [x] Check if you need all those labels: https://github.com/EPFL-ENAC/resslab-astra_82001/labels
-- [ ] Create your first milestone: https://github.com/EPFL-ENAC/resslab-astra_82001/milestones
-- [ ] Protect your branch if you're a pro user: https://github.com/EPFL-ENAC/resslab-astra_82001/settings/branches
+Quazar 
+
+# Contributing 
+## Data update
+Pull requests - 
+[Description of data.csv]
+
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]][license-url]
+
+
+# Usage
+
+# Status
+Under active development. Report bugs. 
+
+# Contributors 
