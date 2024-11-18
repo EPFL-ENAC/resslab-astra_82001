@@ -9,8 +9,8 @@
           <AlphaValues
             :alpha-q1="alphaQ1"
             :alpha-q2="alphaQ2"
-            :traffic-class="selected.TrafficClass?.value as string"
-            :selected-value="selectedJson?.[selected.TrafficClass?.value as string]"
+            :traffic-class="trafficClass"
+            :selected-value="selectedValue"
           />
         </div>
       </div>
@@ -25,33 +25,34 @@ import BridgeSelectionForm from '../components/BridgeSelectionForm.vue';
 import AlphaValues from '../components/AlphaValues.vue';
 
 type TrafficClass = 'ClassOW' | 'Class';
-type TrafficClassOptions = { value: TrafficClass, label: string }[];
+type TrafficClassOption = { value: TrafficClass, label: string };
+type Option = { value: string, label: string };
 
 let alphaQ2 = ref(0.35);
 let alphaQ1 = ref(0.55);
 interface Selected {
   Type: string;
   SubType: string;
-  Width: number;
-  Layout: string | null;
-  Support: string | null;
-  Trans: string | null;
-  AE: string | null;
-  Traffic: string | null;
-  TrafficClass: TrafficClassOptions | null;
-  Span: number | null;
+  Width?: Option;
+  Layout?: string;
+  Support?: string;
+  Trans?: string;
+  AE?: string;
+  Traffic?: string;
+  TrafficClass?: TrafficClassOption;
+  Span?: number;
 }
 const selected = ref<Selected>({
   Type: 'Box',
   SubType: 'Stand',
-  Width: 12,
-  Layout: null,
-  Support: null,
-  Trans: null,
-  AE: null,
-  Traffic: null,
-  TrafficClass: null,
-  Span: null
+  Width: undefined,
+  Layout: undefined,
+  Support: undefined,
+  Trans: undefined,
+  AE: undefined,
+  Traffic: undefined,
+  TrafficClass: undefined,
+  Span: undefined
 });
 
 const selectedJson = computed<Record<TrafficClass|string, number|string>>(() => {
@@ -66,4 +67,7 @@ const selectedJson = computed<Record<TrafficClass|string, number|string>>(() => 
     x.Span === selected.value.Span
   )[0]
 });
+
+const trafficClass = computed(() => selected.value.TrafficClass?.value as TrafficClass);
+const selectedValue = computed(() => selectedJson.value?.[trafficClass.value] as number);
 </script>

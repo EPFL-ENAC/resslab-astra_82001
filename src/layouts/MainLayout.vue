@@ -7,8 +7,12 @@
           ASTRA 82001
         </q-toolbar-title>
 
-        <div>v0.0.1</div>
-
+        <q-select
+          v-model="lang"
+          :options="langOptions"
+          dense
+          outlined
+          class="q-mr-md white-options-and-label"/>
         <q-btn
           flat
           round
@@ -24,7 +28,7 @@
           icon="insert_drive_file"
           :href="linkToCSV"
           target="_blank"
-          download
+          download="data-astra-82001f.csv"
           class="q-ml-md"
         />
       </q-toolbar>
@@ -32,16 +36,11 @@
 
     <q-page-container>
       <router-view />
-
-
     </q-page-container>
     <q-footer>
-      <div class="text-center">
-        <span class="text-h6">ASTRA 82001</span>
-        <br />
+      <div class="text-center ">
+        <span class="text-h6 q-pa-md q-mt-lg">ASTRA 82001</span>
         <span class="text-caption">v0.0.1</span>
-        <q-select v-model="lang" :options="langOptions" />
-        <q-select v-model="beta" :options="betaOptions" />
       </div>
     </q-footer>
   </q-layout>
@@ -50,7 +49,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-const lang = ref('en');
 const beta = ref('1.0');
 const langOptions = [
   { label: 'English', value: 'en' },
@@ -58,10 +56,19 @@ const langOptions = [
   { label: 'Français', value: 'fr' },
   { label: 'Italiano', value: 'it' },
 ];
+const lang = ref(langOptions[0]);
 const betaOptions = [
   { label: '1.0', value: '1.0' },
   { label: '1.1', value: '1.1' },
 ];
-const linkToCSV = '/data.csv';
+const linkToCSV = '/src/assets/data/data.csv';
 const linkToAstra82001fPDF = 'https://www.astra.admin.ch/dam/astra/de/dokumente/standards_fuer_nationalstrassen/astra_82001_ueberpruefungbestehenderstrassenbruecken2006.pdf.download.pdf/astra_82001f.pdf';
 </script>
+
+<style lang="scss" scoped>
+.white-options-and-label {
+  :deep(.q-field__native, .q-field__prefix, .q-field__suffix, .q-field__input) {
+    color: white;
+  }
+}
+</style>
