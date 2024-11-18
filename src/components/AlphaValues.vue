@@ -15,16 +15,16 @@
         <span v-if="selectedValue <= minAlphaQ">
           &LessSlantEqual;
           {{ minAlphaQ }} !
-        <q-tooltip>
+        <!-- <q-tooltip>
             Exact value: {{ selectedValue }}
-          </q-tooltip>
+          </q-tooltip> -->
         </span>
         <span v-else>
           &equals;
           {{ selectedValue.toFixed(2) }}
-          <q-tooltip>
+          <!-- <q-tooltip>
             Exact value: {{ selectedValue }}
-          </q-tooltip>
+          </q-tooltip> -->
         </span>
       </span>
       <span v-else>&equals; {{ minAlphaQ }}</span>
@@ -42,7 +42,7 @@ const props = defineProps<{
   selectedValue?: number;
 }>();
 
-const minAlphaQ = computed(() => props.trafficClass === 'ClassOW' ? 0.40 : 0.30);
+const minAlphaQ = computed(() => props.trafficClass === 'ClassOW' ? 0.30 : 0.30);
 
 </script>
 
