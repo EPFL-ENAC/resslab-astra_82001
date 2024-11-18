@@ -49,7 +49,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-const beta = ref('1.0');
 const langOptions = [
   { label: 'English', value: 'en' },
   { label: 'Deutsch', value: 'de' },
@@ -57,10 +56,7 @@ const langOptions = [
   { label: 'Italiano', value: 'it' },
 ];
 const lang = ref(langOptions[0]);
-const betaOptions = [
-  { label: '1.0', value: '1.0' },
-  { label: '1.1', value: '1.1' },
-];
+
 const linkToCSV = '/src/assets/data/data.csv';
 const linkToAstra82001fPDF = 'https://www.astra.admin.ch/dam/astra/de/dokumente/standards_fuer_nationalstrassen/astra_82001_ueberpruefungbestehenderstrassenbruecken2006.pdf.download.pdf/astra_82001f.pdf';
 </script>
