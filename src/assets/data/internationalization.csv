@@ -1,0 +1,15 @@
+id,en,fr,de,it,desc_en,desc_fr,desc_de,desc_it
+type_of_bridge,Type of bridge,Type de pont,Brücke,Tipo di ponte,Type of bridge,Type de pont,Brücke,Tipo di ponte
+box,Box,Boîte,Kasten,Scatola,Box,Box,Box,Scatola
+multi,Multi,Multi,Multi,Multi,Multi,Multi,Multi,Multi
+slab,Slab,Dalle,Platte,Lastra,Slab,Dalle,Platte,Lastra
+twin,Twin,Double,Doppel,Doppi,Twin,Double,Doppel,Doppi
+subtype_of_bridge,Subtype of bridge,Sous-type de pont,Untertyp,Sottotipo di ponte,Subtype of bridge,Sous-type de pont,Untertyp,Sottotipo di ponte
+width,Width,Largeur,Breite,Larghezza,Width,Largeur,Breite,Larghezza
+layout,Layout,Disposition,Anordnung,Disposizione,Layout,Disposition,Anordnung,Disposizione
+support,Support,Support,Unterstützung,Supporto,Support,Support,Unterstützung,Supporto
+trans,Trans,Trans,Trans,Trasmissione,Trans,Trans,Trans,Trasmissione
+ae,AE,AE,AE,AE,AE,AE,AE,AE
+traffic,Traffic,Trafic,Verkehr,Traffico,Traffic,Trafic,Verkehr,Traffico
+span,Span,Portée,Spannweite,Lunghezza,Span,Portée,Spannweite,Lunghezza
+traffic_class,Traffic class,Classe de trafic,Verkehrsklasse,Classe di traffico,Traffic class,Classe de trafic,Verkehrsklasse,Classe di traffico

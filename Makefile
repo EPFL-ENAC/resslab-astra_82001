@@ -15,7 +15,7 @@ install:
 
 build:
 	@echo "Installing node dependencies (npm)"
-	npm build
+	npm run build
 
 run:
 	@echo "Running the project"
