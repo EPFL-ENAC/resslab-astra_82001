@@ -18,7 +18,7 @@
       @update:model-value="updateField('Width', $event)"
       :options="WidthOptions"
       :disable="isFieldDisabled('Width')"
-      :suffix="WidthSuffix"
+      :prefix="(modelValue.Width as Option)?.value === 'Wid108' ? '≥' : ''"
       label="Width"
       style="width: 200px" />
     <q-select
@@ -40,7 +40,7 @@
       @update:model-value="updateField('Trans', $event)"
       :options="TransOptions"
       :disable="isFieldDisabled('Trans')"
-      label="Transversal or Longitudinal"
+      :label="transLabel"
       style="width: 200px" />
     <q-select
       :model-value="modelValue.AE"
@@ -70,36 +70,66 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import data from '../assets/data/data.json';
+import type { Selected, SelectedKeys, SelectedValues, TrafficClass, Option, Options } from '../types/Selected';
 
-type TrafficClass = 'ClassOW' | 'Class';
 
 const props = defineProps<{
-  modelValue: Record<string, string|number|null>
+  modelValue: Selected
 }>();
 
+const transLabel = computed(() => {
+  // Multi === poutres longitudinales
+  // Slab === Transversal
+  // others === Longitudinal p0 (box and Twin)
+  // don't forget to i18n all this!
+  if (props.modelValue.Type === 'Box' || props.modelValue.Type === 'Twin') {
+    return 'Longitudinal'; // p0
+  } else if (props.modelValue.Type === 'Multi') {
+    return 'Longitudinal (Poutres)'; // P1,P2,P3
+  } else if (props.modelValue.Type === 'Slab') {
+    return 'Transversal'; // p1,p2,p3
+  } else {
+    return 'Transverse'; // default value ? ask the client how to handle this
+  }
+});
+
+// const hideTrans = computed(() => props.modelValue.Type === 'Box' || props.modelValue.Type === 'Twin');
+
 const TypeOptions = computed(() => Array.from(new Set(data.map(x => x.Type))).sort());
+
+const generateSubTypeOptions = (type: string) => Array.from(new Set(data.filter(x => x.Type === type).map(x => x.SubType)));
 const SubTypeOptions = computed(() =>
-  Array.from(new Set(data.filter(x => x.Type === props.modelValue.Type).map(x => x.SubType)))
+  generateSubTypeOptions(props.modelValue.Type as string)
 );
-const WidthSuffix = computed(() => props.modelValue.Width ? 'm' : '');
-const WidthOptions = computed(() =>
-  Array.from(new Set(data.filter(x =>
+
+
+
+function generateWidthOptions(subType: string): Options {
+  const MapOfWidths: Record<string, string> = {
+    'Wid108': '9m+',
+  };
+
+  return (Array.from(new Set(data.filter(x =>
     x.Type === props.modelValue.Type &&
-    x.SubType === props.modelValue.SubType
-  ).map(x => x.Width.replace('Wid', ''))))
-);
+    x.SubType === subType
+  ).map(x => x.Width))).sort())
+  .map(x => ({ value: x, label: MapOfWidths[x] ?? x.replace('Wid', '') + 'm' }));
+}
+const WidthOptions = computed((): Options => {
+  return generateWidthOptions(props.modelValue.SubType as string);
+});
 const TrafficOptions = computed(() =>
   Array.from(new Set(data.filter(x =>
     x.Type === props.modelValue.Type &&
     x.SubType === props.modelValue.SubType &&
-    x.Width === `Wid${props.modelValue.Width}`
+    x.Width === (props.modelValue.Width as Option)?.['value']
   ).map(x => x.Traffic)))
 );
 const SupportOptions = computed(() =>
   Array.from(new Set(data.filter(x =>
     x.Type === props.modelValue.Type &&
     x.SubType === props.modelValue.SubType &&
-    x.Width === `Wid${props.modelValue.Width}` &&
+    x.Width === (props.modelValue.Width as Option)?.['value'] &&
     x.Traffic === props.modelValue.Traffic
   ).map(x => x.Support)))
 );
@@ -107,7 +137,7 @@ const TransOptions = computed(() =>
   Array.from(new Set(data.filter(x =>
     x.Type === props.modelValue.Type &&
     x.SubType === props.modelValue.SubType &&
-    x.Width === `Wid${props.modelValue.Width}` &&
+    x.Width === (props.modelValue.Width as Option)?.['value'] &&
     x.Traffic === props.modelValue.Traffic &&
     x.Support === props.modelValue.Support
   ).map(x => x.Trans)))
@@ -116,20 +146,20 @@ const AEOptions = computed(() =>
   Array.from(new Set(data.filter(x =>
     x.Type === props.modelValue.Type &&
     x.SubType === props.modelValue.SubType &&
-    x.Width === `Wid${props.modelValue.Width}` &&
+    x.Width === (props.modelValue.Width as Option)?.['value'] &&
     x.Traffic === props.modelValue.Traffic &&
     x.Support === props.modelValue.Support &&
-    x.Trans === props.modelValue.Trans
+    x.Trans === props.modelValue?.Trans
   ).map(x => x.AE)))
 );
 const SpanOptions = computed(() =>
   Array.from(new Set(data.filter(x =>
     x.Type === props.modelValue.Type &&
     x.SubType === props.modelValue.SubType &&
-    x.Width === `Wid${props.modelValue.Width}` &&
+    x.Width === (props.modelValue.Width as Option)?.['value'] &&
     x.Traffic === props.modelValue.Traffic &&
     x.Support === props.modelValue.Support &&
-    x.Trans === props.modelValue.Trans &&
+    x.Trans === props.modelValue?.Trans &&
     x.AE === props.modelValue.AE
   ).map(x => x.Span)))
 );
@@ -139,26 +169,58 @@ const TrafficClassOptions = computed(() => [
 ] as { value: TrafficClass, label: string }[]);
 
 const emit = defineEmits<{
-  'update:modelValue': [value: Record<string, string|number|null>]
+  'update:modelValue': [value: Selected]
 }>();
 
-const fieldOrder = ['Type', 'SubType', 'Width', 'Traffic', 'Support', 'Trans', 'AE', 'Span', 'TrafficClass'];
+const fieldOrder: SelectedKeys[] = ['Type', 'SubType', 'Width', 'Traffic', 'Support', 'Trans', 'AE', 'Span', 'TrafficClass'];
 
-function updateField(field: string, value: string|number|null) {
-  const newValue = { ...props.modelValue };
-  newValue[field] = value;
+function updateField(field: SelectedKeys, value: SelectedValues, newValue?: Selected) {
+  // let noEmits = true;
+  // if (newValue === undefined) {
+  //   noEmits = false;
+  // }
+  newValue = { ...props.modelValue };
+
+  newValue[field] = value as Selected[typeof field] as never;
 
   // Reset all fields that come after the current field
   const fieldIndex = fieldOrder.indexOf(field);
   fieldOrder.slice(fieldIndex + 1).forEach(f => {
-    newValue[f] = null;
+    // if (newValue === undefined) return;
+    // if (f === 'Trans' && field === 'Type' && ( value === 'Box' || value === 'Twin')) {
+    //   newValue[f] = 'p0';
+    // } else {
+    //   newValue[f] = undefined;
+    // }
+    // if (field === 'Type' && f === 'SubType') {
+    //   // probably should retrieve subTypeOptions from the updated Field!
+    //   const localSubTypeOptions = generateSubTypeOptions(value as string);
+    //   newValue[f] = localSubTypeOptions[0];
+    //   newValue = updateField('SubType', localSubTypeOptions[0], newValue);
+    // } else if (field === 'SubType' && f === 'Width') {
+    //   const localWidthOptions = generateWidthOptions(value as string);
+    //   newValue[f] = localWidthOptions[0];
+    //   newValue = updateField('Width', localWidthOptions[0], newValue);
+    // } else if (field === 'Width' && f === 'Traffic') {
+    //   newValue[f] = TrafficOptions.value[0];
+    // } else if (field === 'Traffic' && f === 'Support') {
+    //   newValue[f] = SupportOptions.value[0];
+    // } else if (field === 'Support' && f === 'Trans') {
+    //   newValue[f] = TransOptions.value[0];
+    // }
+    // else { // because of recursive we don't want to do that!
+    newValue[f] = undefined;
+    // }
   });
-
+  // if (noEmits) return newValue;
+  // else {
+  //   return newValue
+  // }
   emit('update:modelValue', newValue);
 }
 
 // Optional: Add a helper computed function to check if a field should be disabled
-const isFieldDisabled = (field: string) => {
+const isFieldDisabled = (field: SelectedKeys) => {
   const currentIndex = fieldOrder.indexOf(field);
   return fieldOrder.slice(0, currentIndex).some(f => !props.modelValue[f]);
 };

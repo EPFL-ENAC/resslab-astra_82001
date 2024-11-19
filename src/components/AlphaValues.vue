@@ -10,21 +10,18 @@
       &alpha;<sub>Q2</sub> &equals; {{ alphaQ2 }}
     </div>
     <div class="alpha-item">
+      <!-- beta: {{ beta }} // -->
+      <!-- {{ finalAlphaQAsFixed }} // minAlphaQ = {{ minAlphaQ }} // trafficClass = {{ trafficClass }} || finalAlphaQ = {{ finalAlphaQ }} -->
+      <!-- <br/> -->
       &alpha;<sub>q</sub>
-      <span v-if="trafficClass && selectedValue">
-        <span v-if="selectedValue <= minAlphaQ">
-          &LessSlantEqual;
-          {{ minAlphaQ }} !
-        <q-tooltip>
-            Exact value: {{ selectedValue }}
-          </q-tooltip>
+      <span v-if="finalAlphaQ">
+        <span v-if="finalAlphaQ <= minAlphaQ">
+          &equals;
+          {{ finalAlphaQAsFixed }}
         </span>
         <span v-else>
           &equals;
-          {{ selectedValue.toFixed(2) }}
-          <q-tooltip>
-            Exact value: {{ selectedValue }}
-          </q-tooltip>
+          {{ finalAlphaQAsFixed }}
         </span>
       </span>
       <span v-else>&equals; {{ minAlphaQ }}</span>
@@ -33,16 +30,32 @@
 </template>
 
 <script setup lang="ts">
+import { TrafficClass } from 'src/types/Selected';
 import { computed } from 'vue';
 
 const props = defineProps<{
   alphaQ1: number;
   alphaQ2: number;
-  trafficClass: string | null;
+  trafficClass?: TrafficClass;
   selectedValue?: number;
+  phyCal?: number;
+  beta?: number;
 }>();
 
-const minAlphaQ = computed(() => props.trafficClass === 'ClassOW' ? 0.40 : 0.30);
+const minAlphaQ = computed(() => props.trafficClass === 'ClassOW' ? 0.30 : 0.30);
+
+const finalAlphaQ = computed(() => {
+  let alphaQ = props.selectedValue ?? minAlphaQ.value;
+  if (props.phyCal) {
+    alphaQ = props.phyCal * alphaQ;
+  }
+  if (props.beta && props.beta  === 4.7) {
+    alphaQ = 1.07 * alphaQ; // 7% increase
+  }
+  return alphaQ;
+});
+
+const finalAlphaQAsFixed = computed(() => finalAlphaQ.value.toFixed(2));
 
 </script>
 
