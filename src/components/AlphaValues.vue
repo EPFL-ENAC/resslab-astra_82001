@@ -30,15 +30,15 @@
 </template>
 
 <script setup lang="ts">
-import { computed, Ref } from 'vue';
+import { computed } from 'vue';
 
 const props = defineProps<{
   alphaQ1: number;
   alphaQ2: number;
   trafficClass: string | null;
   selectedValue?: number;
-  phyCal?: Ref<number>;
-  beta?: Ref<number>;
+  phyCal?: number;
+  beta?: number;
 }>();
 
 const minAlphaQ = computed(() => props.trafficClass === 'ClassOW' ? 0.30 : 0.30);
@@ -46,9 +46,9 @@ const minAlphaQ = computed(() => props.trafficClass === 'ClassOW' ? 0.30 : 0.30)
 const finalAlphaQ = computed(() => {
   let alphaQ = props.selectedValue ?? minAlphaQ.value;
   if (props.phyCal) {
-    alphaQ = props.phyCal.value * alphaQ;
+    alphaQ = props.phyCal * alphaQ;
   }
-  if (props.beta && props.beta.value  === 4.7) {
+  if (props.beta && props.beta  === 4.7) {
     alphaQ = 1.07 * alphaQ; // 7% increase
   }
   return alphaQ;

@@ -20,7 +20,6 @@ csv({ checkType: true, ignoreEmpty: true, trim: true })
         'Class': obj.Class,
       })
     });
-    writeFileSync(path, JSON.stringify(result, null, 2));
     writeFileSync(path, JSON.stringify(result));
     console.log(`data.csv converted successfully to JSON in ${path}`)
   });
