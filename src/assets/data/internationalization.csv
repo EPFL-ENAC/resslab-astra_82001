@@ -5,11 +5,29 @@ multi,Multi,Multi,Multi,Multi,Multi,Multi,Multi,Multi
 slab,Slab,Dalle,Platte,Lastra,Slab,Dalle,Platte,Lastra
 twin,Twin,Double,Doppel,Doppi,Twin,Double,Doppel,Doppi
 subtype_of_bridge,Subtype of bridge,Sous-type de pont,Untertyp,Sottotipo di ponte,Subtype of bridge,Sous-type de pont,Untertyp,Sottotipo di ponte
+Stand,
+Long,
+Short,
+Conc,
 width,Width,Largeur,Breite,Larghezza,Width,Largeur,Breite,Larghezza
-layout,Layout,Disposition,Anordnung,Disposizione,Layout,Disposition,Anordnung,Disposizione
-support,Support,Support,Unterstützung,Supporto,Support,Support,Unterstützung,Supporto
-trans,Trans,Trans,Trans,Trasmissione,Trans,Trans,Trans,Trasmissione
-ae,AE,AE,AE,AE,AE,AE,AE,AE
 traffic,Traffic,Trafic,Verkehr,Traffico,Traffic,Trafic,Verkehr,Traffico
+Uni2L
+BI2L
+support,Support,Support,Unterstützung,Supporto,Support,Support,Unterstützung,Supporto
+Simp,
+trans,Trans,Trans,Trans,Trasmissione,Trans,Trans,Trans,Trasmissione
+p0,
+p1,
+p2,
+p3,
+P1,
+P2,
+P3,
+ae,AE,AE,AE,AE,AE,AE,AE,AE
+V,
+Mp,
+Mn,
+MxMid
+MxEdg,
 span,Span,Portée,Spannweite,Lunghezza,Span,Portée,Spannweite,Lunghezza
 traffic_class,Traffic class,Classe de trafic,Verkehrsklasse,Classe di traffico,Traffic class,Classe de trafic,Verkehrsklasse,Classe di traffico

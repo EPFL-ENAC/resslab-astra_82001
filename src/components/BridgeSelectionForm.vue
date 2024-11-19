@@ -87,7 +87,7 @@ const transLabel = computed(() => {
   } else if (props.modelValue.Type === 'Multi') {
     return 'Longitudinal (Poutres)'; // P1,P2,P3
   } else if (props.modelValue.Type === 'Slab') {
-    return 'Transversal'; // p1,p2,p3
+    return 'Longitudinal'; // p1,p2,p3
   } else {
     return 'Transverse'; // default value ? ask the client how to handle this
   }
@@ -106,7 +106,7 @@ const SubTypeOptions = computed(() =>
 
 function generateWidthOptions(subType: string): Options {
   const MapOfWidths: Record<string, string> = {
-    'Wid108': '9m+',
+    'Wid108': '9m',
   };
 
   return (Array.from(new Set(data.filter(x =>

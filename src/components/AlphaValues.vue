@@ -42,7 +42,7 @@ const props = defineProps<{
   beta?: number;
 }>();
 
-const minAlphaQ = computed(() => props.trafficClass === 'ClassOW' ? 0.30 : 0.30);
+const minAlphaQ = computed(() => props.trafficClass === 'ClassOW' ? 0.3001 : 0.3001);
 
 const finalAlphaQ = computed(() => {
   let alphaQ = props.selectedValue ?? minAlphaQ.value;
@@ -51,6 +51,11 @@ const finalAlphaQ = computed(() => {
   }
   if (props.beta && props.beta  === 4.7) {
     alphaQ = 1.07 * alphaQ; // 7% increase
+  }
+
+  // todo: add a flag to know if the value is final or not or was modified
+  if (alphaQ < minAlphaQ.value) {
+    alphaQ = minAlphaQ.value;
   }
   return alphaQ;
 });
