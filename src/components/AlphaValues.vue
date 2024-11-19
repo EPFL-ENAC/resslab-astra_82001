@@ -30,12 +30,13 @@
 </template>
 
 <script setup lang="ts">
+import { TrafficClass } from 'src/types/Selected';
 import { computed } from 'vue';
 
 const props = defineProps<{
   alphaQ1: number;
   alphaQ2: number;
-  trafficClass: string | null;
+  trafficClass?: TrafficClass;
   selectedValue?: number;
   phyCal?: number;
   beta?: number;

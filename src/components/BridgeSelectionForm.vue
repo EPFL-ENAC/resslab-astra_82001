@@ -19,7 +19,6 @@
       :options="WidthOptions"
       :disable="isFieldDisabled('Width')"
       :prefix="(modelValue.Width as Option)?.value === 'Wid108' ? '≥' : ''"
-      :suffix="WidthSuffix"
       label="Width"
       style="width: 200px" />
     <q-select
@@ -84,7 +83,6 @@ const generateSubTypeOptions = (type: string) => Array.from(new Set(data.filter(
 const SubTypeOptions = computed(() =>
   generateSubTypeOptions(props.modelValue.Type as string)
 );
-// const WidthSuffix = computed(() => props.modelValue.Width ? 'm' : '');
 const WidthOptions = computed((): Options => {
 
   const MapOfWidths: Record<string, string> = {
