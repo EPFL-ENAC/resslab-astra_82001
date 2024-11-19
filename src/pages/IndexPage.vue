@@ -65,7 +65,7 @@ const selectedJson = computed<Record<TrafficClass|string, number|string>>(() => 
   return data.filter(x =>
     x.Type === selected.value.Type &&
     x.SubType === selected.value.SubType &&
-    x.Width === `Wid${selected.value.Width}` &&
+    x.Width === selected.value.Width?.value &&
     x.Traffic === selected.value.Traffic &&
     x.Support === selected.value.Support &&
     x.Trans === selected.value.Trans &&
