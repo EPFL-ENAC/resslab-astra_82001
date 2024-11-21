@@ -4,14 +4,14 @@
       :model-value="modelValue.Type"
       @update:model-value="updateField('Type', $event)"
       :options="TypeOptions"
-      label="Type of Bridge"
+      :label="$t('type_of_bridge')"
       style="width: 200px" />
     <q-select
       :model-value="modelValue.SubType"
       @update:model-value="updateField('SubType', $event)"
       :options="SubTypeOptions"
       :disable="isFieldDisabled('SubType')"
-      label="Bridge SubType"
+       :label="$t('subtype_of_bridge')"
       style="width: 200px" />
     <q-select
       :model-value="modelValue.Width"
@@ -19,21 +19,21 @@
       :options="WidthOptions"
       :disable="isFieldDisabled('Width')"
       :prefix="(modelValue.Width as Option)?.value === 'Wid108' ? '≥' : ''"
-      label="Width"
+      :label="$t('width')"
       style="width: 200px" />
     <q-select
       :model-value="modelValue.Traffic"
       @update:model-value="updateField('Traffic', $event)"
       :options="TrafficOptions"
       :disable="isFieldDisabled('Traffic')"
-      label="Traffic"
+      :label="$t('traffic')"
       style="width: 200px" />
     <q-select
       :model-value="modelValue.Support"
       @update:model-value="updateField('Support', $event)"
       :options="SupportOptions"
       :disable="isFieldDisabled('Support')"
-      label="Support"
+      :label="$t('support')"
       style="width: 200px" />
     <q-select
       :model-value="modelValue.Trans"
@@ -55,14 +55,14 @@
       :options="SpanOptions"
       :disable="isFieldDisabled('Span')"
       suffix="m"
-      label="Span"
+      :label="$t('span')"
       style="width: 200px" />
     <q-select
       :model-value="modelValue.TrafficClass"
       @update:model-value="updateField('TrafficClass', $event)"
       :options="TrafficClassOptions"
       :disable="isFieldDisabled('TrafficClass')"
-      label="Traffic Class"
+      :label="$t('traffic_class')"
       style="width: 200px" />
   </q-form>
 </template>
