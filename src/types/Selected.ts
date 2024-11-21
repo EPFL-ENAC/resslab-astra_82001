@@ -2,20 +2,21 @@ export type TrafficClass = 'ClassOW' | 'Class';
 export type TrafficClassOption = { value: TrafficClass, label: string };
 
 export type Option = { value: string, label: string };
+export type OptionNumber = { value: number, label: string };
 export type Options = Option[];
 
 
 export interface Selected {
-  Type?: string;
-  SubType?: string;
+  Type?: Option;
+  SubType?: Option;
   Width?: Option;
-  Layout?: string;
-  Support?: string;
-  Trans?: string;
-  AE?: string;
-  Traffic?: string;
+  Layout?: Option;
+  Support?: Option;
+  Trans?: Option;
+  AE?: Option;
+  Traffic?: Option;
   TrafficClass?: TrafficClassOption;
-  Span?: number;
+  Span?: OptionNumber;
 }
 
 export type SelectedKeys = keyof Selected;

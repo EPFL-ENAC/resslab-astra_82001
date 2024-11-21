@@ -1,7 +1,7 @@
 <template>
   <div class="alpha-values">
     <div class="alpha-header">
-      Alpha values
+      {{$t('alpha_values')}}
     </div>
     <div class="alpha-item">
       &alpha;<sub>Q1</sub> &equals; {{ alphaQ1 }}
