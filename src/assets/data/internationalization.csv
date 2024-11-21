@@ -32,6 +32,8 @@ mxmid, Midspan moment, Moment en milieu de portée,Moment in der Mitte des Spann
 mxedg, Edge moment, Moment en bord de portée,Moment am Rand der Spannweite,Momento al bordo,The moment at the edge of the bridge,Le moment au bord de la portée du pont,Der Moment am Rand des Brücke,Il momento al bordo della luce del ponte
 span,Span,Portée,Spannweite,Lunghezza,Span,Portée,Spannweite,Lunghezza
 traffic_class,Traffic class,Classe de trafic,Verkehrsklasse,Classe di traffico,Traffic class,Classe de trafic,Verkehrsklasse,Classe di traffico
+class,Standard Class (40T max),Classe standard (40T max),Standardklasse (40T max),Classe standard (40T max),Standard Class (40T max),Classe standard (40T max),Standardklasse (40T max),Classe standard (40T max)
+classow,Class+ (40T + Mobile Crane up to 96T),Classe+ (40T + Grue mobile jusqu'à 96T),Klasse+ (40T + Mobilkran bis 96T),Classe+ (40T + Gru mobile fino a 96T),Class+ (40T + Mobile Crane up to 96T),Classe+ (40T + Grue mobile jusqu'à 96T),Klasse+ (40T + Mobilkran bis 96T),Classe+ (40T + Gru mobile fino a 96T)
 longitudinal,Longitudinal,Longitudinal,Longitudinal,Longitudinale,Longitudinal,Longitudinal,Longitudinal,Longitudinale
 longitudinal (poutres),Longitudinal (beams),Longitudinal (poutres),Longitudinal (Balken),Longitudinale (travi),Longitudinal (beams),Longitudinal (poutres),Longitudinal (Balken),Longitudinale (travi)
-
+alpha_values,Alpha values,Alpha valeurs,Alpha Werte,Valori alfa,Alpha values,Alpha valeurs,Alpha Werte,Valori alfa
