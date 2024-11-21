@@ -47,7 +47,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
+
+const { locale } = useI18n();
 
 const langOptions = [
   { label: 'English', value: 'en' },
@@ -56,6 +59,10 @@ const langOptions = [
   { label: 'Italiano', value: 'it' },
 ];
 const lang = ref(langOptions[0]);
+
+watch(lang, (newLang) => {
+  locale.value = newLang.value;
+});
 
 const linkToCSV = '/src/assets/data/data.csv';
 const linkToAstra82001fPDF = 'https://www.astra.admin.ch/dam/astra/de/dokumente/standards_fuer_nationalstrassen/astra_82001_ueberpruefungbestehenderstrassenbruecken2006.pdf.download.pdf/astra_82001f.pdf';

@@ -1,7 +1,9 @@
 // This is just an example,
 // so you can safely delete all default props below
-import en_US from '../../assets/data/internationalization_en.json';
+
+import it_CH from '../../assets/data/internationalization_it.json';
+
 
 export default {
-  ...en_US
+  ...it_CH
 };

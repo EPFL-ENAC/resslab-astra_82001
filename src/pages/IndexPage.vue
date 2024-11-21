@@ -43,13 +43,15 @@ import data from '../assets/data/data.json';
 import BridgeSelectionForm from '../components/BridgeSelectionForm.vue';
 import AlphaValues from '../components/AlphaValues.vue';
 import type { Selected, TrafficClass } from '../types/Selected';
+import { useI18n } from 'vue-i18n';
 
 let alphaQ2 = ref(0.35);
 let alphaQ1 = ref(0.55);
+const { t: $t } = useI18n();
 
 const selected = ref<Selected>({
-  Type: 'Box',
-  SubType: 'Stand',
+  Type: {value: 'Box', label: $t('box')},
+  SubType: {value: 'Stand', label: $t('stand')},
   Width: undefined,
   Layout: undefined,
   Support: undefined,
@@ -63,14 +65,14 @@ const selected = ref<Selected>({
 
 const selectedJson = computed<Record<TrafficClass|string, number|string>>(() => {
   return data.filter(x =>
-    x.Type === selected.value.Type &&
-    x.SubType === selected.value.SubType &&
+    x.Type === selected.value.Type?.value &&
+    x.SubType === selected.value.SubType?.value &&
     x.Width === selected.value.Width?.value &&
-    x.Traffic === selected.value.Traffic &&
-    x.Support === selected.value.Support &&
-    x.Trans === selected.value.Trans &&
-    x.AE === selected.value.AE &&
-    x.Span === selected.value.Span
+    x.Traffic === selected.value.Traffic?.value &&
+    x.Support === selected.value.Support?.value &&
+    x.Trans === selected.value.Trans?.value &&
+    x.AE === selected.value.AE?.value &&
+    x.Span === Number(selected.value.Span?.value)
   )[0]
 });
 

@@ -21,11 +21,18 @@ declare module 'vue-i18n' {
 }
 /* eslint-enable @typescript-eslint/no-empty-interface */
 
+const getNavigatorLanguage = () => (navigator.languages && navigator.languages.length) ? navigator.languages[0] : (navigator as any).userLanguage || navigator.language || (navigator as any).browserLanguage || 'en-US';
+
+
 export default boot(({ app }) => {
   const i18n = createI18n({
-    locale: 'en-US',
+    locale: getNavigatorLanguage().split('-')[0],
     legacy: false,
     messages,
+    fallbackLocale: 'en',
+    warnHtmlMessage: false,
+    missingWarn: false,
+    fallbackWarn: false, // deactivate to see missing keys
   });
 
   // Set i18n instance on app
