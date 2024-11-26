@@ -31,6 +31,15 @@
         dense
         outlined
         class="q-mr-md white-options-and-label"/>
+        <div class="alpha-footer">
+      <q-toggle
+      :false-value="false"
+      :label="`${goodQualityRoad ? $t('good_quality_road') : $t('bad_quality_road')}`"
+      :true-value="true"
+      color="red"
+      v-model="goodQualityRoad"
+    />
+    </div>
     </aside>
   </q-page>
 
@@ -79,6 +88,7 @@ const selectedJson = computed<Record<TrafficClass|string, number|string>>(() => 
 const trafficClass = computed(() => selected.value.TrafficClass?.value as TrafficClass);
 const selectedValue = computed(() => selectedJson.value?.[trafficClass.value] as number);
 
+const goodQualityRoad = ref(false);
 
 // default is 4.2 we can change it to 4.7 for bridge of category 3
 // cf 6.24 p 83 of 120 of the 82001f
@@ -101,6 +111,8 @@ const defaultPhyCalOptions = [
   { label: 'Φ1.00', value: 1.00},
 ]
 
+const defaultGoodRoadPhyCal = 1.0;
+const defaultSmallRoadPhyCal = 1.15;
 const phyCalOptions = computed(() => {
   if (selected.value.Span === null) {
     return defaultPhyCalOptions;
@@ -109,12 +121,16 @@ const phyCalOptions = computed(() => {
     return defaultPhyCalOptions;
   }
   // 10 < 𝐿 ≤ 20 𝑚, 𝜑𝑐𝑎𝑙 = 1.15 − 0.015 ∙ (𝐿 − 10)
-  let phyCalDynamicValue = 1.15 - 0.015 * (selected.value.Span - 10);
+  let phyCalDynamicValue = defaultSmallRoadPhyCal - 0.015 * (selected.value.Span - 10);
   if (selected.value.Span <= 10) {
-    phyCalDynamicValue = 1.15; // 𝐿 ≤ 10 𝑚, 𝑐𝑎𝑙 = 1.15
+    phyCalDynamicValue = defaultSmallRoadPhyCal; // 𝐿 ≤ 10 𝑚, 𝑐𝑎𝑙 = 1.15
   }
   if (selected.value.Span >= 20) {
-    phyCalDynamicValue = 1.0; // 𝐿 > 20 𝑚, 𝜑𝑐𝑎𝑙 = 1.00
+    phyCalDynamicValue = defaultGoodRoadPhyCal; // 𝐿 > 20 𝑚, 𝜑𝑐𝑎𝑙 = 1.00
+  }
+
+  if (goodQualityRoad.value === true) {
+    phyCalDynamicValue = defaultGoodRoadPhyCal;
   }
   return [
   { label: `Φ${phyCalDynamicValue.toFixed(2)}`, value: phyCalDynamicValue}
