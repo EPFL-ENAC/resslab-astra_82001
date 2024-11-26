@@ -50,9 +50,9 @@ const minAlphaQ = computed(() => props.trafficClass === 'ClassOW' ? 0.3001 : 0.3
 const finalAlphaQ = computed(() => {
   let alphaQ = props.selectedValue ?? minAlphaQ.value;
   if (props.phyCal) {
-    alphaQ =props.phyCal * alphaQ;
+    alphaQ = props.phyCal * alphaQ;
   } else {
-    alert('PhyCal is not defined');
+    console.error('phyCal should be provided to this component');
   }
   if (props.beta && props.beta  === 4.7) {
     alphaQ = 1.07 * alphaQ; // 7% increase
