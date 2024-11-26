@@ -1,12 +1,12 @@
 id,en,fr,de,it,desc_en,desc_fr,desc_de,desc_it
 type_of_bridge,Type of bridge,Type de pont,Brückentyp,Tipo di ponte,Type of bridge,Type de pont,Brückentyp,Tipo di ponte
-box,Box,Boîte,Hohlkasten,Scatola,Box,Box,Hohlkasten,Scatola
-multi,Multi,Multi,Multi,Multi,Multi,Multi,Multi,Multi
+box,Box,Caisson,Hohlkasten,Scatola,Box,Caisson,Hohlkasten,Scatola
+multi,Multigirder,Multipoutre,Mehrträger,Multi,Multigirder,Multipoutre,Mehrträger,Multi
 slab,Slab,Dalle,Platte,Lastra,Slab,Dalle,Platte,Lastra
-twin,Twin,Double,Doppel,Doppi,Twin,Double,Doppel,Doppi
+twin,Twingirder,Bipoutre,Doppelträger,Doppi,Twingirder,Bipoutre,Doppelträger,Doppi
 subtype_of_bridge,Subtype of bridge,Sous-type de pont,Untertyp,Sottotipo di ponte,Subtype of bridge,Sous-type de pont,Untertyp,Sottotipo di ponte
 stand,Stand,Stand,Stand,Stand,Stand,Stand,Stand,Stand
-long,Long,Long,Long,Long,Long,Long,Long,Long
+long,Long,Long,Lang,Long,Long,Long,Lang,Long
 short,Short,Court,Kurz,Corto,Short,Court,Kurz,Corto
 conc,Conc,Conc,Conc,Conc,Conc,Conc,Conc,Conc
 width,Width,Largeur,Breite,Larghezza,Width,Largeur,Breite,Larghezza
@@ -16,7 +16,7 @@ bi2l, Two way and two lanes, Bilatéral deux voies,Zweiseitig zwei Fahrspuren,Bi
 bi4l, Two way and four lanes, Bilatéral quatre voies,Zweiseitig vier Fahrspuren,Bilaterale quattro corsie,Bilateral four lanes, Bilatéral quatre voies,Zweiseitig vier Fahrspuren,Bilaterale quattro corsie
 support,Support,Support,Unterstützung,Supporto,Support,Support,Unterstützung,Supporto
 simp,simple,simple,einfach,simplice,simple,simple,einfach,simplice
-trans,Trans,Trans,Trans,Trasmissione,Trans,Trans,Trans,Trasmissione
+trans,Transverse,Transversal,Querrichtung,Trasversale,Transverse,Transversal,Querrichtung,Trasversale
 p0,p0,p0,p0,p0,p0,p0,p0,p0
 p1,p1,p1,p1,p1,p1,p1,p1,p1
 p2,p2,p2,p2,p2,p2,p2,p2,p2
@@ -25,15 +25,15 @@ P1,P1,P1,P1,P1,P1,P1,P1,P1
 P2,P2,P2,P2,P2,P2,P2,P2,P2
 P3,P3,P3,P3,P3,P3,P3,P3,P3
 ae,AE,AE,AE,AE,AE,AE,AE,AE
-v,Shear Force,Force poinçonnement,Schubkraft,Forza tagliante,The vertical force acting perpendicular to the bridge's longitudinal axis,Force verticale agissant perpendiculairement à l'axe longitudinal du pont,Die senkrecht zur Längsachse des Brücke wirkende Kraft,La forza verticale agente perpendicolarmente all'asse longitudinale del ponte
-mp, Plastic Moment, Moment plastique,Plastisches Moment,Momento plastico,The maximum moment that a beam can resist before it starts to yield,Le moment maximum qu'une poutre peut résister avant de commencer à céder,Der maximale Moment, den ein Balken widerstehen kann, bevor er zu erliegen beginnt,Il momento massimo che una trave può resistere prima di iniziare a cedere
-mn, Nominal Moment, Moment nominal,Nennmoment,Momento nominale,The maximum moment that a beam can resist before it starts to yield,Le moment maximum qu'une poutre peut résister avant de commencer à céder,Der maximale Moment, den ein Balken widerstehen kann, bevor er zu erliegen beginnt,Il momento massimo che una trave può resistere prima di iniziare a cedere
-mxmid, Midspan moment, Moment en milieu de portée,Moment in der Mitte des Spannweite,Momento in mezzeria,The moment at the midspan of the bridge,Le moment au milieu de la portée du pont,Der Moment in der Mitte des Brücke,Il momento al centro della luce del ponte
-mxedg, Edge moment, Moment en bord de portée,Moment am Rand der Spannweite,Momento al bordo,The moment at the edge of the bridge,Le moment au bord de la portée du pont,Der Moment am Rand des Brücke,Il momento al bordo della luce del ponte
+v,Shear Force,Effort de cisaillement,Schubkraft,Forza tagliante,The vertical force acting perpendicular to the bridge's longitudinal axis,Force verticale agissant perpendiculairement à l'axe longitudinal du pont,Die senkrecht zur Längsachse des Brücke wirkende Kraft,La forza verticale agente perpendicolarmente all'asse longitudinale del ponte
+mp, Midspan Moment, Moment en travée,Positiv Moment,Momento plastico,The maximum moment that a beam can resist before it starts to yield,Le moment maximum qu'une poutre peut résister avant de commencer à céder,Der maximale Moment, den ein Balken widerstehen kann, bevor er zu erliegen beginnt,Il momento massimo che una trave può resistere prima di iniziare a cedere
+mn, Support Moment, Moment sur appui,Negativ moment,Momento nominale,The maximum moment that a beam can resist before it starts to yield,Le moment maximum qu'une poutre peut résister avant de commencer à céder,Der maximale Moment, den ein Balken widerstehen kann, bevor er zu erliegen beginnt,Il momento massimo che una trave può resistere prima di iniziare a cedere
+mxmid, Midspan transverse moment, Moment transversal à mi-travée, Moment in der Mitte des Spannweite,Momento in mezzeria,The moment at the midspan of the bridge,Le moment au milieu de la portée du pont,Der Moment in der Mitte des Brücke,Il momento al centro della luce del ponte
+mxedg, Edge moment, Moment en bord de portée,Moment am Rand der Spannweite,Momento al bordo,The moment at the edge of the bridge,moment de flexion transversal à mi-travée (pour une dalle),Der Moment am Rand des Brücke,Il momento al bordo della luce del ponte
 span,Span,Portée,Spannweite,Lunghezza,Span,Portée,Spannweite,Lunghezza
 traffic_class,Traffic class,Classe de trafic,Verkehrsklasse,Classe di traffico,Traffic class,Classe de trafic,Verkehrsklasse,Classe di traffico
 class,Standard Class (40T max),Classe standard (40T max),Standardklasse (40T max),Classe standard (40T max),Standard Class (40T max),Classe standard (40T max),Standardklasse (40T max),Classe standard (40T max)
 classow,Class+ (40T + Mobile Crane up to 96T),Classe+ (40T + Grue mobile jusqu'à 96T),Klasse+ (40T + Mobilkran bis 96T),Classe+ (40T + Gru mobile fino a 96T),Class+ (40T + Mobile Crane up to 96T),Classe+ (40T + Grue mobile jusqu'à 96T),Klasse+ (40T + Mobilkran bis 96T),Classe+ (40T + Gru mobile fino a 96T)
 longitudinal,Longitudinal,Longitudinal,Longitudinal,Longitudinale,Longitudinal,Longitudinal,Longitudinal,Longitudinale
 longitudinal (poutres),Longitudinal (beams),Longitudinal (poutres),Longitudinal (Balken),Longitudinale (travi),Longitudinal (beams),Longitudinal (poutres),Longitudinal (Balken),Longitudinale (travi)
-alpha_values,Alpha values,Alpha valeurs,Alpha Werte,Valori alfa,Alpha values,Alpha valeurs,Alpha Werte,Valori alfa
+alpha_values,Alpha values,valeurs Alpha,Alpha Werte,Valori alfa,Alpha values,valeurs Alpha,Alpha Werte,Valori alfa
