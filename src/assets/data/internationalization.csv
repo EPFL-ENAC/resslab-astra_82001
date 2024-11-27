@@ -1,22 +1,22 @@
 id,en,fr,de,it,desc_en,desc_fr,desc_de,desc_it
 type_of_bridge,Type of bridge,Type de pont,Brücke,Tipo di ponte,Type of bridge,Type de pont,Brücke,Tipo di ponte
-box,Box,Boîte,Kasten,Scatola,Box,Box,Box,Scatola
-multi,Multi,Multi,Multi,Multi,Multi,Multi,Multi,Multi
-slab,Slab,Dalle,Platte,Lastra,Slab,Dalle,Platte,Lastra
-twin,Twin,Double,Doppel,Doppi,Twin,Double,Doppel,Doppi
+box,Box,Caisson,Hohlkasten,Cassone,Box,Caisson,Hohlkasten,Cassone
+multi,Multigirder,Multipoutre,mehrstegiger Plattenbalken,Multitrave,Multigirder,Multipoutre,mehrstegiger Plattenbalken,Multitrave
+slab,Slab,Dalle,Platte,Piastra,Slab,Dalle,Platte,Piastra
+twin,Twingirder,Bipoutre,Doppelträger,Doppia trave,Twingirder,Bipoutre,Doppelträger,Doppia trave
 subtype_of_bridge,Subtype of bridge,Sous-type de pont,Untertyp,Sottotipo di ponte,Subtype of bridge,Sous-type de pont,Untertyp,Sottotipo di ponte
-stand,Stand,Stand,Stand,Stand,Stand,Stand,Stand,Stand
-long,Long,Long,Long,Long,Long,Long,Long,Long
-short,Short,Court,Kurz,Corto,Short,Court,Kurz,Corto
-conc,Conc,Conc,Conc,Conc,Conc,Conc,Conc,Conc
+stand,Standard,Standard,Standard,Standard,Standard,Standard,Standard,Standard
+long,Long,Longue,Long,Lungo,Long,Longue,Long,Lungo
+short,Short,Court,Short,Corto,Short,Court,Short,Corto
+conc,Concrete,Beton,Beton,Calcestruzzo,Concrete,Beton,Beton,Calcestruzzo
 width,Width,Largeur,Breite,Larghezza,Width,Largeur,Breite,Larghezza
 traffic,Traffic,Trafic,Verkehr,Traffico,Traffic,Trafic,Verkehr,Traffico
 uni2l,One way two lanes, Unilatéral deux voies,Einseitig zwei Fahrspuren,Unilaterale due corsie,Unilateral two lanes,Unilatéral deux voies,Einseitig zwei Fahrspuren,Unilaterale due corsie,Unilateral two lanes
 bi2l, Two way and two lanes, Bilatéral deux voies,Zweiseitig zwei Fahrspuren,Bilaterale due corsie,Bilateral two lanes, Bilatéral deux voies,Zweiseitig zwei Fahrspuren,Bilaterale due corsie
 bi4l, Two way and four lanes, Bilatéral quatre voies,Zweiseitig vier Fahrspuren,Bilaterale quattro corsie,Bilateral four lanes, Bilatéral quatre voies,Zweiseitig vier Fahrspuren,Bilaterale quattro corsie
 support,Support,Support,Unterstützung,Supporto,Support,Support,Unterstützung,Supporto
-simp,simple,simple,einfach,simplice,simple,simple,einfach,simplice
-trans,Trans,Trans,Trans,Trasmissione,Trans,Trans,Trans,Trasmissione
+simp,Simply_Supported,Simply_Supported,Simply_Supported,Appoggio_Semplice,Simply_Supported,Simply_Supported,Simply_Supported,Appoggio_Semplice
+trans,Transversal_location_of_load,Trans,Trans,Posizione_trasversale_carico,Transversal_location_of_load,Trans,Trans,Posizione_trasversale_carico
 p0,p0,p0,p0,p0,p0,p0,p0,p0
 p1,p1,p1,p1,p1,p1,p1,p1,p1
 p2,p2,p2,p2,p2,p2,p2,p2,p2
@@ -24,13 +24,13 @@ p3,p3,p3,p3,p3,p3,p3,p3,p3
 P1,P1,P1,P1,P1,P1,P1,P1,P1
 P2,P2,P2,P2,P2,P2,P2,P2,P2
 P3,P3,P3,P3,P3,P3,P3,P3,P3
-ae,AE,AE,AE,AE,AE,AE,AE,AE
-v,Shear Force,Force poinçonnement,Schubkraft,Forza tagliante,The vertical force acting perpendicular to the bridge's longitudinal axis,Force verticale agissant perpendiculairement à l'axe longitudinal du pont,Die senkrecht zur Längsachse des Brücke wirkende Kraft,La forza verticale agente perpendicolarmente all'asse longitudinale del ponte
-mp, Plastic Moment, Moment plastique,Plastisches Moment,Momento plastico,The maximum moment that a beam can resist before it starts to yield,Le moment maximum qu'une poutre peut résister avant de commencer à céder,Der maximale Moment, den ein Balken widerstehen kann, bevor er zu erliegen beginnt,Il momento massimo che una trave può resistere prima di iniziare a cedere
-mn, Nominal Moment, Moment nominal,Nennmoment,Momento nominale,The maximum moment that a beam can resist before it starts to yield,Le moment maximum qu'une poutre peut résister avant de commencer à céder,Der maximale Moment, den ein Balken widerstehen kann, bevor er zu erliegen beginnt,Il momento massimo che una trave può resistere prima di iniziare a cedere
-mxmid, Midspan moment, Moment en milieu de portée,Moment in der Mitte des Spannweite,Momento in mezzeria,The moment at the midspan of the bridge,Le moment au milieu de la portée du pont,Der Moment in der Mitte des Brücke,Il momento al centro della luce del ponte
-mxedg, Edge moment, Moment en bord de portée,Moment am Rand der Spannweite,Momento al bordo,The moment at the edge of the bridge,Le moment au bord de la portée du pont,Der Moment am Rand des Brücke,Il momento al bordo della luce del ponte
-span,Span,Portée,Spannweite,Lunghezza,Span,Portée,Spannweite,Lunghezza
+ae,Action_Effect,Action_Effect,Tipo_di_sollecitazione,Action_Effect,Action_Effect,Action_Effect,Tipo_di_sollecitazione
+v,Shear Force,Force poinçonnement,Querkraft,Forza tagliante,The vertical force acting perpendicular to the bridge's longitudinal axis,Force verticale agissant perpendiculairement à l'axe longitudinal du pont,Die senkrecht zur Längsachse des Brücke wirkende Kraft,La forza verticale agente perpendicolarmente all'asse longitudinale del ponte
+mp, Midspan Moment, Moment en travée,Biegemoment im Feld,Momento positivo,The maximum moment that a beam can resist before it starts to yield,Le moment maximum qu'une poutre peut résister avant de commencer à céder,Der maximale Moment, den ein Balken widerstehen kann, bevor er zu erliegen beginnt,Il momento massimo che una trave può resistere prima di iniziare a cedere
+mn, Support Moment, Moment sur appui, Biegemoment am Auflager,Momento negativo,The maximum moment that a beam can resist before it starts to yield,Le moment maximum qu'une poutre peut résister avant de commencer à céder,Der maximale Moment, den ein Balken widerstehen kann, bevor er zu erliegen beginnt,Il momento massimo che una trave può resistere prima di iniziare a cederemxmid, Midspan moment, Moment en milieu de portée,Moment in der Mitte des Spannweite,Momento in mezzeria,The moment at the midspan of the bridge,Le moment au milieu de la portée du pont,Der Moment in der Mitte des Brücke,Il momento al centro della luce del ponte
+mxmid, Midspan transverse moment, Moment transversal à mi-travée, Biegemoment in der Mitte der Spannweite in Querrichtung,Momento in mezzeria,The moment at the midspan of the bridge,Le moment au milieu de la portée du pont,Biegemoment in der Mitte des Spannweite in Querrichtung,Il momento al centro della luce del ponte
+mxedg, Edge moment, Moment en bord de portée,Moment am Rand der Spannweite,Momento al bordo,The moment at the edge of the bridge,moment de flexion transversal à mi-travée (pour une dalle),Der Moment am Rand des Brücke,Il momento al bordo della luce del ponte
+span,Span,Portée,Spannweite,Portata,Span,Portée,Spannweite,Portata
 traffic_class,Traffic class,Classe de trafic,Verkehrsklasse,Classe di traffico,Traffic class,Classe de trafic,Verkehrsklasse,Classe di traffico
 class,Standard Class (40T max),Classe standard (40T max),Standardklasse (40T max),Classe standard (40T max),Standard Class (40T max),Classe standard (40T max),Standardklasse (40T max),Classe standard (40T max)
 classow,Class+ (40T + Mobile Crane up to 96T),Classe+ (40T + Grue mobile jusqu'à 96T),Klasse+ (40T + Mobilkran bis 96T),Classe+ (40T + Gru mobile fino a 96T),Class+ (40T + Mobile Crane up to 96T),Classe+ (40T + Grue mobile jusqu'à 96T),Klasse+ (40T + Mobilkran bis 96T),Classe+ (40T + Gru mobile fino a 96T)
