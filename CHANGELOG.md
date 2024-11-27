@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.2.0](https://github.com/EPFL-ENAC/resslab-astra_82001/compare/v1.1.0...v1.2.0) (2024-11-27)
+
+
+### Features
+
+* **alpha-q:** change error message ([fca3e58](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/fca3e58eea8dfce68c5d0ac6ab190a8f57e446d0))
+* **alpha-q:** override to 1.0 when road is good ([56dca88](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/56dca88907906360345d352e8fb5b543e27dcfa4))
+* **i18n:** add bad and good road text ([6b062c9](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/6b062c9d785098068aecbaaa43595fd51a1fd191))
+* **i18n:** add new changes from pull request [#28](https://github.com/EPFL-ENAC/resslab-astra_82001/issues/28) and [#29](https://github.com/EPFL-ENAC/resslab-astra_82001/issues/29) and comments on issue [#8](https://github.com/EPFL-ENAC/resslab-astra_82001/issues/8) ([4cbdcd2](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/4cbdcd2439c636b970134e2f2ebf48e1dfbbdc74))
+* **i18n:** add total support of i18n ([b3189a2](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/b3189a2377d3a32916113898dfe002649fbf52e1))
+* **i18n:** wip add i18n from internationalization.csv ([698ad1f](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/698ad1faef778639605a80a3bd579f649ed93d08))
+
+
+### Bug Fixes
+
+* **i18n:** add new file for i18n ([49c29db](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/49c29db7f4b91b09bc373f4b75ed7278f9115793))
+* **i18n:** add new i18n values ([47124f3](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/47124f3bfef6961b3aa36fc58cbe27be6fc89e59))
+* **i18n:** add new keys for i18n ([95ff083](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/95ff083a1a3f3bcbbbbb8e1fdab64a0577b606d9))
+
 ## [1.1.0](https://github.com/EPFL-ENAC/resslab-astra_82001/compare/v1.0.0...v1.1.0) (2024-11-19)
 
 
