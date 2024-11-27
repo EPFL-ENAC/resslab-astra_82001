@@ -26,12 +26,14 @@
       </span>
       <span v-else>&equals; {{ minAlphaQ }}</span>
     </div>
+
+
   </div>
 </template>
 
 <script setup lang="ts">
 import { TrafficClass } from 'src/types/Selected';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 
 const props = defineProps<{
   alphaQ1: number;
@@ -42,12 +44,15 @@ const props = defineProps<{
   beta?: number;
 }>();
 
+
 const minAlphaQ = computed(() => props.trafficClass === 'ClassOW' ? 0.3001 : 0.3001);
 
 const finalAlphaQ = computed(() => {
   let alphaQ = props.selectedValue ?? minAlphaQ.value;
   if (props.phyCal) {
     alphaQ = props.phyCal * alphaQ;
+  } else {
+    console.error('phyCal should be provided to this component');
   }
   if (props.beta && props.beta  === 4.7) {
     alphaQ = 1.07 * alphaQ; // 7% increase
