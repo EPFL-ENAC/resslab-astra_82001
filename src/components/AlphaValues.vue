@@ -54,14 +54,16 @@ const finalAlphaQ = computed(() => {
   } else {
     console.error('phyCal should be provided to this component');
   }
-  if (props.beta && props.beta  === 4.7) {
-    alphaQ = 1.07 * alphaQ; // 7% increase
-  }
 
   // todo: add a flag to know if the value is final or not or was modified
   if (alphaQ < minAlphaQ.value) {
     alphaQ = minAlphaQ.value;
   }
+  // we apply the beta 4.7 factor after the minAlphaQ check
+  if (props.beta && props.beta  === 4.7) {
+    alphaQ = 1.07 * alphaQ; // 7% increase
+  }
+
   return alphaQ;
 });
 
