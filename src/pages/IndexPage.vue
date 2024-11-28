@@ -72,7 +72,8 @@ const selected = ref<Selected>({
 });
 
 
-const selectedJson = computed<Record<TrafficClass|string, number|string>>(() => {
+const selectedJson = computed<Record<TrafficClass|string, number|string|undefined>>(() => {
+  console.log(selected.value.Width?.value)
   return data.filter(x =>
     x.Type === selected.value.Type?.value &&
     x.SubType === selected.value.SubType?.value &&
@@ -121,16 +122,19 @@ const phyCalOptions = computed(() => {
     return defaultPhyCalOptions;
   }
   // 10 < 𝐿 ≤ 20 𝑚, 𝜑𝑐𝑎𝑙 = 1.15 − 0.015 ∙ (𝐿 − 10)
-  let phyCalDynamicValue = defaultSmallRoadPhyCal - 0.015 * (selected.value.Span - 10);
-  if (selected.value.Span <= 10) {
+  let phyCalDynamicValue = defaultSmallRoadPhyCal - 0.015 * (selected.value.Span.value - 10);
+  if (selected.value.Span.value <= 10) {
     phyCalDynamicValue = defaultSmallRoadPhyCal; // 𝐿 ≤ 10 𝑚, 𝑐𝑎𝑙 = 1.15
   }
-  if (selected.value.Span >= 20) {
+  if (selected.value.Span.value >= 20) {
     phyCalDynamicValue = defaultGoodRoadPhyCal; // 𝐿 > 20 𝑚, 𝜑𝑐𝑎𝑙 = 1.00
   }
 
   if (goodQualityRoad.value === true) {
     phyCalDynamicValue = defaultGoodRoadPhyCal;
+  }
+  if (phyCalDynamicValue === undefined) {
+    return defaultPhyCalOptions;
   }
   return [
   { label: `Φ${phyCalDynamicValue.toFixed(2)}`, value: phyCalDynamicValue}

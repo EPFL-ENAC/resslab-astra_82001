@@ -25,6 +25,8 @@
         </span>
       </span>
       <span v-else>&equals; {{ minAlphaQ }}</span>
+      <span>
+        {{ selectedValue === undefined ? ' (default: current settings not found)' : ''}}</span>
     </div>
 
 
