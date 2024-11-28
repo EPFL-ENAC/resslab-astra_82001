@@ -60,33 +60,41 @@ Under active development. [Report bugs here](https://github.com/EPFL-ENAC/ressla
 
 ```mermaid
 ---
-title: The astra Tools' Reference Data
+title: Type to Subtype
 ---
 graph TD
-    %% Types to Width
-    %% Box -> Stand
-    %% Twin -> Stand, Conc
-    %% Multi -> Stand
-    %% Slab -> Long, Short
-    %% DalleRoulem --> 'PorteAFaux', 'DalleEntrePoutres'
+        A[Box] --> S1{Stand}
+        B[Twin] --> S1{Stand}
+        B[Twin] --> S2{Conc}
+        C[Multi] --> S1{Stand}
+        D[Slab] --> S3{Short}
+        D[Slab] --> S4{Long}
+        E[DalleRoulem] --> S5{PorteAFaux}
+        E[DalleRoulem] --> S6{DalleEntrePoutres}
 
-    A[Box] --> S1{Stand}
-    B[Twin] --> S1{Stand}
-    B[Twin] --> S2{Conc}
-    C[Multi] --> S1{Stand}
-    D[Slab] --> S3{Short}
-    D[Slab] --> S4{Long}
-    E[DalleRoulem] --> S5{PorteAFaux}
-    E[DalleRoulem] --> S6{DalleEntrePoutres}
+```
 
-    %% SubTypes to Width
-    %% Box -> width18 and width12
-    %% Twin -> wid9
-    %% Multi -> Wid108
-    %% Slab -> Wid9, Wid18
-    %% DalleRoulem --> 'Wid1_22', 'Wid2_33', 'Wid3_44', 'Wid4_56', 'Wid5_67', 'Wid6_78',  'Wid3',    'Wid7_5', 'Wid12',
+```mermaid
+---
+title: Type to Width
+---
 
+graph TD
+        A[Box] --> S1{width18}
+        A[Box] --> S2{width12}
+        B[Twin] --> S3{wid9}
+        C[Multi] --> S4{Wid108}
+        D[Slab] --> S3{Wid9}
+        D[Slab] --> S1{Wid18}
+        E[DalleRoulem] --> S6{Wid1_22', 'Wid2_33', 'Wid3_44', 'Wid4_56', 'Wid5_67', 'Wid6_78',  'Wid3',    'Wid7_5', 'Wid12}
+```
 
+```mermaid
+---
+title: Type to Span
+---
+
+graph TD
     %% Span
     %% Box -> 20,   30,   40,   50,   60,   70, 80
     %% Twin -> 20,   30,   40,   50,   60,   70, 80
@@ -94,22 +102,39 @@ graph TD
     %% Slab -> 4, 6, 8, 10, 15, 20, 25, 30
     %% DalleRoulem --> 1.22, 2.33, 3.44,  4.56, 5.67, 6.78, 3,  7.5,   12
 
+    A[Box] --> S1{'20,   30,   40,   50,   60,   70, 80'}
+    B[Twin] --> S1{'20,   30,   40,   50,   60,   70, 80'}
+    C[Multi] --> S2{'20,   30'}
+    D[Slab] --> S3{'4, 6, 8, 10, 15, 20, 25, 30'}
+    E[DalleRoulem] --> S4{'1.22, 2.33, 3.44,  4.56, 5.67, 6.78, 3,  7.5,   12'}
+```
 
-    %% Subtype to Support
+```mermaid
+---
+title: Type to Support
+---
+
+graph TD
+    %% Type to Support
     %% Box [ 'Simp' ]
     %% Twin [ 'Simp' ]
     %% Multi [ 'Simp' ]
     %% Slab [ 'Fixed', 'Semi' ]
     %% DalleRoulem [ 'SimpForM', 'SimpForV', 'SimpForMn', 'SimpForMp' ]
-    S1 --> SP1[Simp]
-    S2 --> SP1[Simp]
-    S3 --> SP3{Fixed}
-    S3 --> SP4{Semi}
-    S4 --> SP3{Fixed}
-    S4 --> SP4{Semi}
-    S5 --> SP5["'SimpForM', 'SimpForV', 'SimpForMn', 'SimpForMp'"]
-    S6 --> SP5["'SimpForM', 'SimpForV', 'SimpForMn', 'SimpForMp'"]
 
+    A[Box] --> S1{Simp}
+    B[Twin] --> S1{Simp}
+    C[Multi] --> S1{Simp}
+    D[Slab] --> S4{Fixed, Semi}
+    E[DalleRoulem] --> S5{SimpForM, SimpForV, SimpForMn, SimpForMp}
+```
+
+```mermaid
+---
+title: Type to Layout
+---
+
+graph TD
     %% Layout
     %% Box -> [ 'Uni2L', 'Bi2L', 'Bi4L' ]
     %% Twin -> [ 'Uni2L', 'Bi2L' ]
@@ -117,12 +142,50 @@ graph TD
     %% Slab -> [ 'Uni2L', 'Bi2L', 'Bi4L' ]
     %% DalleRoulem --> [ 'Uni2L', 'Bi2L' ]
 
+    A[Box] --> S1{UNI2L, BI2L, BI4L}
+    B[Twin] --> S2{'Uni2L', 'Bi2L'}
+    C[Multi] --> S2{'Uni2L', 'Bi2L'}
+    D[Slab] --> S1{'Uni2L', 'Bi2L', 'Bi4L'}
+    E[DalleRoulem] --> S2{'Uni2L', 'Bi2L'}
+```
+
+```mermaid
+---
+title: Type to AE
+---
+
+graph TD
     %% AE
     %% Box [ 'V', 'Mp', 'Mn' ]
     %% Twin [ 'V', 'Mp', 'Mn' ]
     %% Multi [ 'V', 'Mp', 'Mn' ]
     %% Slab [ 'V', 'Mp', 'Mn', 'MxMid', 'MxEdg' ]
     %% DalleRoulem [ 'M', 'V', 'Mn', 'Mp' ]
+
+    A[Box] --> S1{'V', 'Mp', 'Mn'}
+    B[Twin] --> S1{'V', 'Mp', 'Mn'}
+    C[Multi] --> S1{'V', 'Mp', 'Mn'}
+    D[Slab] --> S2{'V', 'Mp', 'Mn', 'MxMid', 'MxEdg'}
+    E[DalleRoulem] --> S3{'M', 'V', 'Mn', 'Mp'}
+```
+
+```mermaid
+---
+title: Type to Trans
+---
+graph TD
+
+    %% Trans
+    %% Box [ 'p0' ]
+    %% Twin [ 'p0' ]
+    %% Multi [ 'P1', 'P2', 'P3' ]
+    %% Slab [ 'p1', 'p2', 'p3' ]
+    %% DalleRoulem [ 'AR0', 'AR2', 'BR1', 'PENC', 'SENC', 'SMPL' ]
+    A[Box] --> S1{'p0'}
+    B[Twin] --> S1{'p0'}
+    C[Multi] --> S3{'P1', 'P2', 'P3'}
+    D[Slab] --> S4{'p1', 'p2', 'p3'}
+    E[DalleRoulem] --> S5{'AR0', 'AR2', 'BR1', 'PENC', 'SENC', 'SMPL'}
 
     %% Trans
     %% Box [ 'p0' ]
