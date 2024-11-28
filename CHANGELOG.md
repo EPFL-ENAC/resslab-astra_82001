@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.2](https://github.com/EPFL-ENAC/resslab-astra_82001/compare/v1.2.1...v1.2.2) (2024-11-28)
+
+
+### Bug Fixes
+
+* **AlphaValues:** apply beta 4.7 factor after minAlphaQ check ([b691c2d](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/b691c2d0a61dbb7615aa825a9fb6acdc46a1d272))
+
 ## [1.2.0](https://github.com/EPFL-ENAC/resslab-astra_82001/compare/v1.1.0...v1.2.0) (2024-11-27)
 
 
