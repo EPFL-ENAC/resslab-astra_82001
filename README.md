@@ -69,6 +69,7 @@ graph TD
     %% Multi -> Stand
     %% Slab -> Long, Short
     %% DalleRoulem --> 'PorteAFaux', 'DalleEntrePoutres'
+
     A[Box] --> S1{Stand}
     B[Twin] --> S1{Stand}
     B[Twin] --> S2{Conc}
@@ -122,6 +123,13 @@ graph TD
     %% Multi [ 'V', 'Mp', 'Mn' ]
     %% Slab [ 'V', 'Mp', 'Mn', 'MxMid', 'MxEdg' ]
     %% DalleRoulem [ 'M', 'V', 'Mn', 'Mp' ]
+
+    %% Trans
+    %% Box [ 'p0' ]
+    %% Twin [ 'p0' ]
+    %% Multi [ 'P1', 'P2', 'P3' ]
+    %% Slab [ 'p1', 'p2', 'p3' ]
+    %% DalleRoulem [ 'AR0', 'AR2', 'BR1', 'PENC', 'SENC', 'SMPL' ]
 
 classDef ToUpgrade stroke:#000,stroke-width:1px,fill:#ffb3b3,font-size:20px
 classDef Databases stroke:#000,stroke-width:1px,fill:#dfdffc,font-size:20px
