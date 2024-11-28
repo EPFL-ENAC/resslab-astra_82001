@@ -63,7 +63,12 @@ Under active development. [Report bugs here](https://github.com/EPFL-ENAC/ressla
 title: The astra Tools' Reference Data
 ---
 graph TD
-    %% Types
+    %% Types to Width
+    %% Box -> Stand
+    %% Twin -> Stand, Conc
+    %% Multi -> Stand
+    %% Slab -> Long, Short
+    %% DalleRoulem --> 'PorteAFaux', 'DalleEntrePoutres'
     A[Box] --> S1{Stand}
     B[Twin] --> S1{Stand}
     B[Twin] --> S2{Conc}
