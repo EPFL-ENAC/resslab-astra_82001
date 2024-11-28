@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const fs = require('fs');
 
 // Read the JSON file synchronously
@@ -23,4 +24,11 @@ const jsonData = fs.readFileSync('data.json');
 // 3) 𝛼𝑞
 
 // Parse the JSON data
-const data = JSON.parse(jsonData);
+global.data = JSON.parse(jsonData);
+
+// Start REPL
+const repl = require('node:repl');
+repl.start({
+  prompt: 'Node CLI > ',
+  useGlobal: true
+});

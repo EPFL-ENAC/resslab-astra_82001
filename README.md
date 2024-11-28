@@ -55,3 +55,64 @@ Comments may be shared with developers through [GitHub issues](<[https://github.
 ## Status
 
 Under active development. [Report bugs here](https://github.com/EPFL-ENAC/resslab-astra_82001/issues).
+
+## Data graph
+
+```mermaid
+---
+title: The astra Tools' Reference Data
+---
+graph TD
+    %% Types
+    A[Box] --> S1{Stand}
+    B[Twin] --> S1{Stand}
+    B[Twin] --> S2{Conc}
+    C[Multi] --> S1{Stand}
+    D[Slab] --> S3{Short}
+    D[Slab] --> S4{Long}
+    E[DalleRoulem] --> S5{PorteAFaux}
+    E[DalleRoulem] --> S6{DalleEntrePoutres}
+
+    %% SubTypes to Width
+    %% Box -> width18 and width12
+    %% Twin -> wid9
+    %% Multi -> Wid108
+    %% Slab -> Wid9, Wid18
+    %% DalleRoulem --> 'Wid1_22', 'Wid2_33', 'Wid3_44', 'Wid4_56', 'Wid5_67', 'Wid6_78',  'Wid3',    'Wid7_5', 'Wid12',
+
+
+    %% Span
+    %% Box -> 20,   30,   40,   50,   60,   70, 80
+    %% Twin -> 20,   30,   40,   50,   60,   70, 80
+    %% Multi -> 20,   30
+    %% Slab -> 4, 6, 8, 10, 15, 20, 25, 30
+    %% DalleRoulem --> 1.22, 2.33, 3.44,  4.56, 5.67, 6.78, 3,  7.5,   12
+
+
+    %% Subtype to Support
+    %% Box [ 'Simp' ]
+    %% Twin [ 'Simp' ]
+    %% Multi [ 'Simp' ]
+    %% Slab [ 'Fixed', 'Semi' ]
+    %% DalleRoulem [ 'SimpForM', 'SimpForV', 'SimpForMn', 'SimpForMp' ]
+    S1 --> SP1[Simp]
+    S2 --> SP1[Simp]
+    S3 --> SP3{Fixed}
+    S3 --> SP4{Semi}
+    S4 --> SP3{Fixed}
+    S4 --> SP4{Semi}
+    S5 --> SP5["'SimpForM', 'SimpForV', 'SimpForMn', 'SimpForMp'"]
+    S6 --> SP5["'SimpForM', 'SimpForV', 'SimpForMn', 'SimpForMp'"]
+
+    %% Box -> [ 'Uni2L', 'Bi2L', 'Bi4L' ]
+    %% Twin -> [ 'Uni2L', 'Bi2L' ]
+    %% Multi -> [ 'Uni2L', 'Bi2L' ]
+    %% Slab -> [ 'Uni2L', 'Bi2L', 'Bi4L' ]
+    %% DalleRoulem --> [ 'Uni2L', 'Bi2L' ]
+
+
+
+classDef ToUpgrade stroke:#000,stroke-width:1px,fill:#ffb3b3,font-size:20px
+classDef Databases stroke:#000,stroke-width:1px,fill:#dfdffc,font-size:20px
+classDef App stroke:#000,stroke-width:1px,fill:#c1fbc1,font-size:30px,padding:10px
+```
