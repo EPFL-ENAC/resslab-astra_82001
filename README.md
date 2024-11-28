@@ -86,7 +86,8 @@ graph TD
         C[Multi] --> S4{Wid108}
         D[Slab] --> S3{Wid9}
         D[Slab] --> S1{Wid18}
-        E[DalleRoulem] --> S6{Wid1_22', 'Wid2_33', 'Wid3_44', 'Wid4_56', 'Wid5_67', 'Wid6_78',  'Wid3',    'Wid7_5', 'Wid12}
+        E[DalleRoulem-PorteAFaux] --> S6{Wid1_22', 'Wid2_33', 'Wid3_44', 'Wid4_56', 'Wid5_67', 'Wid6_78'}
+        F[DalleRoulem-DalleEntrePoutres] --> S7{ 'Wid3',    'Wid7_5', 'Wid12}
 ```
 
 ```mermaid
@@ -106,7 +107,6 @@ graph TD
     B[Twin] --> S1{'20,   30,   40,   50,   60,   70, 80'}
     C[Multi] --> S2{'20,   30'}
     D[Slab] --> S3{'4, 6, 8, 10, 15, 20, 25, 30'}
-    E[DalleRoulem] --> S4{'1.22, 2.33, 3.44,  4.56, 5.67, 6.78, 3,  7.5,   12'}
 ```
 
 ```mermaid
@@ -185,7 +185,8 @@ graph TD
     B[Twin] --> S1{'p0'}
     C[Multi] --> S3{'P1', 'P2', 'P3'}
     D[Slab] --> S4{'p1', 'p2', 'p3'}
-    E[DalleRoulem] --> S5{'AR0', 'AR2', 'BR1', 'PENC', 'SENC', 'SMPL'}
+    E[DalleRoulem-PorteAFaux] --> S6{'AR0', 'AR2', 'BR1'}
+    F[DalleRoulem-DalleEntrePoutres] --> S7{'PENC', 'SENC', 'SMPL'}
 
     %% Trans
     %% Box [ 'p0' ]
