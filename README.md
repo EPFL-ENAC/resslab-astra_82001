@@ -109,13 +109,19 @@ graph TD
     S5 --> SP5["'SimpForM', 'SimpForV', 'SimpForMn', 'SimpForMp'"]
     S6 --> SP5["'SimpForM', 'SimpForV', 'SimpForMn', 'SimpForMp'"]
 
+    %% Layout
     %% Box -> [ 'Uni2L', 'Bi2L', 'Bi4L' ]
     %% Twin -> [ 'Uni2L', 'Bi2L' ]
     %% Multi -> [ 'Uni2L', 'Bi2L' ]
     %% Slab -> [ 'Uni2L', 'Bi2L', 'Bi4L' ]
     %% DalleRoulem --> [ 'Uni2L', 'Bi2L' ]
 
-
+    %% AE
+    %% Box [ 'V', 'Mp', 'Mn' ]
+    %% Twin [ 'V', 'Mp', 'Mn' ]
+    %% Multi [ 'V', 'Mp', 'Mn' ]
+    %% Slab [ 'V', 'Mp', 'Mn', 'MxMid', 'MxEdg' ]
+    %% DalleRoulem [ 'M', 'V', 'Mn', 'Mp' ]
 
 classDef ToUpgrade stroke:#000,stroke-width:1px,fill:#ffb3b3,font-size:20px
 classDef Databases stroke:#000,stroke-width:1px,fill:#dfdffc,font-size:20px
