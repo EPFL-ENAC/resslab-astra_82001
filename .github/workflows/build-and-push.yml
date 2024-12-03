@@ -1,12 +1,12 @@
 # https://github.com/EPFL-ENAC/epfl-enac-deploy-action#readme
 name: build-push-deploy
 
-"on":
+'on':
   push:
     branches:
       - dev
       - main
-    tags: [ 'v*.*.*' ]
+    tags: ['v*.*.*']
 
 env:
   REGISTRY: ghcr.io
@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      matrix:
+      matrix: &matrix-strategy
         include:
           - Dockerfile: ./Dockerfile
             context: ./
@@ -25,10 +25,14 @@ jobs:
     permissions:
       contents: read
       packages: write
+    # outputs:
+    #   github_sha: ${{ github.sha  }}
+    #   digest: ${{ steps.build-docker-push.outputs.digest}}
+    #   tags: ${{ steps.meta.outputs.tags  }}
     outputs:
-        github_sha: ${{ github.sha  }}
-        digest: ${{ steps.build-docker-push.outputs.digest}}
-        tags: ${{ steps.meta.outputs.tags  }}
+      github_sha: ${{ matrix.image }}-${{ steps.set-output.outputs.github_sha }}
+      digest: ${{ matrix.image }}-${{ steps.set-output.outputs.digest }}
+      tags: ${{ matrix.image }}-${{ steps.set-output.outputs.tags }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -55,9 +59,23 @@ jobs:
           file: ${{ matrix.dockerfile }}
           tags: ${{ steps.meta.outputs.tags }},${{ matrix.image }}:${{ github.sha }},${{ matrix.image }}:latest
           labels: ${{ steps.meta.outputs.labels }}
+      - name: Set output values
+        id: set-output
+        run: |
+          echo "github_sha=${{ github.sha }}" >> $GITHUB_ENV
+          echo "digest=${{ steps.build-docker-push.outputs.digest }}" >> $GITHUB_ENV
+          echo "tags=${{ steps.meta.outputs.tags }}" >> $GITHUB_ENV
+          echo "::set-output name=github_sha::${{ github.sha }}"
+          echo "::set-output name=digest::${{ steps.build-docker-push.outputs.digest }}"
+          echo "::set-output name=tags::${{ steps.meta.outputs.tags }}"
+
   deploy:
     needs: build-and-push-image
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix: *matrix-strategy
+      # <<: *matrix-strategy
     steps:
       - name: what's the git ref
         run: echo ${{ github.ref }} // ${{ github.ref_name }}
@@ -68,7 +86,7 @@ jobs:
         if: startsWith(github.ref, 'refs/heads/dev')
         run: |
           echo "Deploying application to dev" && \
-          echo "Digest: ${{ toJson(needs.build-and-push-image) }}" && \
+          echo "Deploy results: ${{ toJson(needs.build-and-push-image) }}" && \
           curl -X POST \
           -H "Authorization: Bearer ${{ secrets.CD_TOKEN }}" \
           ${{ secrets.CD_URI }} \
@@ -78,7 +96,8 @@ jobs:
               "digest": "${{ needs.build-and-push-image.outputs.digest }}",
               "repo_name": "${{ secrets.CD_REPO }}",
               "repo_org": "${{ secrets.CD_ORG }}",
-              "branch": "dev"
+              "branch": "dev",
+              "image": "${{ matrix.image }}",
             }
           }'
       - name: Deploy to prod rules (defined in CD pipeline)
@@ -94,6 +113,7 @@ jobs:
               "repo_name": "${{ secrets.CD_REPO }}",
               "repo_org": "${{ secrets.CD_ORG }}",
               "branch": "prod",
+              "image": "${{ matrix.image }}",
               "ref_name": "${{ github.ref_name }}"
             }
           }'
