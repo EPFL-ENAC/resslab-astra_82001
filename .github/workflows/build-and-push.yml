@@ -78,7 +78,7 @@ jobs:
               "repo_name": "${{ secrets.CD_REPO }}",
               "repo_org": "${{ secrets.CD_ORG }}",
               "branch": "dev",
-              "image": "${{ matrix.image }}",
+              "image": "${{ matrix.image }}"
             }
           }'
       - name: Deploy to prod rules (defined in CD pipeline)
