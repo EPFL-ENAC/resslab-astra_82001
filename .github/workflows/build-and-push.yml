@@ -25,14 +25,6 @@ jobs:
     permissions:
       contents: read
       packages: write
-    # outputs:
-    #   github_sha: ${{ github.sha  }}
-    #   digest: ${{ steps.build-docker-push.outputs.digest}}
-    #   tags: ${{ steps.meta.outputs.tags  }}
-    outputs:
-      github_sha: ${{ matrix.image }}-${{ steps.set-output.outputs.github_sha }}
-      digest: ${{ matrix.image }}-${{ steps.set-output.outputs.digest }}
-      tags: ${{ matrix.image }}-${{ steps.set-output.outputs.tags }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -65,38 +57,23 @@ jobs:
           echo "github_sha=${{ github.sha }}" >> $GITHUB_ENV
           echo "digest=${{ steps.build-docker-push.outputs.digest }}" >> $GITHUB_ENV
           echo "tags=${{ steps.meta.outputs.tags }}" >> $GITHUB_ENV
-          echo "::set-output name=github_sha::${{ github.sha }}"
-          echo "::set-output name=digest::${{ steps.build-docker-push.outputs.digest }}"
-          echo "::set-output name=tags::${{ steps.meta.outputs.tags }}"
-
-  deploy:
-    needs: build-and-push-image
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - Dockerfile: ./Dockerfile
-            context: ./
-            image: ghcr.io/epfl-enac/resslab-astra-82001-frontend
-    steps:
       - name: what's the git ref
         run: echo ${{ github.ref }} // ${{ github.ref_name }}
-      # This is used to trigger the correct github CI pipeline:
-      #   push to main: update dev deployment
-      #   push a tag: update stage, trigger prod merge req.
+        # This is used to trigger the correct github CI pipeline:
+        #   push to main: update dev deployment
+        #   push a tag: update stage, trigger prod merge req.
       - name: Deploy application to dev
         if: startsWith(github.ref, 'refs/heads/dev')
         run: |
           echo "Deploying application to dev" && \
-          echo "Deploy results: ${{ toJson(needs.build-and-push-image) }}" && \
+          echo "Deploy results: ${{ toJson(steps.set-output) }}" && \
           curl -X POST \
           -H "Authorization: Bearer ${{ secrets.CD_TOKEN }}" \
           ${{ secrets.CD_URI }} \
           -d '{
             "event_type": "update-manifest",
             "client_payload": {
-              "digest": "${{ needs.build-and-push-image.outputs.digest }}",
+              "digest": "${{ steps.build-docker-push.outputs.digest  }}",
               "repo_name": "${{ secrets.CD_REPO }}",
               "repo_org": "${{ secrets.CD_ORG }}",
               "branch": "dev",
@@ -112,7 +89,7 @@ jobs:
           -d '{
             "event_type": "update-manifest",
             "client_payload": {
-              "digest": "${{ needs.build-and-push-image.outputs.digest }}",
+              "digest": "${{ steps.build-docker-push.outputs.digest  }}",
               "repo_name": "${{ secrets.CD_REPO }}",
               "repo_org": "${{ secrets.CD_ORG }}",
               "branch": "prod",
