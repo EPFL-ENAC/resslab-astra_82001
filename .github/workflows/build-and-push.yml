@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      matrix: &matrix-strategy
+      matrix:
         include:
           - Dockerfile: ./Dockerfile
             context: ./
@@ -74,8 +74,11 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      matrix: *matrix-strategy
-      # <<: *matrix-strategy
+      matrix:
+        include:
+          - Dockerfile: ./Dockerfile
+            context: ./
+            image: ghcr.io/epfl-enac/resslab-astra-82001-frontend
     steps:
       - name: what's the git ref
         run: echo ${{ github.ref }} // ${{ github.ref_name }}
