@@ -71,8 +71,9 @@
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import data from '../assets/data/data.json';
-import type { Selected, SelectedKeys, SelectedValues, TrafficClass, Option, Options } from '../types/Selected';
+import type { Selected, SelectedKeys, SelectedValues, TrafficClass, Option, Options, DataValueKeys, DataValue, Types } from '../types/Selected';
 
+const dataValues: DataValues = data;
 
 const props = defineProps<{
   modelValue: Selected
@@ -105,7 +106,7 @@ const TypeOption = computed(({
 }))
 
 
-const generateTypeOptions = () => Array.from(new Set(data.map(x => x.Type))).sort();
+const generateTypeOptions = () => Array.from(new Set(dataValues.map((x: DataValue) => x.Type))).sort();
 const TypeOptions = computed(() =>
   generateTypeOptions().map(x => ({ value: x, label: $t(x.toLowerCase()) }))
 );
@@ -121,26 +122,23 @@ const SubTypeOption = computed(({
   set: (value: Option) => updateField('SubType', value)
 }))
 
-const generateSubTypeOptions = (type: string) => Array.from(new Set(data.filter(x => x.Type === type).map(x => x.SubType)));
+const generateTypeOfFieldOptions = (type: string, field: DataValueKeys) => Array.from(new Set(data.filter(x => x.Type === type).map((x) => x[field])));
 const SubTypeOptions = computed(() =>
-  generateSubTypeOptions(props.modelValue.Type?.value as string).map(x => ({ value: x, label: $t(x.toLowerCase()) }))
+    generateTypeOfFieldOptions(props.modelValue.Type?.value as string, 'SubType')
+      .filter(x => typeof x === 'string').map(x => ({ value: x, label: $t(x.toLowerCase()) }))
 );
 
 
 
-function generateWidthOptions(subType: string): Options {
+function generateWidthOptions(Type: string): Options {
   const MapOfWidths: Record<string, string> = {
     'Wid108': '9m',
   };
-
-  return (Array.from(new Set(data.filter(x =>
-    x.Type === props.modelValue.Type?.value &&
-    x.SubType === subType
-  ).map(x => x.Width))).sort())
-  .map(x => ({ value: x, label: MapOfWidths[x] ?? x.replace('Wid', '') + 'm' }));
+  return generateTypeOfFieldOptions(props.modelValue.Type?.value as string, 'Width')
+  .filter(x => typeof x === 'string').map(x => ({ value: x, label: MapOfWidths[x] ?? x.replace('Wid', '') + 'm' }))
 }
 const WidthOptions = computed((): Options => {
-  return generateWidthOptions(props.modelValue.SubType?.value as string);
+  return generateWidthOptions(props.modelValue.Type?.value as string);
 });
 
 
@@ -156,13 +154,8 @@ const TrafficOption = computed(({
 
 const TrafficOptions = computed(() => {
 
-  const Traffic = Array.from(new Set(data.filter(x =>
-    x.Type === props.modelValue.Type?.value &&
-    x.SubType === props.modelValue.SubType?.value &&
-    x.Width === props.modelValue.Width?.value
-  ).map(x => x.Traffic)))
-    .sort();
-    return Traffic.map(x => ({ value: x, label: $t(x.toLowerCase()) }));
+   return generateTypeOfFieldOptions(props.modelValue.Type?.value as string, 'Traffic')
+    .filter(x => typeof x === 'string').map(x => ({ value: x, label: $t(x.toLowerCase()) }))
 }
 );
 
@@ -176,15 +169,8 @@ const SupportOption = computed(({
   set: (value: Option) => updateField('Support', value)
 }))
 const SupportOptions = computed(() =>
-  Array.from(new Set(data.filter(x =>
-    x.Type === props.modelValue.Type?.value &&
-    x.SubType === props.modelValue.SubType?.value &&
-    x.Width === props.modelValue.Width?.value &&
-    x.Traffic === props.modelValue.Traffic?.value
-  ).map(x => x.Support)))
-    .sort()
-    .map(x => ({ value: x, label: $t(x.toLowerCase()) })
-    ));
+  generateTypeOfFieldOptions(props.modelValue.Type?.value as string, 'Support')
+  .filter(x => typeof x === 'string').map(x => ({ value: x, label: $t(x.toLowerCase()) })));
 
 
 const TransOption = computed(({
@@ -197,16 +183,8 @@ const TransOption = computed(({
 }))
 
 const TransOptions = computed(() =>
-  Array.from(new Set(data.filter(x =>
-    x.Type === props.modelValue.Type?.value &&
-    x.SubType === props.modelValue.SubType?.value &&
-    x.Width === props.modelValue.Width?.value &&
-    x.Traffic === props.modelValue.Traffic?.value &&
-    x.Support === props.modelValue.Support?.value
-  ).map(x => x.Trans)))
-  .sort()
-  .map(x => ({ value: x, label: $t(x.toLowerCase()) })
-  ));
+generateTypeOfFieldOptions(props.modelValue.Type?.value as string, 'Trans')
+.filter(x => typeof x === 'string').map(x => ({ value: x, label: $t(x.toLowerCase()) })));
 
 const AEOption = computed(({
   // modelValue.AE
@@ -218,28 +196,12 @@ const AEOption = computed(({
 }))
 
   const AEOptions = computed(() =>
-  Array.from(new Set(data.filter(x =>
-    x.Type === props.modelValue.Type?.value &&
-    x.SubType === props.modelValue.SubType?.value &&
-    x.Width === props.modelValue.Width?.value &&
-    x.Traffic === props.modelValue.Traffic?.value &&
-    x.Support === props.modelValue.Support?.value &&
-    x.Trans === props.modelValue?.Trans?.value
-  ).map(x => x.AE)))
-  .sort()
-  .map(x => ({ value: x, label: $t(x.toLowerCase()) })
-  ));
+  generateTypeOfFieldOptions(props.modelValue.Type?.value as Types, 'AE')
+  .filter(x => typeof x === 'string').map(x => ({ value: x, label: $t(x.toLowerCase()) })));
 
 const SpanOptions = computed(() =>
-  Array.from(new Set(data.filter(x =>
-    x.Type === props.modelValue.Type?.value &&
-    x.SubType === props.modelValue.SubType?.value &&
-    x.Width === props.modelValue.Width?.value &&
-    x.Traffic === props.modelValue.Traffic?.value &&
-    x.Support === props.modelValue.Support?.value &&
-    x.Trans === props.modelValue.Trans?.value &&
-    x.AE === props.modelValue.AE?.value
-  ).map(x => x.Span)))
+generateTypeOfFieldOptions(props.modelValue.Type?.value as Types, 'Span')
+.filter(x => typeof x === 'number').map(x => ({ value: x, label: x }))
 );
 
 const TrafficClassOption = computed(({
@@ -273,15 +235,23 @@ function updateField(field: SelectedKeys, value: SelectedValues, newValue?: Sele
 
   // Reset all fields that come after the current field
   const fieldIndex = fieldOrder.indexOf(field);
-  fieldOrder.slice(fieldIndex + 1).forEach(f => {
+  if (fieldIndex === -1) {
+    console.error('Field not found in fieldOrder');
+    return;
+  }
+  if (fieldIndex === 0) {
+    fieldOrder.slice(fieldIndex + 1).forEach(f => {
     newValue[f] = undefined;
   });
+  }
+
   emit('update:modelValue', newValue);
 }
 
 // Optional: Add a helper computed function to check if a field should be disabled
 const isFieldDisabled = (field: SelectedKeys) => {
-  const currentIndex = fieldOrder.indexOf(field);
-  return fieldOrder.slice(0, currentIndex).some(f => !props.modelValue[f]);
+  return false;
+  // const currentIndex = fieldOrder.indexOf(field);
+  // return fieldOrder.slice(0, currentIndex).some(f => !props.modelValue[f]);
 };
 </script>
