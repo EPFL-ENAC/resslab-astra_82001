@@ -1,6 +1,14 @@
 <template>
   <q-page class="row items-center justify-center">
-    <div class="container" style="max-width: 800px">
+    <div class="grid-astra">
+        <TrafficType />
+        <BridgeSelector />
+        <AlphaFooter />
+        <LaneSelector />
+        <LongitudinalVerification />
+        <TransversalVerification />
+    </div>
+    <!-- <div class="container" style="max-width: 800px">
       <div class="row items-center justify-center">
         <div class="col col-6 form items-center justify-center flex q-gutter-sm">
           <BridgeSelectionForm v-model="selected" />
@@ -40,17 +48,41 @@
       v-model="goodQualityRoad"
     />
     </div>
-    </aside>
+    </aside> -->
   </q-page>
-
-
 </template>
+
+<style lang="scss">
+.grid-astra {
+  display: grid;
+  grid-template-areas:
+    "a b b"
+    "c f f"
+    "c d e"
+    "c d e"
+    "c d e";
+  grid-gap: 10px;
+}
+
+.traffic-type { grid-area: a; }
+.bridge-selector { grid-area: b; }
+.lane-selector { grid-area: c; }
+.longitudinal-verification { grid-area: d; }
+.transversal-verification { grid-area: e; }
+.alpha-footer { grid-area: f; }
+</style>
 
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import data from '../assets/data/data.json';
 import BridgeSelectionForm from '../components/BridgeSelectionForm.vue';
 import AlphaValues from '../components/AlphaValues.vue';
+import TrafficType from '../components/TrafficType.vue';
+import BridgeSelector from '../components/BridgeSelector.vue';
+import AlphaFooter from '../components/AlphaFooter.vue';
+import LaneSelector from '../components/LaneSelector.vue';
+import LongitudinalVerification from '../components/LongitudinalVerification.vue';
+import TransversalVerification from '../components/TransversalVerification.vue';
 import type { Selected, TrafficClass } from '../types/Selected';
 import { useI18n } from 'vue-i18n';
 
