@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.3.0](https://github.com/EPFL-ENAC/resslab-astra_82001/compare/v1.2.1...v1.3.0) (2024-12-09)
+
+
+### Features
+
+* **cd:** add better comment and outpus for matrix image push ([4ccecc4](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/4ccecc41aaff2e67539d184e1cbb2d291cbd7b85))
+* **cd:** simplify matrix deployment ([2627981](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/26279810d5addb296c7a74f9bbab7a8a3620e113))
+* **cd:** simplify matrix deployment ([68cbf71](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/68cbf713a303c3f1978fd6a1be285c280cce86f2))
+* matrix build and deploy test ([5b46917](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/5b469172376809d1ede8e80e7c37e08cdccf900a))
+* **types:** make form usable with default value, even when we don't have values ([89d44eb](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/89d44eb35fbe945baf7675797df6a115d4a63df5))
+
+
+### Bug Fixes
+
+* **AlphaValues:** apply beta 4.7 factor after minAlphaQ check ([b691c2d](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/b691c2d0a61dbb7615aa825a9fb6acdc46a1d272))
+* **cd:** better json ([53cedf3](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/53cedf34f5c65372d7b4a751cef9fdaa7de07932))
+* **cd:** better output ([47c734b](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/47c734b143b93a20f5997f752702dade4658d1e9))
+* try with matrix ([d73ea4c](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/d73ea4cd53be231681b7dd74f56b328eac40fad4))
+
 ## [1.2.0](https://github.com/EPFL-ENAC/resslab-astra_82001/compare/v1.1.0...v1.2.0) (2024-11-27)
 
 
