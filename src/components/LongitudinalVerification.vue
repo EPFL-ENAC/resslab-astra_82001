@@ -134,8 +134,9 @@ const width = computed({
   border: 1px solid var(--q-color-grey-3);
   /* set maximum and min width to avoid flickering of screen */
   img {
-    max-width: 400px;
-    min-width: 400px;
+    max-width: 300px;
+    min-width: 300px;
+    width: fill;
   }
 }
 

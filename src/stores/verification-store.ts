@@ -1,9 +1,16 @@
-import { get } from 'http';
 import { defineStore } from 'pinia';
 
 interface VerificationState {
   selectedLane: 'uni2l'| 'bi2l' | 'uni4l' | 'bi4l';
   longitudinal: {
+    isEnabled: boolean;
+    span: number;
+    width: number;
+    alphaQV: number;
+    alphaQMneg: number;
+    alphaQMpos: number;
+  };
+  transversal: {
     isEnabled: boolean;
     span: number;
     width: number;
@@ -24,6 +31,15 @@ export const useVerificationStore = defineStore('verification', {
       alphaQV: 0,
       alphaQMneg: 0,
       alphaQMpos: 0
+    },
+    // Initialize more verification-related state here as needed
+    transversal: {
+      isEnabled: true,
+      span: 80,
+      width: 9,
+      alphaQV: 0,
+      alphaQMneg: 0,
+      alphaQMpos: 0,
     }
   }),
 
@@ -52,11 +68,34 @@ export const useVerificationStore = defineStore('verification', {
     },
     setLongitudinalAlphaQMpos(value: number) {
       this.longitudinal.alphaQMpos = value;
+    },
+    setTransversalEnabled(enabled: boolean) {
+      this.transversal.isEnabled = enabled;
+    },
+    setTransversalSpan(span: number) {
+      this.transversal.span = span;
+    },
+    setTransversalWidth(width: number) {
+      this.transversal.width = width;
+    },
+    updateTransversalDimensions(span: number, width: number) {
+      this.transversal.span = span;
+      this.transversal.width = width;
+    },
+    setTransversalAlphaQV(value: number) {
+      this.transversal.alphaQV = value;
+    },
+    setTransversalAlphaQMneg(value: number) {
+      this.transversal.alphaQMneg = value;
+    },
+    setTransversalAlphaQMpos(value: number) {
+      this.transversal.alphaQMpos = value;
     }
   },
 
   getters: {
     getLongitudinalConfig: (state) => state.longitudinal,
-    getLane: (state) => state.selectedLane
+    getLane: (state) => state.selectedLane,
+    getTransversalConfig: (state) => state.transversal,
   }
 });
