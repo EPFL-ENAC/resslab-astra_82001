@@ -39,3 +39,11 @@ longitudinal (poutres),Longitudinal (beams),Longitudinal (poutres),Longitudinal 
 alpha_values,Alpha values,Alpha valeurs,Alpha Werte,Valori alfa,Alpha values,Alpha valeurs,Alpha Werte,Valori alfa
 good_quality_road,Good quality road,Route de bonne qualité,Gute Straßenqualität,Strada di buona qualità
 bad_quality_road,Bad quality road,Mauvaise route,Schlechte Straßenqualität,Strada di cattiva qualità
+longitudinal_verification_enabled,Longitudinal verification enabled,Längsrichtung Überprüfung aktiviert,Vérification longitudinale activée,Verifica longitudinale attivata
+longitudinal_verification_disabled,Longitudinal verification disabled,Längsrichtung Überprüfung deaktiviert,Vérification longitudinale désactivée,Verifica longitudinale disattivata
+longitudinal_verification,Longitudinal verification,Längsrichtung Überprüfung,Vérification longitudinale,Verifica longitudinale
+transversal_verification_enabled,Transversal verification enabled,Querrichtung Überprüfung aktiviert,Vérification transversale activée,Verifica trasversale attivata
+transversal_verification_disabled,Transversal verification disabled,Querrichtung Überprüfung deaktiviert,Vérification transversale désactivée,Verifica trasversale disattivata
+transversal_verification,Transversal verification,Querrichtung Überprüfung,Vérification transversale,Verifica trasversale
+r_bau_disabled, R Bau disabled,R Bau deaktiviert,R construction désactivée,Costruzione r attivata
+r_bau_enabled, R Bau enabled,R Bau aktiviert,R construction activée,Costruzione r disattivata
