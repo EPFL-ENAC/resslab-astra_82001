@@ -1,6 +1,8 @@
+import { get } from 'http';
 import { defineStore } from 'pinia';
 
 interface VerificationState {
+  selectedLane: 'uni2l'| 'bi2l' | 'uni4l' | 'bi4l';
   longitudinal: {
     isEnabled: boolean;
     span: number;
@@ -14,6 +16,7 @@ interface VerificationState {
 
 export const useVerificationStore = defineStore('verification', {
   state: (): VerificationState => ({
+    selectedLane: 'uni2l',
     longitudinal: {
       isEnabled: true,
       span: 80,
@@ -25,6 +28,9 @@ export const useVerificationStore = defineStore('verification', {
   }),
 
   actions: {
+    setLane(lane: 'uni2l'| 'bi2l' | 'uni4l' | 'bi4l') {
+      this.selectedLane = lane;
+    },
     setLongitudinalEnabled(enabled: boolean) {
       this.longitudinal.isEnabled = enabled;
     },
@@ -51,5 +57,6 @@ export const useVerificationStore = defineStore('verification', {
 
   getters: {
     getLongitudinalConfig: (state) => state.longitudinal,
+    getLane: (state) => state.selectedLane
   }
 });

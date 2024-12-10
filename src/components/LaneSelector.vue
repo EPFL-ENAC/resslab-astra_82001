@@ -10,32 +10,33 @@
       flat
       dense
       :options="[
-        {value: 'one', slot: 'one'},
-        {value: 'two', slot: 'two'},
-        {value: 'three', slot: 'three'},
+        {value: 'uni2l', slot: 'one'},
+        {value: 'bi2l', slot: 'two'},
+        {value: 'bi4l', slot: 'three'},
       ]">
       <template v-slot:one>
         <div class="row items-center no-wrap">
           <div class="text-center">
-            1
           </div>
           <img :src="`/public/images/uni2l.png`" alt="one lane" class="track-image" />
+          <span v-if="selectedLane === 'uni2l'">(–)</span>
         </div>
       </template>
       <template v-slot:two>
         <div class="row items-center no-wrap">
           <div class="text-center">
-            2
           </div>
           <img src="/public/images/bi2l.png" alt="two lanes" class="track-image" />
+          <span v-if="selectedLane === 'bi2l'">(–)</span>
+
         </div>
         </template>
       <template v-slot:three>
         <div class="row items-center no-wrap">
           <div class="text-center">
-            3
           </div>
           <img src="/public/images/bi4l.png" alt="three lanes" class="track-image" />
+          <span v-if="selectedLane === 'bi4l'">(–)</span>
         </div>
         </template>
     </q-btn-toggle>
@@ -43,10 +44,22 @@
 </template>
 
 <script setup lang="ts">
-// No script needed for this component
+import { computed } from 'vue';
+import { useVerificationStore } from '../stores/verification-store';
+
+const verificationStore = useVerificationStore();
+
+
+const selectedLane = computed({
+  get: () => verificationStore.selectedLane,
+  set: (value) => verificationStore.setLane(value)
+});
+
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+/* have proper display color of selected lane */
+
 .lane-selector {
   grid-area: c;
 }
