@@ -8,8 +8,8 @@
         rounded
         glossy
         :options="[
-          {value: 'one', slot: 'one'},
-          {value: 'two', slot: 'two'},
+          {value: 'class', slot: 'one'},
+          {value: 'class-plus', slot: 'two'},
         ]"
       >
         <template v-slot:one>
@@ -18,7 +18,6 @@
              class
             </div>
             <img :src="classImage" alt="class" class="track-image" />
-
           </div>
         </template>
 
@@ -59,9 +58,10 @@ const { t: $t } = useI18n();
 const goodQualityRoad = ref(false);
 const rBau = ref(false);
 
-const classImage = '/public/images/class.png';
-const classPlusImage = '/public/images/class-plus.png';
-const trafficToggle = ref(classImage);
+// Remove /public from the path as it's automatically handled by Vite
+const classImage = '/public/class.svg';
+const classPlusImage = '/public/class-plus.svg';
+const trafficToggle = ref('class'); // Change initial value to match option value
 </script>
 
 <style scoped>
@@ -72,18 +72,26 @@ const trafficToggle = ref(classImage);
 }
 
 .toggle-image {
-  width: 24px;
-  height: 24px;
+  width: 40px;
+  height: 40px;
 }
 
 .toggle-track {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 8px; /* Add some spacing between text and icon */
 }
 
 .track-image {
-  width: 24px;
-  height: 24px;
+  width: 40px;
+  height: 40px;
+  /* Remove fill as it's not needed for img tags */
+  padding: 4px; /* Add some padding inside the button */
+}
+
+/* Add some spacing between text and icon in the button */
+.row.items-center.no-wrap {
+  gap: 8px;
 }
 </style>

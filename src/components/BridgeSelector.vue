@@ -13,38 +13,39 @@
           {value: 'slab', slot: 'four'},
         ]"
       >
-        <template v-slot:one>
-          <div class="row items-center no-wrap">
-            <div class="text-center">
-              Box
+        <template v-slot:one="">
+          <div class="col items-center no-wrap" :title="$t('box')">
+            <img src="/public/box.svg" alt="box" class="track-image" />
+            <div class="text-center" >
+              <!-- Box -->
+              {{ $t('box') }}
             </div>
-            <img src="/public/images/box.png" alt="box" class="track-image" />
           </div>
         </template>
 
         <template v-slot:two>
-          <div class="row items-center no-wrap">
+          <div class="col items-center no-wrap" :title="$t('twin-girder')">
+            <img src="/public/twin-girder.svg" alt="twin girder" class="track-image" />
             <div class="text-center">
-              Twin Girder
+              <!-- Twin Girder -->{{$t('twin-girder')}}
             </div>
-            <img src="/public/images/twin-girder.png" alt="twin girder" class="track-image" />
           </div>
 
         </template>
         <template v-slot:three>
-          <div class="row items-center no-wrap">
+          <div class="col items-center no-wrap" :title="$t('multi-girder')">
+            <img src="/public/multi-girder.svg" alt="multi girder" class="track-image" />
             <div class="text-center">
-              Multi Girder
+              <!-- Multi Girder -->{{$t('multi-girder')}}
             </div>
-            <img src="/public/images/multi-girder.png" alt="multi girder" class="track-image" />
           </div>
         </template>
         <template v-slot:four>
-          <div class="row items-center no-wrap">
+          <div class="col items-center no-wrap"  :title="$t('slab')">
+            <img src="/public/slab.svg" alt="slab" class="track-image" />
             <div class="text-center">
-              Slab
+              <!-- Slab -->{{$t('slab')}}
             </div>
-            <img src="/public/images/slab.png" alt="slab" class="track-image" />
           </div>
           </template>
 
@@ -54,7 +55,12 @@
 </template>
 
 <script setup lang="ts">
-// No script needed for this component
+// generate code based on above template
+import { ref } from 'vue';
+
+const trafficToggle = ref('box');
+
+
 </script>
 
 <style scoped>

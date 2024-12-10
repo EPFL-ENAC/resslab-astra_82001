@@ -5,7 +5,7 @@
         <BridgeSelector />
         <AlphaFooter />
         <LaneSelector />
-        <LongitudinalVerification />
+        <LongitudinalVerification class="longitudinal-verification"/>
         <TransversalVerification />
     </div>
     <!-- <div class="container" style="max-width: 800px">
@@ -62,12 +62,24 @@
     "c d e"
     "c d e";
   grid-gap: 10px;
+  // I wan to make the grid responsive and also having the first column to be 1fr and the second column to be 2fr
+  // grid-template-columns: 1fr 2fr 2fr;
+  grid-template-rows: auto;
+  padding: 10px;
+  margin: 10px;
+  background-color: #f0f0f0;
+
+  // but also column d and e taking at least 300px width each
+  grid-template-columns: 1fr 2fr 2fr minmax(300px, 1fr);
 }
 
 .traffic-type { grid-area: a; }
 .bridge-selector { grid-area: b; }
 .lane-selector { grid-area: c; }
-.longitudinal-verification { grid-area: d; }
+.longitudinal-verification { grid-area: d;
+  display: flex;
+  flex-direction:column;
+}
 .transversal-verification { grid-area: e; }
 .alpha-footer { grid-area: f; }
 </style>
