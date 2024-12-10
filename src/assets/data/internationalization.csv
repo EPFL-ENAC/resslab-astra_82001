@@ -2,8 +2,10 @@ id,en,fr,de,it,desc_en,desc_fr,desc_de,desc_it
 type_of_bridge,Type of bridge,Type de pont,Brücke,Tipo di ponte,Type of bridge,Type de pont,Brücke,Tipo di ponte
 box,Box,Caisson,Hohlkasten,Cassone,Box,Caisson,Hohlkasten,Cassone
 multi,Multigirder,Multipoutre,mehrstegiger Plattenbalken,Multitrave,Multigirder,Multipoutre,mehrstegiger Plattenbalken,Multitrave
+multi-girder,Multigirder,Multipoutre,mehrstegiger Plattenbalken,Multitrave,Multigirder,Multipoutre,mehrstegiger Plattenbalken,Multitrave
 slab,Slab,Dalle,Platte,Piastra,Slab,Dalle,Platte,Piastra
 twin,Twingirder,Bipoutre,Doppelträger,Doppia trave,Twingirder,Bipoutre,Doppelträger,Doppia trave
+twin-girder,Twingirder,Bipoutre,Doppelträger,Doppia trave,Twingirder,Bipoutre,Doppelträger,Doppia trave
 subtype_of_bridge,Subtype of bridge,Sous-type de pont,Untertyp,Sottotipo di ponte,Subtype of bridge,Sous-type de pont,Untertyp,Sottotipo di ponte
 stand,Standard,Standard,Standard,Standard,Standard,Standard,Standard,Standard
 long,Long,Longue,Long,Lungo,Long,Longue,Long,Lungo
