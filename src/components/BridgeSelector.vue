@@ -3,9 +3,9 @@
     <q-btn-toggle
         class="traffic-toggle"
         v-model="trafficToggle"
-        push
-        rounded
-        glossy
+        color="primary"
+        flat
+        padding="md"
         :options="[
           {value: 'box', slot: 'one'},
           {value: 'twin-girder', slot: 'two'},
@@ -16,7 +16,7 @@
         <template v-slot:one="">
           <div class="col items-center no-wrap" :title="$t('box')">
             <img src="/box.svg" alt="box" class="track-image" />
-            <div class="text-center" >
+            <div class="text-center bridge-text" >
               <!-- Box -->
               {{ $t('box') }}
             </div>
@@ -26,7 +26,7 @@
         <template v-slot:two>
           <div class="col items-center no-wrap" :title="$t('twin-girder')">
             <img src="/twin-girder.svg" alt="twin girder" class="track-image" />
-            <div class="text-center">
+            <div class="text-center bridge-text">
               <!-- Twin Girder -->{{$t('twin-girder')}}
             </div>
           </div>
@@ -35,7 +35,7 @@
         <template v-slot:three>
           <div class="col items-center no-wrap" :title="$t('multi-girder')">
             <img src="/multi-girder.svg" alt="multi girder" class="track-image" />
-            <div class="text-center">
+            <div class="text-center bridge-text">
               <!-- Multi Girder -->{{$t('multi-girder')}}
             </div>
           </div>
@@ -43,7 +43,7 @@
         <template v-slot:four>
           <div class="col items-center no-wrap"  :title="$t('slab')">
             <img src="/slab.svg" alt="slab" class="track-image" />
-            <div class="text-center">
+            <div class="text-center bridge-text">
               <!-- Slab -->{{$t('slab')}}
             </div>
           </div>
@@ -63,12 +63,38 @@ const trafficToggle = ref('box');
 
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .bridge-selector {
   grid-area: b;
 }
+.traffic-toggle {
+  display: inline-grid;
+    grid-auto-flow: column;
+    /* width: -webkit-fill-available; */
+    width: 100%;
+    width: -moz-available;
+    width: -webkit-fill-available;
+}
+
+:deep(.q-btn[aria-pressed="true"]) {
+    background-color: #dcdcdc;
+    border-radius: 6px;
+    .bridge-text {
+      color: $primary;
+      font-size: 0.5rem;
+      font-weight: bold;
+    }
+}
+:deep(.q-btn[aria-pressed="false"]) {
+    .bridge-text {
+      color: #000;
+      font-size: 0.5rem;
+      font-weight: normal;
+    }
+}
+
 .track-image {
-  width: 50px;
+  width: 150px;
   height: 50px;
 }
 </style>
