@@ -36,8 +36,8 @@
       />
       </div>
       <div class="row q-mt-md transversal-image">
-        <img src="/slab-cantilever.svg" alt="cantilever" v-if="isCantileverEnabled" />
-        <img src="/slab-between-beams.svg" alt="slab between beams" v-else />
+        <img class="" src="/slab-cantilever.svg" alt="cantilever" v-if="isCantileverEnabled" />
+        <img class="" src="/slab-between-beams.svg" alt="slab between beams" v-else />
       </div>
 
       <div class="row q-mt-md dimension items-center">
@@ -203,6 +203,7 @@ const span = computed({
   img {
     max-width: 300px;
     min-width: 300px;
+    height: 100px;
     width: fill;
   }
 }
