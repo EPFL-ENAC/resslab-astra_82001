@@ -1,6 +1,6 @@
 <template>
   <container class="longitudinal-verification">
-    <section class="longitudinal-header" aria-labelledby="longitudinal-title">
+    <!-- <section class="longitudinal-header" aria-labelledby="longitudinal-title">
       <h3 id="longitudinal-title" class="verification-title">
         <q-toggle
         :false-value="false"
@@ -11,10 +11,12 @@
       />
 
       </h3>
+    </section> -->
+    <section>
+      <h3 class="longitudinal-header">{{ $t('longitudinal-verification') }}</h3>
     </section>
 
     <section class="longitudinal-inputs" aria-labelledby="longitudinal-title" v-if="isEnabled">
-
       <div class="row q-mt-md dimension items-center">
         <div class="col-2">
           <q-badge color="secondary">
@@ -76,7 +78,7 @@
       </div>
     </section>
     <section class="longitudinal-image" aria-label="longitudinal-image" v-if="isEnabled">
-      <img src="/public/box-longitudinal.svg" alt="Longitudinal Verification" />
+      <img src="/box-longitudinal.svg" alt="Longitudinal Verification" />
       </section>
     <section class="longitudinal-results alpha-footer" aria-lable=""  v-if="isEnabled">
 
@@ -200,4 +202,9 @@ const width = computed({
   line-height: 1.4;
 }
 
+.longitudinal-header {
+  margin: 0 0 1rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
 </style>

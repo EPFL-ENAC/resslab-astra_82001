@@ -15,7 +15,7 @@
       >
         <template v-slot:one="">
           <div class="col items-center no-wrap" :title="$t('box')">
-            <img src="/public/box.svg" alt="box" class="track-image" />
+            <img src="/box.svg" alt="box" class="track-image" />
             <div class="text-center" >
               <!-- Box -->
               {{ $t('box') }}
@@ -25,7 +25,7 @@
 
         <template v-slot:two>
           <div class="col items-center no-wrap" :title="$t('twin-girder')">
-            <img src="/public/twin-girder.svg" alt="twin girder" class="track-image" />
+            <img src="/twin-girder.svg" alt="twin girder" class="track-image" />
             <div class="text-center">
               <!-- Twin Girder -->{{$t('twin-girder')}}
             </div>
@@ -34,7 +34,7 @@
         </template>
         <template v-slot:three>
           <div class="col items-center no-wrap" :title="$t('multi-girder')">
-            <img src="/public/multi-girder.svg" alt="multi girder" class="track-image" />
+            <img src="/multi-girder.svg" alt="multi girder" class="track-image" />
             <div class="text-center">
               <!-- Multi Girder -->{{$t('multi-girder')}}
             </div>
@@ -42,7 +42,7 @@
         </template>
         <template v-slot:four>
           <div class="col items-center no-wrap"  :title="$t('slab')">
-            <img src="/public/slab.svg" alt="slab" class="track-image" />
+            <img src="/slab.svg" alt="slab" class="track-image" />
             <div class="text-center">
               <!-- Slab -->{{$t('slab')}}
             </div>

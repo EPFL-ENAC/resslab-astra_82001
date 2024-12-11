@@ -18,7 +18,7 @@
         <div class="row items-center no-wrap">
           <div class="text-center">
           </div>
-          <img :src="`/public/images/uni2l.png`" alt="one lane" class="track-image" />
+          <img :src="`/images/uni2l.png`" alt="one lane" class="track-image" />
           <span v-if="selectedLane === 'uni2l'">(–)</span>
         </div>
       </template>
@@ -26,7 +26,7 @@
         <div class="row items-center no-wrap">
           <div class="text-center">
           </div>
-          <img src="/public/images/bi2l.png" alt="two lanes" class="track-image" />
+          <img src="/images/bi2l.png" alt="two lanes" class="track-image" />
           <span v-if="selectedLane === 'bi2l'">(–)</span>
 
         </div>
@@ -35,7 +35,7 @@
         <div class="row items-center no-wrap">
           <div class="text-center">
           </div>
-          <img src="/public/images/bi4l.png" alt="three lanes" class="track-image" />
+          <img src="/images/bi4l.png" alt="three lanes" class="track-image" />
           <span v-if="selectedLane === 'bi4l'">(–)</span>
         </div>
         </template>

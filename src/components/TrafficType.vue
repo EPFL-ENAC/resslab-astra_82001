@@ -59,8 +59,8 @@ const goodQualityRoad = ref(false);
 const rBau = ref(false);
 
 // Remove /public from the path as it's automatically handled by Vite
-const classImage = '/public/class.svg';
-const classPlusImage = '/public/class-plus.svg';
+const classImage = '/class.svg';
+const classPlusImage = '/class-plus.svg';
 const trafficToggle = ref('class'); // Change initial value to match option value
 </script>
 

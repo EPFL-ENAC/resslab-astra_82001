@@ -1,5 +1,7 @@
 import { defineStore } from 'pinia';
+import { setTransitionHooks } from 'vue';
 
+export type SupportType = 'Simp' | 'Fixed' | 'Semi';
 interface VerificationState {
   selectedLane: 'uni2l'| 'bi2l' | 'uni4l' | 'bi4l';
   longitudinal: {
@@ -12,14 +14,16 @@ interface VerificationState {
   };
   transversal: {
     isEnabled: boolean;
+    isCantileverEnabled: boolean;
+    supportType: SupportType;
     span: number;
-    width: number;
     alphaQV: number;
     alphaQMneg: number;
     alphaQMpos: number;
   };
   // Add more verification-related state here as needed
 }
+
 
 export const useVerificationStore = defineStore('verification', {
   state: (): VerificationState => ({
@@ -34,10 +38,11 @@ export const useVerificationStore = defineStore('verification', {
     },
     // Initialize more verification-related state here as needed
     transversal: {
+      isCantileverEnabled: false,
       isEnabled: true,
-      span: 80,
-      width: 9,
+      span: 8,
       alphaQV: 0,
+      supportType: 'Simp',
       alphaQMneg: 0,
       alphaQMpos: 0,
     }
@@ -75,12 +80,8 @@ export const useVerificationStore = defineStore('verification', {
     setTransversalSpan(span: number) {
       this.transversal.span = span;
     },
-    setTransversalWidth(width: number) {
-      this.transversal.width = width;
-    },
-    updateTransversalDimensions(span: number, width: number) {
+    updateTransversalDimensions(span: number) {
       this.transversal.span = span;
-      this.transversal.width = width;
     },
     setTransversalAlphaQV(value: number) {
       this.transversal.alphaQV = value;
@@ -90,6 +91,12 @@ export const useVerificationStore = defineStore('verification', {
     },
     setTransversalAlphaQMpos(value: number) {
       this.transversal.alphaQMpos = value;
+    },
+    setTransversalCantileverEnabled(enabled: boolean) {
+      this.transversal.isCantileverEnabled = enabled;
+    },
+    setTransversalSupportType(supportType: SupportType) {
+      this.transversal.supportType = supportType;
     }
   },
 

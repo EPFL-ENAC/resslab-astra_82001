@@ -1,6 +1,6 @@
 <template>
 <container class="transversal-verification">
-    <section class="transversal-header" aria-labelledby="transversal-title">
+    <!-- <section class="transversal-header" aria-labelledby="transversal-title">
       <h3 id="transversal-title" class="verification-title">
         <q-toggle
         :false-value="false"
@@ -11,14 +11,102 @@
       />
 
       </h3>
+    </section> -->
+    <section>
+      <h3 class="transversal-header">{{ $t('transversal-verification') }}</h3>
     </section>
 
     <section class="transversal-inputs" aria-labelledby="transversal-title" v-if="isEnabled">
 
+      <div clsss="row q-mt-md">
+        <q-btn-toggle
+        v-model="isCantileverEnabled"
+        spread
+        class="isCantileverEnabled-toggle"
+        no-caps
+        rounded
+        unelevated
+        toggle-color="primary"
+        color="white"
+        text-color="primary"
+        :options="[
+          {label: $t('cantilever'), value: true},
+          {label: $t('slab-between-beams'), value: false}
+        ]"
+      />
+      </div>
+      <div class="row q-mt-md transversal-image">
+        <img src="/slab-cantilever.svg" alt="cantilever" v-if="isCantileverEnabled" />
+        <img src="/slab-between-beams.svg" alt="slab between beams" v-else />
+      </div>
+
+      <div class="row q-mt-md dimension items-center">
+        <div class="col-2">
+          <q-badge color="secondary">
+            {{ $t("L") }}
+          </q-badge>
+        </div>
+        <div class="col-7">
+          <q-slider
+            v-model="span"
+            type="number"
+            :min="minSpan"
+            :max="maxSpan"
+
+            :suffix="`m`"
+            :step="0.1"
+          />
+        </div>
+        <div class="col-3">
+          <q-input
+            v-model.number="span"
+            type="number"
+            :min="minSpan"
+            :max="maxSpan"
+            :suffix="`m`"
+            :step="0.1"
+            dense
+            outlined
+          />
+        </div>
+      </div>
+      <div class="row q-mt-md support items-center">
+        <q-option-group
+              v-model="supportType"
+              class="support-type"
+              :options="[
+                  {label: $t('Simp'), value: 'Simp'},
+                  {label: $t('Fixed'), value: 'Fixed'},
+                  {label: $t('Semi'), value: 'Semi'}
+                ]"
+              color="primary"
+              inline
+            >
+          <template #label-0>
+            <div class="label-container">
+
+              <span>{{ $t('Simp') }}</span>
+              <img class="transversal-support-image" :src="`/${transversalTypeName}-1.png`" alt="support type" />
+            </div>
+          </template>
+          <template #label-1>
+            <div class="label-container">
+
+              <span>{{ $t('Fixed') }}</span>
+              <img class="transversal-support-image" :src="`/${transversalTypeName}-2.png`" alt="support type" />
+            </div>
+          </template>
+          <template #label-2>
+            <div class="label-container">
+
+              <span>{{ $t('Semi') }}</span>
+              <img class="transversal-support-image" :src="`/${transversalTypeName}-3.png`" alt="support type" />
+            </div>
+          </template>
+          </q-option-group>
+
+      </div>
     </section>
-    <section class="transversal-image" aria-label="transversal-image" v-if="isEnabled">
-      <img src="/public/box-transversal.svg" alt="transversal Verification" />
-      </section>
     <section class="transversal-results alpha-footer" aria-lable=""  v-if="isEnabled">
 
       <!-- show three values: alphaq sub V,M-,M+ -->
@@ -43,19 +131,71 @@ import { useVerificationStore } from '../stores/verification-store';
 
 const verificationStore = useVerificationStore();
 
+const transversalTypeName = computed({
+  get: () => verificationStore.transversal.isCantileverEnabled ? 'cantilever' : 'slab-between-beams',
+  set: () => null,
+});
+
 const isEnabled = computed({
   get: () => verificationStore.transversal.isEnabled,
   set: (value) => verificationStore.setTransversalEnabled(value)
 });
 
+
+const isCantileverEnabled = computed({
+  get: () => verificationStore.transversal.isCantileverEnabled,
+  set: (value) => verificationStore.setTransversalCantileverEnabled(value)
+});
+
+const supportType = computed({
+  get: () => verificationStore.transversal.supportType,
+  set: (value) => verificationStore.setTransversalSupportType(value)
+});
+
+const maxSpan = 9;
+const minSpan = 2;
+
+const span = computed({
+  get: () => verificationStore.transversal.span,
+  set: (value) => verificationStore.setTransversalSpan(value)
+})
+
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .transversal-verification {
   grid-area: e;
 }
 
+:deep(.support-type > div > .q-radio) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .q-radio__label {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: auto;
+    .label-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      img {
+        height: 60px;
+      }
+    }
+  }
+}
 
+
+.transversal-support-image {
+  max-width: 100px;
+  min-width: 100px;
+
+  padding: 1rem;
+  border: 1px solid var(--q-color-grey-3);
+}
 .transversal-image {
   padding: 1rem;
   border: 1px solid var(--q-color-grey-3);
@@ -127,5 +267,9 @@ const isEnabled = computed({
   line-height: 1.4;
 }
 
-
+.transversal-header {
+  margin: 0 0 1rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
 </style>
