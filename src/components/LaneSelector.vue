@@ -10,9 +10,9 @@
       flat
       dense
       :options="[
-        {value: 'uni2l', slot: 'one'},
-        {value: 'bi2l', slot: 'two'},
-        {value: 'bi4l', slot: 'three'},
+        {value: 'Uni2L', slot: 'one'},
+        {value: 'Bi2L', slot: 'two'},
+        {value: 'Bi4L', slot: 'three'},
       ]">
       <template v-slot:one>
         <div class="col items-center no-wrap q-pa-md">

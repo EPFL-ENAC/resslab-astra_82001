@@ -74,21 +74,31 @@ const trafficToggle = ref('box');
     width: 100%;
     width: -moz-available;
     width: -webkit-fill-available;
+    :deep(.q-btn) {
+      border-right: 1px solid $red-2;
+    }
+    :deep(.q-btn:last-of-type) {
+      border-right: 0px;
+    }
+    background-color: white;
+    border-radius: 4px;
+    border: 1px solid grey;
 }
 
 :deep(.q-btn[aria-pressed="true"]) {
-    background-color: #dcdcdc;
-    border-radius: 6px;
+    background-color: $red-2;
+    // border-radius: 6px;
+
     .bridge-text {
-      color: $primary;
-      font-size: 0.5rem;
+      // color: $secondary;
+      font-size: 1rem;
       font-weight: bold;
     }
 }
 :deep(.q-btn[aria-pressed="false"]) {
     .bridge-text {
       color: #000;
-      font-size: 0.5rem;
+      font-size: 1rem;
       font-weight: normal;
     }
 }

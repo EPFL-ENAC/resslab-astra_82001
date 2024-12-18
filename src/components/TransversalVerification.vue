@@ -204,7 +204,7 @@ const span = computed({
     max-width: 300px;
     min-width: 300px;
     height: 100px;
-    width: fill;
+    width: stretch;
   }
 }
 

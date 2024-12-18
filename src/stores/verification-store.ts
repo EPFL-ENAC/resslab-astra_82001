@@ -2,8 +2,11 @@ import { defineStore } from 'pinia';
 import { setTransitionHooks } from 'vue';
 
 export type SupportType = 'Simp' | 'Fixed' | 'Semi';
+export type BridgeType = 'Slab' | 'Multi' | 'Twin' | 'Box';
+export type LaneType = 'Uni2L' | 'Bi2L' | 'Bi4L';
 interface VerificationState {
-  selectedLane: 'uni2l'| 'bi2l' | 'uni4l' | 'bi4l';
+  selectedLane: LaneType;
+  bridgeType: BridgeType;
   longitudinal: {
     isEnabled: boolean;
     span: number;
@@ -27,7 +30,8 @@ interface VerificationState {
 
 export const useVerificationStore = defineStore('verification', {
   state: (): VerificationState => ({
-    selectedLane: 'uni2l',
+    selectedLane: 'Uni2L',
+    bridgeType: 'Box',
     longitudinal: {
       isEnabled: true,
       span: 80,
@@ -49,8 +53,11 @@ export const useVerificationStore = defineStore('verification', {
   }),
 
   actions: {
-    setLane(lane: 'uni2l'| 'bi2l' | 'uni4l' | 'bi4l') {
+    setLane(lane: LaneType) {
       this.selectedLane = lane;
+    },
+    setBridgeType(bridgeType: BridgeType) {
+      this.bridgeType = bridgeType;
     },
     setLongitudinalEnabled(enabled: boolean) {
       this.longitudinal.isEnabled = enabled;
@@ -103,6 +110,7 @@ export const useVerificationStore = defineStore('verification', {
   getters: {
     getLongitudinalConfig: (state) => state.longitudinal,
     getLane: (state) => state.selectedLane,
+    getBridgeType: (state) => state.bridgeType,
     getTransversalConfig: (state) => state.transversal,
   }
 });

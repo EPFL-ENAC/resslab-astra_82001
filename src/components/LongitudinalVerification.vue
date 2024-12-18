@@ -76,6 +76,10 @@
           />
         </div>
       </div>
+      <div class="row " v-if="bridgeType === 'Twin'">
+        <!-- select between composite and concrete -->
+
+      </div>
     </section>
     <section class="longitudinal-image" aria-label="longitudinal-image" v-if="isEnabled">
       <img src="/box-longitudinal.svg" alt="Longitudinal Verification" />
@@ -127,6 +131,8 @@ const width = computed({
   get: () => verificationStore.longitudinal.width,
   set: (value) => verificationStore.setLongitudinalWidth(value)
 });
+
+const bridgeType = computed(() => verificationStore.bridgeType);
 </script>
 
 <style lang="scss" scoped>
@@ -138,7 +144,7 @@ const width = computed({
   img {
     max-width: 300px;
     min-width: 300px;
-    width: fill;
+    width: stretch;
   }
 }
 
