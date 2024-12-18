@@ -81,8 +81,8 @@ const trafficToggle = ref('box');
       border-right: 0px;
     }
     background-color: white;
-    border-radius: 4px;
-    border: 1px solid grey;
+    border-radius: $button-border-radius;
+    border: 1px solid $red-2;
 }
 
 :deep(.q-btn[aria-pressed="true"]) {
@@ -105,6 +105,6 @@ const trafficToggle = ref('box');
 
 .track-image {
   width: 150px;
-  height: 50px;
+  height: var(--header-image-height);
 }
 </style>
