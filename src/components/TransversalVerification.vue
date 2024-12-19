@@ -112,13 +112,13 @@
       <!-- show three values: alphaq sub V,M-,M+ -->
       <ul class="alpha-list">
       <li class="alpha-item">
-        &alpha;<sub>V</sub> &equals; {{ alphaQV }}
+        &alpha;<sub>V</sub> &equals; {{ alpha.alphaV }}
       </li>
       <li class="alpha-item">
-        &alpha;<sub>M-</sub> &equals; {{ alphaQMneg }}
+        &alpha;<sub>M-</sub> &equals; {{ alpha.alphaMn }}
       </li>
       <li class="alpha-item">
-        &alpha;<sub>M+</sub> &equals; {{ alphaQMpos }}
+        &alpha;<sub>M+</sub> &equals; {{ alpha.alphaMp }}
       </li>
     </ul>
     </section>
@@ -130,6 +130,9 @@ import { computed } from 'vue';
 import { useVerificationStore } from '../stores/verification-store';
 
 const verificationStore = useVerificationStore();
+
+const alpha = computed(() => verificationStore.getTransversalAlpha);
+
 
 const transversalTypeName = computed({
   get: () => verificationStore.transversal.isCantileverEnabled ? 'cantilever' : 'slab-between-beams',

@@ -85,17 +85,17 @@
       <img src="/box-longitudinal.svg" alt="Longitudinal Verification" />
       </section>
     <section class="longitudinal-results alpha-footer" aria-lable=""  v-if="isEnabled">
-
+      {{ alpha }}
       <!-- show three values: alphaq sub V,M-,M+ -->
       <ul class="alpha-list">
       <li class="alpha-item">
-        &alpha;<sub>V</sub> &equals; {{ alphaQV }}
+        &alpha;<sub>V</sub> &equals; {{ alpha.alphaV }}
       </li>
       <li class="alpha-item">
-        &alpha;<sub>M-</sub> &equals; {{ alphaQMneg }}
+        &alpha;<sub>M-</sub> &equals; {{ alpha.alphaMn }}
       </li>
       <li class="alpha-item">
-        &alpha;<sub>M+</sub> &equals; {{ alphaQMpos }}
+        &alpha;<sub>M+</sub> &equals; {{ alpha.alphaMp }}
       </li>
     </ul>
     </section>
@@ -110,12 +110,11 @@ const verificationStore = useVerificationStore();
 
 const maxSpan = 80;
 const minSpan = 4;
-const maxWidth = 16;
+
+const maxWidth = 18;
 const minWidth = 9;
 
-const alphaQV = computed(() => verificationStore.longitudinal.alphaQV);
-const alphaQMneg = computed(() => verificationStore.longitudinal.alphaQMneg);
-const alphaQMpos = computed(() => verificationStore.longitudinal.alphaQMpos);
+const alpha = computed(() => verificationStore.getLongitudinalAlpha);
 // Create computed properties for two-way binding
 const isEnabled = computed({
   get: () => verificationStore.longitudinal.isEnabled,

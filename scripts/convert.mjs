@@ -1,6 +1,24 @@
 import csv from 'csvtojson';
 import { writeFileSync } from 'fs';
 
+const widthToMeters = (widthKey) => ({
+  wid18: 18,
+  wid12: 12,
+  wid9: 9,
+  Wid108: 10.8,
+  Wid9: 9,
+  Wid18: 18,
+  Wid1_22: 1.22,
+  Wid2_33: 2.33,
+  Wid3_44: 3.44,
+  Wid4_56: 4.56,
+  Wid5_67: 5.67,
+  Wid6_78: 6.78,
+  Wid3: 3,
+  Wid7_5: 7.5,
+  Wid12: 12,
+}[widthKey]);
+
 csv({ checkType: true, ignoreEmpty: true, trim: true })
   .fromFile('./src/assets/data/data.csv')
   .then((jsonObj) => {
@@ -10,7 +28,7 @@ csv({ checkType: true, ignoreEmpty: true, trim: true })
       result.push({
         'Type': obj.Type,
         'SubType': obj.SubType,
-        'Width': obj.Width,
+        'Width': widthToMeters(obj.Width),
         'Support': obj.Support,
         'Trans': obj.Trans,
         'AE': obj.AE,
