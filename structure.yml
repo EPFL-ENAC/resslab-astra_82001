@@ -1,0 +1,35 @@
+Here is the content translated to YAML format:
+
+type_to_width:
+  box:
+    'l < 9': not possible
+    '9 <l< 12': use value for 12
+    '12<l< 18': interpolate
+    'l> 18': Not possible
+  twin:
+    '9 <l< 12': use value for 9
+  multi:
+    'l< 10.8': not possible
+    'l> 10.8': same as 10.8 (because of different beam analysis explicitly indicated)
+  slab:
+    'l=9': not possible
+    '9 <l< 18': interpolate
+    'l> 18': not possible
+  dalle_de_roulement:
+    porte_a_faux:
+      'l< 1.22': not possible
+      interpolate_in_between_values: ''
+      'l> 6.78': not possible
+    dalle_entre_poutre:
+      'l< 3': not possible
+      interpolate_in_between_values: ''
+      'l> 12': not possible
+
+type_to_span: >
+  Interpolate between given value. Values outside of the given values not allowed for the type of bridge
+
+type_to_support:
+  point_dalle:
+    semi_or_fixed:
+    'M-  < 50% < M_fully fixed': use Semi
+    '50% M_< 100% M_fully fixed': use highest alpha between the two'
