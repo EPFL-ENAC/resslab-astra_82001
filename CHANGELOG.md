@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.1](https://github.com/EPFL-ENAC/resslab-astra_82001/compare/v1.4.0...v1.4.1) (2025-01-06)
+
+
+### Bug Fixes
+
+* remove dead code and typescript errors ([0873ec2](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/0873ec2d4b6ab4bd24d1b861a21e9c0f4b6ba538))
+
 ## [1.4.0](https://github.com/EPFL-ENAC/resslab-astra_82001/compare/v1.3.0...v1.4.0) (2025-01-06)
 
 
