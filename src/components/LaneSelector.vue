@@ -1,7 +1,7 @@
 <template>
   <div class="lane-selector">
-    <h3 style="font-size: medium; display: none">
-      {{ $t('lane-selector') }}: {{ selectedLane }}
+    <h3>
+      {{ $t('lane-configuration') }}
     </h3>
     <q-btn-toggle
       class="lane-toggle"

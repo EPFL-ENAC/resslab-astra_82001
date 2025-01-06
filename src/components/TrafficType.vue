@@ -1,6 +1,6 @@
 <template>
   <div class="traffic-type">
-    <title>Traffic type <q-info> What's traffic type you say ?</q-info></title>
+    <h3>Traffic type <q-tooltip> description </q-tooltip></h3>
     <q-btn-toggle
         class="traffic-toggle"
         v-model="trafficToggle"
@@ -39,6 +39,7 @@
       color="red"
       v-model="goodQualityRoad"
     />
+    <q-tooltip> description goodQualityRoad </q-tooltip>
     <q-toggle
       class="r-bau"
       :false-value="false"
@@ -47,6 +48,7 @@
       color="blue"
       v-model="rBau"
     />
+    <q-tooltip> description rBau </q-tooltip>
   </div>
 </template>
 
