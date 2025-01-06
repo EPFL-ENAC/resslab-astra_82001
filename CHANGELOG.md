@@ -1,5 +1,30 @@
 # Changelog
 
+## [1.4.0](https://github.com/EPFL-ENAC/resslab-astra_82001/compare/v1.3.0...v1.4.0) (2025-01-06)
+
+
+### Features
+
+* add images and components ([0be0408](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/0be0408b483277076978991d6d5607a79f094c44))
+* add most of the components for the design ([703f28d](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/703f28d120960078851fbc43c85d59c2b402edf3))
+* add most of the components for the design ([295e6e8](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/295e6e8f76b13238d6a498c071ed5a88c48748db))
+* add most of the components for the design ([d76b65f](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/d76b65fc9368463053fd373241ebdd98aca39320))
+* add most of the components for the design ([3da5282](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/3da52829adbadf57c21c21e21b54249f0a747ade))
+* add most of the components for the design ([1033923](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/10339231f23d143a2a5718766740df169e3fae95))
+* add most of the components for the design ([467508f](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/467508f7f709889bb3cf8dae80dc6dcdc73810ab))
+* add transversal first draft ([7184223](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/7184223aa731088edfe07c985edc0912dfb689ed))
+* enhance styling for bridge and traffic type components ([c78392e](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/c78392e38de93485a57f22c5fdc1927473abe8b8))
+* **images:** add missing svg as png ([3d6456a](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/3d6456ab9955f5c178803b518f706470d2ffae15))
+* improve a bit bridge selection css ([a36c59e](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/a36c59eedee1af663a1a83c91307a37733c21a72))
+* improve a bit lane selection ([95ccc18](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/95ccc1831d5c4457509ee2dc7e9e09a1e1a29046))
+* improve a bit lane selection ([ac6a6f6](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/ac6a6f6ab15e8c2bb2e64b308f416ac600c22c59))
+* wip interpolation ([3701173](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/37011738696ecf556daed62cdc0af55f2567693c))
+
+
+### Bug Fixes
+
+* **bridge-selector:** better css for bridge selector ([cc1bb2d](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/cc1bb2dbe874321ebe6fb17fb58ec64ea9d751a4))
+
 ## [1.3.0](https://github.com/EPFL-ENAC/resslab-astra_82001/compare/v1.2.1...v1.3.0) (2024-12-09)
 
 
