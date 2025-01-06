@@ -47,7 +47,6 @@ function getMatrixOrValueFromJson(width: number, span: number, traffic: Traffic,
   return filtered.filter(x => x.Width === width && x.Span === span);
  }
  else {
-  // debugger;
   // find the 4 closest points
   const points = filtered.map(x => ({ Width: x.Width, Span: x.Span, class: x[selectedClass]}));
   // sort by width, then by span so that points looks always like this:
@@ -75,7 +74,6 @@ function bilinearInterpolation(matrix, targetWidth, targetSpan) {
     ]
   */
   const points = matrix.sort((a, b) => a.Width - b.Width || a.Span - b.Span);
-  debugger;
   const [p1, p2, p3, p4] = points;
   //    [q11, q12, q21, q22] = points.map(p => p.class); // basically the same as below
 
@@ -253,7 +251,7 @@ export const useVerificationStore = defineStore('verification', {
       // need to filter AE V, Mn, MxMid, MxEdg, Mp
       try {
 
-        const alphaV = 0;
+        let alphaV = 0;
         if (matrix.length === 1) {
           alphaV = matrix?.[0]?.[state.selectedClass];
         } else {
