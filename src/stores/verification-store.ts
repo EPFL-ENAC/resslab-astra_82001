@@ -95,6 +95,28 @@ function bilinearInterpolation(matrix, targetWidth, targetSpan) {
   return P;
 }
 
+/*
+Bilinear interpolation is used to estimate a value at a point \((x, y)\) within a rectangle defined by four known values \(Q_{11}\), \(Q_{12}\), \(Q_{21}\), and \(Q_{22}\), corresponding to the corners \((x_1, y_1)\), \((x_1, y_2)\), \((x_2, y_1)\), and \((x_2, y_2)\), respectively.
+
+The general formula for bilinear interpolation is:
+
+\[
+f(x, y) = \frac{1}{(x_2 - x_1)(y_2 - y_1)} \Big[ Q_{11}(x_2 - x)(y_2 - y) + Q_{21}(x - x_1)(y_2 - y) + Q_{12}(x_2 - x)(y - y_1) + Q_{22}(x - x_1)(y - y_1) \Big]
+\]
+
+When \(y_1 = y_2\), the points \((x_1, y_1)\) and \((x_2, y_2)\) collapse along the horizontal line \(y_1\), making interpolation along the \(y\)-direction undefined or unnecessary.
+
+In this special case:
+1. The interpolation reduces to **linear interpolation along the x-axis** between \(Q_{11}\) and \(Q_{21}\) (or between \(Q_{12}\) and \(Q_{22}\), depending on the point):
+   \[
+   f(x, y_1) = \frac{(x_2 - x)Q_{11} + (x - x_1)Q_{21}}{x_2 - x_1}
+   \]
+
+2. Since \(y_1 = y_2\), the result is independent of \(y\), and the interpolation simplifies to the linear interpolation above.
+
+Thus, bilinear interpolation degenerates to a simple 1D linear interpolation when \(y_1 = y_2\).
+*/
+
 
 
 // Example usage

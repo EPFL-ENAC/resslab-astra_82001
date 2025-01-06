@@ -1,5 +1,6 @@
 <template>
   <div class="bridge-selector">
+    <h3 class="bridge-header">{{ $t('bridge-type') }}</h3>
     <q-btn-toggle
         class="traffic-toggle"
         v-model="trafficToggle"
@@ -66,6 +67,13 @@ const trafficToggle = ref('box');
 <style lang="scss" scoped>
 .bridge-selector {
   grid-area: b;
+}
+.bridge-header {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  // center the text
+  text-align: center;
 }
 .traffic-toggle {
   display: inline-grid;

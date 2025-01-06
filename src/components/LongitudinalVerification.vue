@@ -85,7 +85,7 @@
       <img src="/box-longitudinal.svg" alt="Longitudinal Verification" />
       </section>
     <section class="longitudinal-results alpha-footer" aria-lable=""  v-if="isEnabled">
-      {{ alpha }}
+      <!-- {{ alpha }} -->
       <!-- show three values: alphaq sub V,M-,M+ -->
       <ul class="alpha-list">
       <li class="alpha-item">
