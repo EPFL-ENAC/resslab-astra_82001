@@ -2,8 +2,10 @@ id,en,fr,de,it,desc_en,desc_fr,desc_de,desc_it
 type_of_bridge,Type of bridge,Type de pont,Brücke,Tipo di ponte,Type of bridge,Type de pont,Brücke,Tipo di ponte
 box,Box,Caisson,Hohlkasten,Cassone,Box,Caisson,Hohlkasten,Cassone
 multi,Multigirder,Multipoutre,mehrstegiger Plattenbalken,Multitrave,Multigirder,Multipoutre,mehrstegiger Plattenbalken,Multitrave
+multi-girder,Multigirder,Multipoutre,mehrstegiger Plattenbalken,Multitrave,Multigirder,Multipoutre,mehrstegiger Plattenbalken,Multitrave
 slab,Slab,Dalle,Platte,Piastra,Slab,Dalle,Platte,Piastra
 twin,Twingirder,Bipoutre,Doppelträger,Doppia trave,Twingirder,Bipoutre,Doppelträger,Doppia trave
+twin-girder,Twingirder,Bipoutre,Doppelträger,Doppia trave,Twingirder,Bipoutre,Doppelträger,Doppia trave
 subtype_of_bridge,Subtype of bridge,Sous-type de pont,Untertyp,Sottotipo di ponte,Subtype of bridge,Sous-type de pont,Untertyp,Sottotipo di ponte
 stand,Standard,Standard,Standard,Standard,Standard,Standard,Standard,Standard
 long,Long,Longue,Long,Lungo,Long,Longue,Long,Lungo
@@ -37,5 +39,13 @@ classow,Class+ (40T + Mobile Crane up to 96T),Classe+ (40T + Grue mobile jusqu'�
 longitudinal,Longitudinal,Longitudinal,Longitudinal,Longitudinale,Longitudinal,Longitudinal,Longitudinal,Longitudinale
 longitudinal (poutres),Longitudinal (beams),Longitudinal (poutres),Longitudinal (Balken),Longitudinale (travi),Longitudinal (beams),Longitudinal (poutres),Longitudinal (Balken),Longitudinale (travi)
 alpha_values,Alpha values,Alpha valeurs,Alpha Werte,Valori alfa,Alpha values,Alpha valeurs,Alpha Werte,Valori alfa
-good_quality_road,Good quality road,Route de bonne qualité,Gute Straßenqualität,Strada di buona qualità
+good_quality_road,Very good quality road,Route de très bonne qualité,Das Gute Straßenqualität,Strada di buona qualità
 bad_quality_road,Bad quality road,Mauvaise route,Schlechte Straßenqualität,Strada di cattiva qualità
+longitudinal_verification_enabled,Longitudinal verification enabled,Vérification longitudinale activée,Längsrichtung Überprüfung aktiviert,Verifica longitudinale attivata
+longitudinal_verification_disabled,Longitudinal verification disabled,Vérification longitudinale désactivée,Längsrichtung Überprüfung deaktiviert,Verifica longitudinale disattivata
+longitudinal_verification,Longitudinal verification,Vérification longitudinale,Längsrichtung Überprüfung,Verifica longitudinale
+transversal_verification_enabled,Transversal verification enabled,Vérification transversale activée,Querrichtung Überprüfung aktiviert,Verifica trasversale attivata
+transversal_verification_disabled,Transversal verification disabled,Vérification transversale désactivée,Querrichtung Überprüfung deaktiviert,Verifica trasversale disattivata
+transversal_verification,Transversal verification,Vérification transversale,Querrichtung Überprüfung,Verifica trasversale
+r_bau_disabled, R Bau disabled,R construction désactivée,,R Bau deaktiviert,Costruzione r attivata
+r_bau_enabled, R Bau enabled,R construction activée,R Bau aktiviert,Costruzione r disattivata
