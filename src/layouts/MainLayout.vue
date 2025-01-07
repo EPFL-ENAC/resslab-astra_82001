@@ -1,6 +1,6 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
+    <q-header elevated class="bg-white text-primary">
       <q-toolbar>
 
         <q-toolbar-title>
@@ -12,20 +12,20 @@
         :options="betaOptions"
         dense
         outlined
-        class="q-mr-md white-options-and-label"/>
+        class="q-mr-md"/>
         <q-select
         v-model="phyCal"
         :options="phyCalOptions"
         :disable="true"
         dense
         outlined
-        class="q-mr-md white-options-and-label"/>
+        class="q-mr-md"/>
         <q-select
           v-model="lang"
           :options="langOptions"
           dense
           outlined
-          class="q-mr-md white-options-and-label"/>
+          class="q-mr-md"/>
         <q-btn
           flat
           round
@@ -139,9 +139,4 @@ const phyCal = computed(() => (phyCalOptions.value[0]));
 </script>
 
 <style lang="scss" scoped>
-.white-options-and-label {
-  :deep(.q-field__native, .q-field__prefix, .q-field__suffix, .q-field__input) {
-    color: white;
-  }
-}
 </style>

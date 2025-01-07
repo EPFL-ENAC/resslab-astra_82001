@@ -25,11 +25,13 @@ const props = defineProps<{
 
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@import 'src/css/quasar.variables.scss';
+
 .alpha-footer {
   grid-area: f;
   padding: 1rem;
-  border: 1px solid #FFB6C1;
+  border: 1px solid $primary;
   border-radius: 8px;
   background: #fff;
 }

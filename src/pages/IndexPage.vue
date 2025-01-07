@@ -53,6 +53,7 @@
 </template>
 
 <style lang="scss">
+@import 'src/css/quasar.variables.scss';
 .grid-astra {
   display: grid;
   grid-template-areas:
@@ -67,7 +68,7 @@
   grid-template-rows: auto;
   padding: 10px;
   margin: 10px;
-  background-color: #f0f0f0;
+  background-color: $white;
 
   // but also column d and e taking at least 300px width each
   grid-template-columns: 1fr 2fr 2fr minmax(300px, 1fr);

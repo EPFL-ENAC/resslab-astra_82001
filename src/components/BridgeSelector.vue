@@ -1,6 +1,6 @@
 <template>
   <div class="bridge-selector">
-    <h3 class="bridge-header">{{ $t('bridge-type') }}</h3>
+    <h3 class="bridge-header">{{ $t('type_of_bridge') }}</h3>
     <q-btn-toggle
         class="traffic-toggle"
         v-model="trafficToggle"
@@ -65,13 +65,15 @@ const trafficToggle = ref('box');
 </script>
 
 <style lang="scss" scoped>
+@import 'src/css/quasar.variables.scss';
 .bridge-selector {
   grid-area: b;
 }
 .bridge-header {
   font-size: 1.5rem;
   font-weight: bold;
-  margin-bottom: 1rem;
+  margin: 0rem;
+  margin-bottom: 0rem;
   // center the text
   text-align: center;
 }
@@ -82,19 +84,20 @@ const trafficToggle = ref('box');
     width: 100%;
     width: -moz-available;
     width: -webkit-fill-available;
-    :deep(.q-btn) {
-      border-right: 1px solid $red-2;
-    }
-    :deep(.q-btn:last-of-type) {
-      border-right: 0px;
-    }
+    // :deep(.q-btn) {
+    //   border-right: 1px solid $primary;
+    // }
+    // :deep(.q-btn:last-of-type) {
+    //   border-right: 0px;
+    // }
     background-color: white;
     border-radius: $button-border-radius;
-    border: 1px solid $red-2;
+    // border: 1px solid $primary;
 }
 
 :deep(.q-btn[aria-pressed="true"]) {
-    background-color: $red-2;
+    background-color: rgba($primary, 0.1);
+    color: $secondary;
     // border-radius: 6px;
 
     .bridge-text {

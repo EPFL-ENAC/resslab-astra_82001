@@ -13,6 +13,7 @@ short,Short,Court,Short,Corto,Short,Court,Short,Corto
 conc,Concrete,Beton,Beton,Calcestruzzo,Concrete,Beton,Beton,Calcestruzzo
 width,Width,Largeur,Breite,Larghezza,Width,Largeur,Breite,Larghezza
 traffic,Traffic,Trafic,Verkehr,Traffico,Traffic,Trafic,Verkehr,Traffico
+lanes,Lanes,Voies,Fahrspuren,Corsie,Lanes,Voies,Fahrspuren,Corsie
 uni2l,ONE-WAY TWO LANES, Unilatéral deux voies,Einseitig zwei Fahrspuren,Unilaterale due corsie,Unilateral two lanes,Unilatéral deux voies,Einseitig zwei Fahrspuren,Unilaterale due corsie,Unilateral two lanes
 bi2l, TWO-WAY TWO LANES, Bilatéral deux voies,Zweiseitig zwei Fahrspuren,Bilaterale due corsie,Bilateral two lanes, Bilatéral deux voies,Zweiseitig zwei Fahrspuren,Bilaterale due corsie
 bi4l, TWO-WAY FOUR LANES, Bilatéral quatre voies,Zweiseitig vier Fahrspuren,Bilaterale quattro corsie,Bilateral four lanes, Bilatéral quatre voies,Zweiseitig vier Fahrspuren,Bilaterale quattro corsie
@@ -49,3 +50,5 @@ transversal_verification_disabled,Transversal verification disabled,Vérificatio
 transversal_verification,Transversal verification,Vérification transversale,Querrichtung Überprüfung,Verifica trasversale
 r_bau_disabled, R Bau disabled,R construction désactivée,,R Bau deaktiviert,Costruzione r attivata
 r_bau_enabled, R Bau enabled,R construction activée,R Bau aktiviert,Costruzione r disattivata
+slab-between-beams,Slab between beams,Dalle entre poutres,Platte zwischen Balken,Piastra tra travi
+cantilever,Cantilever,Cantilier,Kante,Tonda

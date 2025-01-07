@@ -1,7 +1,7 @@
 <template>
   <div class="lane-selector">
-    <h3>
-      {{ $t('lane-configuration') }}
+    <h3 class="lane-header">
+      {{ $t('lanes') }}
     </h3>
     <q-btn-toggle
       class="lane-toggle"
@@ -61,6 +61,12 @@ const selectedLane = computed({
 </script>
 
 <style scoped lang="scss">
+.lane-header {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0px;
+  margin-bottom: 0rem;
+}
 /* have proper display color of selected lane */
 
 :deep(.q-btn[aria-pressed="true"]) {

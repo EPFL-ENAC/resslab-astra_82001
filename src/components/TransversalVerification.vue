@@ -13,7 +13,7 @@
       </h3>
     </section> -->
     <section>
-      <h3 class="transversal-header">{{ $t('transversal-verification') }}</h3>
+      <h3 class="transversal-header">{{ $t('transversal_verification') }}</h3>
     </section>
 
     <section class="transversal-inputs" aria-labelledby="transversal-title" v-if="isEnabled">
@@ -166,6 +166,7 @@ const span = computed({
 </script>
 
 <style lang="scss" scoped>
+@import 'src/css/quasar.variables.scss';
 .transversal-verification {
   grid-area: e;
 }
@@ -254,7 +255,7 @@ const span = computed({
 .alpha-footer {
   grid-area: f;
   padding: 1rem;
-  border: 1px solid #FFB6C1;
+  border: 1px solid var(--q-color-primary);
   border-radius: 8px;
   background: #fff;
 }

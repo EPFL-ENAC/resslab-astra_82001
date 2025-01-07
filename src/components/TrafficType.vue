@@ -1,6 +1,6 @@
 <template>
   <div class="traffic-type">
-    <h3>Traffic type <q-tooltip> description </q-tooltip></h3>
+    <h3 class="traffic-title">{{ $t('traffic')}}<q-tooltip> description </q-tooltip></h3>
     <q-btn-toggle
         class="traffic-toggle"
         v-model="trafficToggle"
@@ -67,6 +67,13 @@ const trafficToggle = ref('class'); // Change initial value to match option valu
 </script>
 
 <style scoped lang="scss">
+.traffic-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+    line-height: 2rem;
+    padding: 0;
+    margin: 0rem 0rem 1rem 0rem;
+}
 .traffic-toggle {
     display: inline-grid;
     grid-auto-flow: column;
