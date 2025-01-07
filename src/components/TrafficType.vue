@@ -15,7 +15,7 @@
         <template v-slot:one>
           <div class="col items-center no-wrap">
             <img :src="classImage" alt="class" class="track-image" />
-            <div class="text-center">
+            <div class="text-center text-subtitle2">
              class
             </div>
           </div>
@@ -24,7 +24,7 @@
         <template v-slot:two>
           <div class="col items-center no-wrap">
             <img :src="classPlusImage" alt="class plus" class="track-image" />
-            <div class="text-center">
+            <div class="text-center text-subtitle2">
               class+
             </div>
           </div>
@@ -36,7 +36,7 @@
       :false-value="false"
       :label="`${goodQualityRoad ? $t('good_quality_road') : $t('bad_quality_road')}`"
       :true-value="true"
-      color="red"
+      color="primary"
       v-model="goodQualityRoad"
     />
     <q-tooltip> description goodQualityRoad </q-tooltip>
@@ -45,7 +45,7 @@
       :false-value="false"
       :label="`${rBau ? $t('r_bau_enabled') : $t('r_bau_disabled')}`"
       :true-value="true"
-      color="blue"
+      color="secondary"
       v-model="rBau"
     />
     <q-tooltip> description rBau </q-tooltip>
@@ -81,19 +81,20 @@ const trafficToggle = ref('class'); // Change initial value to match option valu
     width: 100%;
     width: -moz-available;
     width: -webkit-fill-available;
-    :deep(.q-btn) {
-      border-right: 1px solid $red-2;
-    }
-    :deep(.q-btn:last-of-type) {
-      border-right: 0px;
-    }
+    // :deep(.q-btn) {
+    //   border-right: 1px solid $primary;
+    // }
+    // :deep(.q-btn:last-of-type) {
+    //   border-right: 0px;
+    // }
     background-color: white;
     border-radius: $button-border-radius;
-    border: 1px solid $red-2;
+    // border: 1px solid $primary;
 }
 
 :deep(.q-btn[aria-pressed="true"]) {
-    background-color: $red-2;
+    background-color: rgba($primary, 0.1);
+    color: $secondary;
     // border-radius: 6px;
 
     .bridge-text {
@@ -110,15 +111,38 @@ const trafficToggle = ref('class'); // Change initial value to match option valu
     }
 }
 
+// :deep(.q-btn[aria-pressed="true"]) {
+//     background-color: $primary;
+//     // border-radius: 6px;
+
+//     .bridge-text {
+//       // color: $secondary;
+//       font-size: 1rem;
+//       font-weight: bold;
+//     }
+// }
+// :deep(.q-btn[aria-pressed="false"]) {
+//     .bridge-text {
+//       color: #000;
+//       font-size: 1rem;
+//       font-weight: normal;
+//     }
+// }
+
 .traffic-type {
   grid-area: a;
   display: flex;
   flex-direction: column;
+
+
+  border: 1px solid var(--q-color-primary);
+  padding: 1rem;
+  border-radius: 0.5rem;
 }
 
 .toggle-image {
   width: 40px;
-  height: 40px;
+  height: px;
 }
 
 .toggle-track {
@@ -130,7 +154,7 @@ const trafficToggle = ref('class'); // Change initial value to match option valu
 
 .track-image {
   width: 100px;
-  height: var(--header-image-height);
+  height: 40px;
   /* Remove fill as it's not needed for img tags */
   padding: 4px; /* Add some padding inside the button */
 }

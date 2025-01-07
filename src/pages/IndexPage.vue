@@ -57,11 +57,11 @@
 .grid-astra {
   display: grid;
   grid-template-areas:
-    "a b b"
-    "c f f"
-    "c d e"
-    "c d e"
-    "c d e";
+    "a b  b "
+    "x f  f "
+    "c d  e "
+    "c d  e "
+    "c d  e ";
   grid-gap: 10px;
   // I wan to make the grid responsive and also having the first column to be 1fr and the second column to be 2fr
   // grid-template-columns: 1fr 2fr 2fr;
@@ -71,7 +71,7 @@
   background-color: $white;
 
   // but also column d and e taking at least 300px width each
-  grid-template-columns: 1fr 2fr 2fr minmax(300px, 1fr);
+  grid-template-columns: 1fr 2fr 2fr;
 }
 
 .traffic-type { grid-area: a; }
