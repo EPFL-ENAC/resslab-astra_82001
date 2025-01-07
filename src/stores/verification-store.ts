@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
-import { setTransitionHooks } from 'vue';
 
 export type SupportType = 'Simp' | 'Fixed' | 'Semi';
+export type BridgeComposition = 'Concrete' | 'Composite';
 export type BridgeType = 'Slab' | 'Multi' | 'Twin' | 'Box';
 export type LaneType = 'Uni2L' | 'Bi2L' | 'Bi4L';
 import data from '../assets/data/data.json';
@@ -11,6 +11,7 @@ interface VerificationState {
   selectedLane: LaneType;
   selectedClass: TrafficClass;
   bridgeType: BridgeType;
+  bridgeComposition: BridgeComposition;
   longitudinal: {
     isEnabled: boolean;
     span: number;
@@ -180,6 +181,7 @@ export const useVerificationStore = defineStore('verification', {
     selectedLane: 'Uni2L',
     selectedClass: 'Class',
     bridgeType: 'Box',
+    bridgeComposition: 'Concrete',
     longitudinal: {
       isEnabled: true,
       span: 80,
@@ -200,6 +202,9 @@ export const useVerificationStore = defineStore('verification', {
     },
     setBridgeType(bridgeType: BridgeType) {
       this.bridgeType = bridgeType;
+    },
+    setBridgeComposition(composition: BridgeComposition) {
+      this.bridgeComposition = composition;
     },
     setLongitudinalEnabled(enabled: boolean) {
       this.longitudinal.isEnabled = enabled;
@@ -235,6 +240,7 @@ export const useVerificationStore = defineStore('verification', {
     getLongitudinalConfig: (state) => state.longitudinal,
     getObjectiveTransversalWidth,
     getObjectiveLongitudinalWidth,
+    getBridgeComposition: (state) => state.bridgeComposition,
     getLongitudinalAlpha: (state) => {
 
       const selectedJson = data.filter(x =>

@@ -12,9 +12,7 @@
 
       </h3>
     </section> -->
-    <section>
-      <h3 class="transversal-header">{{ $t('transversal_verification') }}</h3>
-    </section>
+    <h3 class="transversal-header">{{ $t('transversal_verification') }}</h3>
 
     <section class="transversal-inputs" aria-labelledby="transversal-title" v-if="isEnabled">
 
@@ -83,7 +81,8 @@
           />
         </div>
       </div>
-      <div class="row q-mt-md support items-center">
+      <div class="col q-mt-md support items-center">
+        <h3 class="transversal-header">{{ $t('support') }}</h3>
         <q-option-group
               v-model="supportType"
               class="support-type"
