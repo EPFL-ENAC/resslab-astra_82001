@@ -2,23 +2,22 @@
   <div class="bridge-selector">
     <h3 class="bridge-header">{{ $t('type_of_bridge') }}</h3>
     <q-btn-toggle
-        class="traffic-toggle"
-        v-model="trafficToggle"
+        class="bridge-toggle"
+        v-model="bridgeToggle"
         color="primary"
         flat
         padding="md"
         :options="[
-          {value: 'box', slot: 'one'},
-          {value: 'twin-girder', slot: 'two'},
-          {value: 'multi-girder', slot: 'three'},
-          {value: 'slab', slot: 'four'},
+          {value: 'Box', slot: 'one'},
+          {value: 'Twin', slot: 'two'},
+          {value: 'Multi', slot: 'three'},
+          {value: 'Slab', slot: 'four'},
         ]"
       >
         <template v-slot:one="">
           <div class="col items-center no-wrap" :title="$t('box')">
             <q-img fit="contain" src="/box.svg" alt="box" class="track-image"/>
             <div class="text-center bridge-text" >
-              <!-- Box -->
               {{ $t('box') }}
             </div>
           </div>
@@ -28,16 +27,15 @@
           <div class="col items-center no-wrap" :title="$t('twin-girder')">
             <q-img fit="contain" src="/twin-girder.svg" alt="twin girder" class="track-image" />
             <div class="text-center bridge-text">
-              <!-- Twin Girder -->{{$t('twin-girder')}}
+              {{$t('twin-girder')}}
             </div>
           </div>
-
         </template>
         <template v-slot:three>
           <div class="col items-center no-wrap" :title="$t('multi-girder')">
             <q-img fit="contain" src="/multi-girder.svg" alt="multi girder" class="track-image" />
             <div class="text-center bridge-text">
-              <!-- Multi Girder -->{{$t('multi-girder')}}
+              {{$t('multi-girder')}}
             </div>
           </div>
         </template>
@@ -45,23 +43,24 @@
           <div class="col items-center no-wrap"  :title="$t('slab')">
             <q-img fit="contain" src="/slab.svg" alt="slab" class="track-image" />
             <div class="text-center bridge-text">
-              <!-- Slab -->{{$t('slab')}}
+              {{$t('slab')}}
             </div>
           </div>
-          </template>
-
-
+        </template>
       </q-btn-toggle>
   </div>
 </template>
 
 <script setup lang="ts">
-// generate code based on above template
-import { ref } from 'vue';
+import { computed } from 'vue';
+import { useVerificationStore } from '../stores/verification-store';
 
-const trafficToggle = ref('box');
+const verificationStore = useVerificationStore();
 
-
+const bridgeToggle = computed({
+  get: () => verificationStore.bridgeType,
+  set: (value) => verificationStore.setBridgeType(value)
+});
 </script>
 
 <style lang="scss" scoped>
@@ -74,48 +73,36 @@ const trafficToggle = ref('box');
   font-weight: bold;
   margin: 0rem;
   margin-bottom: 0rem;
-  // center the text
   text-align: left;
 }
-.traffic-toggle {
+.bridge-toggle {
   display: inline-grid;
-    grid-auto-flow: column;
-    /* width: -webkit-fill-available; */
-    width: 100%;
-    width: -moz-available;
-    width: -webkit-fill-available;
-    // :deep(.q-btn) {
-    //   border-right: 1px solid $primary;
-    // }
-    // :deep(.q-btn:last-of-type) {
-    //   border-right: 0px;
-    // }
-    background-color: white;
-    border-radius: $button-border-radius;
-    // border: 1px solid $primary;
+  grid-auto-flow: column;
+  width: 100%;
+  width: -moz-available;
+  width: -webkit-fill-available;
+  background-color: white;
+  border-radius: $button-border-radius;
 }
 
 :deep(.q-btn[aria-pressed="true"]) {
-    background-color: rgba($primary, 0.1);
-    color: $secondary;
-    // border-radius: 6px;
+  background-color: rgba($primary, 0.1);
+  color: $secondary;
 
-    .bridge-text {
-      // color: $secondary;
-      font-size: 1rem;
-      font-weight: bold;
-    }
+  .bridge-text {
+    font-size: 1rem;
+    font-weight: bold;
+  }
 }
 :deep(.q-btn[aria-pressed="false"]) {
-    .bridge-text {
-      color: #000;
-      font-size: 1rem;
-      font-weight: normal;
-    }
+  .bridge-text {
+    color: #000;
+    font-size: 1rem;
+    font-weight: normal;
+  }
 }
 
 .track-image {
-  // width: 150px;
   height: 50px;
 }
 </style>

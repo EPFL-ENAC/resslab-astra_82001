@@ -86,8 +86,28 @@
     <section class="longitudinal-image" aria-label="longitudinal-image" v-if="isEnabled">
       <!-- <img src="/box-longitudinal.svg" alt="Longitudinal Verification" /> -->
       <q-img src="/box-longitudinal.svg" alt="Longitudinal Verification"
+        v-if="bridgeType === 'Box'"
         style="height: 150px;"
         fit="contain" />  <!-- this is the image -->
+      <q-img src="/twin-girder-longitudinal-composite.svg" alt="Twin girder composite"
+        v-else-if="bridgeType === 'Twin' && bridgeComposition === 'Composite'"
+        style="height: 150px;"
+        fit="contain" />  <!-- this is the image -->
+        <q-img src="/twin-girder-longitudinal-concrete.svg" alt="twin girder concrete"
+        v-else-if="bridgeType === 'Twin' && bridgeComposition === 'Concrete'"
+        style="height: 150px;"
+        fit="contain" />  <!-- this is the image -->
+        <p v-else-if="bridgeType === 'Multi'">
+          <q-img src="/multi-girder-longitudinal-1.svg" alt="Multi girder "
+
+        style="height: 150px;"
+        fit="contain" />  <!-- this is the image -->
+        <q-img src="/multi-girder-longitudinal-2.svg" alt="Multi girder "
+
+        style="height: 150px;"
+        fit="contain" />  <!-- this is the image -->
+        </p>
+        <q-img v-else-if="bridgeType === 'Slab'" src="/slab-longitudinal.svg" alt="Slab" fit="contain" style="height:150px"/>
 
       </section>
     <section class="longitudinal-results alpha-footer" aria-lable=""  v-if="isEnabled">
@@ -138,6 +158,7 @@ const width = computed({
 });
 
 const bridgeType = computed(() => verificationStore.bridgeType);
+const bridgeComposition = computed(() => verificationStore.bridgeComposition);
 </script>
 
 <style lang="scss" scoped>
