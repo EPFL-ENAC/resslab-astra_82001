@@ -13,7 +13,7 @@
       </h3>
     </section> -->
     <section>
-      <h3 class="longitudinal-header">{{ $t('longitudinal-verification') }}</h3>
+      <h3 class="longitudinal-header">{{ $t('longitudinal_verification') }}</h3>
     </section>
 
     <section class="longitudinal-inputs" aria-labelledby="longitudinal-title" v-if="isEnabled">
@@ -135,6 +135,7 @@ const bridgeType = computed(() => verificationStore.bridgeType);
 </script>
 
 <style lang="scss" scoped>
+@import 'src/css/quasar.variables.scss';
 
 .longitudinal-image {
   padding: 1rem;
@@ -190,7 +191,7 @@ const bridgeType = computed(() => verificationStore.bridgeType);
 .alpha-footer {
   grid-area: f;
   padding: 1rem;
-  border: 1px solid #FFB6C1;
+  border: 1px solid $primary;
   border-radius: 8px;
   background: #fff;
 }
