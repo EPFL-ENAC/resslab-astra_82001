@@ -58,7 +58,7 @@
   display: grid;
   grid-template-areas:
     "a b  b "
-    "x f  f "
+    "a f  f "
     "c d  e "
     "c d  e "
     "c d  e ";
