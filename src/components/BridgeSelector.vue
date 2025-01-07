@@ -16,7 +16,7 @@
       >
         <template v-slot:one="">
           <div class="col items-center no-wrap" :title="$t('box')">
-            <img src="/box.svg" alt="box" class="track-image" />
+            <q-img fit="contain" src="/box.svg" alt="box" class="track-image"/>
             <div class="text-center bridge-text" >
               <!-- Box -->
               {{ $t('box') }}
@@ -26,7 +26,7 @@
 
         <template v-slot:two>
           <div class="col items-center no-wrap" :title="$t('twin-girder')">
-            <img src="/twin-girder.svg" alt="twin girder" class="track-image" />
+            <q-img fit="contain" src="/twin-girder.svg" alt="twin girder" class="track-image" />
             <div class="text-center bridge-text">
               <!-- Twin Girder -->{{$t('twin-girder')}}
             </div>
@@ -35,7 +35,7 @@
         </template>
         <template v-slot:three>
           <div class="col items-center no-wrap" :title="$t('multi-girder')">
-            <img src="/multi-girder.svg" alt="multi girder" class="track-image" />
+            <q-img fit="contain" src="/multi-girder.svg" alt="multi girder" class="track-image" />
             <div class="text-center bridge-text">
               <!-- Multi Girder -->{{$t('multi-girder')}}
             </div>
@@ -43,7 +43,7 @@
         </template>
         <template v-slot:four>
           <div class="col items-center no-wrap"  :title="$t('slab')">
-            <img src="/slab.svg" alt="slab" class="track-image" />
+            <q-img fit="contain" src="/slab.svg" alt="slab" class="track-image" />
             <div class="text-center bridge-text">
               <!-- Slab -->{{$t('slab')}}
             </div>
@@ -75,7 +75,7 @@ const trafficToggle = ref('box');
   margin: 0rem;
   margin-bottom: 0rem;
   // center the text
-  text-align: center;
+  text-align: left;
 }
 .traffic-toggle {
   display: inline-grid;
@@ -115,7 +115,7 @@ const trafficToggle = ref('box');
 }
 
 .track-image {
-  width: 150px;
-  height: var(--header-image-height);
+  // width: 150px;
+  height: 50px;
 }
 </style>

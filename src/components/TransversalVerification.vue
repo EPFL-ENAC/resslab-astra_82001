@@ -25,10 +25,10 @@
         class="isCantileverEnabled-toggle"
         no-caps
         rounded
-        unelevated
+
         toggle-color="primary"
         color="white"
-        text-color="primary"
+        text-color="black"
         :options="[
           {label: $t('cantilever'), value: true},
           {label: $t('slab-between-beams'), value: false}
@@ -36,8 +36,20 @@
       />
       </div>
       <div class="row q-mt-md transversal-image">
-        <img class="" src="/slab-cantilever.svg" alt="cantilever" v-if="isCantileverEnabled" />
-        <img class="" src="/slab-between-beams.svg" alt="slab between beams" v-else />
+        <q-img v-if="isCantileverEnabled"
+        src="/slab-cantilever.svg"
+        style="height: 150px;"
+        alt="cantilever"
+        fit="contain"
+      ></q-img>
+      <q-img v-else
+        src="/slab-between-beams.svg"
+        style="height: 150px;"
+        alt="cantilever"
+        fit="contain"
+      ></q-img>
+        <!-- <img class="" src="/slab-cantilever.svg" alt="cantilever" v-if="isCantileverEnabled" />
+        <img class="" src="/slab-between-beams.svg" alt="slab between beams" v-else /> -->
       </div>
 
       <div class="row q-mt-md dimension items-center">
@@ -48,6 +60,7 @@
         </div>
         <div class="col-7">
           <q-slider
+          class="transversal-slider"
             v-model="span"
             type="number"
             :min="minSpan"
@@ -167,6 +180,10 @@ const span = computed({
 
 <style lang="scss" scoped>
 @import 'src/css/quasar.variables.scss';
+.transversal-slider {
+  width: 100%;
+  padding-right: 1rem;
+}
 .transversal-verification {
   grid-area: e;
 }
@@ -205,7 +222,7 @@ const span = computed({
   border: 1px solid var(--q-color-grey-3);
   /* set maximum and min width to avoid flickering of screen */
   img {
-    max-width: 300px;
+    // max-width: 300px;
     min-width: 300px;
     height: 100px;
     width: stretch;
@@ -213,8 +230,8 @@ const span = computed({
 }
 
 .transversal-verification {
-  padding: 1rem;
-  border: 1px solid var(--q-color-grey-3);
+  // padding: 1rem;
+  // border: 1px solid var(--q-color-grey-3);
   /* set maximum and min width to avoid flickering of screen */
   /* max-width: 400px;
   min-width: 400px; */
@@ -273,8 +290,9 @@ const span = computed({
 }
 
 .transversal-header {
-  margin: 0 0 1rem;
-  font-size: 1.2rem;
-  font-weight: 500;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0px;
+  margin-bottom: 0rem;
 }
 </style>

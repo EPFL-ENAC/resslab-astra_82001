@@ -12,9 +12,7 @@
 
       </h3>
     </section> -->
-    <section>
       <h3 class="longitudinal-header">{{ $t('longitudinal_verification') }}</h3>
-    </section>
 
     <section class="longitudinal-inputs" aria-labelledby="longitudinal-title" v-if="isEnabled">
       <div class="row q-mt-md dimension items-center">
@@ -25,6 +23,7 @@
         </div>
         <div class="col-7">
           <q-slider
+          class="longitudinal-slider"
             v-model="span"
             type="number"
             :min="minSpan"
@@ -36,6 +35,7 @@
         </div>
         <div class="col-3">
           <q-input
+          class="longitudinal-slider-input"
             v-model.number="span"
             type="number"
             :min="minSpan"
@@ -56,6 +56,7 @@
         </div>
         <div class="col-7">
           <q-slider
+            class="longitudinal-slider"
             v-model="width"
             type="number"
             :min="minWidth"
@@ -65,6 +66,7 @@
         </div>
         <div class="col-3">
           <q-input
+            class="longitudinal-slider-input"
             v-model.number="width"
             type="number"
             :min="minWidth"
@@ -82,7 +84,11 @@
       </div>
     </section>
     <section class="longitudinal-image" aria-label="longitudinal-image" v-if="isEnabled">
-      <img src="/box-longitudinal.svg" alt="Longitudinal Verification" />
+      <!-- <img src="/box-longitudinal.svg" alt="Longitudinal Verification" /> -->
+      <q-img src="/box-longitudinal.svg" alt="Longitudinal Verification"
+        style="height: 150px;"
+        fit="contain" />  <!-- this is the image -->
+
       </section>
     <section class="longitudinal-results alpha-footer" aria-lable=""  v-if="isEnabled">
       <!-- {{ alpha }} -->
@@ -136,7 +142,10 @@ const bridgeType = computed(() => verificationStore.bridgeType);
 
 <style lang="scss" scoped>
 @import 'src/css/quasar.variables.scss';
-
+.longitudinal-slider {
+  width: 100%;
+  padding-right: 1rem;
+}
 .longitudinal-image {
   padding: 1rem;
   border: 1px solid var(--q-color-grey-3);
@@ -149,8 +158,8 @@ const bridgeType = computed(() => verificationStore.bridgeType);
 }
 
 .longitudinal-verification {
-  padding: 1rem;
-  border: 1px solid var(--q-color-grey-3);
+  // padding: 1rem;
+  // border: 1px solid var(--q-color-grey-3);
   /* set maximum and min width to avoid flickering of screen */
   /* max-width: 400px;
   min-width: 400px; */
@@ -209,8 +218,9 @@ const bridgeType = computed(() => verificationStore.bridgeType);
 }
 
 .longitudinal-header {
-  margin: 0 0 1rem;
-  font-size: 1.2rem;
-  font-weight: 500;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0px;
+  margin-bottom: 0rem;
 }
 </style>
