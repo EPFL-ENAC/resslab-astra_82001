@@ -19,7 +19,7 @@
           <div class="text-center lane-text text-small">
             {{ $t('uni2l') }}
           </div>
-          <img :src="`/images/uni2l.png`" alt="one lane" class="track-image" />
+          <img :src="`/uni2l.svg`" alt="one lane" class="track-image" />
           <!-- <span v-if="selectedLane === 'uni2l'">(–)</span> -->
         </div>
       </template>
@@ -28,7 +28,7 @@
           <div class="text-center lane-text text-small">
             {{ $t('bi2l') }}
           </div>
-          <img src="/images/bi2l.png" alt="two lanes" class="track-image" />
+          <img src="/bi2l.svg" alt="two lanes" class="track-image" />
           <!-- <span v-if="selectedLane === 'bi2l'">(–)</span> -->
 
         </div>
@@ -38,7 +38,7 @@
           <div class="text-center lane-text text-small">
             {{  $t('bi4l') }}
           </div>
-          <img src="/images/bi4l.png" alt="three lanes" class="track-image" />
+          <img src="/bi4l.svg" alt="three lanes" class="track-image" />
           <!-- <span v-if="selectedLane === 'bi4l'">(–)</span> -->
         </div>
         </template>
@@ -87,7 +87,7 @@ const selectedLane = computed({
   flex-direction: column;
 }
 .track-image {
-  width: 100px;
-  height: 100px;
+  // width: 100px;
+  // height: 100px;
 }
 </style>

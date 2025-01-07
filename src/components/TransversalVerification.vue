@@ -86,21 +86,21 @@
             <div class="label-container">
 
               <span>{{ $t('Simp') }}</span>
-              <img class="transversal-support-image" :src="`/${transversalTypeName}-1.png`" alt="support type" />
+              <img class="transversal-support-image" :src="`/${transversalTypeName}-1.svg`" alt="support type" />
             </div>
           </template>
           <template #label-1>
             <div class="label-container">
 
               <span>{{ $t('Fixed') }}</span>
-              <img class="transversal-support-image" :src="`/${transversalTypeName}-2.png`" alt="support type" />
+              <img class="transversal-support-image" :src="`/${transversalTypeName}-2.svg`" alt="support type" />
             </div>
           </template>
           <template #label-2>
             <div class="label-container">
 
               <span>{{ $t('Semi') }}</span>
-              <img class="transversal-support-image" :src="`/${transversalTypeName}-3.png`" alt="support type" />
+              <img class="transversal-support-image" :src="`/${transversalTypeName}-3.svg`" alt="support type" />
             </div>
           </template>
           </q-option-group>
