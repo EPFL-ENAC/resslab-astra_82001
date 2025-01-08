@@ -12,6 +12,8 @@ interface VerificationState {
   selectedClass: TrafficClass;
   bridgeType: BridgeType;
   bridgeComposition: BridgeComposition;
+  goodQualityRoad: boolean;
+  rBau: boolean;
   longitudinal: {
     isEnabled: boolean;
     span: number;
@@ -37,27 +39,46 @@ interface VerificationState {
 // const targetWidth = 15;
 // const targetSpan = 75;
 
-function getMatrixOrValueFromJson(width: number, span: number, traffic: Traffic, bridgeType: BridgeType, selectedClass: TrafficClass, ae: string) {
+function getMatrixOrValueFromJson(width: number, span: number, traffic: Traffic, bridgeType: BridgeType, selectedClass: TrafficClass) {
+  // return for each AE:
+  const AE = [
+    'V',
+    'Mp',
+    'Mn',
+    'MxMid',
+    'MxEdg',
+    'M'
+];
+  const resultMatrix: Record<string, any[]> = {};
   // if we want to take traffic lane into account
   //  const filtered = data.filter(x => x.Type === bridgeType && x.Traffic === traffic && x.AE === ae);
   // if we don't want to take traffic lane into account
- const filtered = data.filter(x => x.Type === bridgeType && x.AE === ae);
+  AE.forEach(ae => {
+    const filtered = data.filter(x => x.Type === bridgeType && x.AE === ae && x.Traffic === traffic);
 
- if ([10, 12, 15, 18].includes(width) && [70, 80].includes(span)) {
-  // no interpolation needed
-  return filtered.filter(x => x.Width === width && x.Span === span);
- }
- else {
-  // find the 4 closest points
-  const points = filtered.map(x => ({ Width: x.Width, Span: x.Span, class: x[selectedClass]}));
-  // sort by width, then by span so that points looks always like this:
-  // instead of using a or, I should first find two closest points on Width, then two closest points on Span
-  const [p1, p2] = points.sort((a, b) => a.Width - b.Width);
-  const [p3, p4] = points.sort((a, b) => a.Span - b.Span);
-  // const [p1, p2, p3, p4] = points.sort((a, b) => a.Width - b.Width || a.Span - b.Span);
-  // we need the matrix to have width and span like this: { Width: 18, Span: 80, class: 0.167184639 }
-  return [p1, p2, p3, p4];
- }
+    if ([10, 12, 15, 18].includes(width) && [70, 80].includes(span)) {
+      // no interpolation needed
+      console.log('no interpolation needed');
+      resultMatrix[ae] = filtered.filter(x => x.Width === width && x.Span === span);
+     }
+     else {
+      console.log('interpolating: finding 4 closest points');
+      // find the 4 closest points
+      const points = filtered.map(x => ({ Width: x.Width, Span: x.Span, class: x[selectedClass]}));
+      // sort by width, then by span so that points looks always like this:
+      // instead of using a or, I should first find two closest points on Width, then two closest points on Span
+      const [p1, p2] = points.sort((a, b) => a.Width - b.Width);
+      const [p3, p4] = points.sort((a, b) => a.Span - b.Span);
+      // const [p1, p2, p3, p4] = points.sort((a, b) => a.Width - b.Width || a.Span - b.Span);
+      // we need the matrix to have width and span like this: { Width: 18, Span: 80, class: 0.167184639 }
+      resultMatrix[ae] = [p1, p2, p3, p4];
+     }
+
+  })
+
+
+
+ return resultMatrix;
 }
 
 function bilinearInterpolation(matrix, targetWidth, targetSpan) {
@@ -181,6 +202,8 @@ export const useVerificationStore = defineStore('verification', {
     selectedLane: 'Uni2L',
     selectedClass: 'Class',
     bridgeType: 'Box',
+    goodQualityRoad: false,
+    rBau: false,
     bridgeComposition: 'Concrete',
     longitudinal: {
       isEnabled: true,
@@ -199,6 +222,15 @@ export const useVerificationStore = defineStore('verification', {
   actions: {
     setLane(lane: LaneType) {
       this.selectedLane = lane;
+    },
+    setGoodQualityRoad(goodQualityRoad: boolean) {
+      this.goodQualityRoad = goodQualityRoad;
+    },
+    setRBAU(roadBau: boolean) {
+      this.rBau = roadBau;
+    },
+    setSelectedClass(selectedClass: TrafficClass) {
+      this.selectedClass = selectedClass;
     },
     setBridgeType(bridgeType: BridgeType) {
       this.bridgeType = bridgeType;
@@ -241,7 +273,7 @@ export const useVerificationStore = defineStore('verification', {
     "VerficicationType": "Longitudinal",
     "Type": "Box",
     "SubType": "Composite",
-    "Lane": "Uni2L",
+    "Traffic": "Uni2L",
     "Width": 12,
     "Support": "Simp",
     "Trans": "p0",
@@ -274,28 +306,29 @@ export const useVerificationStore = defineStore('verification', {
       );
       console.log(selectedJson);
       const ObjWidth = getObjectiveLongitudinalWidth(state);
-      const matrix = getMatrixOrValueFromJson(ObjWidth, state.longitudinal.span, state.selectedLane, state.bridgeType, state.selectedClass, 'V');
+      const matrix = getMatrixOrValueFromJson(ObjWidth, state.longitudinal.span, state.selectedLane, state.bridgeType, state.selectedClass);
       // need to filter AE V, Mn, MxMid, MxEdg, Mp
-      try {
+      // try {
 
-        let alphaV = 0;
-        if (matrix.length === 1) {
-          alphaV = matrix?.[0]?.[state.selectedClass];
-        } else {
-          alphaV = bilinearInterpolation(matrix, ObjWidth, state.longitudinal.span);
-        }
-      } catch (e) {
-        console.error(e);
-      }
+      //   let alphaV = 0;
+      //   if (matrix.length === 1) {
+      //     alphaV = matrix?.[0]?.[state.selectedClass];
+      //   } else {
+      //     alphaV = bilinearInterpolation(matrix, ObjWidth, state.longitudinal.span);
+      //   }
+      // } catch (e) {
+      //   console.error(e);
+      // }
       return ({
-      ObjWidth,
-      matrix,
+      // ObjWidth,
+      // matrix,
       // realAlphaV: alphaV,
-      alphaV: selectedJson.filter(x => x.AE === 'V')?.[0]?.[state.selectedClass],
-      alphaMn: selectedJson.filter(x => x.AE === 'Mn')?.[0]?.[state.selectedClass],
-      alphaMp: selectedJson.filter(x => x.AE === 'Mp')?.[0]?.[state.selectedClass],
-      alphaMxMid: selectedJson.filter(x => x.AE === 'MxMid')?.[0]?.[state.selectedClass],
-      alphaMxEdg: selectedJson.filter(x => x.AE === 'MxEdg')?.[0]?.[state.selectedClass]
+      V: matrix['V'],
+      M: matrix['M'],
+      Mn: matrix['Mn'],
+      Mp: matrix['Mp'],
+      MxMid: matrix['MxMid'],
+      MxEdg: matrix['MxEdg'],
     })},
     getTransversalAlpha: (state) => {
       return ({
