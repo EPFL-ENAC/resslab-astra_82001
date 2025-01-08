@@ -11,29 +11,12 @@
             </q-badge>
           </div>
           <div class="col-7">
-            <q-slider
-            class="longitudinal-slider"
-              v-model="span"
-              type="number"
-              :min="minSpan"
-              :max="maxSpan"
-
-              :suffix="`m`"
-              :step="0.1"
-            />
+            <q-slider class="longitudinal-slider" v-model="span" type="number" :min="minSpan" :max="maxSpan"
+              :suffix="`m`" :step="0.1" />
           </div>
           <div class="col-3">
-            <q-input
-            class="longitudinal-slider-input"
-              v-model.number="span"
-              type="number"
-              :min="minSpan"
-              :max="maxSpan"
-              :suffix="`m`"
-              :step="0.1"
-              dense
-              outlined
-            />
+            <q-input class="longitudinal-slider-input" v-model.number="span" type="number" :min="minSpan" :max="maxSpan"
+              :suffix="`m`" :step="0.1" dense outlined />
           </div>
         </div>
 
@@ -44,27 +27,12 @@
             </q-badge>
           </div>
           <div class="col-7">
-            <q-slider
-              class="longitudinal-slider"
-              v-model="width"
-              type="number"
-              :min="minWidth"
-              :max="maxWidth"
-              :step="0.1"
-            />
+            <q-slider class="longitudinal-slider" v-model="width" type="number" :min="minWidth" :max="maxWidth"
+              :step="0.1" />
           </div>
           <div class="col-3">
-            <q-input
-              class="longitudinal-slider-input"
-              v-model.number="width"
-              type="number"
-              :min="minWidth"
-              :max="maxWidth"
-              :step="0.1"
-              :suffix="`m`"
-              dense
-              outlined
-            />
+            <q-input class="longitudinal-slider-input" v-model.number="width" type="number" :min="minWidth"
+              :max="maxWidth" :step="0.1" :suffix="`m`" dense outlined />
           </div>
         </div>
         <div class="row " v-if="bridgeType === 'Twin'">
@@ -73,47 +41,35 @@
         </div>
       </section>
       <section class="longitudinal-image" aria-label="longitudinal-image" v-if="isEnabled">
-        <!-- <img src="/box-longitudinal.svg" alt="Longitudinal Verification" /> -->
-        <q-img src="/box-longitudinal.svg" alt="Longitudinal Verification"
-          v-if="bridgeType === 'Box'"
-          style="height: 150px;"
-          fit="contain" />  <!-- this is the image -->
+        <q-img src="/box-longitudinal.svg" alt="Longitudinal Verification" v-if="bridgeType === 'Box'"
+          style="height: 150px;" fit="contain" /> <!-- this is the image -->
         <q-img src="/twin-girder-longitudinal-composite.svg" alt="Twin girder composite"
-          v-else-if="bridgeType === 'Twin' && bridgeComposition === 'Composite'"
-          style="height: 150px;"
-          fit="contain" />  <!-- this is the image -->
-          <q-img src="/twin-girder-longitudinal-concrete.svg" alt="twin girder concrete"
-          v-else-if="bridgeType === 'Twin' && bridgeComposition === 'Concrete'"
-          style="height: 150px;"
-          fit="contain" />  <!-- this is the image -->
-          <p v-else-if="bridgeType === 'Multi'">
-            <q-img src="/multi-girder-longitudinal-1.svg" alt="Multi girder "
+          v-else-if="bridgeType === 'Twin' && bridgeComposition === 'Composite'" style="height: 150px;" fit="contain" />
+        <q-img src="/twin-girder-longitudinal-concrete.svg" alt="twin girder concrete"
+          v-else-if="bridgeType === 'Twin' && bridgeComposition === 'Concrete'" style="height: 150px;" fit="contain" />
+        <p v-else-if="bridgeType === 'Multi'">
+          <q-img src="/multi-girder-longitudinal-1.svg" alt="Multi girder " style="height: 150px;" fit="contain" />
+          <q-img src="/multi-girder-longitudinal-2.svg" alt="Multi girder " style="height: 150px;" fit="contain" />
+        </p>
+        <q-img v-else-if="bridgeType === 'Slab'" src="/slab-longitudinal.svg" alt="Slab" fit="contain"
+          style="height:150px" />
 
-          style="height: 150px;"
-          fit="contain" />  <!-- this is the image -->
-          <q-img src="/multi-girder-longitudinal-2.svg" alt="Multi girder "
+      </section>
 
-          style="height: 150px;"
-          fit="contain" />  <!-- this is the image -->
-          </p>
-          <q-img v-else-if="bridgeType === 'Slab'" src="/slab-longitudinal.svg" alt="Slab" fit="contain" style="height:150px"/>
-
-        </section>
-      <section class="longitudinal-results alpha-footer" aria-lable=""  v-if="isEnabled">
     </section>
-      <!-- {{ alpha }} -->
+    <section class="longitudinal-results alpha-footer" aria-lable="" v-if="isEnabled">
       <!-- show three values: alphaq sub V,M-,M+ -->
       <ul class="alpha-list">
-      <li class="alpha-item">
-        &alpha;<sub>V</sub> &equals; {{ alpha.alphaV }}
-      </li>
-      <li class="alpha-item">
-        &alpha;<sub>M-</sub> &equals; {{ alpha.alphaMn }}
-      </li>
-      <li class="alpha-item">
-        &alpha;<sub>M+</sub> &equals; {{ alpha.alphaMp }}
-      </li>
-    </ul>
+        <li class="alpha-item">
+          &alpha;<sub>V</sub> &equals; {{ alpha.V?.[0]?.[selectedClass]?.toFixed(2) }}
+        </li>
+        <li class="alpha-item">
+          &alpha;<sub>M-</sub> &equals; {{ alpha.Mn?.[0]?.[selectedClass]?.toFixed(2) }}
+        </li>
+        <li class="alpha-item">
+          &alpha;<sub>M+</sub> &equals; {{ alpha.Mp?.[0]?.[selectedClass]?.toFixed(2) }}
+        </li>
+      </ul>
     </section>
   </container>
 </template>
@@ -121,6 +77,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useVerificationStore } from '../stores/verification-store';
+import { get } from 'http';
 
 const verificationStore = useVerificationStore();
 
@@ -147,16 +104,22 @@ const width = computed({
   set: (value) => verificationStore.setLongitudinalWidth(value)
 });
 
-const bridgeType = computed(() => verificationStore.bridgeType);
+const bridgeType = computed({
+  get: () => verificationStore.bridgeType,
+  set: (value) => verificationStore.setBridgeType(value)
+});
 const bridgeComposition = computed(() => verificationStore.bridgeComposition);
+const selectedClass = computed(() => verificationStore.selectedClass === 'Class' ? 'qG' : 'qG+');
 </script>
 
 <style lang="scss" scoped>
 @import 'src/css/quasar.variables.scss';
+
 .longitudinal-slider {
   width: 100%;
   padding-right: 1rem;
 }
+
 .longitudinal-verification {
   // padding: 1rem;
   // border: 1px solid var(--q-color-grey-3);
@@ -170,7 +133,8 @@ const bridgeComposition = computed(() => verificationStore.bridgeComposition);
   grid-template-areas:
     "header"
     "content"
-    "footer";
+    "footer"
+  ;
   min-height: 100%; // This is important
   height: 100%; // This ensures full height
   gap: 1rem;
@@ -184,29 +148,30 @@ const bridgeComposition = computed(() => verificationStore.bridgeComposition);
   margin: 0px;
   margin-bottom: 0rem;
 
-  grid-row: 1;
-  grid-area: 'header';
+  // grid-row: 1;
+  grid-area: header;
 }
 
 .longitudinal-content {
   // child-2
-  grid-area: 'content';
+  grid-area: content;
 }
 
 
 .longitudinal-inputs {
-  grid-row: 2;
+  // grid-row: 2;
 }
 
 
 .longitudinal-image {
-  grid-row: 3;
+  // grid-row: 3;
 }
 
 .longitudinal-results {
-  grid-row: 4;
-  grid-area: 'footer';
-  align-self: end; /* Align child-4 to the bottom */
+  // grid-row: 4;
+  grid-area: footer;
+  align-self: end;
+  /* Align child-4 to the bottom */
 }
 
 
@@ -215,6 +180,7 @@ const bridgeComposition = computed(() => verificationStore.bridgeComposition);
   grid-row: 3;
   padding: 1rem;
   border: 1px solid var(--q-color-grey-3);
+
   /* set maximum and min width to avoid flickering of screen */
   img {
     max-width: 300px;
@@ -229,6 +195,7 @@ const bridgeComposition = computed(() => verificationStore.bridgeComposition);
   font-size: 1.2rem;
   font-weight: 500;
 }
+
 .dimension {
   display: flex;
   flex-direction: row;
@@ -257,7 +224,6 @@ const bridgeComposition = computed(() => verificationStore.bridgeComposition);
 
 
 .alpha-footer {
-  grid-area: f;
   padding: 1rem;
   border: 1px solid $primary;
   border-radius: 8px;
@@ -275,5 +241,4 @@ const bridgeComposition = computed(() => verificationStore.bridgeComposition);
 .alpha-item {
   line-height: 1.4;
 }
-
 </style>

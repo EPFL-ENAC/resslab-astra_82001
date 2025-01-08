@@ -8,8 +8,8 @@
         flat
         padding="md"
         :options="[
-          {value: 'class', slot: 'one'},
-          {value: 'class-plus', slot: 'two'},
+          {value: 'Class', slot: 'one'},
+          {value: 'Class+', slot: 'two'},
         ]"
       >
         <template v-slot:one>
@@ -53,17 +53,32 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed } from 'vue';
+import { useVerificationStore } from '../stores/verification-store';
+
 import { useI18n } from 'vue-i18n';
 
 const { t: $t } = useI18n();
-const goodQualityRoad = ref(false);
-const rBau = ref(false);
+
 
 // Remove /public from the path as it's automatically handled by Vite
 const classImage = '/class.svg';
 const classPlusImage = '/class-plus.svg';
-const trafficToggle = ref('class'); // Change initial value to match option value
+
+const verificationStore = useVerificationStore();
+
+const trafficToggle = computed({
+  get: () => verificationStore.selectedClass,
+  set: (value) => verificationStore.setSelectedClass(value)
+});
+const goodQualityRoad = computed({
+  get: () => verificationStore.goodQualityRoad,
+  set: (value) => verificationStore.setGoodQualityRoad(value)
+});
+const rBau = computed({
+  get: () => verificationStore.rBau,
+  set: (value) => verificationStore.setRBAU(value)
+});
 </script>
 
 <style scoped lang="scss">

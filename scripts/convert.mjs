@@ -29,10 +29,10 @@ csv({ checkType: true, ignoreEmpty: true, trim: true })
     const result = [];
     jsonObj.forEach((obj) => {
       result.push({
-        'VerficicationType': obj['Verification type'],
+        'VerificationType': obj['Verification type'],
         'Type': obj.Type,
         'SubType': obj.SubType,
-        'Lane': obj['Lane configuration'],
+        'Traffic': obj['Lane configuration'],
         'Width': obj.Width,
         'Support': obj.Support,
         'Trans': obj['Positioning of internal forces influence line'],
