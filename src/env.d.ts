@@ -7,3 +7,9 @@ declare namespace NodeJS {
     VUE_ROUTER_BASE: string | undefined;
   }
 }
+
+
+// vite-env.d.ts
+declare module 'package.json' {
+  export const version: string
+}

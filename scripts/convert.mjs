@@ -19,6 +19,9 @@ const widthToMeters = (widthKey) => ({
   Wid12: 12,
 }[widthKey]);
 
+// Verification type, Type, SubType, Lane configuration, Width, Support, Positioning of internal forces influence line, Action effect, Span, "?Q1,global", "?Q2,global", "?q,global Class+", "?q,global Class", "?Q1,local", "?Q2,local"
+// Longitudinal, Box, Composite, Uni2L, 12, Simp, p0, V, 20, 0.55, 0.35, 0.38258716, 0.22219018, 0.55, 0.4
+
 csv({ checkType: true, ignoreEmpty: true, trim: true })
   .fromFile('./src/assets/data/data.csv')
   .then((jsonObj) => {
@@ -26,16 +29,21 @@ csv({ checkType: true, ignoreEmpty: true, trim: true })
     const result = [];
     jsonObj.forEach((obj) => {
       result.push({
+        'VerficicationType': obj['Verification type'],
         'Type': obj.Type,
         'SubType': obj.SubType,
-        'Width': widthToMeters(obj.Width),
+        'Lane': obj['Lane configuration'],
+        'Width': obj.Width,
         'Support': obj.Support,
-        'Trans': obj.Trans,
-        'AE': obj.AE,
-        'Traffic': obj.Traffic,
+        'Trans': obj['Positioning of internal forces influence line'],
+        'AE': obj['Action effect'],
         'Span': obj.Span,
-        'ClassOW': obj.ClassOW,
-        'Class': obj.Class,
+        'Q1G': obj['?Q1,global'],
+        'Q2G': obj['?Q2,global'],
+        'qG+': obj['?q,global Class+'],
+        'qG': obj['?q,global Class'],
+        'Q1L': obj['?Q1,local'],
+        'Q2L': obj['?Q2,local']
       })
     });
     writeFileSync(path, JSON.stringify(result));
