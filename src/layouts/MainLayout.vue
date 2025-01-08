@@ -53,7 +53,9 @@
     <q-footer>
       <div class="text-center ">
         <span class="text-h6 q-pa-md q-mt-lg">ASTRA 82001</span>
-        <span class="text-caption">v0.0.1</span>
+        <span class="text-caption">v{{ version }}</span>
+        <span class="text-caption q-mx-md">|</span>
+        <span class="text-caption">data version: V6_PM_20241220</span>
       </div>
     </q-footer>
   </q-layout>
@@ -62,6 +64,8 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { version } from '../../package.json'
+
 
 const { locale } = useI18n();
 

@@ -236,6 +236,27 @@ export const useVerificationStore = defineStore('verification', {
     }
   },
 
+/* Example of a line
+ {
+    "VerficicationType": "Longitudinal",
+    "Type": "Box",
+    "SubType": "Composite",
+    "Lane": "Uni2L",
+    "Width": 12,
+    "Support": "Simp",
+    "Trans": "p0",
+    "AE": "V",
+    "Span": 70,
+    "Q1G": 0.55,
+    "Q2G": 0.35,
+    "qG+": 0.251763803,
+    "qG": 0.200938343,
+    "Q1L": 0.55,
+    "Q2L": 0.4
+  },
+
+*/
+
   getters: {
     getLongitudinalConfig: (state) => state.longitudinal,
     getObjectiveTransversalWidth,
