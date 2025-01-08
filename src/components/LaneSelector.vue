@@ -3,60 +3,49 @@
     <h3 class="lane-header">
       {{ $t('lanes') }}
     </h3>
-    <q-btn-toggle
-      class="lane-toggle"
-      v-model="selectedLane"
-      color="primary"
-      flat
+    <q-select
+      v-model="selectedOption"
+      :options="options"
       dense
-      :options="[
-        {value: 'Uni2L', slot: 'one'},
-        {value: 'Bi2L', slot: 'two'},
-        {value: 'Bi4L', slot: 'three'},
-      ]">
-      <template v-slot:one>
-        <div class="col items-center no-wrap q-pa-md">
-          <div class="text-center lane-text text-small">
-            {{ $t('uni2l') }}
-          </div>
-          <img :src="`/uni2l.svg`" alt="one lane" class="track-image" />
-          <!-- <span v-if="selectedLane === 'uni2l'">(–)</span> -->
-        </div>
-      </template>
-      <template v-slot:two>
-        <div class="col items-center no-wrap">
-          <div class="text-center lane-text text-small">
-            {{ $t('bi2l') }}
-          </div>
-          <img src="/bi2l.svg" alt="two lanes" class="track-image" />
-          <!-- <span v-if="selectedLane === 'bi2l'">(–)</span> -->
-
-        </div>
-        </template>
-      <template v-slot:three>
-        <div class="col items-center no-wrap">
-          <div class="text-center lane-text text-small">
-            {{  $t('bi4l') }}
-          </div>
-          <img src="/bi4l.svg" alt="three lanes" class="track-image" />
-          <!-- <span v-if="selectedLane === 'bi4l'">(–)</span> -->
-        </div>
-        </template>
-    </q-btn-toggle>
+      outlined
+      class="q-mt-md"
+      />
+    <q-img fit="contain" :src="`/${selectedOption.value.toLowerCase()}.svg`" alt="one lane" class="track-image q-mt-md" />
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { useVerificationStore } from '../stores/verification-store';
 
+
+const { t: $t } = useI18n();
 const verificationStore = useVerificationStore();
 
 
-const selectedLane = computed({
-  get: () => verificationStore.selectedLane,
-  set: (value) => verificationStore.setLane(value)
+const selectedOption = computed({
+  get: () => ({ 'label': $t(verificationStore.selectedLane.toLowerCase()), 'value': verificationStore.selectedLane }),
+  set: (option) => {
+    verificationStore.setLane(option.value)
+  }
 });
+
+const bridgeType = computed(() => verificationStore.bridgeType);
+
+const options = computed(() => {
+  const result = [
+        {label: $t('uni2l'), value: 'Uni2L'},
+        {label: $t('bi2l'), value: 'Bi2L'},
+      ]
+
+  if (bridgeType.value === 'Box' || bridgeType.value === 'Slab') {
+    result.push(
+      {label: $t('bi4l'), value: 'Bi4L'})
+  }
+
+  return result;
+})
 
 </script>
 

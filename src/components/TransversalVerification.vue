@@ -1,5 +1,5 @@
 <template>
-<container class="transversal-verification">
+<main class="transversal-verification">
     <!-- <section class="transversal-header" aria-labelledby="transversal-title">
       <h3 id="transversal-title" class="verification-title">
         <q-toggle
@@ -23,7 +23,6 @@
         class="isCantileverEnabled-toggle"
         no-caps
         rounded
-
         toggle-color="primary"
         color="white"
         text-color="black"
@@ -134,7 +133,7 @@
       </li>
     </ul>
     </section>
-  </container>
+  </main>
 </template>
 
 <script setup lang="ts">
@@ -246,11 +245,6 @@ const span = computed({
   flex-direction: row;
   flex: auto;
   width: 100%;
-}
-
-.row {
-  display: flex;
-  flex-direction: row;
 }
 
 .col-2 {

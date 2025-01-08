@@ -1,5 +1,5 @@
 <template>
-  <container class="longitudinal-verification">
+  <section class="longitudinal-verification">
 
     <h3 class="longitudinal-header">{{ $t('longitudinal_verification') }}</h3>
     <section class="longitudinal-content">
@@ -35,9 +35,21 @@
               :max="maxWidth" :step="0.1" :suffix="`m`" dense outlined />
           </div>
         </div>
-        <div class="row " v-if="bridgeType === 'Twin'">
+        <div class="q-mt-md" v-if="bridgeType === 'Twin'">
           <!-- select between composite and concrete -->
-
+          <q-btn-toggle
+            v-model="isConcrete"
+            spread
+            no-caps
+            rounded
+            toggle-color="primary"
+            color="white"
+            text-color="black"
+            :options="[
+              {label: $t('concrete'), value: true},
+              {label: $t('composite'), value: false}
+            ]"
+          />
         </div>
       </section>
       <section class="longitudinal-image" aria-label="longitudinal-image" v-if="isEnabled">
@@ -71,13 +83,12 @@
         </li>
       </ul>
     </section>
-  </container>
+  </section>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useVerificationStore } from '../stores/verification-store';
-import { get } from 'http';
 
 const verificationStore = useVerificationStore();
 
@@ -109,6 +120,10 @@ const bridgeType = computed({
   set: (value) => verificationStore.setBridgeType(value)
 });
 const bridgeComposition = computed(() => verificationStore.bridgeComposition);
+const isConcrete = computed({
+  get: () => verificationStore.bridgeComposition === 'Concrete',
+  set: (value) => verificationStore.setBridgeComposition(value ? 'Concrete' : 'Composite')
+});
 const selectedClass = computed(() => verificationStore.selectedClass === 'Class' ? 'qG' : 'qG+');
 </script>
 
@@ -201,11 +216,6 @@ const selectedClass = computed(() => verificationStore.selectedClass === 'Class'
   flex-direction: row;
   flex: auto;
   width: 100%;
-}
-
-.row {
-  display: flex;
-  flex-direction: row;
 }
 
 .col-2 {

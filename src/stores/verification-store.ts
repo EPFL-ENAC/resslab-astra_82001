@@ -234,6 +234,10 @@ export const useVerificationStore = defineStore('verification', {
     },
     setBridgeType(bridgeType: BridgeType) {
       this.bridgeType = bridgeType;
+      if ((bridgeType === 'Multi' || bridgeType === 'Twin') && this.selectedLane === 'Bi4L') {
+        // if the bridge type is not slab or box, we need to change the lane to Uni2L
+        this.selectedLane = 'Uni2L';
+      }
     },
     setBridgeComposition(composition: BridgeComposition) {
       this.bridgeComposition = composition;
@@ -305,6 +309,7 @@ export const useVerificationStore = defineStore('verification', {
         // x.Trans === state.Trans?.value &&
       );
       console.log(selectedJson);
+
       const ObjWidth = getObjectiveLongitudinalWidth(state);
       const matrix = getMatrixOrValueFromJson(ObjWidth, state.longitudinal.span, state.selectedLane, state.bridgeType, state.selectedClass);
       // need to filter AE V, Mn, MxMid, MxEdg, Mp
