@@ -4,6 +4,10 @@ export type SupportType = 'Simp' | 'Fixed' | 'Semi';
 export type BridgeComposition = 'Concrete' | 'Composite';
 export type BridgeType = 'Slab' | 'Multi' | 'Twin' | 'Box';
 export type LaneType = 'Uni2L' | 'Bi2L' | 'Bi4L';
+// longitudinal transValue
+export type LongValue = 'p0' | 'p1' | 'p2' | 'p3' | 'P1' | 'P2' | 'P3';
+// transversal transValue // WHERE ?
+export type TransValue = 'AR0' | 'AR2' | 'BR1' | 'PENC' | 'SENC' | 'SMPL';
 import data from '../assets/data/data.json';
 import { Traffic, TrafficClass } from 'src/types/Selected';
 // import { computed } from 'vue';
@@ -18,12 +22,14 @@ interface VerificationState {
     isEnabled: boolean;
     span: number;
     width: number;
+    trans: LongValue;
   };
   transversal: {
     isEnabled: boolean;
     isCantileverEnabled: boolean;
     supportType: SupportType;
     span: number;
+    trans: TransValue;
   };
   // Add more verification-related state here as needed
 }
@@ -39,48 +45,44 @@ interface VerificationState {
 // const targetWidth = 15;
 // const targetSpan = 75;
 
-function getMatrixOrValueFromJson(width: number, span: number, traffic: Traffic, bridgeType: BridgeType, selectedClass: TrafficClass) {
+function getMatrixOrValueFromJson(
+  width: number,
+  span: number,
+  traffic: Traffic,
+  bridgeType: BridgeType,
+  selectedClass: TrafficClass
+) {
   // return for each AE:
-  const AE = [
-    'V',
-    'Mp',
-    'Mn',
-    'MxMid',
-    'MxEdg',
-    'M'
-];
+  const AE = ['V', 'Mp', 'Mn', 'MxMid', 'MxEdg', 'M'];
   const resultMatrix: Record<string, any[]> = {};
   // if we want to take traffic lane into account
   //  const filtered = data.filter(x => x.Type === bridgeType && x.Traffic === traffic && x.AE === ae);
   // if we don't want to take traffic lane into account
-  AE.forEach(ae => {
-    const filtered = data.filter(x => x.Type === bridgeType && x.AE === ae && x.Traffic === traffic);
+  AE.forEach((ae) => {
+    const filtered = data.filter(
+      (x) => x.Type === bridgeType && x.AE === ae && x.Traffic === traffic
+    );
 
     const widthsAllowed = [
-      12,
-      18,
-      9,
-      1.22,
-      2.33,
-      3.44,
-      4.56,
-      5.67,
-      6.78,
-      3,
-      7.5
-  ]
+      12, 18, 9, 1.22, 2.33, 3.44, 4.56, 5.67, 6.78, 3, 7.5,
+    ];
     // depends on the bridgeType
-    const spansAllowed = [20,30,40,50,60,70,80];
+    const spansAllowed = [20, 30, 40, 50, 60, 70, 80];
 
     if (widthsAllowed.includes(width) && spansAllowed.includes(span)) {
       // no interpolation needed
       console.log('no interpolation needed');
-      resultMatrix[ae] = filtered.filter(x => x.Width === width && x.Span === span);
-     }
-     else {
+      resultMatrix[ae] = filtered.filter(
+        (x) => x.Width === width && x.Span === span
+      );
+    } else {
       console.log('interpolating: finding 4 closest points');
       // find the 4 closest points
-      const points = filtered.map(x => ({ Width: x.Width, Span: x.Span, class: x[selectedClass]}));
+      const points = filtered.map((x) => ({
+        Width: x.Width,
+        Span: x.Span,
+        class: x[selectedClass],
+      }));
       // sort by width, then by span so that points looks always like this:
       // instead of using a or, I should first find two closest points on Width, then two closest points on Span
       const [p1, p2] = points.sort((a, b) => a.Width - b.Width);
@@ -88,13 +90,10 @@ function getMatrixOrValueFromJson(width: number, span: number, traffic: Traffic,
       // const [p1, p2, p3, p4] = points.sort((a, b) => a.Width - b.Width || a.Span - b.Span);
       // we need the matrix to have width and span like this: { Width: 18, Span: 80, class: 0.167184639 }
       resultMatrix[ae] = [p1, p2, p3, p4];
-     }
+    }
+  });
 
-  })
-
-
-
- return resultMatrix;
+  return resultMatrix;
 }
 
 function bilinearInterpolation(matrix, targetWidth, targetSpan) {
@@ -116,17 +115,27 @@ function bilinearInterpolation(matrix, targetWidth, targetSpan) {
   //    [q11, q12, q21, q22] = points.map(p => p.class); // basically the same as below
 
   // Calculate the interpolation weights
-  const x1 = p1.Width, x2 = p3.Width;
-  const y1 = p1.Span, y2 = p2.Span;
-  const Q11 = p1.class, Q12 = p2.class, Q21 = p3.class, Q22 = p4.class;
+  const x1 = p1.Width,
+    x2 = p3.Width;
+  const y1 = p1.Span,
+    y2 = p2.Span;
+  const Q11 = p1.class,
+    Q12 = p2.class,
+    Q21 = p3.class,
+    Q22 = p4.class;
 
   // We find the linear interpolation of function f at (x, y₁) using the values of f at (x₁, y₁) and (x₂, y₁) which are Q₁₁ and Q₂₁ respectively:
-  const R1 = ((x2 - targetWidth) / (x2 - x1)) * Q11 + ((targetWidth - x1) / (x2 - x1)) * Q21;
+  const R1 =
+    ((x2 - targetWidth) / (x2 - x1)) * Q11 +
+    ((targetWidth - x1) / (x2 - x1)) * Q21;
   // We find the linear interpolation of f at (x, y₂) using the values of f at (x₁, y₂) and (x₂, y₂) which are Q₁₂ and Q₂₂ respectively:
-  const R2 = ((x2 - targetWidth) / (x2 - x1)) * Q12 + ((targetWidth - x1) / (x2 - x1)) * Q22;
+  const R2 =
+    ((x2 - targetWidth) / (x2 - x1)) * Q12 +
+    ((targetWidth - x1) / (x2 - x1)) * Q22;
 
   // Finally, we find the linear interpolation at (x, y) using the interpolated values of f at (x, y₁) and (x, y₂):
-  const P = ((y2 - targetSpan) / (y2 - y1)) * R1 + ((targetSpan - y1) / (y2 - y1)) * R2;
+  const P =
+    ((y2 - targetSpan) / (y2 - y1)) * R1 + ((targetSpan - y1) / (y2 - y1)) * R2;
 
   return P;
 }
@@ -153,12 +162,9 @@ In this special case:
 Thus, bilinear interpolation degenerates to a simple 1D linear interpolation when \(y_1 = y_2\).
 */
 
-
-
 // Example usage
 // const interpolatedValue = bilinearInterpolation(matrix, targetWidth, targetSpan);
 // console.error('interpolated', interpolatedValue);
-
 
 const getObjectiveTransversalWidth = (state: any) => {
   //   dalle_de_roulement:
@@ -196,13 +202,12 @@ const getObjectiveLongitudinalWidth = (state: any) => {
   if (state.bridgeType === 'Box') {
     if (state.longitudinal.width < 12) {
       return 12;
-    } else if ((state.longitudinal.width < 18) && (state.longitudinal.width > 12)) {
+    } else if (state.longitudinal.width < 18 && state.longitudinal.width > 12) {
       // interpolate
       return state.longitudinal.width;
     } else {
       return 18;
     }
-
   } else if (state.bridgeType === 'Twin') {
     return 9;
   } else if (state.bridgeType === 'Multi') {
@@ -211,7 +216,7 @@ const getObjectiveLongitudinalWidth = (state: any) => {
     // interpolate
     return state.longitudinal.width;
   }
-}
+};
 
 export const useVerificationStore = defineStore('verification', {
   state: (): VerificationState => ({
@@ -224,7 +229,8 @@ export const useVerificationStore = defineStore('verification', {
     longitudinal: {
       isEnabled: true,
       span: 80,
-      width: 9
+      width: 9,
+      trans: 'p1', // default should depend on the bridge type
     },
     // Initialize more verification-related state here as needed
     transversal: {
@@ -232,7 +238,8 @@ export const useVerificationStore = defineStore('verification', {
       isEnabled: true,
       span: 8,
       supportType: 'Simp',
-    }
+      trans: 'AR0',
+    },
   }),
 
   actions: {
@@ -250,13 +257,25 @@ export const useVerificationStore = defineStore('verification', {
     },
     setBridgeType(bridgeType: BridgeType) {
       this.bridgeType = bridgeType;
-      if ((bridgeType === 'Multi' || bridgeType === 'Twin') && this.selectedLane === 'Bi4L') {
+      if (
+        (bridgeType === 'Multi' || bridgeType === 'Twin') &&
+        this.selectedLane === 'Bi4L'
+      ) {
         // if the bridge type is not slab or box, we need to change the lane to Uni2L
         this.selectedLane = 'Uni2L';
       }
       if (bridgeType === 'Slab' && this.transversal.supportType === 'Semi') {
         // if the bridge type is slab, we need to change the support type to Simple
         this.transversal.supportType = 'Simp';
+      }
+      if (bridgeType === 'Slab') {
+        this.longitudinal.trans = 'p1';
+      }
+      if (bridgeType === 'Multi') {
+        this.longitudinal.trans = 'P1';
+      }
+      if (['Box', 'Twin'].includes(bridgeType)) {
+        this.longitudinal.trans = 'p0';
       }
     },
     setBridgeComposition(composition: BridgeComposition) {
@@ -271,6 +290,9 @@ export const useVerificationStore = defineStore('verification', {
     setLongitudinalWidth(width: number) {
       this.longitudinal.width = width;
     },
+    setLongitudinalTrans(trans: LongValue) {
+      this.longitudinal.trans = trans;
+    },
     updateLongitudinalDimensions(span: number, width: number) {
       this.longitudinal.span = span;
       this.longitudinal.width = width;
@@ -281,6 +303,9 @@ export const useVerificationStore = defineStore('verification', {
     setTransversalSpan(span: number) {
       this.transversal.span = span;
     },
+    setTransversalTrans(trans: TransValue) {
+      this.transversal.trans = trans;
+    },
     updateTransversalDimensions(span: number) {
       this.transversal.span = span;
     },
@@ -289,10 +314,10 @@ export const useVerificationStore = defineStore('verification', {
     },
     setTransversalSupportType(supportType: SupportType) {
       this.transversal.supportType = supportType;
-    }
+    },
   },
 
-/* Example of a line
+  /* Example of a line
  {
     "VerficicationType": "Longitudinal",
     "Type": "Box",
@@ -319,56 +344,63 @@ export const useVerificationStore = defineStore('verification', {
     getObjectiveLongitudinalWidth,
     getBridgeComposition: (state) => state.bridgeComposition,
     getLongitudinalAlpha: (state) => {
-
-      const selectedJson = data.filter(x =>
-        x.Type === state.bridgeType &&
-        // x.Width === state.longitudinal?.width &&
-        x.Span === state.longitudinal?.span &&
-        x.Traffic === state.selectedLane
+      const selectedJson = data.filter(
+        (x) =>
+          x.Type === state.bridgeType &&
+          // x.Width === state.longitudinal?.width &&
+          x.Span === state.longitudinal?.span &&
+          x.Traffic === state.selectedLane
         // x.Support === state.selectedSupport &&
         // x.Trans === state.Trans?.value &&
       );
       console.log(selectedJson);
 
       const ObjWidth = getObjectiveLongitudinalWidth(state);
-      const matrix = getMatrixOrValueFromJson(ObjWidth, state.longitudinal.span, state.selectedLane, state.bridgeType, state.selectedClass);
-      // need to filter AE V, Mn, MxMid, MxEdg, Mp
-      // try {
+      if (state.bridgeType !== null) {
+        const matrix = getMatrixOrValueFromJson(
+          ObjWidth,
+          state.longitudinal.span,
+          state.selectedLane,
+          state.bridgeType,
+          state.selectedClass
+        );
+        // need to filter AE V, Mn, MxMid, MxEdg, Mp
+        // try {
 
-      //   let alphaV = 0;
-      //   if (matrix.length === 1) {
-      //     alphaV = matrix?.[0]?.[state.selectedClass];
-      //   } else {
-      //     alphaV = bilinearInterpolation(matrix, ObjWidth, state.longitudinal.span);
-      //   }
-      // } catch (e) {
-      //   console.error(e);
-      // }
-      return ({
-      // ObjWidth,
-      // matrix,
-      // realAlphaV: alphaV,
-      V: matrix['V'],
-      M: matrix['M'],
-      Mn: matrix['Mn'],
-      Mp: matrix['Mp'],
-      MxMid: matrix['MxMid'],
-      MxEdg: matrix['MxEdg'],
-    })},
+        //   let alphaV = 0;
+        //   if (matrix.length === 1) {
+        //     alphaV = matrix?.[0]?.[state.selectedClass];
+        //   } else {
+        //     alphaV = bilinearInterpolation(matrix, ObjWidth, state.longitudinal.span);
+        //   }
+        // } catch (e) {
+        //   console.error(e);
+        // }
+        return {
+          // ObjWidth,
+          // matrix,
+          // realAlphaV: alphaV,
+          V: matrix['V'],
+          M: matrix['M'],
+          Mn: matrix['Mn'],
+          Mp: matrix['Mp'],
+          MxMid: matrix['MxMid'],
+          MxEdg: matrix['MxEdg'],
+        };
+      }
+    },
     getTransversalAlpha: (state) => {
-      return ({
+      return {
         alphaV: 0.3,
         alphaMn: 0.3,
         alphaMp: 0.3,
         alphaMxMid: 0.3,
         alphaMxEdg: 0.3,
-      })
+      };
     },
     getLane: (state) => state.selectedLane,
     getBridgeType: (state) => state.bridgeType,
     getSelectedClass: (state) => state.selectedClass,
     getTransversalConfig: (state) => state.transversal,
-  }
-
-
+  },
 });

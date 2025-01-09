@@ -3,7 +3,7 @@
 
     <h3 class="longitudinal-header">{{ $t('longitudinal_verification') }}</h3>
     <section class="longitudinal-content">
-      <section class="longitudinal-inputs" aria-labelledby="longitudinal-title" v-if="isEnabled">
+      <section class="longitudinal-inputs" aria-labelledby="longitudinal-inputs" v-if="isEnabled">
         <div class="row q-mt-md dimension items-center">
           <div class="col-2">
             <q-badge color="secondary">
@@ -67,7 +67,16 @@
           style="height:150px" />
 
       </section>
-
+      <section class="longitudinal-inputs longitudinal-radio" aria-label="beams" v-if="bridgeType === 'Multi'">
+        <q-radio dense v-model="longitudinalTrans" val="P1" label="beam 1" />
+        <q-radio dense v-model="longitudinalTrans" val="P2" label="beam 2" />
+        <q-radio dense v-model="longitudinalTrans" val="P3" label="beam 3" />
+      </section>
+      <section class="longitudinal-inputs longitudinal-radio" aria-label="point" v-if="bridgeType === 'Slab'">
+        <q-radio dense v-model="longitudinalTrans" val="p1" label="point 1" />
+        <q-radio dense v-model="longitudinalTrans" val="p2" label="point 2" />
+        <q-radio dense v-model="longitudinalTrans" val="p3" label="point 3" />
+      </section>
     </section>
     <section class="longitudinal-results alpha-footer" aria-lable="" v-if="isEnabled">
       <!-- show three values: alphaq sub V,M-,M+ -->
@@ -126,11 +135,21 @@ const isConcrete = computed({
   set: (value) => verificationStore.setBridgeComposition(value ? 'Concrete' : 'Composite')
 });
 const selectedClass = computed(() => verificationStore.selectedClass === 'Class' ? 'qG' : 'qG+');
+
+const longitudinalTrans = computed({
+  get: () => verificationStore.longitudinal.trans,
+  set: (value) => verificationStore.setLongitudinalTrans(value)
+});
 </script>
 
 <style lang="scss" scoped>
 @import 'src/css/quasar.variables.scss';
 
+.longitudinal-radio {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
 .longitudinal-slider {
   width: 312px;
   padding-right: 1rem;
