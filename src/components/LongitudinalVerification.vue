@@ -131,7 +131,7 @@ const selectedClass = computed(() => verificationStore.selectedClass === 'Class'
 @import 'src/css/quasar.variables.scss';
 
 .longitudinal-slider {
-  width: 100%;
+  width: 312px;
   padding-right: 1rem;
 }
 
@@ -233,22 +233,4 @@ const selectedClass = computed(() => verificationStore.selectedClass === 'Class'
 }
 
 
-.alpha-footer {
-  padding: 1rem;
-  border: 1px solid $primary;
-  border-radius: 8px;
-  background: #fff;
-}
-
-.alpha-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  gap: 2rem;
-}
-
-.alpha-item {
-  line-height: 1.4;
-}
 </style>

@@ -36,23 +36,4 @@ const alpha = computed(() => verificationStore.getLongitudinalAlpha);
 <style scoped lang="scss">
 @import 'src/css/quasar.variables.scss';
 
-.alpha-footer {
-  grid-area: f;
-  padding: 1rem;
-  border: 1px solid $primary;
-  border-radius: 8px;
-  background: #fff;
-}
-
-.alpha-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  gap: 2rem;
-}
-
-.alpha-item {
-  line-height: 1.4;
-}
 </style>

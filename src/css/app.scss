@@ -5,3 +5,29 @@
 body {
   font-family: Arial, sans-serif;
 }
+
+
+
+.alpha-footer {
+  padding: 1rem;
+  border: 1px solid $primary;
+  border-radius: 8px;
+  background: #fff;
+
+  align-items: center;
+  display: flex;
+}
+
+.alpha-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 2rem;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.alpha-item {
+  line-height: 1.4;
+}
