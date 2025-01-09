@@ -58,21 +58,20 @@
         </q-btn-toggle>
       </div>
 
-      <div class="transversal-points" v-if="bridgeType != 'Slab'">
+      <!-- DEPRECATED because AR0 is Simp, AR2 is Fixed and BR1 is Semi -->
+      <!-- <div class="transversal-points" v-if="bridgeType != 'Slab'">
 
         <div class="row transversal-inputs transversal-radio" aria-label="point" v-if="isCantileverEnabled">
-          <!-- 'AR0' | 'AR2' | 'BR1' -->
           <q-radio dense v-model="transversalTrans" val="AR0" label="AR0" />
           <q-radio dense v-model="transversalTrans" val="AR2" label="AR2" />
           <q-radio dense v-model="transversalTrans" val="BR1" label="BR1" />
         </div>
         <div class="row transversal-inputs transversal-radio" aria-label="point" v-if="!isCantileverEnabled">
-          <!-- 'PENC' | 'SENC' | 'SMPL' -->
           <q-radio dense v-model="transversalTrans" val="PENC" label="PENC" />
           <q-radio dense v-model="transversalTrans" val="SENC" label="SENC" />
           <q-radio dense v-model="transversalTrans" val="SMPL" label="SMPL" />
         </div>
-      </div>
+      </div> -->
     </section>
     <section class="transversal-results alpha-footer" aria-lable="" v-if="isEnabled">
 

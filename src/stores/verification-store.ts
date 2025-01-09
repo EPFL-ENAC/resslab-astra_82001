@@ -6,8 +6,27 @@ export type BridgeType = 'Slab' | 'Multi' | 'Twin' | 'Box';
 export type LaneType = 'Uni2L' | 'Bi2L' | 'Bi4L';
 // longitudinal transValue
 export type LongValue = 'p0' | 'p1' | 'p2' | 'p3' | 'P1' | 'P2' | 'P3';
-// transversal transValue // WHERE ?
+// transversal support value
 export type TransValue = 'AR0' | 'AR2' | 'BR1' | 'PENC' | 'SENC' | 'SMPL';
+export const correspondTransValue = {
+  'AR0': 'Simp',
+  'AR2': 'Fixed',
+  'BR1': 'Semi',
+  'PENC': 'Simp',
+  'SENC': 'Fixed',
+  'SMPL': 'Semi',
+}
+export const mapTransCantilevr = {
+  'Simp': 'AR0',
+  'Fixed': 'AR2',
+  'Semi': 'BR1',
+};
+
+export const mapTransBetweenBeams = {
+  'Simp': 'PENC',
+  'Fixed': 'SENC',
+  'Semi': 'SMPL',
+}
 import data from '../assets/data/data.json';
 import { Traffic, TrafficClass } from 'src/types/Selected';
 // import { computed } from 'vue';
@@ -270,6 +289,7 @@ export const useVerificationStore = defineStore('verification', {
       }
       if (bridgeType === 'Slab') {
         this.longitudinal.trans = 'p1';
+        this.transversal.isCantileverEnabled = false;
       }
       if (bridgeType === 'Multi') {
         this.longitudinal.trans = 'P1';
