@@ -34,21 +34,29 @@
     <q-toggle
       class="good-road-quality"
       :false-value="false"
-      :label="`${goodQualityRoad ? $t('good_quality_road') : $t('bad_quality_road')}`"
       :true-value="true"
       color="primary"
       v-model="goodQualityRoad"
-    />
-    <q-tooltip> description goodQualityRoad </q-tooltip>
+    >
+      <template #default>
+        {{ goodQualityRoad ? $t('good_quality_road') : $t('bad_quality_road') }}
+        <q-tooltip class="description good qualityRoad"> description goodQualityRoad </q-tooltip>
+      </template>
+    </q-toggle>
+
     <q-toggle
       class="r-bau"
       :false-value="false"
-      :label="`${rBau ? $t('r_bau_enabled') : $t('r_bau_disabled')}`"
       :true-value="true"
       color="secondary"
       v-model="rBau"
-    />
-    <q-tooltip> description rBau </q-tooltip>
+    >
+    <template #default>
+      {{ rBau ? $t('r_bau_enabled') : $t('r_bau_disabled') }}
+      <q-tooltip> description rBau </q-tooltip>
+    </template>
+  </q-toggle>
+
   </div>
 </template>
 

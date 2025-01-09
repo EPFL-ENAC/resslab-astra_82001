@@ -1,5 +1,5 @@
 <template>
-  <section class="longitudinal-verification">
+  <section class="longitudinal-verification"  v-if="!rBau && bridgeType">
 
     <h3 class="longitudinal-header">{{ $t('longitudinal_verification') }}</h3>
     <section class="longitudinal-content">
@@ -99,6 +99,7 @@ const maxWidth = 18;
 const minWidth = 9;
 
 const alpha = computed(() => verificationStore.getLongitudinalAlpha);
+const rBau = computed(() => verificationStore.rBau);
 // Create computed properties for two-way binding
 const isEnabled = computed({
   get: () => verificationStore.longitudinal.isEnabled,

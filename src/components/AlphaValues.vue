@@ -1,5 +1,6 @@
 <template>
-  <div class="alpha-values">
+  <!-- DEPRECATED, We keep as reference until fully migrated -->
+  <div class="alpha-values" v-if="false">
     <div class="alpha-header">
       {{$t('alpha_values')}}
     </div>

@@ -1,5 +1,5 @@
 <template>
-  <div class="lane-selector">
+  <div class="lane-selector" v-if="!rBau && bridgeType">
     <h3 class="lane-header">
       {{ $t('lanes') }}
     </h3>
@@ -23,6 +23,8 @@ import { useVerificationStore } from '../stores/verification-store';
 const { t: $t } = useI18n();
 const verificationStore = useVerificationStore();
 
+
+const rBau = computed(() => verificationStore.rBau);
 
 const selectedOption = computed({
   get: () => ({ 'label': $t(verificationStore.selectedLane.toLowerCase()), 'value': verificationStore.selectedLane }),

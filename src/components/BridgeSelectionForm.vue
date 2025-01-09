@@ -1,4 +1,5 @@
 <template>
+  <!-- DEPRECATED, We keep as reference until fully migrated -->
   <q-form class="flex items-center justify-center">
     <q-select
       :model-value="TypeOption"

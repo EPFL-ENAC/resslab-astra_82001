@@ -1,54 +1,13 @@
 <template>
-  <q-page class="row items-center justify-center">
+  <q-page class="row items-start justify-center">
     <div class="grid-astra">
         <TrafficType />
         <BridgeSelector />
-        <AlphaFooter />
+        <AlphaGlobal />
         <LaneSelector />
         <LongitudinalVerification class="longitudinal-verification"/>
         <TransversalVerification />
     </div>
-    <!-- <div class="container" style="max-width: 800px">
-      <div class="row items-center justify-center">
-        <div class="col col-6 form items-center justify-center flex q-gutter-sm">
-          <BridgeSelectionForm v-model="selected" />
-        </div>
-        <div class="col col-6 results items-center justify-center flex">
-          <AlphaValues
-            :alpha-q1="alphaQ1"
-            :alpha-q2="alphaQ2"
-            :traffic-class="trafficClass"
-            :selected-value="selectedValue"
-            :phy-cal="phyCal.value"
-            :beta="beta.value"
-          />
-        </div>
-      </div>
-    </div>
-    <aside class="items-top justify-top">
-      <q-select
-        v-model="beta"
-        :options="betaOptions"
-        dense
-        outlined
-        class="q-mr-md white-options-and-label q-mb-sm"/>
-        <q-select
-        v-model="phyCal"
-        :options="phyCalOptions"
-        :disable="true"
-        dense
-        outlined
-        class="q-mr-md white-options-and-label"/>
-        <div class="alpha-footer">
-      <q-toggle
-      :false-value="false"
-      :label="`${goodQualityRoad ? $t('good_quality_road') : $t('bad_quality_road')}`"
-      :true-value="true"
-      color="red"
-      v-model="goodQualityRoad"
-    />
-    </div>
-    </aside> -->
   </q-page>
 </template>
 
@@ -83,16 +42,17 @@
 }
 .transversal-verification { grid-area: e; }
 .alpha-footer { grid-area: f; }
+.items-start {
+  align-items: start;
+}
 </style>
 
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import data from '../assets/data/data.json';
-import BridgeSelectionForm from '../components/BridgeSelectionForm.vue';
-import AlphaValues from '../components/AlphaValues.vue';
 import TrafficType from '../components/TrafficType.vue';
 import BridgeSelector from '../components/BridgeSelector.vue';
-import AlphaFooter from '../components/AlphaFooter.vue';
+import AlphaGlobal from '../components/AlphaGlobal.vue';
 import LaneSelector from '../components/LaneSelector.vue';
 import LongitudinalVerification from '../components/LongitudinalVerification.vue';
 import TransversalVerification from '../components/TransversalVerification.vue';
@@ -102,6 +62,8 @@ import { useI18n } from 'vue-i18n';
 let alphaQ2 = ref(0.35);
 let alphaQ1 = ref(0.55);
 const { t: $t } = useI18n();
+
+// DEPRECATED, should be moved to store
 
 const selected = ref<Selected>({
   Type: {value: 'Box', label: $t('box')},
