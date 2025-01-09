@@ -55,7 +55,7 @@
         <span class="text-h6 q-pa-md q-mt-lg">ASTRA 82001</span>
         <span class="text-caption">v{{ version }}</span>
         <span class="text-caption q-mx-md">|</span>
-        <span class="text-caption">data version: V6_PM_20241220</span>
+        <span class="text-caption">data version: V6.0.1</span>
       </div>
     </q-footer>
   </q-layout>
