@@ -27,7 +27,7 @@
         </div>
         <div class="col-7">
           <q-slider class="transversal-slider" v-model="span" type="number" :min="minSpan" :max="maxSpan" :suffix="`m`"
-            :step="0.1" />
+            :step="0.01" />
         </div>
         <div class="col-3">
           <q-input v-model.number="span" type="number" :min="minSpan" :max="maxSpan" :suffix="`m`" :step="0.1" dense
@@ -74,26 +74,26 @@
       </div> -->
     </section>
     <section class="transversal-results alpha-footer" aria-lable="" v-if="isEnabled">
-
+      <!-- {{ alphaTrans }} -->
       <!-- show three values: alphaq sub V,M-,M+ -->
       <ul class="alpha-list" v-if="bridgeType != 'Slab'">
         <li class="alpha-item">
-          &alpha;<sub>q,V</sub> &equals; {{ alpha.alphaV }}
+          &alpha;<sub>q,V</sub> &equals; {{  alphaTrans?.V?.[0]?.[selectedClass]?.toFixed(2) }}
         </li>
         <li class="alpha-item">
-          &alpha;<sub>q,M-</sub> &equals; {{ alpha.alphaMn }}
+          &alpha;<sub>q,M-</sub> &equals; {{  alphaTrans?.Mn?.[0]?.[selectedClass]?.toFixed(2) }}
         </li>
         <li class="alpha-item" v-if="!isCantileverEnabled">
-          &alpha;<sub>q,M+</sub> &equals; {{ alpha.alphaMp }}
+          &alpha;<sub>q,M+</sub> &equals; {{ alphaTrans?.Mp?.[0]?.[selectedClass]?.toFixed(2) }}
         </li>
       </ul>
       <ul class="alpha-list" v-else>
         <!-- / -->
         <li class="alpha-item">
-          &alpha;<sub>q,Mx,Mid</sub> &equals; {{ alpha.alphaV }}
+          &alpha;<sub>q,Mx,Mid</sub> &equals; {{ alphaLong?.MxMid?.[0]?.[selectedClass]?.toFixed(2)  }}
         </li>
         <li class="alpha-item">
-          &alpha;<sub>q,Mx,Medge</sub> &equals; {{ alpha.alphaV }}
+          &alpha;<sub>q,Mx,Medge</sub> &equals; {{ alphaLong?.MxEdg?.[0]?.[selectedClass]?.toFixed(2)  }}
         </li>
       </ul>
     </section>
@@ -108,9 +108,11 @@ import { useI18n } from 'vue-i18n';
 const { t: $t } = useI18n();
 const verificationStore = useVerificationStore();
 
-const alpha = computed(() => verificationStore.getTransversalAlpha);
+const alphaTrans = computed(() => verificationStore.getTransversalAlpha);
+const alphaLong = computed(() => verificationStore.getLongitudinalAlpha);
 const rBau = computed(() => verificationStore.rBau);
 const bridgeType = computed(() => verificationStore.bridgeType);
+const selectedClass = computed(() => verificationStore.selectedClass === 'Class' ? 'qG' : 'qG+');
 
 const supportOptions = computed(() => {
   const options = [
