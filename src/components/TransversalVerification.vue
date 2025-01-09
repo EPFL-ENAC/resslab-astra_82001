@@ -3,20 +3,23 @@
     <h3 class="transversal-header">{{ $t('transversal_verification') }}</h3>
     <section class="transversal-inputs" aria-labelledby="transversal-title" v-if="isEnabled">
 
-      <div clsss="row q-mt-md">
+      <div clsss="row q-mt-md" v-if="bridgeType != 'Slab'">
         <q-btn-toggle v-model="isCantileverEnabled" spread class="isCantileverEnabled-toggle" no-caps rounded
           toggle-color="primary" color="white" text-color="black" :options="[
             { label: $t('cantilever'), value: true },
             { label: $t('slab-between-beams'), value: false }
           ]" />
       </div>
-      <div class="row q-mt-md transversal-image">
+      <div class="row q-mt-md transversal-image" v-if="bridgeType != 'Slab'">
         <q-img v-if="isCantileverEnabled" src="/slab-cantilever.svg" style="height: 150px;" alt="cantilever"
           fit="contain"></q-img>
         <q-img v-else src="/slab-between-beams.svg" style="height: 150px;" alt="cantilever" fit="contain"></q-img>
       </div>
+      <div v-else>
+        <q-img src="/slab-transversal.svg" style="height: 300px;" alt="slab" fit="contain"></q-img>
+      </div>
 
-      <div class="row q-mt-md dimension items-center">
+      <div class="row q-mt-md dimension items-center" v-if="bridgeType != 'Slab'">
         <div class="col-2">
           <q-badge color="secondary">
             {{ $t("L") }}
@@ -58,15 +61,24 @@
     <section class="transversal-results alpha-footer" aria-lable="" v-if="isEnabled">
 
       <!-- show three values: alphaq sub V,M-,M+ -->
-      <ul class="alpha-list">
+      <ul class="alpha-list" v-if="bridgeType != 'Slab'">
         <li class="alpha-item">
-          &alpha;<sub>V</sub> &equals; {{ alpha.alphaV }}
+          &alpha;<sub>q,V</sub> &equals; {{ alpha.alphaV }}
         </li>
         <li class="alpha-item">
-          &alpha;<sub>M-</sub> &equals; {{ alpha.alphaMn }}
+          &alpha;<sub>q,M-</sub> &equals; {{ alpha.alphaMn }}
         </li>
         <li class="alpha-item" v-if="!isCantileverEnabled">
-          &alpha;<sub>M+</sub> &equals; {{ alpha.alphaMp }}
+          &alpha;<sub>q,M+</sub> &equals; {{ alpha.alphaMp }}
+        </li>
+      </ul>
+      <ul class="alpha-list" v-else>
+        <!-- / -->
+        <li class="alpha-item">
+          &alpha;<sub>q,Mx,Mid</sub> &equals; {{ alpha.alphaV }}
+        </li>
+        <li class="alpha-item">
+          &alpha;<sub>q,Mx,Medge</sub> &equals; {{ alpha.alphaV }}
         </li>
       </ul>
     </section>
@@ -89,8 +101,12 @@ const supportOptions = computed(() => {
   const options = [
           { slot: 'one', label: $t('Simp'), value: 'Simp' },
           { slot: 'two', label: $t('Fixed'), value: 'Fixed' },
-          { slot: 'three', label: $t('Semi'), value: 'Semi' }
         ];
+
+  if (bridgeType.value !== 'Slab') {
+options.push(
+  { slot: 'three', label: $t('Semi'), value: 'Semi' })
+  }
     return options;
 });
 

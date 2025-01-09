@@ -217,7 +217,7 @@ export const useVerificationStore = defineStore('verification', {
   state: (): VerificationState => ({
     selectedLane: 'Uni2L',
     selectedClass: 'Class',
-    bridgeType: null,
+    bridgeType: 'Slab', // default value should be null
     goodQualityRoad: false,
     rBau: false,
     bridgeComposition: 'Concrete',
@@ -253,6 +253,10 @@ export const useVerificationStore = defineStore('verification', {
       if ((bridgeType === 'Multi' || bridgeType === 'Twin') && this.selectedLane === 'Bi4L') {
         // if the bridge type is not slab or box, we need to change the lane to Uni2L
         this.selectedLane = 'Uni2L';
+      }
+      if (bridgeType === 'Slab' && this.transversal.supportType === 'Semi') {
+        // if the bridge type is slab, we need to change the support type to Simple
+        this.transversal.supportType = 'Simp';
       }
     },
     setBridgeComposition(composition: BridgeComposition) {
