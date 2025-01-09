@@ -73,13 +73,13 @@
       <!-- show three values: alphaq sub V,M-,M+ -->
       <ul class="alpha-list">
         <li class="alpha-item">
-          &alpha;<sub>V</sub> &equals; {{ alpha.V?.[0]?.[selectedClass]?.toFixed(2) }}
+          &alpha;<sub>q,V</sub> &equals; {{ alpha.V?.[0]?.[selectedClass]?.toFixed(2) }}
         </li>
         <li class="alpha-item">
-          &alpha;<sub>M-</sub> &equals; {{ alpha.Mn?.[0]?.[selectedClass]?.toFixed(2) }}
+          &alpha;<sub>q,M-</sub> &equals; {{ alpha.Mn?.[0]?.[selectedClass]?.toFixed(2) }}
         </li>
         <li class="alpha-item">
-          &alpha;<sub>M+</sub> &equals; {{ alpha.Mp?.[0]?.[selectedClass]?.toFixed(2) }}
+          &alpha;<sub>q,M+</sub> &equals; {{ alpha.Mp?.[0]?.[selectedClass]?.toFixed(2) }}
         </li>
       </ul>
     </section>
