@@ -56,7 +56,23 @@ function getMatrixOrValueFromJson(width: number, span: number, traffic: Traffic,
   AE.forEach(ae => {
     const filtered = data.filter(x => x.Type === bridgeType && x.AE === ae && x.Traffic === traffic);
 
-    if ([10, 12, 15, 18].includes(width) && [70, 80].includes(span)) {
+    const widthsAllowed = [
+      12,
+      18,
+      9,
+      1.22,
+      2.33,
+      3.44,
+      4.56,
+      5.67,
+      6.78,
+      3,
+      7.5
+  ]
+    // depends on the bridgeType
+    const spansAllowed = [20,30,40,50,60,70,80];
+
+    if (widthsAllowed.includes(width) && spansAllowed.includes(span)) {
       // no interpolation needed
       console.log('no interpolation needed');
       resultMatrix[ae] = filtered.filter(x => x.Width === width && x.Span === span);
