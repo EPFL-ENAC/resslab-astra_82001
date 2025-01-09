@@ -10,7 +10,7 @@ import { Traffic, TrafficClass } from 'src/types/Selected';
 interface VerificationState {
   selectedLane: LaneType;
   selectedClass: TrafficClass;
-  bridgeType: BridgeType;
+  bridgeType: BridgeType | null;
   bridgeComposition: BridgeComposition;
   goodQualityRoad: boolean;
   rBau: boolean;
@@ -217,7 +217,7 @@ export const useVerificationStore = defineStore('verification', {
   state: (): VerificationState => ({
     selectedLane: 'Uni2L',
     selectedClass: 'Class',
-    bridgeType: 'Box',
+    bridgeType: null,
     goodQualityRoad: false,
     rBau: false,
     bridgeComposition: 'Concrete',

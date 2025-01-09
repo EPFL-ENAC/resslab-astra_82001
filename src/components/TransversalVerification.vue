@@ -1,5 +1,5 @@
 <template>
-  <main class="transversal-verification">
+  <main class="transversal-verification" v-if="!rBau && bridgeType">
     <h3 class="transversal-header">{{ $t('transversal_verification') }}</h3>
     <section class="transversal-inputs" aria-labelledby="transversal-title" v-if="isEnabled">
 
@@ -82,6 +82,8 @@ const { t: $t } = useI18n();
 const verificationStore = useVerificationStore();
 
 const alpha = computed(() => verificationStore.getTransversalAlpha);
+const rBau = computed(() => verificationStore.rBau);
+const bridgeType = computed(() => verificationStore.bridgeType);
 
 const supportOptions = computed(() => {
   const options = [
