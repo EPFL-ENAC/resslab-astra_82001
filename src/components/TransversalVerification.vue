@@ -158,11 +158,26 @@ const span = computed({
 }
 
 .transversal-verification {
-  // padding: 1rem;
-  // border: 1px solid var(--q-color-grey-3);
-  /* set maximum and min width to avoid flickering of screen */
-  /* max-width: 400px;
-  min-width: 400px; */
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    "header"
+    "content"
+    "footer"
+  ;
+  min-height: 100%; // This is important
+  height: 100%; // This ensures full height
+  gap: 1rem;
+}
+.transversal-header {
+  grid-area: header;
+}
+.transversal-inputs {
+  grid-area: content;
+}
+.transversal-results {
+  grid-area: footer;
+  align-self: end;
 }
 
 .verification-title {
@@ -212,26 +227,29 @@ const span = computed({
   :deep(.q-btn > .q-btn__content) {
     display: flex;
     flex-direction: column-reverse;
+
+
+  }
+    :deep(.q-btn[aria-pressed="true"]) {
+    background-color: rgba($primary, 0.1);
+    color: $secondary;
+
+    .block {
+      font-size: 1rem;
+      font-weight: bold;
+    }
+  }
+  :deep(.q-btn[aria-pressed="false"]) {
+    .block {
+      color: #000;
+      font-size: 1rem;
+      font-weight: normal;
+    }
   }
 }
 
 
-:deep(.q-btn[aria-pressed="true"]) {
-  background-color: rgba($primary, 0.1);
-  color: $secondary;
 
-  .support-text {
-    font-size: 1rem;
-    font-weight: bold;
-  }
-}
-:deep(.q-btn[aria-pressed="false"]) {
-  .support-text {
-    color: #000;
-    font-size: 1rem;
-    font-weight: normal;
-  }
-}
 
 
 </style>
