@@ -79,22 +79,21 @@ const selected = ref<Selected>({
 });
 
 
-const selectedJson = computed<Record<TrafficClass|string, number|string|undefined>>(() => {
-  console.log(selected.value.Width?.value)
-  return data.filter(x =>
-    x.Type === selected.value.Type?.value &&
-    x.SubType === selected.value.SubType?.value &&
-    x.Width === selected.value.Width?.value &&
-    x.Traffic === selected.value.Traffic?.value &&
-    x.Support === selected.value.Support?.value &&
-    x.Trans === selected.value.Trans?.value &&
-    x.AE === selected.value.AE?.value &&
-    x.Span === Number(selected.value.Span?.value)
-  )[0]
-});
+// const selectedJson = computed<Record<TrafficClass|string, number|string|undefined>>(() => {
+//   return data.filter(x =>
+//     x.Type === selected.value.Type?.value &&
+//     x.SubType === selected.value.SubType?.value &&
+//     x.Width === selected.value.Width?.value &&
+//     x.Traffic === selected.value.Traffic?.value &&
+//     x.Support === selected.value.Support?.value &&
+//     x.Trans === selected.value.Trans?.value &&
+//     x.AE === selected.value.AE?.value &&
+//     x.Span === Number(selected.value.Span?.value)
+//   )[0]
+// });
 
-const trafficClass = computed(() => selected.value.TrafficClass?.value as TrafficClass);
-const selectedValue = computed(() => selectedJson.value?.[trafficClass.value] as number);
+// const trafficClass = computed(() => selected.value.TrafficClass?.value as TrafficClass);
+// const selectedValue = computed(() => selectedJson.value?.[trafficClass.value] as number);
 
 const goodQualityRoad = ref(false);
 
@@ -106,6 +105,7 @@ const betaOptions = [
   // III.1.2 Résultats pour deux voies de circulation, pour une bande de 1.4 m –
   // (Q1 + Q2)act cf p99/120
 ];
+// TODO: move that to the store
 const beta = ref(betaOptions[0]);
 
 // show phycal options for bridge with a span <= 20m
@@ -115,6 +115,8 @@ const beta = ref(betaOptions[0]);
 ** 𝐿 > 20 𝑚, 𝜑𝑐𝑎𝑙 = 1.00
 ** Par défaut c'est 1.00
 */
+
+// TODO: move that to the traffic class store
 const defaultPhyCalOptions = [
   { label: 'Φ1.00', value: 1.00},
 ]
