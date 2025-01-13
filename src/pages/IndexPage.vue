@@ -19,6 +19,7 @@
 .grid-astra {
   display: grid;
   background-color: #fff;
+  grid-gap: 1em;
 }
 // create a grid-astra layout but for tablet and mobile
 //media for mobile < breakpoint-sm

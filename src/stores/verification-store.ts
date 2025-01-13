@@ -73,12 +73,13 @@ function getMatrixTransversal(bridgeType: BridgeType, subtype: SubTypeTransversa
   AE.forEach((ae) => {
     let filtered = [];
     if (bridgeType !== 'Slab') {
+      // for slab we don't have data here ?
       filtered = data.filter(
         (x) => x.Type === bridgeType && x.AE === ae && x.Traffic === traffic && x.SubType === subtype && x.Trans === support
       );
     } else {
       filtered = data.filter(
-        (x) => x.Type === bridgeType && x.AE === ae && x.Traffic === traffic && x.Trans === support
+        (x) => x.Type === bridgeType && x.AE === ae && x.Traffic === traffic && x.SubType === subtype && x.Trans === support
       );
     }
 
@@ -86,7 +87,7 @@ function getMatrixTransversal(bridgeType: BridgeType, subtype: SubTypeTransversa
       12, 18, 9, 1.22, 2.33, 3.44, 4.56, 5.67, 6.78, 3, 7.5,
     ];
     // depends on the bridgeType
-    // const spansAllowed = [20, 30, 40, 50, 60, 70, 80];
+    // const spansAllowed = [20, 30, 40, 50, 60, 70, 80];\
     if (widthsAllowed.includes(width)) {
       // no interpolation needed
       console.log('no interpolation needed');
@@ -512,11 +513,15 @@ export const useVerificationStore = defineStore('verification', {
 
       const ObjWidth = getObjectiveTransversalWidth(state);
       if (state.bridgeType !== null) {
+        const supportType = state.transversal.isCantileverEnabled ? mapTransCantilevr[state.transversal.supportType]
+        : mapTransBetweenBeams[state.transversal.supportType];
+
+        debugger;
         const matrix = getMatrixTransversal(
           'DalleRoulem', // state.bridgeType,
           state.transversal.isCantileverEnabled ? 'PorteAFaux' : 'DalleEntrePoutres',
           state.selectedLane,
-          mapTransBetweenBeams[state.transversal.supportType],
+          supportType,
           ObjWidth,
         );
         return {
