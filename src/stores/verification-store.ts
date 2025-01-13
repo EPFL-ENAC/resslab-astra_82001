@@ -516,7 +516,6 @@ export const useVerificationStore = defineStore('verification', {
         const supportType = state.transversal.isCantileverEnabled ? mapTransCantilevr[state.transversal.supportType]
         : mapTransBetweenBeams[state.transversal.supportType];
 
-        debugger;
         const matrix = getMatrixTransversal(
           'DalleRoulem', // state.bridgeType,
           state.transversal.isCantileverEnabled ? 'PorteAFaux' : 'DalleEntrePoutres',
