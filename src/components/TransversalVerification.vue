@@ -78,22 +78,22 @@
       <!-- show three values: alphaq sub V,M-,M+ -->
       <ul class="alpha-list" v-if="bridgeType != 'Slab'">
         <li class="alpha-item">
-          &alpha;<sub>q,V</sub> &equals; {{  alphaTrans?.V?.[0]?.[selectedClass]?.toFixed(2) }}
+          &alpha;<sub>q,V</sub> &equals; {{  roundCeilWith2Decimals(alphaTrans?.V?.[0]?.[selectedClass]) }}
         </li>
         <li class="alpha-item">
-          &alpha;<sub>q,M-</sub> &equals; {{  alphaTrans?.Mn?.[0]?.[selectedClass]?.toFixed(2) }}
+          &alpha;<sub>q,M-</sub> &equals; {{  roundCeilWith2Decimals(alphaTrans?.Mn?.[0]?.[selectedClass]) }}
         </li>
         <li class="alpha-item" v-if="!isCantileverEnabled">
-          &alpha;<sub>q,M+</sub> &equals; {{ alphaTrans?.Mp?.[0]?.[selectedClass]?.toFixed(2) }}
+          &alpha;<sub>q,M+</sub> &equals; {{ roundCeilWith2Decimals(alphaTrans?.Mp?.[0]?.[selectedClass]) }}
         </li>
       </ul>
       <ul class="alpha-list" v-else>
         <!-- / -->
         <li class="alpha-item">
-          &alpha;<sub>q,Mx,Mid</sub> &equals; {{ alphaLong?.MxMid?.[0]?.[selectedClass]?.toFixed(2)  }}
+          &alpha;<sub>q,Mx,Mid</sub> &equals; {{ roundCeilWith2Decimals(alphaLong?.MxMid?.[0]?.[selectedClass])  }}
         </li>
         <li class="alpha-item">
-          &alpha;<sub>q,Mx,Medge</sub> &equals; {{ alphaLong?.MxEdg?.[0]?.[selectedClass]?.toFixed(2)  }}
+          &alpha;<sub>q,Mx,Medge</sub> &equals; {{ roundCeilWith2Decimals(alphaLong?.MxEdg?.[0]?.[selectedClass])  }}
         </li>
       </ul>
     </section>
@@ -106,6 +106,11 @@ import { useVerificationStore } from '../stores/verification-store';
 import { useI18n } from 'vue-i18n';
 
 const { t: $t } = useI18n();
+
+
+const roundCeilWith2Decimals = (value: number) => Math.ceil(value * 100) / 100;
+
+
 const verificationStore = useVerificationStore();
 
 const alphaTrans = computed(() => verificationStore.getTransversalAlpha);
@@ -114,23 +119,43 @@ const rBau = computed(() => verificationStore.rBau);
 const bridgeType = computed(() => verificationStore.bridgeType);
 const selectedClass = computed(() => verificationStore.selectedClass === 'Class' ? 'qG' : 'qG+');
 
-const supportOptions = computed(() => {
-  const options = [
-          { slot: 'one', label: $t('Simp'), value: 'Simp' },
-          { slot: 'two', label: $t('Fixed'), value: 'Fixed' },
-        ];
-
-  if (bridgeType.value !== 'Slab') {
-options.push(
-  { slot: 'three', label: $t('Semi'), value: 'Semi' })
-  }
-    return options;
-});
 
 const transversalTypeName = computed({
   get: () => verificationStore.transversal.isCantileverEnabled ? 'cantilever' : 'slab-between-beams',
   set: () => null,
 });
+
+
+const supportOptions = computed(() => {
+  const options = [
+          { slot: 'one', label: $t('PENC'), value: 'Simp' },
+          { slot: 'two', label: $t('SENC'), value: 'Fixed' },
+        ];
+
+  if (bridgeType.value !== 'Slab') {
+
+// options.push(
+//   { slot: 'three', label: $t('Semi'), value: 'Semi' })
+//   }
+    if (transversalTypeName.value === 'cantilever') {
+      // AR-0 is Simp, AR-2 is Fixed and BR-1 is Semi
+      return [
+        { slot: 'one', label: $t('AR-0'), value: 'Simp' },
+        { slot: 'two', label: $t('AR-2'), value: 'Fixed' },
+        { slot: 'three', label: $t('BR-1'), value: 'Semi' }
+      ];
+    } else {
+      // PENC is Simp, SENC is Fixed and SMPL is Semi
+      return [
+        { slot: 'one', label: $t('PENC'), value: 'Simp' },
+        { slot: 'two', label: $t('SENC'), value: 'Fixed' },
+        { slot: 'three', label: $t('SMPL'), value: 'Semi' }
+      ];
+    }
+  }
+  return options;
+});
+
 
 const isEnabled = computed({
   get: () => verificationStore.transversal.isEnabled,
