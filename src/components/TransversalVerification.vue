@@ -80,8 +80,11 @@
         <li class="alpha-item">
           &alpha;<sub>q,V</sub> &equals; {{  roundCeilWith2Decimals(alphaTrans?.V?.[0]?.[selectedClass]) }}
         </li>
-        <li class="alpha-item">
+        <li class="alpha-item" v-if="!isCantileverEnabled">
           &alpha;<sub>q,M-</sub> &equals; {{  roundCeilWith2Decimals(alphaTrans?.Mn?.[0]?.[selectedClass]) }}
+        </li>
+        <li class="alpha-item" v-else>
+          &alpha;<sub>q,M</sub> &equals; {{  roundCeilWith2Decimals(alphaTrans?.M?.[0]?.[selectedClass]) }}
         </li>
         <li class="alpha-item" v-if="!isCantileverEnabled">
           &alpha;<sub>q,M+</sub> &equals; {{ roundCeilWith2Decimals(alphaTrans?.Mp?.[0]?.[selectedClass]) }}
