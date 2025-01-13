@@ -38,12 +38,13 @@ csv({ checkType: true, ignoreEmpty: true, trim: true })
         'Trans': obj['Positioning of internal forces influence line'],
         'AE': obj['Action effect'],
         'Span': obj.Span,
-        'Q1G': obj['?Q1,global'],
-        'Q2G': obj['?Q2,global'],
-        'qG+': obj['?q,global Class+'],
-        'qG': obj['?q,global Class'],
-        'Q1L': obj['?Q1,local'],
-        'Q2L': obj['?Q2,local']
+        // alpha_Q1,global","alpha_Q2,global","alpha_q,global Class+","alpha_q,global Class","alpha_Q1,local","alpha_Q2,local
+        'Q1G': obj['alpha_Q1,global'],
+        'Q2G': obj['alpha_Q2,global'],
+        'qG+': obj['alpha_q,global Class+'],
+        'qG': obj['alpha_q,global Class'],
+        'Q1L': obj['alpha_Q1,local'],
+        'Q2L': obj['alpha_Q2,local']
       })
     });
     writeFileSync(path, JSON.stringify(result));

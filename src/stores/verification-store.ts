@@ -80,14 +80,13 @@ function getMatrixTransversal(bridgeType: BridgeType, subtype: SubTypeTransversa
     ];
     // depends on the bridgeType
     // const spansAllowed = [20, 30, 40, 50, 60, 70, 80];
-    // debugger;
     if (widthsAllowed.includes(width)) {
       // no interpolation needed
       console.log('no interpolation needed');
       resultMatrix[ae] = filtered.filter(
         (x) => x.Width === width
       );
-      console.log(resultMatrix);
+      console.log('matrix trans: ', resultMatrix);
     } else {
       console.log('interpolating: finding 4 closest points');
       // find the 4 closest points
@@ -265,7 +264,7 @@ const getObjectiveLongitudinalWidth = (state: any) => {
   if (state.bridgeType === 'Box') {
     if (state.longitudinal.width < 12) {
       return 12;
-    } else if (state.longitudinal.width < 18 && state.longitudinal.width > 12) {
+    } else if (state.longitudinal.width < 18 && state.longitudinal.width >= 12) {
       // interpolate
       return state.longitudinal.width;
     } else {
@@ -285,15 +284,15 @@ export const useVerificationStore = defineStore('verification', {
   state: (): VerificationState => ({
     selectedLane: 'Uni2L',
     selectedClass: 'Class',
-    bridgeType: 'Slab', // default value should be null
+    bridgeType: 'Box', // default value should be null
     goodQualityRoad: false,
     rBau: false,
     bridgeComposition: 'Composite',
     longitudinal: {
       isEnabled: true,
       span: 80,
-      width: 9,
-      trans: 'p1', // default should depend on the bridge type
+      width: 12,
+      trans: 'p0', // default should depend on the bridge type
     },
     // Initialize more verification-related state here as needed
     transversal: {
@@ -431,6 +430,7 @@ export const useVerificationStore = defineStore('verification', {
         // } catch (e) {
         //   console.error(e);
         // }
+        console.log('matrix long', matrix);
         return {
           // ObjWidth,
           // matrix,

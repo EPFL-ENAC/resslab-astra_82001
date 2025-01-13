@@ -84,6 +84,9 @@ const bridgeToggle = computed({
   background-color: white;
   border-radius: $button-border-radius;
 }
+.bridge-text {
+  margin-top: 0.8rem;
+}
 
 :deep(.q-btn[aria-pressed="true"]) {
   background-color: rgba($primary, 0.1);

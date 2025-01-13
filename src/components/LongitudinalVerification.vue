@@ -82,13 +82,13 @@
       <!-- show three values: alphaq sub V,M-,M+ -->
       <ul class="alpha-list">
         <li class="alpha-item">
-          &alpha;<sub>q,V</sub> &equals; {{ alpha.V?.[0]?.[selectedClass]?.toFixed(2) }}
+          &alpha;<sub>q,V</sub> &equals; {{ roundCeilWith2Decimals(alpha?.V?.[0]?.[selectedClass]) }}
         </li>
         <li class="alpha-item">
-          &alpha;<sub>q,M-</sub> &equals; {{ alpha.Mn?.[0]?.[selectedClass]?.toFixed(2) }}
+          &alpha;<sub>q,M-</sub> &equals; {{ roundCeilWith2Decimals(alpha?.Mn?.[0]?.[selectedClass]) }}
         </li>
         <li class="alpha-item">
-          &alpha;<sub>q,M+</sub> &equals; {{ alpha.Mp?.[0]?.[selectedClass]?.toFixed(2) }}
+          &alpha;<sub>q,M+</sub> &equals; {{ roundCeilWith2Decimals(alpha?.Mp?.[0]?.[selectedClass]) }}
         </li>
       </ul>
     </section>
@@ -106,6 +106,8 @@ const minSpan = 4;
 
 const maxWidth = 18;
 const minWidth = 9;
+
+const roundCeilWith2Decimals = (value: number) => Math.ceil(value * 100) / 100;
 
 const alpha = computed(() => verificationStore.getLongitudinalAlpha);
 const rBau = computed(() => verificationStore.rBau);
