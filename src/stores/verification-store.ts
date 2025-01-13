@@ -71,9 +71,16 @@ function getMatrixTransversal(bridgeType: BridgeType, subtype: SubTypeTransversa
   // subtype,traffic,bridgeType,selectedLane
   // PorteAFaux,Bi2L,1.22,Simp,AR0,M
   AE.forEach((ae) => {
-    const filtered = data.filter(
-      (x) => x.Type === bridgeType && x.AE === ae && x.Traffic === traffic && x.SubType === subtype && x.Trans === support
-    );
+    let filtered = [];
+    if (bridgeType !== 'Slab') {
+      filtered = data.filter(
+        (x) => x.Type === bridgeType && x.AE === ae && x.Traffic === traffic && x.SubType === subtype && x.Trans === support
+      );
+    } else {
+      filtered = data.filter(
+        (x) => x.Type === bridgeType && x.AE === ae && x.Traffic === traffic && x.Trans === support
+      );
+    }
 
     const widthsAllowed = [
       12, 18, 9, 1.22, 2.33, 3.44, 4.56, 5.67, 6.78, 3, 7.5,
@@ -112,7 +119,8 @@ function getMatrixLongitudinal(
   span: number,
   traffic: Traffic,
   bridgeType: BridgeType,
-  bridgeComposition: BridgeComposition
+  bridgeComposition: BridgeComposition,
+  trans: LongValue = 'p0',
 ) {
   // return for each AE:
   const AE = ['V', 'Mp', 'Mn', 'MxMid', 'MxEdg', 'M'];
@@ -120,13 +128,22 @@ function getMatrixLongitudinal(
   // if we want to take traffic lane into account
   //  const filtered = data.filter(x => x.Type === bridgeType && x.Traffic === traffic && x.AE === ae);
   // if we don't want to take traffic lane into account
+
   AE.forEach((ae) => {
-    const filtered = data.filter(
-      (x) => x.Type === bridgeType && x.AE === ae && x.Traffic === traffic && x.SubType === bridgeComposition
-    );
+    let filtered = [];
+    if (bridgeType !== 'Slab') {
+      filtered = data.filter(
+        (x) => x.Type === bridgeType && x.AE === ae && x.Traffic === traffic && x.SubType === bridgeComposition && x.Trans === trans
+      );
+    } else {
+      filtered = data.filter(
+        (x) => x.Type === bridgeType && x.AE === ae && x.Traffic === traffic && x.Trans === trans
+      );
+    }
+
 
     const widthsAllowed = [
-      12, 18, 9, 1.22, 2.33, 3.44, 4.56, 5.67, 6.78, 3, 7.5,
+      12, 18, 9, 10.8, 1.22, 2.33, 3.44, 4.56, 5.67, 6.78, 3, 7.5
     ];
     // depends on the bridgeType
     const spansAllowed = [20, 30, 40, 50, 60, 70, 80];
@@ -137,6 +154,13 @@ function getMatrixLongitudinal(
       resultMatrix[ae] = filtered.filter(
         (x) => x.Width === width && x.Span === span
       );
+      // if multi or slab. we need to filter by p1, p2,p3 or P1,P2,P3
+      if (bridgeType === 'Multi' || bridgeType === 'Slab') {
+        resultMatrix[ae] = resultMatrix[ae].filter(
+          (x) => x.Trans === trans,
+        );
+      }
+      console.log('longitudinal matrix', resultMatrix);
     } else {
       console.log('interpolating: finding 4 closest points');
       // find the 4 closest points
@@ -229,7 +253,7 @@ Thus, bilinear interpolation degenerates to a simple 1D linear interpolation whe
 
 const getObjectiveTransversalWidth = (state: any) => {
   //   dalle_de_roulement:
-  //     porte_a_faux:
+  //     PorteAFaux:
   //       'l< 1.22': not possible
   //       interpolate_in_between_values: ''
   //       'l> 6.78': not possible
@@ -238,10 +262,36 @@ const getObjectiveTransversalWidth = (state: any) => {
   //       interpolate_in_between_values: ''
   //       'l> 12': not possible
   if (state.transversal.isCantileverEnabled) {
-    return 1.22;
+    if (state.transversal.span < 1.22)
+    {
+      return NaN;
+    }
+    if (state.transversal.span > 6.78) {
+      return NaN;
+    }
+    if (state.transversal.span < 3) {
+      return 1.22;
+    }
+    if (state.transversal.span >= 3) {
+      return 6.78;
+    }
   } else {
-    // 3, 7.5, 12
-    return state.transversal.span;
+    if (state.transversal.span < 3)
+      {
+        return NaN;
+      }
+      if (state.transversal.span > 12) {
+        return NaN;
+      }
+      if (state.transversal.span < 7.5) {
+        return 3;
+      }
+      if (state.transversal.span < 10) {
+        return 7.5;
+      }
+      if (state.transversal.span <= 12) {
+        return 12;
+      }
   }
 };
 const getObjectiveLongitudinalWidth = (state: any) => {
@@ -275,8 +325,21 @@ const getObjectiveLongitudinalWidth = (state: any) => {
   } else if (state.bridgeType === 'Multi') {
     return 10.8;
   } else if (state.bridgeType === 'Slab') {
-    // interpolate
-    return state.longitudinal.width;
+    //     'l=9': not possible
+    // '9 <l< 18': interpolate
+    // 'l> 18': not possible
+    if (state.longitudinal.width < 9) {
+      return NaN;
+    }
+    if (state.longitudinal.width > 18) {
+      return NaN;
+    }
+    if (state.longitudinal.width < 15) {
+      return 9;
+    }
+    if (state.longitudinal.width >= 15) {
+      return 18;
+    }
   }
 };
 
@@ -290,7 +353,7 @@ export const useVerificationStore = defineStore('verification', {
     bridgeComposition: 'Composite',
     longitudinal: {
       isEnabled: true,
-      span: 80,
+      span: 30,
       width: 12,
       trans: 'p0', // default should depend on the bridge type
     },
@@ -416,7 +479,8 @@ export const useVerificationStore = defineStore('verification', {
           state.longitudinal.span,
           state.selectedLane,
           state.bridgeType,
-          state.bridgeComposition
+          state.bridgeComposition,
+          state.longitudinal.trans,
         );
         // need to filter AE V, Mn, MxMid, MxEdg, Mp
         // try {
