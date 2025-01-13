@@ -167,8 +167,9 @@ const transversalTrans = computed({
 @import 'src/css/quasar.variables.scss';
 
 .transversal-slider {
-  width: 312px;
-  padding-right: 1rem;
+  // width: 312px;
+  // padding-right: 1rem;
+  width: 90%;
 }
 
 .transversal-verification {

@@ -76,13 +76,25 @@ const bridgeToggle = computed({
   text-align: left;
 }
 .bridge-toggle {
-  display: inline-grid;
-  grid-auto-flow: column;
+  display: grid;
+  // grid-auto-flow: column;
   width: 100%;
   width: -moz-available;
   width: -webkit-fill-available;
   background-color: white;
   border-radius: $button-border-radius;
+
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-flow: row dense;
+  //for tablet
+  @media screen and (min-width: $breakpoint-sm) and (max-width: $breakpoint-md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  // for mobile
+  @media screen and (max-width: $breakpoint-sm) {
+    grid-template-columns: 1fr;
+  }
+
 }
 .bridge-text {
   margin-top: 0.8rem;

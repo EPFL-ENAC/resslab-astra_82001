@@ -153,8 +153,9 @@ const longitudinalTrans = computed({
   justify-content: space-around;
 }
 .longitudinal-slider {
-  width: 312px;
-  padding-right: 1rem;
+  // width: 312px;
+  // padding-right: 1rem;
+  width: 90%;
 }
 
 .longitudinal-verification {
