@@ -13,26 +13,65 @@
 
 <style lang="scss">
 @import 'src/css/quasar.variables.scss';
+// define breakpoint-md and breakpoint-sm
+// $breakpoint-md: 1024px;
+// $breakpoint-sm: 600px;
 .grid-astra {
   display: grid;
-  grid-template-areas:
-    "a b  b "
-    "a f  f "
-    "c d  e "
-    "c d  e "
-    "c d  e ";
-  grid-gap: 10px;
-  // I wan to make the grid responsive and also having the first column to be 1fr and the second column to be 2fr
-  // grid-template-columns: 1fr 2fr 2fr;
-  grid-template-rows: auto;
-  padding: 10px;
-  margin: 10px;
-  background-color: $white;
-
-  // but also column d and e taking at least 300px width each
-  grid-template-columns: 1fr 2fr 2fr;
+  background-color: #fff;
+}
+// create a grid-astra layout but for tablet and mobile
+//media for mobile < breakpoint-sm
+@media only screen and (max-width: $breakpoint-sm) {
+  .grid-astra {
+    display: grid;
+    grid-template-areas:
+      "a"
+      "b"
+      "f"
+      "c"
+      "d"
+      "e";
+    grid-template-columns: 1fr;
+    grid-gap: 10px;
+    padding: 10px;
+    margin: 10px;
+  }
+}
+// media for tablet > sm and < md
+@media only screen and (min-width: $breakpoint-sm) and (max-width: $breakpoint-md) {
+  .grid-astra {
+    grid-template-areas:
+      "a b"
+      "f f"
+      "c c"
+      "d d"
+      "e e";
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
+// media for desktop > md
+@media only screen and (min-width: 1024px) {
+  .grid-astra {
+    grid-template-areas:
+      "a b  b "
+      "a f  f "
+      "c d  e "
+      "c d  e "
+      "c d  e ";
+    grid-gap: 10px;
+    // I wan to make the grid responsive and also having the first column to be 1fr and the second column to be 2fr
+    // grid-template-columns: 1fr 2fr 2fr;
+    grid-template-rows: auto;
+    padding: 10px;
+    margin: 10px;
+
+    // but also column d and e taking at least 300px width each
+    grid-template-columns: 1fr 2fr 2fr;
+  }
+
+}
 .traffic-type { grid-area: a; }
 .bridge-selector { grid-area: b; }
 .lane-selector { grid-area: c; }

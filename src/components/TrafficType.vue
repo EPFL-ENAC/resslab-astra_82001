@@ -90,6 +90,8 @@ const rBau = computed({
 </script>
 
 <style scoped lang="scss">
+@import 'src/css/quasar.variables.scss';
+
 .traffic-title {
   font-size: 1.5rem;
   font-weight: bold;
@@ -113,6 +115,9 @@ const rBau = computed({
     background-color: white;
     border-radius: $button-border-radius;
     // border: 1px solid $primary;
+    @media screen and (max-width: 600px) {
+      grid-auto-flow: row;
+    }
 }
 
 :deep(.q-btn[aria-pressed="true"]) {
