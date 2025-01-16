@@ -1,5 +1,5 @@
 <template>
-  <div class="alpha-footer"  v-if="rBau || bridgeType">
+  <div class="alpha-footer alpha-global"  v-if="rBau || bridgeType">
     <ul class="alpha-list" v-if="!rBau && bridgeType">
       <li class="alpha-item">
         &alpha;<sub>Q1, global</sub> &equals; {{ alpha.V?.[0]?.Q1G }}
@@ -41,4 +41,9 @@ const alpha = computed(() => verificationStore.getLongitudinalAlpha);
 <style scoped lang="scss">
 @import 'src/css/quasar.variables.scss';
 
+.alpha-global {
+  grid-area: f;
+  // grid-area: row1;
+  display: flex;
+}
 </style>

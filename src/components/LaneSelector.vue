@@ -1,5 +1,5 @@
 <template>
-  <div class="lane-selector" v-if="!rBau && bridgeType">
+  <div class="lane-selector area-c" v-if="!rBau && bridgeType">
     <h3 class="lane-header">
       {{ $t('lanes') }}
     </h3>
@@ -78,6 +78,7 @@ const options = computed(() => {
 }
 .lane-selector {
   grid-area: c;
+  // grid-area: row1;
 }
 .lane-toggle {
   margin-top: 10px;

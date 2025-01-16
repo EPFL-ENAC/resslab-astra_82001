@@ -67,6 +67,7 @@ const bridgeToggle = computed({
 @import 'src/css/quasar.variables.scss';
 .bridge-selector {
   grid-area: b;
+  // grid-area: row1;
 }
 .bridge-header {
   font-size: 1.5rem;
