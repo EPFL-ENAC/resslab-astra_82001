@@ -1,73 +1,89 @@
 <template>
   <div class="traffic-type">
-    <h3 class="traffic-title">{{ $t('traffic')}}<q-tooltip> description </q-tooltip></h3>
+    <h3 class="traffic-title">
+      {{ $t('traffic') }}<q-tooltip> description </q-tooltip>
+    </h3>
     <q-btn-toggle
-        class="traffic-toggle"
-        v-model="trafficToggle"
-        color="primary"
-        flat
-        padding="md"
-        :options="[
-          {value: 'Class', slot: 'one'},
-          {value: 'Class+', slot: 'two'},
-        ]"
-      >
-        <template v-slot:one>
-          <div class="col items-center no-wrap">
-            <img :src="classImage" alt="class" class="track-image" />
-            <div class="text-center text-subtitle2">
-             class
-            </div>
-          </div>
-        </template>
-
-        <template v-slot:two>
-          <div class="col items-center no-wrap">
-            <img :src="classPlusImage" alt="class plus" class="track-image" />
-            <div class="text-center text-subtitle2">
-              class+
-            </div>
-          </div>
-        </template>
-
-      </q-btn-toggle>
-    <q-toggle
-      class="good-road-quality"
-      :false-value="false"
-      :true-value="true"
+      class="traffic-toggle"
+      v-model="trafficToggle"
       color="primary"
-      v-model="goodQualityRoad"
+      flat
+      padding="md"
+      :options="[
+        { value: 'Class', slot: 'one' },
+        { value: 'Class+', slot: 'two' },
+      ]"
     >
-      <template #default>
-        {{ goodQualityRoad ? $t('good_quality_road') : $t('bad_quality_road') }}
-        <q-tooltip class="description good qualityRoad"> description goodQualityRoad </q-tooltip>
+      <template v-slot:one>
+        <div class="col items-center no-wrap">
+          <img :src="classImage" alt="class" class="track-image" />
+          <div class="text-center text-subtitle2">class</div>
+        </div>
       </template>
-    </q-toggle>
 
-    <q-toggle
-      class="r-bau"
-      :false-value="false"
-      :true-value="true"
-      color="secondary"
-      v-model="rBau"
-    >
-    <template #default>
-      {{ rBau ? $t('r_bau_enabled') : $t('r_bau_disabled') }}
-      <q-tooltip> description rBau </q-tooltip>
-    </template>
-  </q-toggle>
+      <template v-slot:two>
+        <div class="col items-center no-wrap">
+          <img :src="classPlusImage" alt="class plus" class="track-image" />
+          <div class="text-center text-subtitle2">class+</div>
+        </div>
+      </template>
+    </q-btn-toggle>
+    <div class="traffic-toggle-sub">
+      <q-toggle
+        class="good-road-quality"
+        :false-value="false"
+        :true-value="true"
+        color="primary"
+        v-model="goodQualityRoad"
+      >
+        <template #default>
+          {{
+            goodQualityRoad ? $t('good_quality_road') : $t('bad_quality_road')
+          }}
+          <q-tooltip class="description good qualityRoad">
+            description goodQualityRoad
+          </q-tooltip>
+        </template>
+      </q-toggle>
 
+      <q-toggle
+        class="r-bau"
+        :false-value="false"
+        :true-value="true"
+        color="secondary"
+        v-model="rBau"
+      >
+        <template #default>
+          {{ rBau ? $t('r_bau_enabled') : $t('r_bau_disabled') }}
+          <q-tooltip> description rBau </q-tooltip>
+        </template>
+      </q-toggle>
+      <q-select
+        v-model="beta"
+        :options="betaOptions"
+        dense
+        outlined
+        class="q-mr-md"
+      />
+      <q-select
+        v-model="phyCal"
+        :options="phyCalOptions"
+        :disable="true"
+        dense
+        outlined
+        class="q-mr-md"
+      />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed,ref } from 'vue';
 import { useVerificationStore } from '../stores/verification-store';
 
 import { useI18n } from 'vue-i18n';
 
 const { t: $t } = useI18n();
-
 
 // Remove /public from the path as it's automatically handled by Vite
 const classImage = '/class.svg';
@@ -77,16 +93,76 @@ const verificationStore = useVerificationStore();
 
 const trafficToggle = computed({
   get: () => verificationStore.selectedClass,
-  set: (value) => verificationStore.setSelectedClass(value)
+  set: (value) => verificationStore.setSelectedClass(value),
 });
 const goodQualityRoad = computed({
   get: () => verificationStore.goodQualityRoad,
-  set: (value) => verificationStore.setGoodQualityRoad(value)
+  set: (value) => verificationStore.setGoodQualityRoad(value),
 });
 const rBau = computed({
   get: () => verificationStore.rBau,
-  set: (value) => verificationStore.setRBAU(value)
+  set: (value) => verificationStore.setRBAU(value),
 });
+
+
+
+// TODO: Move to store
+
+// default is 4.2 we can change it to 4.7 for bridge of category 3
+// cf 6.24 p 83 of 120 of the 82001f
+const betaOptions = [
+  { label: 'β4.20', value: 4.2 },
+  { label: 'β4.70', value: 4.7 }, // cas le plus defavorable +2.2 à +7% pour les ponts de catégorie 3 (on utilise +7% for now)
+  // III.1.2 Résultats pour deux voies de circulation, pour une bande de 1.4 m –
+  // (Q1 + Q2)act cf p99/120
+];
+const beta = ref(betaOptions[0]);
+
+// show phycal options for bridge with a span <= 20m
+/*
+** 𝐿 ≤ 10 𝑚, 𝑐𝑎𝑙 = 1.15
+** 10 < 𝐿 ≤ 20 𝑚, 𝜑𝑐𝑎𝑙 = 1.15 − 0.015 ∙ (𝐿 − 10)
+** 𝐿 > 20 𝑚, 𝜑𝑐𝑎𝑙 = 1.00
+** Par défaut c'est 1.00
+*/
+const defaultPhyCalOptions = [
+  { label: 'Φ1.00', value: 1.00},
+]
+
+const defaultGoodRoadPhyCal = 1.0;
+const defaultSmallRoadPhyCal = 1.15;
+const phyCalOptions = computed(() => {
+  return defaultPhyCalOptions;
+  // if (selected.value.Span === null) {
+  //   return defaultPhyCalOptions;
+  // }
+  // if (selected.value.Span === undefined) {
+  //   return defaultPhyCalOptions;
+  // }
+  // // 10 < 𝐿 ≤ 20 𝑚, 𝜑𝑐𝑎𝑙 = 1.15 − 0.015 ∙ (𝐿 − 10)
+  // let phyCalDynamicValue = defaultSmallRoadPhyCal - 0.015 * (selected.value.Span.value - 10);
+  // if (selected.value.Span.value <= 10) {
+  //   phyCalDynamicValue = defaultSmallRoadPhyCal; // 𝐿 ≤ 10 𝑚, 𝑐𝑎𝑙 = 1.15
+  // }
+  // if (selected.value.Span.value >= 20) {
+  //   phyCalDynamicValue = defaultGoodRoadPhyCal; // 𝐿 > 20 𝑚, 𝜑𝑐𝑎𝑙 = 1.00
+  // }
+
+  // if (goodQualityRoad.value === true) {
+  //   phyCalDynamicValue = defaultGoodRoadPhyCal;
+  // }
+  // if (phyCalDynamicValue === undefined) {
+  //   return defaultPhyCalOptions;
+  // }
+//   return [
+//   { label: `Φ${phyCalDynamicValue.toFixed(2)}`, value: phyCalDynamicValue}
+// ]
+});
+
+// const phyCal = ref(phyCalOptions.value[0]);
+const phyCal = computed(() => (phyCalOptions.value[0]));
+
+
 </script>
 
 <style scoped lang="scss">
@@ -95,48 +171,48 @@ const rBau = computed({
 .traffic-title {
   font-size: 1.5rem;
   font-weight: bold;
-    line-height: 2rem;
-    padding: 0;
-    margin: 0rem 0rem 1rem 0rem;
+  line-height: 2rem;
+  padding: 0;
+  margin: 0rem 0rem 1rem 0rem;
 }
 .traffic-toggle {
-    display: inline-grid;
-    grid-auto-flow: column;
-    /* width: -webkit-fill-available; */
-    width: 100%;
-    width: -moz-available;
-    width: -webkit-fill-available;
-    // :deep(.q-btn) {
-    //   border-right: 1px solid $primary;
-    // }
-    // :deep(.q-btn:last-of-type) {
-    //   border-right: 0px;
-    // }
-    background-color: white;
-    border-radius: $button-border-radius;
-    // border: 1px solid $primary;
-    @media screen and (max-width: 600px) {
-      grid-auto-flow: row;
-    }
+  display: inline-grid;
+  grid-auto-flow: column;
+  /* width: -webkit-fill-available; */
+  width: 100%;
+  width: -moz-available;
+  width: -webkit-fill-available;
+  // :deep(.q-btn) {
+  //   border-right: 1px solid $primary;
+  // }
+  // :deep(.q-btn:last-of-type) {
+  //   border-right: 0px;
+  // }
+  background-color: white;
+  border-radius: $button-border-radius;
+  // border: 1px solid $primary;
+  @media screen and (max-width: 600px) {
+    grid-auto-flow: row;
+  }
 }
 
-:deep(.q-btn[aria-pressed="true"]) {
-    background-color: rgba($primary, 0.1);
-    color: $secondary;
-    // border-radius: 6px;
+:deep(.q-btn[aria-pressed='true']) {
+  background-color: rgba($primary, 0.1);
+  color: $secondary;
+  // border-radius: 6px;
 
-    .bridge-text {
-      // color: $secondary;
-      font-size: 1rem;
-      font-weight: bold;
-    }
+  .bridge-text {
+    // color: $secondary;
+    font-size: 1rem;
+    font-weight: bold;
+  }
 }
-:deep(.q-btn[aria-pressed="false"]) {
-    .bridge-text {
-      color: #000;
-      font-size: 1rem;
-      font-weight: normal;
-    }
+:deep(.q-btn[aria-pressed='false']) {
+  .bridge-text {
+    color: #000;
+    font-size: 1rem;
+    font-weight: normal;
+  }
 }
 
 // :deep(.q-btn[aria-pressed="true"]) {
@@ -161,7 +237,6 @@ const rBau = computed({
   grid-area: a;
   display: flex;
   flex-direction: column;
-
 
   border: 1px solid var(--q-color-primary);
   padding: 1rem;

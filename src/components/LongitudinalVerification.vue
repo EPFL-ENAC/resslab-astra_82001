@@ -1,5 +1,5 @@
 <template>
-  <section class="longitudinal-verification"  v-if="!rBau && bridgeType">
+  <section class="longitudinal-verification row2"  v-if="!rBau && bridgeType">
 
     <h3 class="longitudinal-header">{{ $t('longitudinal_verification') }}</h3>
     <section class="longitudinal-content">
@@ -78,7 +78,9 @@
         <q-radio dense v-model="longitudinalTrans" val="p3" label="point 3" />
       </section>
     </section>
-    <section class="longitudinal-results alpha-footer" aria-lable="" v-if="isEnabled">
+  </section>
+
+  <section class="longitudinal-verification-result longitudinal-results alpha-footer" aria-lable="" v-if="isEnabled">
       <!-- show three values: alphaq sub V,M-,M+ -->
       <ul class="alpha-list">
         <li class="alpha-item">
@@ -92,7 +94,6 @@
         </li>
       </ul>
     </section>
-  </section>
 </template>
 
 <script setup lang="ts">
@@ -207,7 +208,7 @@ const longitudinalTrans = computed({
 
 .longitudinal-results {
   // grid-row: 4;
-  grid-area: footer;
+  // grid-area: footer;
   align-self: end;
   /* Align child-4 to the bottom */
 }

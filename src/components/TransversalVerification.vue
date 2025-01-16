@@ -1,5 +1,5 @@
 <template>
-  <main class="transversal-verification" v-if="!rBau && bridgeType">
+  <main class="transversal-verification row3" v-if="!rBau && bridgeType">
     <h3 class="transversal-header">{{ $t('transversal_verification') }}</h3>
     <section class="transversal-inputs" aria-labelledby="transversal-title" v-if="isEnabled">
 
@@ -57,23 +57,10 @@
           </template>
         </q-btn-toggle>
       </div>
-
-      <!-- DEPRECATED because AR0 is Simp, AR2 is Fixed and BR1 is Semi -->
-      <!-- <div class="transversal-points" v-if="bridgeType != 'Slab'">
-
-        <div class="row transversal-inputs transversal-radio" aria-label="point" v-if="isCantileverEnabled">
-          <q-radio dense v-model="transversalTrans" val="AR0" label="AR0" />
-          <q-radio dense v-model="transversalTrans" val="AR2" label="AR2" />
-          <q-radio dense v-model="transversalTrans" val="BR1" label="BR1" />
-        </div>
-        <div class="row transversal-inputs transversal-radio" aria-label="point" v-if="!isCantileverEnabled">
-          <q-radio dense v-model="transversalTrans" val="PENC" label="PENC" />
-          <q-radio dense v-model="transversalTrans" val="SENC" label="SENC" />
-          <q-radio dense v-model="transversalTrans" val="SMPL" label="SMPL" />
-        </div>
-      </div> -->
     </section>
-    <section class="transversal-results alpha-footer" aria-lable="" v-if="isEnabled">
+  </main>
+
+  <section class="transversal-verification-result transversal-results alpha-footer" aria-lable="" v-if="isEnabled">
       <!-- {{ alphaTrans }} -->
       <!-- show three values: alphaq sub V,M-,M+ -->
       <ul class="alpha-list" v-if="bridgeType != 'Slab'">
@@ -100,7 +87,6 @@
         </li>
       </ul>
     </section>
-  </main>
 </template>
 
 <script setup lang="ts">
@@ -245,7 +231,7 @@ const transversalTrans = computed({
   grid-area: content;
 }
 .transversal-results {
-  grid-area: footer;
+  // grid-area: footer;
   align-self: end;
 }
 
