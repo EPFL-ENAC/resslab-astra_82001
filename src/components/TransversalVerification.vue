@@ -1,25 +1,25 @@
 <template>
-  <main class="transversal-verification row3" v-if="!rBau && bridgeType">
-    <h3 class="transversal-header">{{ $t('transversal_verification') }}</h3>
-    <section class="transversal-inputs" aria-labelledby="transversal-title" v-if="isEnabled">
+  <main class="transversal-verification-container row3" v-if="!rBau && bridgeType">
+    <section class="transversal-verification transversal-inputs" aria-labelledby="transversal-title" v-if="isEnabled">
+      <h3 class="transversal-header">{{ $t('transversal_verification') }}</h3>
 
-      <div clsss="row q-mt-md" v-if="bridgeType != 'Slab'">
+      <div clsss="row q-mt-sm" v-if="bridgeType != 'Slab'">
         <q-btn-toggle v-model="isCantileverEnabled" spread class="isCantileverEnabled-toggle" no-caps rounded
           toggle-color="primary" color="white" text-color="black" :options="[
             { label: $t('cantilever'), value: true },
             { label: $t('slab-between-beams'), value: false }
           ]" />
       </div>
-      <div class="row q-mt-md transversal-image" v-if="bridgeType != 'Slab'">
+      <div class="row q-mt-sm transversal-image" v-if="bridgeType != 'Slab'">
         <q-img v-if="isCantileverEnabled" src="/slab-cantilever.svg" style="height: 150px;" alt="cantilever"
           fit="contain"></q-img>
         <q-img v-else src="/slab-between-beams.svg" style="height: 150px;" alt="cantilever" fit="contain"></q-img>
       </div>
       <div v-else>
-        <q-img src="/slab-transversal.svg" style="height: 300px;" alt="slab" fit="contain"></q-img>
+        <q-img src="/slab-transversal.svg" style="height: 250px;" alt="slab" fit="contain"></q-img>
       </div>
 
-      <div class="row q-mt-md dimension items-center" v-if="bridgeType != 'Slab'">
+      <div class="row q-mt-sm dimension items-center" v-if="bridgeType != 'Slab'">
         <div class="col-2">
           <q-badge color="secondary">
             {{ $t("L") }}
@@ -34,7 +34,8 @@
             outlined />
         </div>
       </div>
-      <div class="col q-mt-md support items-center">
+    </section>
+    <section class="transversal-support">
         <h3 class="transversal-header">{{ $t('support') }}</h3>
         <q-btn-toggle class="support-toggle" v-model="supportType" color="primary" flat padding="md" :options="supportOptions">
           <template v-slot:one>
@@ -56,7 +57,6 @@
             </div>
           </template>
         </q-btn-toggle>
-      </div>
     </section>
   </main>
 
@@ -86,7 +86,7 @@
           &alpha;<sub>q,Mx,Medge</sub> &equals; {{ roundCeilWith2Decimals(alphaLong?.MxEdg?.[0]?.[selectedClass])  }}
         </li>
       </ul>
-    </section>
+  </section>
 </template>
 
 <script setup lang="ts">
@@ -181,26 +181,21 @@ const transversalTrans = computed({
 @import 'src/css/quasar.variables.scss';
 
 .transversal-slider {
-  // width: 312px;
-  // padding-right: 1rem;
   width: 90%;
 }
 
-.transversal-verification {
-  grid-area: e;
-}
 
 
 .transversal-support-image {
   max-width: 100px;
   min-width: 100px;
 
-  padding: 1rem;
+  // padding: 1rem;
   border: 1px solid var(--q-color-grey-3);
 }
 
 .transversal-image {
-  padding: 1rem;
+  // padding: 1rem;
   border: 1px solid var(--q-color-grey-3);
 
   /* set maximum and min width to avoid flickering of screen */
@@ -212,24 +207,30 @@ const transversalTrans = computed({
   }
 }
 
-.transversal-verification {
+.transversal-verification-container {
+  grid-area: e;
   display: grid;
-  grid-template-rows: auto 1fr auto;
-  grid-template-areas:
-    "header"
-    "content"
-    "footer"
-  ;
+  // grid-template-rows: auto 1fr auto;
+  grid-template-areas: "transversal support";
+  grid-template-columns: 1fr 1fr;
   min-height: 100%; // This is important
   height: 100%; // This ensures full height
   gap: 1rem;
 }
 .transversal-header {
-  grid-area: header;
+  // grid-area: header;
 }
 .transversal-inputs {
-  grid-area: content;
+  // grid-area: content;
 }
+
+.transversal-verification {
+  grid-area: transversal;
+}
+.transversal-support {
+  grid-area: support;
+}
+
 .transversal-results {
   // grid-area: footer;
   align-self: end;

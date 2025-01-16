@@ -29,6 +29,14 @@
       </template>
     </q-btn-toggle>
     <div class="traffic-toggle-sub">
+
+      <q-select
+        v-model="beta"
+        :options="betaOptions"
+        dense
+        outlined
+        class="q-mr-md"
+      />
       <q-toggle
         class="good-road-quality"
         :false-value="false"
@@ -45,7 +53,14 @@
           </q-tooltip>
         </template>
       </q-toggle>
-
+      <q-select
+        v-model="phyCal"
+        :options="phyCalOptions"
+        :disable="true"
+        dense
+        outlined
+        class="q-mr-md"
+      />
       <q-toggle
         class="r-bau"
         :false-value="false"
@@ -58,21 +73,7 @@
           <q-tooltip> description rBau </q-tooltip>
         </template>
       </q-toggle>
-      <q-select
-        v-model="beta"
-        :options="betaOptions"
-        dense
-        outlined
-        class="q-mr-md"
-      />
-      <q-select
-        v-model="phyCal"
-        :options="phyCalOptions"
-        :disable="true"
-        dense
-        outlined
-        class="q-mr-md"
-      />
+
     </div>
   </div>
 </template>
@@ -171,9 +172,10 @@ const phyCal = computed(() => (phyCalOptions.value[0]));
 .traffic-title {
   font-size: 1.5rem;
   font-weight: bold;
-  line-height: 2rem;
+  // line-height: 2rem;
+  line-height: 3.125rem;
   padding: 0;
-  margin: 0rem 0rem 1rem 0rem;
+  margin: 0rem;
 }
 .traffic-toggle {
   display: inline-grid;
@@ -238,9 +240,9 @@ const phyCal = computed(() => (phyCalOptions.value[0]));
   display: flex;
   flex-direction: column;
 
-  border: 1px solid var(--q-color-primary);
-  padding: 1rem;
-  border-radius: 0.5rem;
+  // border: 1px solid var(--q-color-primary);
+  // padding: 1rem;
+  // border-radius: 0.5rem;
 }
 
 .toggle-image {
@@ -265,5 +267,12 @@ const phyCal = computed(() => (phyCalOptions.value[0]));
 /* Add some spacing between text and icon in the button */
 .row.items-center.no-wrap {
   gap: 8px;
+}
+
+.traffic-toggle-sub {
+  grid-template-columns: 0.2fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  display: grid;
+  padding-top: 1rem;
 }
 </style>
