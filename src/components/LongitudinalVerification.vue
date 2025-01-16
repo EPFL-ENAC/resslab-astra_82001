@@ -4,7 +4,7 @@
     <h3 class="longitudinal-header">{{ $t('longitudinal_verification') }}</h3>
     <section class="longitudinal-content">
       <section class="longitudinal-inputs" aria-labelledby="longitudinal-inputs" v-if="isEnabled">
-        <div class="row q-mt-md dimension items-center">
+        <div class="row q-mt-sm dimension items-center">
           <div class="col-2">
             <q-badge color="secondary">
               {{ $t("span") }}
@@ -20,7 +20,7 @@
           </div>
         </div>
 
-        <div class="row q-mt-md dimension items-center">
+        <div class="row q-mt-sm dimension items-center">
           <div class="col-2">
             <q-badge color="secondary">
               {{ $t("width") }}
@@ -35,7 +35,7 @@
               :max="maxWidth" :step="0.1" :suffix="`m`" dense outlined />
           </div>
         </div>
-        <div class="q-mt-md" v-if="bridgeType === 'Twin'">
+        <div class="q-mt-sm" v-if="bridgeType === 'Twin'">
           <!-- select between composite and concrete -->
           <q-btn-toggle
             v-model="isConcrete"
@@ -51,6 +51,16 @@
             ]"
           />
         </div>
+          <section class="longitudinal-inputs longitudinal-radio q-mt-sm" aria-label="beams" v-if="bridgeType === 'Multi'">
+            <q-radio dense v-model="longitudinalTrans" val="P1" label="beam 1" />
+            <q-radio dense v-model="longitudinalTrans" val="P2" label="beam 2" />
+            <q-radio dense v-model="longitudinalTrans" val="P3" label="beam 3" />
+          </section>
+          <section class="longitudinal-inputs longitudinal-radio q-mt-sm" aria-label="point" v-if="bridgeType === 'Slab'">
+            <q-radio dense v-model="longitudinalTrans" val="p1" label="point 1" />
+            <q-radio dense v-model="longitudinalTrans" val="p2" label="point 2" />
+            <q-radio dense v-model="longitudinalTrans" val="p3" label="point 3" />
+          </section>
       </section>
       <section class="longitudinal-image" aria-label="longitudinal-image" v-if="isEnabled">
         <q-img src="/box-longitudinal.svg" alt="Longitudinal Verification" v-if="bridgeType === 'Box'"
@@ -60,23 +70,14 @@
         <q-img src="/twin-girder-longitudinal-concrete.svg" alt="twin girder concrete"
           v-else-if="bridgeType === 'Twin' && bridgeComposition === 'Concrete'" style="height: 150px;" fit="contain" />
         <p v-else-if="bridgeType === 'Multi'">
-          <q-img src="/multi-girder-longitudinal-1.svg" alt="Multi girder " style="height: 150px;" fit="contain" />
-          <q-img src="/multi-girder-longitudinal-2.svg" alt="Multi girder " style="height: 150px;" fit="contain" />
+          <q-img src="/multi-girder-longitudinal-1.svg" alt="Multi girder " style="height: 125px;" fit="contain" />
+          <q-img src="/multi-girder-longitudinal-2.svg" alt="Multi girder " style="height: 125px;" fit="contain" />
         </p>
         <q-img v-else-if="bridgeType === 'Slab'" src="/slab-longitudinal.svg" alt="Slab" fit="contain"
           style="height:150px" />
 
       </section>
-      <section class="longitudinal-inputs longitudinal-radio" aria-label="beams" v-if="bridgeType === 'Multi'">
-        <q-radio dense v-model="longitudinalTrans" val="P1" label="beam 1" />
-        <q-radio dense v-model="longitudinalTrans" val="P2" label="beam 2" />
-        <q-radio dense v-model="longitudinalTrans" val="P3" label="beam 3" />
-      </section>
-      <section class="longitudinal-inputs longitudinal-radio" aria-label="point" v-if="bridgeType === 'Slab'">
-        <q-radio dense v-model="longitudinalTrans" val="p1" label="point 1" />
-        <q-radio dense v-model="longitudinalTrans" val="p2" label="point 2" />
-        <q-radio dense v-model="longitudinalTrans" val="p3" label="point 3" />
-      </section>
+
     </section>
   </section>
 
@@ -160,20 +161,11 @@ const longitudinalTrans = computed({
 }
 
 .longitudinal-verification {
-  // padding: 1rem;
-  // border: 1px solid var(--q-color-grey-3);
-  /* set maximum and min width to avoid flickering of screen */
-  /* max-width: 400px;
-  min-width: 400px; */
-
-  //.parent
   display: grid;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: auto 1fr;
   grid-template-areas:
-    "header"
-    "content"
-    "footer"
-  ;
+      "header"
+      "content";
   min-height: 100%; // This is important
   height: 100%; // This ensures full height
   gap: 1rem;
@@ -187,38 +179,26 @@ const longitudinalTrans = computed({
   margin: 0px;
   margin-bottom: 0rem;
 
-  // grid-row: 1;
   grid-area: header;
 }
 
 .longitudinal-content {
-  // child-2
-  grid-area: content;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 
-.longitudinal-inputs {
-  // grid-row: 2;
-}
-
-
-.longitudinal-image {
-  // grid-row: 3;
-}
 
 .longitudinal-results {
-  // grid-row: 4;
-  // grid-area: footer;
   align-self: end;
-  /* Align child-4 to the bottom */
 }
 
 
 
 .longitudinal-image {
-  grid-row: 3;
-  padding: 1rem;
-  border: 1px solid var(--q-color-grey-3);
+  display: grid;
+  // padding: 1rem;
+  // border: 1px solid var(--q-color-grey-3);
 
   /* set maximum and min width to avoid flickering of screen */
   img {

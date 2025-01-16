@@ -42,7 +42,6 @@
     grid-template-columns: 1fr;
     grid-gap: 10px;
     padding: 10px;
-    margin: 10px;
   }
 }
 // media for tablet > sm and < md
@@ -64,7 +63,8 @@
 @media only screen and (min-width: 1024px) {
   .grid-astra {
     display: grid;
-    grid-template-rows: repeat(3, 1fr);
+    // grid-template-rows: repeat(3, 1fr);
+    grid-template-rows: auto repeat(2, 1fr);
     // but also column d and e taking at least 300px width each
     // grid-template-columns: 1fr 2fr 2fr;
     grid-template-columns: 1fr 0.8fr 2.8fr 1fr;
@@ -82,7 +82,6 @@
     // I wan to make the grid responsive and also having the first column to be 1fr and the second column to be 2fr
     // grid-template-columns: 1fr 2fr 2fr;
     padding: 10px;
-    margin: 10px;
   }
 }
 
