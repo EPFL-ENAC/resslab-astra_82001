@@ -308,7 +308,7 @@ const getObjectiveLongitudinalWidth = (state: any) => {
   //     'l< 10.8': not possible
   //     'l> 10.8': same as 10.8 (because of different beam analysis explicitly indicated)
   //   slab:
-  //     'l=9': not possible
+  //     'l < 9': not possible
   //     '9 <l< 18': interpolate
   //     'l> 18': not possible
 

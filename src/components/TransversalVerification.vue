@@ -148,26 +148,26 @@ const supportOptions = computed(() => {
 
   if (bridgeType.value !== 'Slab') {
     if (transversalTypeName.value === 'cantilever') {
-      // AR-0 is Simp, AR-2 is Fixed and BR-1 is Semi
+      // AR-0 is Fixed, AR-2 is Semi and BR-1 is Simp
       return [
-        { slot: 'one', label: $t('AR-0'), value: 'Simp' },
-        { slot: 'two', label: $t('AR-2'), value: 'Fixed' },
-        { slot: 'three', label: $t('BR-1'), value: 'Semi' }
+        { slot: 'one', label: $t('AR-0'), value: 'Fixed' },
+        { slot: 'two', label: $t('AR-2'), value: 'Semi' },
+        { slot: 'three', label: $t('BR-1'), value: 'Simp' }
       ];
     } else {
-      // PENC is Simp, SENC is Fixed and SMPL is Semi
+      // PENC is Fixed, SENC is Semi and SMPL is Simp
       return [
-        { slot: 'one', label: $t('PENC'), value: 'Simp' },
-        { slot: 'two', label: $t('SENC'), value: 'Fixed' },
-        { slot: 'three', label: $t('SMPL'), value: 'Semi' }
+        { slot: 'one', label: $t('PENC'), value: 'Fixed' },
+        { slot: 'two', label: $t('SENC'), value: 'Semi' },
+        { slot: 'three', label: $t('SMPL'), value: 'Simp' }
       ];
     }
   }
   else {
     return [
-      { slot: 'one', value: 'Simp' },
+      { slot: 'one', value: 'Fixed' },
       { slot: 'two', value: 'Semi' },
-      { slot: 'three', value: 'Fixed' },
+      { slot: 'three', value: 'Simp' },
     ];
   }
 });
