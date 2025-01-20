@@ -17,7 +17,7 @@ lanes,Lanes,Voies,Fahrspuren,Corsie,Lanes,Voies,Fahrspuren,Corsie
 uni2l,ONE-WAY TWO LANES, Unilatéral deux voies,Einseitig zwei Fahrspuren,Unilaterale due corsie,Unilateral two lanes,Unilatéral deux voies,Einseitig zwei Fahrspuren,Unilaterale due corsie,Unilateral two lanes
 bi2l, TWO-WAY TWO LANES, Bilatéral deux voies,Zweiseitig zwei Fahrspuren,Bilaterale due corsie,Bilateral two lanes, Bilatéral deux voies,Zweiseitig zwei Fahrspuren,Bilaterale due corsie
 bi4l, TWO-WAY FOUR LANES, Bilatéral quatre voies,Zweiseitig vier Fahrspuren,Bilaterale quattro corsie,Bilateral four lanes, Bilatéral quatre voies,Zweiseitig vier Fahrspuren,Bilaterale quattro corsie
-support,Support,Support,Unterstützung,Supporto,Support,Support,Unterstützung,Supporto
+support,Support type,type de Support,Unterstützung,Supporto,Support,Support,Unterstützung,Supporto
 simp,Simply_Supported,Simply_Supported,Simply_Supported,Appoggio_Semplice,Simply_Supported,Simply_Supported,Simply_Supported,Appoggio_Semplice
 trans,Transversal_location_of_load,Trans,Trans,Posizione_trasversale_carico,Transversal_location_of_load,Trans,Trans,Posizione_trasversale_carico
 p0,p0,p0,p0,p0,p0,p0,p0,p0

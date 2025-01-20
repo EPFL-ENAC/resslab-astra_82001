@@ -348,7 +348,7 @@ export const useVerificationStore = defineStore('verification', {
   state: (): VerificationState => ({
     selectedLane: 'Uni2L',
     selectedClass: 'Class',
-    bridgeType: 'Box', // default value should be null
+    bridgeType: 'Slab', // default value should be null
     goodQualityRoad: false,
     rBau: false,
     bridgeComposition: 'Composite',
@@ -356,7 +356,7 @@ export const useVerificationStore = defineStore('verification', {
       isEnabled: true,
       span: 30,
       width: 12,
-      trans: 'p0', // default should depend on the bridge type
+      trans: 'p1', // default should depend on the bridge type
     },
     // Initialize more verification-related state here as needed
     transversal: {

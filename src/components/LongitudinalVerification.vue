@@ -1,9 +1,10 @@
 <template>
   <section class="longitudinal-verification row2"  v-if="!rBau && bridgeType">
 
-    <h3 class="longitudinal-header">{{ $t('longitudinal_verification') }}</h3>
     <section class="longitudinal-content">
       <section class="longitudinal-inputs" aria-labelledby="longitudinal-inputs" v-if="isEnabled">
+
+      <h3 class="longitudinal-header">{{ $t('longitudinal_verification') }}</h3>
         <div class="row q-mt-sm dimension items-center">
           <div class="col-2">
             <q-badge color="secondary">
@@ -51,18 +52,11 @@
             ]"
           />
         </div>
-          <section class="longitudinal-inputs longitudinal-radio q-mt-sm" aria-label="beams" v-if="bridgeType === 'Multi'">
-            <q-radio dense v-model="longitudinalTrans" val="P1" label="beam 1" />
-            <q-radio dense v-model="longitudinalTrans" val="P2" label="beam 2" />
-            <q-radio dense v-model="longitudinalTrans" val="P3" label="beam 3" />
-          </section>
-          <section class="longitudinal-inputs longitudinal-radio q-mt-sm" aria-label="point" v-if="bridgeType === 'Slab'">
-            <q-radio dense v-model="longitudinalTrans" val="p1" label="point 1" />
-            <q-radio dense v-model="longitudinalTrans" val="p2" label="point 2" />
-            <q-radio dense v-model="longitudinalTrans" val="p3" label="point 3" />
-          </section>
       </section>
       <section class="longitudinal-image" aria-label="longitudinal-image" v-if="isEnabled">
+        <h3 class="longitudinal-image-header"  v-if="bridgeType === 'Slab' || bridgeType === 'Multi'">
+          {{ $t('positioning_of_internal_forces_influence_line')}}
+        </h3>
         <q-img src="/box-longitudinal.svg" alt="Longitudinal Verification" v-if="bridgeType === 'Box'"
           style="height: 150px;" fit="contain" /> <!-- this is the image -->
         <q-img src="/twin-girder-longitudinal-composite.svg" alt="Twin girder composite"
@@ -76,12 +70,22 @@
         <q-img v-else-if="bridgeType === 'Slab'" src="/slab-longitudinal.svg" alt="Slab" fit="contain"
           style="height:150px" />
 
+          <section class="longitudinal-inputs longitudinal-radio q-mt-sm" aria-label="beams" v-if="bridgeType === 'Multi'">
+            <q-radio dense v-model="longitudinalTrans" val="P1" label="beam 1" />
+            <q-radio dense v-model="longitudinalTrans" val="P2" label="beam 2" />
+            <q-radio dense v-model="longitudinalTrans" val="P3" label="beam 3" />
+          </section>
+          <section class="longitudinal-inputs longitudinal-radio q-mt-sm" aria-label="point" v-if="bridgeType === 'Slab'">
+            <q-radio dense v-model="longitudinalTrans" val="p1" label="point 1" />
+            <q-radio dense v-model="longitudinalTrans" val="p2" label="point 2" />
+            <q-radio dense v-model="longitudinalTrans" val="p3" label="point 3" />
+          </section>
       </section>
 
     </section>
   </section>
 
-  <section class="longitudinal-verification-result longitudinal-results alpha-footer" aria-lable="" v-if="isEnabled">
+  <section class="longitudinal-verification-result longitudinal-results alpha-footer" aria-lable="" v-if="!rBau && bridgeType">
       <!-- show three values: alphaq sub V,M-,M+ -->
       <ul class="alpha-list">
         <li class="alpha-item">
@@ -106,8 +110,33 @@ const verificationStore = useVerificationStore();
 const maxSpan = 80;
 const minSpan = 4;
 
-const maxWidth = 18;
-const minWidth = 9;
+const maxWidth = computed(() => {
+    if (bridgeType.value === 'Box') {
+      return 18;
+    } else if (bridgeType.value === 'Twin') {
+      return 12;
+    } else if (bridgeType.value === 'Multi') {
+      return 18;
+    } else if (bridgeType.value === 'Slab') {
+      return 18;
+    }
+    return 18;
+  });
+
+
+const minWidth = computed(() => {
+    if (bridgeType.value === 'Box') {
+      return 9;
+    } else if (bridgeType.value === 'Twin') {
+      return 9;
+    } else if (bridgeType.value === 'Multi') {
+      return 9;
+    } else if (bridgeType.value === 'Slab') {
+      return 9;
+    }
+    return 9;
+  });
+
 
 const roundCeilWith2Decimals = (value: number) => Math.ceil(value * 100) / 100;
 
@@ -163,9 +192,9 @@ const longitudinalTrans = computed({
 .longitudinal-verification {
   display: grid;
   grid-template-rows: auto 1fr;
-  grid-template-areas:
-      "header"
-      "content";
+  // grid-template-areas:
+  //     "header"
+  //     "content";
   min-height: 100%; // This is important
   height: 100%; // This ensures full height
   gap: 1rem;
@@ -179,12 +208,13 @@ const longitudinalTrans = computed({
   margin: 0px;
   margin-bottom: 0rem;
 
-  grid-area: header;
+  // grid-area: header;
 }
 
 .longitudinal-content {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-gap: 1rem;
 }
 
 
@@ -193,10 +223,16 @@ const longitudinalTrans = computed({
   align-self: end;
 }
 
-
+.longitudinal-image-header {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0px;
+  margin-bottom: 0rem;
+}
 
 .longitudinal-image {
   display: grid;
+  grid-auto-rows: auto;
   // padding: 1rem;
   // border: 1px solid var(--q-color-grey-3);
 

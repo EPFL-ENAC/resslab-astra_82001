@@ -35,7 +35,7 @@
         </div>
       </div>
     </section>
-    <section class="transversal-support">
+    <section class="transversal-support" v-if="bridgeType != 'Slab'">
         <h3 class="transversal-header">{{ $t('support') }}</h3>
         <q-btn-toggle class="support-toggle" v-model="supportType" color="primary" flat padding="md" :options="supportOptions">
           <template v-slot:one>
@@ -58,9 +58,34 @@
           </template>
         </q-btn-toggle>
     </section>
+    <section v-else>
+      <div class="row q-mt-sm dimension items-center">
+        <h3 class="transversal-header">{{ $t('support') }}</h3>
+        <q-btn-toggle class="support-toggle" v-model="supportType" color="primary" flat padding="md" :options="supportOptions">
+          <template v-slot:one>
+            <div class="col items-center no-wrap">
+             M<sub>support</sub> &LessSlantEqual; 50% M<sub>fully fixed</sub>
+            </div>
+          </template>
+
+          <template v-slot:two>
+            <div class="col items-center no-wrap">
+              50% M<sub>fully fixed</sub>  &LessSlantEqual; M<sub>support</sub> &LessSlantEqual; M<sub>fully fixed</sub>
+
+            </div>
+          </template>
+          <template v-slot:three>
+            <div class="col items-center no-wrap">
+              M<sub>support</sub> &equals; M<sub>fully fixed</sub>
+
+            </div>
+          </template>
+        </q-btn-toggle>
+      </div>
+    </section>
   </main>
 
-  <section class="transversal-verification-result transversal-results alpha-footer" aria-lable="" v-if="isEnabled">
+  <section class="transversal-verification-result transversal-results alpha-footer" aria-lable="" v-if="!rBau && bridgeType">
       <!-- {{ alphaTrans }} -->
       <!-- show three values: alphaq sub V,M-,M+ -->
       <ul class="alpha-list" v-if="bridgeType != 'Slab'">
@@ -122,10 +147,6 @@ const supportOptions = computed(() => {
         ];
 
   if (bridgeType.value !== 'Slab') {
-
-// options.push(
-//   { slot: 'three', label: $t('Semi'), value: 'Semi' })
-//   }
     if (transversalTypeName.value === 'cantilever') {
       // AR-0 is Simp, AR-2 is Fixed and BR-1 is Semi
       return [
@@ -142,7 +163,13 @@ const supportOptions = computed(() => {
       ];
     }
   }
-  return options;
+  else {
+    return [
+      { slot: 'one', value: 'Simp' },
+      { slot: 'two', value: 'Semi' },
+      { slot: 'three', value: 'Fixed' },
+    ];
+  }
 });
 
 
@@ -279,7 +306,10 @@ const transversalTrans = computed({
 
 .support-toggle {
   display: inline-grid;
-  grid-auto-flow: column;
+  :deep(button) {
+    text-transform: none;
+  }
+  grid-auto-flow: row;
   width: 100%;
   width: -moz-available;
   width: -webkit-fill-available;

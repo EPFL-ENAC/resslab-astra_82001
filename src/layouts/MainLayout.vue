@@ -4,7 +4,6 @@
       <q-toolbar>
 
         <q-toolbar-title>
-          ASTRA 82001
           <span class="text-h6 q-pa-md q-mt-lg">ASTRA 82001</span>
           <span class="text-caption">v{{ version }}</span>
           <span class="text-caption q-mx-md">|</span>
