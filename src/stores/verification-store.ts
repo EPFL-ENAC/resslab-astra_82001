@@ -326,7 +326,7 @@ const getObjectiveLongitudinalWidth = (state: any) => {
   } else if (state.bridgeType === 'Multi') {
     return 10.8;
   } else if (state.bridgeType === 'Slab') {
-    //     'l=9': not possible
+    // 'l < 9': not possible
     // '9 <l< 18': interpolate
     // 'l> 18': not possible
     if (state.longitudinal.width < 9) {
