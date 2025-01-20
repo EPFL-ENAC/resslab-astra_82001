@@ -71,8 +71,8 @@ type_to_width:
     'l< 10.8': not possible
     'l> 10.8': same as 10.8 (because of different beam analysis explicitly indicated)
   slab:
-    'l=9': not possible
-    '9 <l< 18': interpolate
+    'l < 9': not possible
+    '9 < l < 18': interpolate
     'l> 18': not possible
   dalle_de_roulement:
     porte_a_faux:
