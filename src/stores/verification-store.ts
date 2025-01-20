@@ -10,23 +10,23 @@ export type LongValue = 'p0' | 'p1' | 'p2' | 'p3' | 'P1' | 'P2' | 'P3';
 // transversal support value
 export type TransValue = 'AR0' | 'AR2' | 'BR1' | 'PENC' | 'SENC' | 'SMPL';
 export const correspondTransValue = {
-  'AR0': 'Simp',
-  'AR2': 'Fixed',
-  'BR1': 'Semi',
-  'PENC': 'Simp',
-  'SENC': 'Fixed',
-  'SMPL': 'Semi',
+  'AR0': 'Fixed',
+  'AR2': 'Semi',
+  'BR1': 'Simp',
+  'PENC': 'Fixed',
+  'SENC': 'Semi',
+  'SMPL': 'Simp',
 }
 export const mapTransCantilevr: Record<SupportType, TransValue> = {
-  'Simp': 'AR0',
-  'Fixed': 'AR2',
-  'Semi': 'BR1',
+  'Simp': 'BR1',
+  'Fixed': 'AR0',
+  'Semi': 'AR2',
 };
 
 export const mapTransBetweenBeams: Record<SupportType, TransValue> = {
-  'Simp': 'PENC',
-  'Fixed': 'SENC',
-  'Semi': 'SMPL',
+  'Simp': 'SMPL',
+  'Fixed': 'PENC',
+  'Semi': 'SENC',
 }
 import data from '../assets/data/data.json';
 import { Traffic, TrafficClass } from 'src/types/Selected';
@@ -196,34 +196,51 @@ function bilinearInterpolation(matrix, targetWidth, targetSpan) {
       { Width: 18, Span: 80, class: 0.167184639 }
     ]
   */
-  const points = matrix.sort((a, b) => a.Width - b.Width || a.Span - b.Span);
-  const [p1, p2, p3, p4] = points;
-  //    [q11, q12, q21, q22] = points.map(p => p.class); // basically the same as below
+    const points = matrix.sort((a, b) => a.Width - b.Width || a.Span - b.Span);
+    const [p1, p2, p3, p4] = points;
 
-  // Calculate the interpolation weights
-  const x1 = p1.Width,
-    x2 = p3.Width;
-  const y1 = p1.Span,
-    y2 = p2.Span;
-  const Q11 = p1.class,
-    Q12 = p2.class,
-    Q21 = p3.class,
-    Q22 = p4.class;
+    const x1 = p1.Width,
+      x2 = p3.Width;
+    const y1 = p1.Span,
+      y2 = p2.Span;
+    const Q11 = p1.class,
+      Q12 = p2.class,
+      Q21 = p3.class,
+      Q22 = p4.class;
 
-  // We find the linear interpolation of function f at (x, y₁) using the values of f at (x₁, y₁) and (x₂, y₁) which are Q₁₁ and Q₂₁ respectively:
-  const R1 =
-    ((x2 - targetWidth) / (x2 - x1)) * Q11 +
-    ((targetWidth - x1) / (x2 - x1)) * Q21;
-  // We find the linear interpolation of f at (x, y₂) using the values of f at (x₁, y₂) and (x₂, y₂) which are Q₁₂ and Q₂₂ respectively:
-  const R2 =
-    ((x2 - targetWidth) / (x2 - x1)) * Q12 +
-    ((targetWidth - x1) / (x2 - x1)) * Q22;
+    // Handle edge cases where coordinates are equal
+    if (x1 === x2 && y1 === y2) {
+      // If both coordinates are equal, just return any of the values
+      // as they should all be the same
+      return Q11;
+    }
 
-  // Finally, we find the linear interpolation at (x, y) using the interpolated values of f at (x, y₁) and (x, y₂):
-  const P =
-    ((y2 - targetSpan) / (y2 - y1)) * R1 + ((targetSpan - y1) / (y2 - y1)) * R2;
+    if (x1 === x2) {
+      // Linear interpolation along y-axis only
+      return ((y2 - targetSpan) / (y2 - y1)) * Q11 +
+             ((targetSpan - y1) / (y2 - y1)) * Q12;
+    }
 
-  return P;
+    if (y1 === y2) {
+      // Linear interpolation along x-axis only
+      return ((x2 - targetWidth) / (x2 - x1)) * Q11 +
+             ((targetWidth - x1) / (x2 - x1)) * Q21;
+    }
+
+    // Standard bilinear interpolation when no coordinates are equal
+    const R1 =
+      ((x2 - targetWidth) / (x2 - x1)) * Q11 +
+      ((targetWidth - x1) / (x2 - x1)) * Q21;
+
+    const R2 =
+      ((x2 - targetWidth) / (x2 - x1)) * Q12 +
+      ((targetWidth - x1) / (x2 - x1)) * Q22;
+
+    const P =
+      ((y2 - targetSpan) / (y2 - y1)) * R1 +
+      ((targetSpan - y1) / (y2 - y1)) * R2;
+
+    return P;
 }
 
 /*
@@ -348,7 +365,7 @@ export const useVerificationStore = defineStore('verification', {
   state: (): VerificationState => ({
     selectedLane: 'Uni2L',
     selectedClass: 'Class',
-    bridgeType: 'Slab', // default value should be null
+    bridgeType: 'Box', // default value should be null
     goodQualityRoad: false,
     rBau: false,
     bridgeComposition: 'Composite',
@@ -356,7 +373,7 @@ export const useVerificationStore = defineStore('verification', {
       isEnabled: true,
       span: 30,
       width: 12,
-      trans: 'p1', // default should depend on the bridge type
+      trans: 'p0', // default should depend on the bridge type
     },
     // Initialize more verification-related state here as needed
     transversal: {
@@ -364,7 +381,7 @@ export const useVerificationStore = defineStore('verification', {
       isEnabled: true,
       span: 3,
       supportType: 'Simp', // equal to trans
-      trans: 'AR0',
+      trans: 'BR1',
     },
   }),
 
