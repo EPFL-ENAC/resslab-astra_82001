@@ -19,7 +19,14 @@
           target="_blank"
           download
           class="q-ml-md"
-        />
+        >
+        <template v-slot:default>
+            <q-tooltip>
+              <span>Download reference to linkToAstra82001fPDF</span>
+              <q-img src="/epfl-designed/Canard/svg/c-info.svg" alt="download pdf" />
+            </q-tooltip>
+          </template>
+        </q-btn>
         <q-btn
           flat
           round
@@ -28,7 +35,14 @@
           target="_blank"
           download="data-astra-82001f.csv"
           class="q-ml-md"
-        />
+        >
+          <template v-slot:default>
+            <q-tooltip>
+              <span>Download CSV</span>
+              <q-img src="/epfl-designed/Canard/svg/c-csv.svg" alt="Download csv" />
+            </q-tooltip>
+          </template>
+        </q-btn>
       </q-toolbar>
     </q-header>
 
