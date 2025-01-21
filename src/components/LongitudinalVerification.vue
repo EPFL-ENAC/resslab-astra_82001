@@ -114,6 +114,8 @@ const verificationStore = useVerificationStore();
 //     %% Slab -> 4, 6, 8, 10, 15, 20, 25, 30
 //     %% DalleRoulem --> 1.22, 2.33, 3.44,  4.56, 5.67, 6.78, 3,  7.5,   12
 
+// TODO: when changing the bridge type, we should ensure that we're inside the bound.
+// MaxSpan, MinSpan, MaxWidth, MinWidth should be updated accordingly inside the store then
 const maxSpan = computed(() => {
     if (bridgeType.value === 'Box') {
       return 80;
