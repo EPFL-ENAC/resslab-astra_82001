@@ -15,7 +15,7 @@
         ]"
       >
         <template v-slot:one="">
-          <div class="col items-center no-wrap" :title="$t('box')">
+          <div class="bridge-item col items-center no-wrap" :title="$t('box')">
             <q-img fit="contain" position="top left" src="/box.svg" alt="box" class="track-image"/>
             <div class="text-center bridge-text" >
               {{ $t('box') }}
@@ -24,7 +24,7 @@
         </template>
 
         <template v-slot:two>
-          <div class="col items-center no-wrap" :title="$t('twin-girder')">
+          <div class="bridge-item col items-center no-wrap" :title="$t('twin-girder')">
             <q-img fit="contain" position="top left" src="/twin-girder.svg" alt="twin girder" class="track-image" />
             <div class="text-center bridge-text">
               {{$t('twin-girder')}}
@@ -32,7 +32,7 @@
           </div>
         </template>
         <template v-slot:three>
-          <div class="col items-center no-wrap" :title="$t('multi-girder')">
+          <div class="bridge-item col items-center no-wrap" :title="$t('multi-girder')">
             <q-img fit="contain" position="top left" src="/multi-girder.svg" alt="multi girder" class="track-image" />
             <div class="text-center bridge-text">
               {{$t('multi-girder')}}
@@ -40,7 +40,7 @@
           </div>
         </template>
         <template v-slot:four>
-          <div class="col items-center no-wrap"  :title="$t('slab')">
+          <div class="bridge-item col items-center no-wrap"  :title="$t('slab')">
             <q-img fit="contain" position="top left" src="/slab.svg" alt="slab" class="track-image" />
             <div class="text-center bridge-text">
               {{$t('slab')}}
@@ -75,6 +75,12 @@ const bridgeToggle = computed({
   margin: 0rem;
   margin-bottom: 0rem;
   text-align: left;
+}
+.bridge-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
 }
 .bridge-toggle {
   display: grid;
