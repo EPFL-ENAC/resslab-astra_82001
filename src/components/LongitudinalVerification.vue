@@ -2,7 +2,7 @@
   <section class="longitudinal-verification row2"  v-if="!rBau && bridgeType">
 
     <section class="longitudinal-content">
-      <section class="longitudinal-inputs" aria-labelledby="longitudinal-inputs" v-if="isEnabled">
+      <section class="longitudinal-inputs" aria-labelledby="longitudinal-inputs">
 
       <h3 class="longitudinal-header">{{ $t('longitudinal_verification') }}</h3>
         <div class="row q-mt-sm dimension items-center">
@@ -53,7 +53,7 @@
           />
         </div>
       </section>
-      <section class="longitudinal-image" aria-label="longitudinal-image" v-if="isEnabled">
+      <section class="longitudinal-image" aria-label="longitudinal-image">
         <h3 class="longitudinal-image-header"  v-if="bridgeType === 'Slab' || bridgeType === 'Multi'">
           {{ $t('positioning_of_internal_forces_influence_line')}}
         </h3>
@@ -181,18 +181,15 @@ const roundCeilWith2Decimals = (value: number) => Math.ceil(value * 100) / 100;
 const alpha = computed(() => verificationStore.getLongitudinalAlpha);
 const rBau = computed(() => verificationStore.rBau);
 // Create computed properties for two-way binding
-const isEnabled = computed({
-  get: () => verificationStore.longitudinal.isEnabled,
-  set: (value) => verificationStore.setLongitudinalEnabled(value)
-});
+
 
 const span = computed({
-  get: () => verificationStore.longitudinal.span,
+  get: () => verificationStore.span,
   set: (value) => verificationStore.setLongitudinalSpan(value)
 });
 
 const width = computed({
-  get: () => verificationStore.longitudinal.width,
+  get: () => verificationStore.width,
   set: (value) => verificationStore.setLongitudinalWidth(value)
 });
 
@@ -208,7 +205,7 @@ const isConcrete = computed({
 const selectedClass: ComputedRef<classResult> = computed(() => verificationStore.selectedClass === 'Class' ? 'qG' : 'qG+');
 
 const longitudinalTrans = computed({
-  get: () => verificationStore.longitudinal.trans,
+  get: () => verificationStore.trans,
   set: (value) => verificationStore.setLongitudinalTrans(value)
 });
 </script>
@@ -230,9 +227,6 @@ const longitudinalTrans = computed({
 .longitudinal-verification {
   display: grid;
   grid-template-rows: auto 1fr;
-  // grid-template-areas:
-  //     "header"
-  //     "content";
   min-height: 100%; // This is important
   height: 100%; // This ensures full height
   gap: 1rem;
@@ -271,8 +265,6 @@ const longitudinalTrans = computed({
 .longitudinal-image {
   display: grid;
   grid-auto-rows: auto;
-  // padding: 1rem;
-  // border: 1px solid var(--q-color-grey-3);
 
   /* set maximum and min width to avoid flickering of screen */
   img {

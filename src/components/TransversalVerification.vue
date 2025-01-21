@@ -1,6 +1,6 @@
 <template>
   <main class="transversal-verification-container row3" v-if="!rBau && bridgeType">
-    <section class="transversal-verification transversal-inputs" aria-labelledby="transversal-title" v-if="isEnabled">
+    <section class="transversal-verification transversal-inputs" aria-labelledby="transversal-title">
       <h3 class="transversal-header">{{ $t('transversal_verification') }}</h3>
 
       <div clsss="row q-mt-sm" v-if="bridgeType != 'Slab'">
@@ -136,7 +136,7 @@ const selectedClass = computed(() => verificationStore.selectedClass === 'Class'
 const supportTypeHeightImage = '50px';
 
 const transversalTypeName = computed({
-  get: () => verificationStore.transversal.isCantileverEnabled ? 'cantilever' : 'slab-between-beams',
+  get: () => verificationStore.isCantileverEnabled ? 'cantilever' : 'slab-between-beams',
   set: () => null,
 });
 
@@ -174,19 +174,14 @@ const supportOptions = computed(() => {
 });
 
 
-const isEnabled = computed({
-  get: () => verificationStore.transversal.isEnabled,
-  set: (value) => verificationStore.setTransversalEnabled(value)
-});
-
 
 const isCantileverEnabled = computed({
-  get: () => verificationStore.transversal.isCantileverEnabled,
+  get: () => verificationStore.isCantileverEnabled,
   set: (value) => verificationStore.setTransversalCantileverEnabled(value)
 });
 
 const supportType = computed({
-  get: () => verificationStore.transversal.supportType,
+  get: () => verificationStore.supportType,
   set: (value) => verificationStore.setTransversalSupportType(value)
 });
 
@@ -194,12 +189,12 @@ const maxSpan = 9;
 const minSpan = 2;
 
 const span = computed({
-  get: () => verificationStore.transversal.span,
+  get: () => verificationStore.spanTransversal,
   set: (value) => verificationStore.setTransversalSpan(value)
 })
 
 const transversalTrans = computed({
-  get: () => verificationStore.transversal.trans,
+  get: () => verificationStore.trans,
   set: (value) => verificationStore.setTransversalTrans(value)
 });
 

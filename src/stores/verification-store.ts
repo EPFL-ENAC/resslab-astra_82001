@@ -59,20 +59,14 @@ interface VerificationState {
   bridgeComposition: BridgeComposition;
   goodQualityRoad: boolean;
   rBau: boolean;
-  longitudinal: {
-    isEnabled: boolean;
-    span: number;
-    width: number;
-    trans: LongValue;
-  };
-  transversal: {
-    isEnabled: boolean;
-    isCantileverEnabled: boolean;
-    supportType: SupportType;
-    span: number;
-    trans: TransValue;
-  };
-  // Add more verification-related state here as needed
+  // longitidunal
+  span: number;
+  width: number;
+  trans: LongValue;
+  // transversal
+  isCantileverEnabled: boolean;
+  supportType: SupportType;
+  spanTransversal: number;
 }
 
 // Example usage
@@ -393,33 +387,33 @@ const getObjectiveTransversalWidth = (state: any) => {
   //       'l< 3': not possible
   //       interpolate_in_between_values: ''
   //       'l> 12': not possible
-  if (state.transversal.isCantileverEnabled) {
-    if (state.transversal.span < 1.22) {
+  if (state.isCantileverEnabled) {
+    if (state.spanTransversal < 1.22) {
       return NaN;
     }
-    if (state.transversal.span > 6.78) {
+    if (state.spanTransversal > 6.78) {
       return NaN;
     }
-    if (state.transversal.span < 3) {
+    if (state.spanTransversal < 3) {
       return 1.22;
     }
-    if (state.transversal.span >= 3) {
+    if (state.spanTransversal >= 3) {
       return 6.78;
     }
   } else {
-    if (state.transversal.span < 3) {
+    if (state.spanTransversal < 3) {
       return NaN;
     }
-    if (state.transversal.span > 12) {
+    if (state.spanTransversal > 12) {
       return NaN;
     }
-    if (state.transversal.span < 7.5) {
+    if (state.spanTransversal < 7.5) {
       return 3;
     }
-    if (state.transversal.span < 10) {
+    if (state.spanTransversal < 10) {
       return 7.5;
     }
-    if (state.transversal.span <= 12) {
+    if (state.spanTransversal <= 12) {
       return 12;
     }
   }
@@ -442,17 +436,17 @@ const getObjectiveLongitudinalWidth = (state: any) => {
   //     'l> 18': not possible
 
   if (state.bridgeType === 'Box') {
-    if (state.longitudinal.width < 9) {
+    if (state.width < 9) {
       return NaN;
     }
-    if (state.longitudinal.width < 12) {
+    if (state.width < 12) {
       return 12;
     } else if (
-      state.longitudinal.width <= 18 &&
-      state.longitudinal.width >= 12
+      state.width <= 18 &&
+      state.width >= 12
     ) {
       // interpolate
-      return state.longitudinal.width;
+      return state.width;
     } else {
       return 18;
     }
@@ -464,16 +458,16 @@ const getObjectiveLongitudinalWidth = (state: any) => {
     // 'l < 9': not possible
     // '9 <l< 18': interpolate
     // 'l> 18': not possible
-    if (state.longitudinal.width < 9) {
+    if (state.width < 9) {
       return NaN;
     }
-    if (state.longitudinal.width > 18) {
+    if (state.width > 18) {
       return NaN;
     }
-    if (state.longitudinal.width < 15) {
+    if (state.width < 15) {
       return 9;
     }
-    if (state.longitudinal.width >= 15) {
+    if (state.width >= 15) {
       return 18;
     }
   }
@@ -495,20 +489,12 @@ export const useVerificationStore = defineStore('verification', {
     goodQualityRoad: false,
     rBau: false,
     bridgeComposition: 'Composite',
-    longitudinal: {
-      isEnabled: true,
-      span: 30,
-      width: 12,
-      trans: 'p0', // default should depend on the bridge type
-    },
-    // Initialize more verification-related state here as needed
-    transversal: {
-      isCantileverEnabled: false,
-      isEnabled: true,
-      span: 3,
-      supportType: 'Simp', // equal to trans
-      trans: 'BR1',
-    },
+    span: 30,
+    width: 12,
+    trans: 'p0',
+    isCantileverEnabled: false,
+    spanTransversal: 3,
+    supportType: 'Simp',
   }),
 
   actions: {
@@ -533,58 +519,56 @@ export const useVerificationStore = defineStore('verification', {
         // if the bridge type is not slab or box, we need to change the lane to Uni2L
         this.selectedLane = 'Uni2L';
       }
-      if (bridgeType === 'Slab' && this.transversal.supportType === 'Semi') {
+      if (bridgeType === 'Slab' && this.supportType === 'Semi') {
         // if the bridge type is slab, we need to change the support type to Simple
-        this.transversal.supportType = 'Simp';
+        this.supportType = 'Simp';
       }
       if (bridgeType === 'Slab') {
-        this.longitudinal.trans = 'p1';
-        this.transversal.isCantileverEnabled = false;
+        this.trans = 'p1';
+        this.isCantileverEnabled = false;
       }
       if (bridgeType === 'Multi') {
-        this.longitudinal.trans = 'P1';
+        this.trans = 'P1';
+        // this.setLongitudinalTrans('P1');
+      }
+      // reset trans
+      if (bridgeType === 'Twin' || 'Box') {
+        this.trans = 'p0';
+        // this.setLongitudinalTrans('p0');
       }
       if (!['Twin'].includes(bridgeType)) {
         // reset when not twin
         this.bridgeComposition = 'Composite';
       }
+      // this.setLongitudinalTrans('p0');
     },
     setBridgeComposition(composition: BridgeComposition) {
       this.bridgeComposition = composition;
     },
-    setLongitudinalEnabled(enabled: boolean) {
-      this.longitudinal.isEnabled = enabled;
-    },
     setLongitudinalSpan(span: number) {
-      this.longitudinal.span = span;
+      this.span = span;
     },
     setLongitudinalWidth(width: number) {
-      this.longitudinal.width = width;
+      this.width = width;
     },
     setLongitudinalTrans(trans: LongValue) {
-      this.longitudinal.trans = trans;
+      this.trans = trans;
     },
     updateLongitudinalDimensions(span: number, width: number) {
-      this.longitudinal.span = span;
-      this.longitudinal.width = width;
-    },
-    setTransversalEnabled(enabled: boolean) {
-      this.transversal.isEnabled = enabled;
+      this.span = span;
+      this.width = width;
     },
     setTransversalSpan(span: number) {
-      this.transversal.span = span;
-    },
-    setTransversalTrans(trans: TransValue) {
-      this.transversal.trans = trans;
+      this.spanTransversal = span;
     },
     updateTransversalDimensions(span: number) {
-      this.transversal.span = span;
+      this.spanTransversal = span;
     },
     setTransversalCantileverEnabled(enabled: boolean) {
-      this.transversal.isCantileverEnabled = enabled;
+      this.isCantileverEnabled = enabled;
     },
     setTransversalSupportType(supportType: SupportType) {
-      this.transversal.supportType = supportType;
+      this.supportType = supportType;
     },
   },
 
@@ -610,22 +594,22 @@ export const useVerificationStore = defineStore('verification', {
 */
 
   getters: {
-    getLongitudinalConfig: (state) => state.longitudinal,
     getObjectiveTransversalWidth,
     getObjectiveLongitudinalWidth,
     getBridgeComposition: (state) => state.bridgeComposition,
     getLongitudinalAlpha: (state) => {
       const ObjWidth = getObjectiveLongitudinalWidth(state);
       // should be the same as the one in the state for now.
-      const ObjSpan = state.longitudinal.span;
+      const ObjSpan = state.span;
       if (state.bridgeType !== null) {
+
         const matrix = getMatrixLongitudinal(
           ObjWidth,
           ObjSpan,
           state.selectedLane,
           state.bridgeType,
           state.bridgeComposition,
-          state.longitudinal.trans
+          state.trans
         );
         const AE: AE[] = ['V', 'M', 'Mn', 'Mp', 'MxMid', 'MxEdg'];
         console.log('matrix long', matrix);
@@ -656,13 +640,13 @@ export const useVerificationStore = defineStore('verification', {
     getTransversalAlpha: (state) => {
       const ObjWidth = getObjectiveTransversalWidth(state);
       if (state.bridgeType !== null) {
-        const supportType = state.transversal.isCantileverEnabled
-          ? mapTransCantilevr[state.transversal.supportType]
-          : mapTransBetweenBeams[state.transversal.supportType];
+        const supportType = state.isCantileverEnabled
+          ? mapTransCantilevr[state.supportType]
+          : mapTransBetweenBeams[state.supportType];
 
         const matrix = getMatrixTransversal(
           'DalleRoulem', // state.bridgeType,
-          state.transversal.isCantileverEnabled
+          state.isCantileverEnabled
             ? 'PorteAFaux'
             : 'DalleEntrePoutres',
           state.selectedLane,
@@ -681,6 +665,5 @@ export const useVerificationStore = defineStore('verification', {
     getBridgeType: (state) => state.bridgeType,
     getSelectedClass: (state) => state.selectedClass,
     getSelectedClassKey,
-    getTransversalConfig: (state) => state.transversal,
   },
 });
