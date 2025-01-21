@@ -1,12 +1,12 @@
 <template>
   <q-page class="grid items-start">
     <div class="grid-astra">
-      <TrafficType class="row1" />
-      <BridgeSelector class="row1" />
-      <AlphaGlobal class="row1" />
-      <LaneSelector class="area-c" />
-      <LongitudinalVerification class="longitudinal-verification row2" />
-      <TransversalVerification class="transversal-verification row3" />
+      <TrafficType  />
+      <BridgeSelector  />
+      <AlphaGlobal  />
+      <LaneSelector  />
+      <LongitudinalVerification  />
+      <TransversalVerification />
     </div>
   </q-page>
 </template>

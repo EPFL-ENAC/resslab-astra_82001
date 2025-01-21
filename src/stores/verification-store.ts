@@ -30,6 +30,7 @@ export const mapTransBetweenBeams: Record<SupportType, TransValue> = {
 }
 import data from '../assets/data/data.json';
 import { Traffic, TrafficClass } from 'src/types/Selected';
+import { V } from 'app/dist/spa/assets/index.65332175';
 // import { computed } from 'vue';
 interface VerificationState {
   selectedLane: LaneType;
@@ -98,14 +99,17 @@ function getMatrixTransversal(bridgeType: BridgeType, subtype: SubTypeTransversa
     } else {
       console.log('interpolating: finding 4 closest points');
       // find the 4 closest points
-      const points = filtered.map((x) => ({
-        Width: x.Width,
-        Span: x.Span,
-      }));
+      // const points = filtered.map((x) => ({
+      //   Width: x.Width,
+      //   Span: x.Span,
+      //   ...x,
+      // }));
       // sort by width, then by span so that points looks always like this:
       // instead of using a or, I should first find two closest points on Width, then two closest points on Span
-      const [p1, p2] = points.sort((a, b) => a.Width - b.Width);
-      const [p3, p4] = points.sort((a, b) => a.Span - b.Span);
+
+      // I guess Width is x1, x2 and Span is y1, y2 ?
+      const [p1, p2] = filtered.sort((a, b) => a.Width - b.Width);
+      const [p3, p4] = filtered.sort((a, b) => a.Span - b.Span);
       // const [p1, p2, p3, p4] = points.sort((a, b) => a.Width - b.Width || a.Span - b.Span);
       // we need the matrix to have width and span like this: { Width: 18, Span: 80, class: 0.167184639 }
       resultMatrix[ae] = [p1, p2, p3, p4];
@@ -122,7 +126,7 @@ function getMatrixLongitudinal(
   bridgeType: BridgeType,
   bridgeComposition: BridgeComposition,
   trans: LongValue = 'p0',
-) {
+): Record<string, any[]> {
   // return for each AE:
   const AE = ['V', 'Mp', 'Mn', 'MxMid', 'MxEdg', 'M'];
   const resultMatrix: Record<string, any[]> = {};
@@ -196,17 +200,36 @@ function bilinearInterpolation(matrix, targetWidth, targetSpan) {
       { Width: 18, Span: 80, class: 0.167184639 }
     ]
   */
-    const points = matrix.sort((a, b) => a.Width - b.Width || a.Span - b.Span);
-    const [p1, p2, p3, p4] = points;
 
-    const x1 = p1.Width,
-      x2 = p3.Width;
-    const y1 = p1.Span,
-      y2 = p2.Span;
-    const Q11 = p1.class,
-      Q12 = p2.class,
-      Q21 = p3.class,
-      Q22 = p4.class;
+    // const points = matrix.sort((a, b) => a.Width - b.Width || a.Span - b.Span);
+    // const [p1, p2, p3, p4] = points;
+
+    // const x1 = p1.Width,
+    //   x2 = p3.Width;
+    // const y1 = p1.Span,
+    //   y2 = p2.Span;
+
+    // const Q11 = p1.class,
+    //   Q12 = p2.class,
+    //   Q21 = p3.class,
+    //   Q22 = p4.class;
+
+    // Find the unique x and y values
+    const xValues = [...new Set(matrix.map(p => p.Width))].sort((a, b) => a - b);
+    const yValues = [...new Set(matrix.map(p => p.Span))].sort((a, b) => a - b);
+
+    // Get the min/max values
+    const x1 = xValues[0] ?? xValues[1];
+    const x2 = xValues[1] ?? xValues[0];
+    const y1 = yValues[0] ?? yValues[1];
+    const y2 = yValues[1] ?? yValues[0];
+
+
+    // Map points to their correct positions
+    const Q11 = matrix.find(p => p.Width === x1 && p.Span === y1).class;
+    const Q12 = matrix.find(p => p.Width === x1 && p.Span === y2).class;
+    const Q21 = matrix.find(p => p.Width === x2 && p.Span === y1).class;
+    const Q22 = matrix.find(p => p.Width === x2 && p.Span === y2).class;
 
     // Handle edge cases where coordinates are equal
     if (x1 === x2 && y1 === y2) {
@@ -361,6 +384,14 @@ const getObjectiveLongitudinalWidth = (state: any) => {
   }
 };
 
+
+function getSelectedClassKey(state: VerificationState)  {
+  if (state.selectedClass === 'Class') {
+    return 'qG';
+  }
+  return 'qG+';
+}
+
 export const useVerificationStore = defineStore('verification', {
   state: (): VerificationState => ({
     selectedLane: 'Uni2L',
@@ -501,23 +532,24 @@ export const useVerificationStore = defineStore('verification', {
           state.longitudinal.trans,
         );
         // need to filter AE V, Mn, MxMid, MxEdg, Mp
-        // try {
+        let alphaV = 0;
+        try {
 
-        //   let alphaV = 0;
-        //   if (matrix.length === 1) {
-        //     alphaV = matrix?.[0]?.[state.selectedClass];
-        //   } else {
-        //     alphaV = bilinearInterpolation(matrix, ObjWidth, state.longitudinal.span);
-        //   }
-        // } catch (e) {
-        //   console.error(e);
-        // }
+
+          if (matrix?.V.length === 1) {
+            alphaV = matrix.V?.[0]?.[getSelectedClassKey(state)];
+          } else {
+            alphaV = bilinearInterpolation(matrix?.V, ObjWidth, state.longitudinal.span);
+          }
+        } catch (e) {
+          console.error(e);
+        }
         console.log('matrix long', matrix);
         return {
           // ObjWidth,
           // matrix,
           // realAlphaV: alphaV,
-          V: matrix['V'],
+          V: alphaV, //matrix['V'],
           M: matrix['M'],
           Mn: matrix['Mn'],
           Mp: matrix['Mp'],
@@ -551,6 +583,7 @@ export const useVerificationStore = defineStore('verification', {
     getLane: (state) => state.selectedLane,
     getBridgeType: (state) => state.bridgeType,
     getSelectedClass: (state) => state.selectedClass,
+    getSelectedClassKey,
     getTransversalConfig: (state) => state.transversal,
   },
 });
