@@ -10,13 +10,7 @@
           <span class="text-caption">data version: V7_PM_20250109</span>
         </q-toolbar-title>
 
-
-        <q-select
-          v-model="lang"
-          :options="langOptions"
-          dense
-          outlined
-          class="q-mr-md"/>
+        <q-btn-toggle  color="dark" text-color="dark" toggle-color="dark" toggle-text-color="primary" class="q-mr-md" v-model="lang" flat :options="langOptions" />
         <q-btn
           flat
           round
@@ -45,7 +39,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
+import { ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { version } from '../../package.json'
 
@@ -53,15 +47,15 @@ import { version } from '../../package.json'
 const { locale } = useI18n();
 
 const langOptions = [
-  { label: 'English', value: 'en' },
-  { label: 'Deutsch', value: 'de' },
-  { label: 'Français', value: 'fr' },
-  { label: 'Italiano', value: 'it' },
+  { label: 'EN', value: 'en' },
+  { label: 'DE', value: 'de' },
+  { label: 'FR', value: 'fr' },
+  { label: 'IT', value: 'it' },
 ];
-const lang = ref(langOptions[0]);
+const lang = ref(langOptions[0].value);
 
 watch(lang, (newLang) => {
-  locale.value = newLang.value;
+  locale.value = newLang;
 });
 
 const linkToCSV = '/src/assets/data/data.csv';
