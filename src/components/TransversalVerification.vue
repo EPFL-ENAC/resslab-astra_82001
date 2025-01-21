@@ -118,11 +118,11 @@
 import { computed } from 'vue';
 import { useVerificationStore } from '../stores/verification-store';
 import { useI18n } from 'vue-i18n';
+import { roundCeilWith2Decimals } from '../utils/math';
 
 const { t: $t } = useI18n();
 
 
-const roundCeilWith2Decimals = (value: number) => Math.ceil(value * 100) / 100;
 
 
 const verificationStore = useVerificationStore();
