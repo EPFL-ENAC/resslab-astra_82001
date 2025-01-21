@@ -107,8 +107,44 @@ import { BridgeType, classResult, useVerificationStore } from '../stores/verific
 
 const verificationStore = useVerificationStore();
 
-const maxSpan = 80;
-const minSpan = 4;
+
+// %% Box -> 20,   30,   40,   50,   60,   70, 80
+//     %% Twin -> 20,   30,   40,   50,   60,   70, 80
+//     %% Multi -> 20,   30
+//     %% Slab -> 4, 6, 8, 10, 15, 20, 25, 30
+//     %% DalleRoulem --> 1.22, 2.33, 3.44,  4.56, 5.67, 6.78, 3,  7.5,   12
+
+const maxSpan = computed(() => {
+    if (bridgeType.value === 'Box') {
+      return 80;
+    } else if (bridgeType.value === 'Twin') {
+      return 80;
+    } else if (bridgeType.value === 'Multi') {
+      return 30;
+    } else if (bridgeType.value === 'Slab') {
+      return 30;
+    } else if (bridgeType.value === 'DalleRoulem') {
+      return 12;
+    }
+    return 18;
+  });
+
+
+const minSpan = computed(() => {
+    if (bridgeType.value === 'Box') {
+      return 20;
+    } else if (bridgeType.value === 'Twin') {
+      return 20;
+    } else if (bridgeType.value === 'Multi') {
+      return 20
+    } else if (bridgeType.value === 'Slab') {
+      return 4;
+    } else if (bridgeType.value === 'DalleRoulem') {
+      return 1.22;
+    }
+    return 9;
+  });
+
 
 const maxWidth = computed(() => {
     if (bridgeType.value === 'Box') {
