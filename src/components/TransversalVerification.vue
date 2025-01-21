@@ -40,19 +40,19 @@
         <q-btn-toggle class="support-toggle" v-model="supportType" color="primary" flat padding="md" :options="supportOptions">
           <template v-slot:one>
             <div class="col items-center no-wrap">
-              <q-img  height="30px" fit="contain" class="transversal-support-image" :src="`/${transversalTypeName}-1.svg`" alt="support type" />
+              <q-img  :height="supportTypeHeightImage" fit="contain" position="50% 50%" class="transversal-support-image" :src="`/${transversalTypeName}-1.svg`" alt="support type" />
             </div>
           </template>
 
           <template v-slot:two>
             <div class="col items-center no-wrap">
-              <q-img  height="30px" fit="contain" class="transversal-support-image" :src="`/${transversalTypeName}-2.svg`" alt="support type" />
+              <q-img  :height="supportTypeHeightImage" fit="contain" position="50% 50%" class="transversal-support-image" :src="`/${transversalTypeName}-2.svg`" alt="support type" />
 
             </div>
           </template>
           <template v-slot:three>
             <div class="col items-center no-wrap">
-              <q-img  height="30px" fit="contain" class="transversal-support-image" :src="`/${transversalTypeName}-3.svg`" alt="support type" />
+              <q-img  :height="supportTypeHeightImage" fit="contain" position="50% 50%" class="transversal-support-image" :src="`/${transversalTypeName}-3.svg`" alt="support type" />
 
             </div>
           </template>
@@ -133,6 +133,7 @@ const rBau = computed(() => verificationStore.rBau);
 const bridgeType = computed(() => verificationStore.bridgeType);
 const selectedClass = computed(() => verificationStore.selectedClass === 'Class' ? 'qG' : 'qG+');
 
+const supportTypeHeightImage = '50px';
 
 const transversalTypeName = computed({
   get: () => verificationStore.transversal.isCantileverEnabled ? 'cantilever' : 'slab-between-beams',
@@ -317,7 +318,6 @@ const transversalTrans = computed({
   background-color: white;
   border-radius: $button-border-radius;
   border: 1px solid $black;
-  margin-bottom: 1rem;
   @media screen and (max-width: 600px) {
     grid-auto-flow: row;
   }

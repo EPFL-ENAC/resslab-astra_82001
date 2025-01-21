@@ -24,7 +24,7 @@
       <template v-slot:two>
         <div class="col items-center no-wrap">
           <q-img fit="contain" position="top left" :src="classPlusImage" alt="class plus" class="track-image" />
-          <div class="text-center text-subtitle2">class+</div>
+          <div class="text-center text-subtitle2">class+</div>  
         </div>
       </template>
     </q-btn-toggle>
