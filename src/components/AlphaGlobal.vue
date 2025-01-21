@@ -2,16 +2,16 @@
   <div class="alpha-footer alpha-global"  v-if="rBau || bridgeType">
     <ul class="alpha-list" v-if="!rBau && bridgeType">
       <li class="alpha-item">
-        &alpha;<sub>Q1, global</sub> &equals; {{ alpha.V?.[0]?.Q1G }}
+        &alpha;<sub>Q1, global</sub> &equals; {{ alpha?.V?.Q1G }}
       </li>
       <li class="alpha-item">
-        &alpha;<sub>Q1, local</sub> &equals; {{ alpha.V?.[0]?.Q1L }}
+        &alpha;<sub>Q1, local</sub> &equals; {{ alpha?.V?.Q1L }}
       </li>
       <li class="alpha-item">
-        &alpha;<sub>Q2, global</sub> &equals; {{ alpha.V?.[0]?.Q2G }}
+        &alpha;<sub>Q2, global</sub> &equals; {{ alpha?.V?.Q2G }}
       </li>
       <li class="alpha-item">
-        &alpha;<sub>Q2, local</sub> &equals; {{ alpha.V?.[0]?.Q2L }}
+        &alpha;<sub>Q2, local</sub> &equals; {{ alpha?.V?.Q2L }}
       </li>
     </ul>
     <ul class="alpha-list" v-if="rBau">
