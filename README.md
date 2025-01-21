@@ -169,11 +169,11 @@ graph TD
 
 ```mermaid
 ---
-title: Type to Layout
+title: Type to Traffic
 ---
 
 graph TD
-    %% Layout
+    %% Traffic
     %% Box -> [ 'Uni2L', 'Bi2L', 'Bi4L' ]
     %% Twin -> [ 'Uni2L', 'Bi2L' ]
     %% Multi -> [ 'Uni2L', 'Bi2L' ]

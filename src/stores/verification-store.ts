@@ -37,18 +37,18 @@ import { Traffic, TrafficClass } from 'src/types/Selected';
 // this is the interface of the data (json) we have StructuralAnalysis[]
 interface StructuralAnalysis {
   AE: AE;
-  Q1G: number;
-  Q1L: number;
-  Q2G: number;
-  Q2L: number;
   Span: number;
   SubType: BridgeComposition;
   Support: SupportType;
   Traffic: LaneType;
   Trans: LongValue;
   Type: BridgeType;
-  VerificationType: VerificationType;
+  VerificationType: VerificationType; // we don't use it
   Width: number;
+  Q1G: number;
+  Q1L: number;
+  Q2G: number;
+  Q2L: number;
   qG: number;
   'qG+': number;  // Note the quotes due to the + character
 }
@@ -121,20 +121,8 @@ function getMatrixTransversal(
     // const spansAllowed = [20, 30, 40, 50, 60, 70, 80];\
     if (widthsAllowed.includes(width)) {
       // no interpolation needed
-      console.log('no interpolation needed');
       resultMatrix[ae] = filtered.filter((x) => x.Width === width);
-      console.log('matrix trans: ', resultMatrix);
     } else {
-      console.log('interpolating: finding 4 closest points');
-      // find the 4 closest points
-      // const points = filtered.map((x) => ({
-      //   Width: x.Width,
-      //   Span: x.Span,
-      //   ...x,
-      // }));
-      // sort by width, then by span so that points looks always like this:
-      // instead of using a or, I should first find two closest points on Width, then two closest points on Span
-
       // I guess Width is x1, x2 and Span is y1, y2 ?
       const [p1, p2] = filtered.sort((a, b) => a.Width - b.Width);
       const [p3, p4] = filtered.sort((a, b) => a.Span - b.Span);
@@ -230,49 +218,7 @@ function getMatrixLongitudinal(
       );
     }
 
-    /* // Without Traffic, just for testing purpose to see if the interpolation works
-    if (bridgeType !== 'Slab') {
-      filtered = data.filter(
-        (x) =>
-          x.Type === bridgeType &&
-          x.AE === ae &&
-          x.SubType === bridgeComposition &&
-          x.Trans === trans
-      );
-    } else {
-      filtered = data.filter(
-        (x) => x.Type === bridgeType && x.AE === ae && x.Trans === trans
-      );
-    }
-    */
-
     resultMatrix[ae] = findBoundingPoints(filtered, width, span);
-
-    // const widthsAllowed = [
-    //   12, 18, 9, 10.8, 1.22, 2.33, 3.44, 4.56, 5.67, 6.78, 3, 7.5,
-    // ];
-    // // depends on the bridgeType
-    // const spansAllowed = [20, 30, 40, 50, 60, 70, 80];
-
-    // if (widthsAllowed.includes(width) && spansAllowed.includes(span)) {
-    //   // no interpolation needed
-    //   console.log('no interpolation needed');
-    //   resultMatrix[ae] = filtered.filter(
-    //     (x) => x.Width === width && x.Span === span
-    //   );
-    //   // if multi or slab. we need to filter by p1, p2,p3 or P1,P2,P3
-    //   if (bridgeType === 'Multi' || bridgeType === 'Slab') {
-    //     resultMatrix[ae] = resultMatrix[ae].filter((x: StructuralAnalysis) => x.Trans === trans);
-    //   }
-    //   console.log('longitudinal matrix', resultMatrix);
-    // } else {
-    //   console.log('interpolating: finding 4 closest points');
-    //   // find the 4 closest points
-    //   const bounds = findBoundingPoints(filtered, width, span);
-    //   // const { p1, p2, p3, p4, x1, x2, y1, y2 } = bounds;
-    //   // we need the matrix to have width and span like this: { Width: 18, Span: 80, class: 0.167184639 }
-    //   resultMatrix[ae] = bounds;
-    // }
   });
 
   return resultMatrix;
@@ -350,32 +296,6 @@ function bilinearInterpolation(
   result['Span'] = targetSpan;
   return result;
 }
-
-/*
-Bilinear interpolation is used to estimate a value at a point \((x, y)\) within a rectangle defined by four known values \(Q_{11}\), \(Q_{12}\), \(Q_{21}\), and \(Q_{22}\), corresponding to the corners \((x_1, y_1)\), \((x_1, y_2)\), \((x_2, y_1)\), and \((x_2, y_2)\), respectively.
-
-The general formula for bilinear interpolation is:
-
-\[
-f(x, y) = \frac{1}{(x_2 - x_1)(y_2 - y_1)} \Big[ Q_{11}(x_2 - x)(y_2 - y) + Q_{21}(x - x_1)(y_2 - y) + Q_{12}(x_2 - x)(y - y_1) + Q_{22}(x - x_1)(y - y_1) \Big]
-\]
-
-When \(y_1 = y_2\), the points \((x_1, y_1)\) and \((x_2, y_2)\) collapse along the horizontal line \(y_1\), making interpolation along the \(y\)-direction undefined or unnecessary.
-
-In this special case:
-1. The interpolation reduces to **linear interpolation along the x-axis** between \(Q_{11}\) and \(Q_{21}\) (or between \(Q_{12}\) and \(Q_{22}\), depending on the point):
-   \[
-   f(x, y_1) = \frac{(x_2 - x)Q_{11} + (x - x_1)Q_{21}}{x_2 - x_1}
-   \]
-
-2. Since \(y_1 = y_2\), the result is independent of \(y\), and the interpolation simplifies to the linear interpolation above.
-
-Thus, bilinear interpolation degenerates to a simple 1D linear interpolation when \(y_1 = y_2\).
-*/
-
-// Example usage
-// const interpolatedValue = bilinearInterpolation(matrix, targetWidth, targetSpan);
-// console.error('interpolated', interpolatedValue);
 
 const getObjectiveTransversalWidth = (state: any) => {
   //   dalle_de_roulement:
@@ -483,18 +403,18 @@ function getSelectedClassKey(state: VerificationState) {
 export const useVerificationStore = defineStore('verification', {
   // STATE_DEFINITION
   state: (): VerificationState => ({
-    selectedLane: 'Uni2L',
+    selectedLane: 'Uni2L', // Traffic: LaneType;
     selectedClass: 'Class',
-    bridgeType: 'Box', // default value should be null
+    bridgeType: 'Box', //Type: BridgeType; default value should be null
     goodQualityRoad: false,
     rBau: false,
-    bridgeComposition: 'Composite',
-    span: 30,
-    width: 12,
-    trans: 'p0',
+    bridgeComposition: 'Composite', // SubType: BridgeComposition;
+    span: 30, // Span: number;
+    width: 12,  // Width: number;
+    trans: 'p0',  // Trans: LongValue;
     isCantileverEnabled: false,
     spanTransversal: 3,
-    supportType: 'Simp',
+    supportType: 'Simp', // Support: SupportType;
   }),
 
   actions: {
@@ -512,31 +432,69 @@ export const useVerificationStore = defineStore('verification', {
     },
     setBridgeType(bridgeType: BridgeType) {
       this.bridgeType = bridgeType;
-      if (
-        (bridgeType === 'Multi' || bridgeType === 'Twin') &&
-        this.selectedLane === 'Bi4L'
-      ) {
-        // if the bridge type is not slab or box, we need to change the lane to Uni2L
-        this.selectedLane = 'Uni2L';
+      // reset the following when the bridge type changes
+      // - selectedLane
+      // - bridgeComposition
+      // - span
+      // - width
+      // - trans
+      // - supportType
+      const minSpan = this.getMinSpan;
+      const maxSpan = this.getMaxSpan;
+      const minWidth = this.getMinWidth;
+      const maxWidth = this.getMaxWidth;
+      const resetSpan = () => {
+        if (this.span < minSpan) {
+          this.span = minSpan;
+        }
+        if (this.span > maxSpan) {
+          this.span = maxSpan;
+        }
       }
-      if (bridgeType === 'Slab' && this.supportType === 'Semi') {
-        // if the bridge type is slab, we need to change the support type to Simple
-        this.supportType = 'Simp';
+      const resetWidth = () =>  {
+        if (this.width < minWidth) {
+          this.width = minWidth;
+        }
+        if (this.width > maxWidth) {
+          this.width = maxWidth;
+        }
       }
-      if (bridgeType === 'Slab') {
-        this.trans = 'p1';
-        this.isCantileverEnabled = false;
-      }
-      if (bridgeType === 'Multi') {
-        this.trans = 'P1';
-      }
-      // reset trans
-      if (bridgeType === 'Twin' || bridgeType === 'Box') {
+      if (bridgeType === 'Box') {
+        // selectedLane could be all values
+        this.bridgeComposition = 'Composite';
+        resetSpan();
+        resetWidth();
         this.trans = 'p0';
       }
-      if (!['Twin'].includes(bridgeType)) {
-        // reset when not twin
+
+      if (bridgeType === 'Twin') {
+        if (this.selectedLane === 'Bi4L') {
+            this.selectedLane = 'Uni2L';
+        }
+        resetSpan();
+        resetWidth();
+        this.trans = 'p0';
+      }
+
+      if (bridgeType === 'Multi') {
+        if (this.selectedLane === 'Bi4L') {
+            this.selectedLane = 'Uni2L';
+        }
         this.bridgeComposition = 'Composite';
+        resetSpan();
+        resetWidth();
+        this.trans = 'P1';
+      }
+
+      if (bridgeType === 'Slab') {
+        // this.bridgeComposition = 'Long'; // WE don't do that because we don't use it for slab in getMatrixLongitudinal
+        resetSpan();
+        resetWidth();
+        this.trans = 'p1';
+        this.isCantileverEnabled = false;
+        if (this.supportType === 'Simp') {
+          this.supportType = 'Semi';
+        }
       }
     },
     setBridgeComposition(composition: BridgeComposition) {
@@ -593,6 +551,62 @@ export const useVerificationStore = defineStore('verification', {
   getters: {
     getObjectiveTransversalWidth,
     getObjectiveLongitudinalWidth,
+    getMinSpan: (state) => {
+        if (state.bridgeType === 'Box') {
+          return 20;
+        } else if (state.bridgeType === 'Twin') {
+          return 20;
+        } else if (state.bridgeType === 'Multi') {
+          return 20
+        } else if (state.bridgeType === 'Slab') {
+          return 4;
+        }
+        // else if (state.bridgeType === 'DalleRoulem') {
+        //   return 1.22;
+        // }
+        return 9;
+    },
+    getMaxSpan: (state) => {
+      if (state.bridgeType === 'Box') {
+        return 80;
+      } else if (state.bridgeType === 'Twin') {
+        return 80;
+      } else if (state.bridgeType === 'Multi') {
+        return 30;
+      } else if (state.bridgeType === 'Slab') {
+        return 30;
+      }
+      //  else if (state.bridgeType === 'DalleRoulem') {
+      //   return 12;
+      // }
+      return 18;
+    },
+    getMaxWidth: (state) => {
+      if (state.bridgeType === 'Box') {
+        return 18;
+      } else if (state.bridgeType === 'Twin') {
+        return 12;
+      } else if (state.bridgeType === 'Multi') {
+        return 18;
+      } else if (state.bridgeType === 'Slab') {
+        return 18;
+      }
+      return 18;
+    },
+    getMinWidth: (state) => {
+      if (state.bridgeType === 'Box') {
+        return 9;
+      } else if (state.bridgeType === 'Twin') {
+        return 9;
+      } else if (state.bridgeType === 'Multi') {
+        return 9;
+      } else if (state.bridgeType === 'Slab') {
+        return 9;
+      }
+      return 9;
+    },
+
+
     getBridgeComposition: (state) => state.bridgeComposition,
     getLongitudinalAlpha: (state) => {
       const ObjWidth = getObjectiveLongitudinalWidth(state);
@@ -609,7 +623,6 @@ export const useVerificationStore = defineStore('verification', {
           state.trans
         );
         const AE: AE[] = ['V', 'M', 'Mn', 'Mp', 'MxMid', 'MxEdg'];
-        console.log('matrix long', matrix);
         const interpolatedMatrix: Record<AE, StructuralAnalysis> = AE.reduce((acc, ae) => {
           if (matrix?.[ae]) {
             acc[ae] = bilinearInterpolation(
@@ -620,7 +633,6 @@ export const useVerificationStore = defineStore('verification', {
           }
           return acc;
         }, {} as Record<AE, StructuralAnalysis>);
-        console.log('matrix interpolated long', interpolatedMatrix);
         return {
           // ObjWidth,
           // matrix,
