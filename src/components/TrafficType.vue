@@ -16,14 +16,14 @@
     >
       <template v-slot:one>
         <div class="col items-center no-wrap">
-          <img :src="classImage" alt="class" class="track-image" />
+          <q-img fit="contain" position="top left" :src="classImage" alt="class" class="track-image" />
           <div class="text-center text-subtitle2">class</div>
         </div>
       </template>
 
       <template v-slot:two>
         <div class="col items-center no-wrap">
-          <img :src="classPlusImage" alt="class plus" class="track-image" />
+          <q-img fit="contain" position="top left" :src="classPlusImage" alt="class plus" class="track-image" />
           <div class="text-center text-subtitle2">class+</div>
         </div>
       </template>

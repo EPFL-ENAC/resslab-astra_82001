@@ -16,7 +16,7 @@
       >
         <template v-slot:one="">
           <div class="col items-center no-wrap" :title="$t('box')">
-            <q-img fit="contain" src="/box.svg" alt="box" class="track-image"/>
+            <q-img fit="contain" position="top left" src="/box.svg" alt="box" class="track-image"/>
             <div class="text-center bridge-text" >
               {{ $t('box') }}
             </div>
@@ -25,7 +25,7 @@
 
         <template v-slot:two>
           <div class="col items-center no-wrap" :title="$t('twin-girder')">
-            <q-img fit="contain" src="/twin-girder.svg" alt="twin girder" class="track-image" />
+            <q-img fit="contain" position="top left" src="/twin-girder.svg" alt="twin girder" class="track-image" />
             <div class="text-center bridge-text">
               {{$t('twin-girder')}}
             </div>
@@ -33,7 +33,7 @@
         </template>
         <template v-slot:three>
           <div class="col items-center no-wrap" :title="$t('multi-girder')">
-            <q-img fit="contain" src="/multi-girder.svg" alt="multi girder" class="track-image" />
+            <q-img fit="contain" position="top left" src="/multi-girder.svg" alt="multi girder" class="track-image" />
             <div class="text-center bridge-text">
               {{$t('multi-girder')}}
             </div>
@@ -41,7 +41,7 @@
         </template>
         <template v-slot:four>
           <div class="col items-center no-wrap"  :title="$t('slab')">
-            <q-img fit="contain" src="/slab.svg" alt="slab" class="track-image" />
+            <q-img fit="contain" position="top left" src="/slab.svg" alt="slab" class="track-image" />
             <div class="text-center bridge-text">
               {{$t('slab')}}
             </div>
