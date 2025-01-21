@@ -529,18 +529,15 @@ export const useVerificationStore = defineStore('verification', {
       }
       if (bridgeType === 'Multi') {
         this.trans = 'P1';
-        // this.setLongitudinalTrans('P1');
       }
       // reset trans
-      if (bridgeType === 'Twin' || 'Box') {
+      if (bridgeType === 'Twin' || bridgeType === 'Box') {
         this.trans = 'p0';
-        // this.setLongitudinalTrans('p0');
       }
       if (!['Twin'].includes(bridgeType)) {
         // reset when not twin
         this.bridgeComposition = 'Composite';
       }
-      // this.setLongitudinalTrans('p0');
     },
     setBridgeComposition(composition: BridgeComposition) {
       this.bridgeComposition = composition;
