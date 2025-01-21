@@ -89,21 +89,21 @@
       <!-- show three values: alphaq sub V,M-,M+ -->
       <ul class="alpha-list">
         <li class="alpha-item">
-          &alpha;<sub>q,V</sub> &equals; {{ roundCeilWith2Decimals(alpha?.V?.[0]?.[selectedClass]) }}
+          &alpha;<sub>q,V</sub> &equals; {{ roundCeilWith2Decimals(alpha?.V?.[selectedClass]) }}
         </li>
         <li class="alpha-item">
-          &alpha;<sub>q,M-</sub> &equals; {{ roundCeilWith2Decimals(alpha?.Mn?.[0]?.[selectedClass]) }}
+          &alpha;<sub>q,M-</sub> &equals; {{ roundCeilWith2Decimals(alpha?.Mn?.[selectedClass]) }}
         </li>
         <li class="alpha-item">
-          &alpha;<sub>q,M+</sub> &equals; {{ roundCeilWith2Decimals(alpha?.Mp?.[0]?.[selectedClass]) }}
+          &alpha;<sub>q,M+</sub> &equals; {{ roundCeilWith2Decimals(alpha?.Mp?.[selectedClass]) }}
         </li>
       </ul>
     </section>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
-import { useVerificationStore } from '../stores/verification-store';
+import { computed, type ComputedRef } from 'vue';
+import { BridgeType, classResult, useVerificationStore } from '../stores/verification-store';
 
 const verificationStore = useVerificationStore();
 
@@ -160,14 +160,14 @@ const width = computed({
 
 const bridgeType = computed({
   get: () => verificationStore.bridgeType,
-  set: (value) => verificationStore.setBridgeType(value)
+  set: (value: BridgeType) => verificationStore.setBridgeType(value)
 });
 const bridgeComposition = computed(() => verificationStore.bridgeComposition);
 const isConcrete = computed({
   get: () => verificationStore.bridgeComposition === 'Concrete',
   set: (value) => verificationStore.setBridgeComposition(value ? 'Concrete' : 'Composite')
 });
-const selectedClass = computed(() => verificationStore.selectedClass === 'Class' ? 'qG' : 'qG+');
+const selectedClass: ComputedRef<classResult> = computed(() => verificationStore.selectedClass === 'Class' ? 'qG' : 'qG+');
 
 const longitudinalTrans = computed({
   get: () => verificationStore.longitudinal.trans,

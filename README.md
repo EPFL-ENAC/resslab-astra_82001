@@ -92,7 +92,6 @@ type_to_support:
     semi_or_fixed:
     'M-  < 50% < M_fully fixed': use Semi
     '50% M_< 100% M_fully fixed': use highest alpha between the two'
-
 ```
 
 ## Data graph
