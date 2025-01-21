@@ -63,77 +63,16 @@
 @media only screen and (min-width: 1024px) {
   .grid-astra {
     display: grid;
-    // grid-template-rows: repeat(3, 1fr);
-    grid-template-rows: auto repeat(2, 1fr);
-    // but also column d and e taking at least 300px width each
-    // grid-template-columns: 1fr 2fr 2fr;
+    grid-template-rows: repeat(3, max-content);
     grid-template-columns: 1fr  2.8fr 1fr;
-    // grid-template-columns: 1.2fr 1fr 3.2fr 1.2fr;
-    // grid-template-columns: 2.2fr 3.2fr 1.2fr;
     grid-template-areas:
       'a b f'
       'c d g'
       'c e h';
-    // grid-template-areas:
-    //   "row1 row1 row1"
-    //   "row2 row2 row2"
-    //   "row3 row3 row3";
     grid-gap: 10px;
-    // I wan to make the grid responsive and also having the first column to be 1fr and the second column to be 2fr
-    // grid-template-columns: 1fr 2fr 2fr;
     padding: 10px;
   }
 }
-
-/* Row 1 columns: 2.2fr 3.2fr 1.2fr */
-// .grid-astra > *:nth-child(-n+3) {
-//  display: grid;
-//  grid-template-columns: 2.2fr 3.2fr 1.2fr;
-// }
-
-// /* Row 2 & 3 columns: 1.2fr 4.2fr 1.2fr */
-// .grid-astra > *:nth-child(n+4) {
-//  display: grid;
-//  grid-template-columns: 1.2fr 4.2fr 1.2fr;
-// }
-
-
-
-// .row1, .row2 {
-//   display: grid;
-//   gap: 10px;
-// }
-
-// .row1 {
-//   grid-template-columns: 2.2fr 3.2fr 1.2fr;
-// }
-
-// .row2 {
-//   grid-template-columns: 1.2fr 4.2fr 1.2fr;
-// }
-
-
-/* nested */
-// .row1 {
-//   grid-area: row1;
-//   display: grid;
-//   grid-template-columns: 2.2fr 3.2fr 1.2fr;
-// }
-
-// .row2 {
-//   grid-area: row2;
-//   display: grid;
-//   grid-template-columns: 1.2fr 4.2fr 1.2fr;
-//   grid-template-areas: "c d g";  /* Define areas for row2 */
-// }
-
-// .row3 {
-//   grid-area: row3;
-//   display: grid;
-//   grid-template-columns: 1.2fr 4.2fr 1.2fr;
-//   grid-template-areas: "c e h";  /* Define areas for row3 */
-// }
-
 /* Targeting specific areas */
 .area-g {
   grid-area: g;  /* This will place it in the last column of row2 */
@@ -142,25 +81,6 @@
 .area-h {
   grid-area: h;  /* This will place it in the last column of row3 */
 }
-/* Row containers with subgrid */
-// .row2 {
-//   grid-row: 2;
-//   grid-column: 1 / -1;
-//   display: grid;
-//   grid-template-rows: subgrid;
-//   grid-template-columns: 2.2fr 3.2fr 1.2fr;
-//   grid-template-areas: 'c d g';
-// }
-
-// .row3 {
-//   grid-row: 3;
-//   grid-column: 1 / -1;
-//   display: grid;
-//   // grid-template-columns: subgrid;
-//   grid-template-rows: subgrid;
-//   grid-template-columns: 2.2fr 3.2fr 1.2fr;
-//   grid-template-areas: 'c e h';
-// }
 
 .traffic-type {
   grid-area: a;

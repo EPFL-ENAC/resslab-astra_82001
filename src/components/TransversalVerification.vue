@@ -39,20 +39,20 @@
         <h3 class="transversal-header">{{ $t('support') }}</h3>
         <q-btn-toggle class="support-toggle" v-model="supportType" color="primary" flat padding="md" :options="supportOptions">
           <template v-slot:one>
-            <div class="block col items-center no-wrap">
-              <q-img  height="33px" fit="contain" class="transversal-support-image" :src="`/${transversalTypeName}-1.svg`" alt="support type" />
+            <div class="col items-center no-wrap">
+              <q-img  height="30px" fit="contain" class="transversal-support-image" :src="`/${transversalTypeName}-1.svg`" alt="support type" />
             </div>
           </template>
 
           <template v-slot:two>
-            <div class="block col items-center no-wrap">
-              <q-img  height="33px" fit="contain" class="transversal-support-image" :src="`/${transversalTypeName}-2.svg`" alt="support type" />
+            <div class="col items-center no-wrap">
+              <q-img  height="30px" fit="contain" class="transversal-support-image" :src="`/${transversalTypeName}-2.svg`" alt="support type" />
 
             </div>
           </template>
           <template v-slot:three>
-            <div class="block col items-center no-wrap">
-              <q-img  height="33px" fit="contain" class="transversal-support-image" :src="`/${transversalTypeName}-3.svg`" alt="support type" />
+            <div class="col items-center no-wrap">
+              <q-img  height="30px" fit="contain" class="transversal-support-image" :src="`/${transversalTypeName}-3.svg`" alt="support type" />
 
             </div>
           </template>
@@ -323,7 +323,7 @@ const transversalTrans = computed({
   }
   :deep(.q-btn > .q-btn__content) {
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: row;
   }
   :deep(.q-btn[aria-pressed="true"]) {
     background-color: rgba($primary, 0.1);

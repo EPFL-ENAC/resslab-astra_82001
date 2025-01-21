@@ -8,7 +8,7 @@
       v-model="trafficToggle"
       color="primary"
       flat
-      padding="md"
+      padding="sm"
       :options="[
         { value: 'Class', slot: 'one' },
         { value: 'Class+', slot: 'two' },
