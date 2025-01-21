@@ -67,13 +67,13 @@
     grid-template-rows: auto repeat(2, 1fr);
     // but also column d and e taking at least 300px width each
     // grid-template-columns: 1fr 2fr 2fr;
-    grid-template-columns: 1fr 0.8fr 2.8fr 1fr;
+    grid-template-columns: 1fr  2.8fr 1fr;
     // grid-template-columns: 1.2fr 1fr 3.2fr 1.2fr;
     // grid-template-columns: 2.2fr 3.2fr 1.2fr;
     grid-template-areas:
-      'a a b f'
-      'c d d g'
-      'c e e h';
+      'a b f'
+      'c d g'
+      'c e h';
     // grid-template-areas:
     //   "row1 row1 row1"
     //   "row2 row2 row2"

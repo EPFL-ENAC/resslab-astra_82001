@@ -4,8 +4,8 @@
       <h3 class="transversal-header">{{ $t('transversal_verification') }}</h3>
 
       <div clsss="row q-mt-sm" v-if="bridgeType != 'Slab'">
-        <q-btn-toggle v-model="isCantileverEnabled" spread class="isCantileverEnabled-toggle" no-caps rounded
-          toggle-color="primary" color="white" text-color="black" :options="[
+        <q-btn-toggle v-model="isCantileverEnabled" spread class="isCantileverEnabled-toggle" no-caps flat
+          color="primary" :options="[
             { label: $t('cantilever'), value: true },
             { label: $t('slab-between-beams'), value: false }
           ]" />
@@ -39,20 +39,20 @@
         <h3 class="transversal-header">{{ $t('support') }}</h3>
         <q-btn-toggle class="support-toggle" v-model="supportType" color="primary" flat padding="md" :options="supportOptions">
           <template v-slot:one>
-            <div class="col items-center no-wrap">
-              <q-img  fit="contain" class="transversal-support-image" :src="`/${transversalTypeName}-1.svg`" alt="support type" />
+            <div class="block col items-center no-wrap">
+              <q-img  height="33px" fit="contain" class="transversal-support-image" :src="`/${transversalTypeName}-1.svg`" alt="support type" />
             </div>
           </template>
 
           <template v-slot:two>
-            <div class="col items-center no-wrap">
-              <q-img  fit="contain" class="transversal-support-image" :src="`/${transversalTypeName}-2.svg`" alt="support type" />
+            <div class="block col items-center no-wrap">
+              <q-img  height="33px" fit="contain" class="transversal-support-image" :src="`/${transversalTypeName}-2.svg`" alt="support type" />
 
             </div>
           </template>
           <template v-slot:three>
-            <div class="col items-center no-wrap">
-              <q-img  fit="contain" class="transversal-support-image" :src="`/${transversalTypeName}-3.svg`" alt="support type" />
+            <div class="block col items-center no-wrap">
+              <q-img  height="33px" fit="contain" class="transversal-support-image" :src="`/${transversalTypeName}-3.svg`" alt="support type" />
 
             </div>
           </template>
@@ -212,7 +212,6 @@ const transversalTrans = computed({
 }
 
 
-
 .transversal-support-image {
   max-width: 100px;
   min-width: 100px;
@@ -304,25 +303,29 @@ const transversalTrans = computed({
 }
 
 
-.support-toggle {
+.support-toggle,
+.isCantileverEnabled-toggle {
   display: inline-grid;
   :deep(button) {
     text-transform: none;
   }
-  grid-auto-flow: row;
   width: 100%;
   width: -moz-available;
   width: -webkit-fill-available;
+
+  grid-auto-flow: row;
   background-color: white;
   border-radius: $button-border-radius;
+  border: 1px solid $black;
   margin-bottom: 1rem;
+  @media screen and (max-width: 600px) {
+    grid-auto-flow: row;
+  }
   :deep(.q-btn > .q-btn__content) {
     display: flex;
     flex-direction: column-reverse;
-
-
   }
-    :deep(.q-btn[aria-pressed="true"]) {
+  :deep(.q-btn[aria-pressed="true"]) {
     background-color: rgba($primary, 0.1);
     color: $secondary;
 
@@ -338,6 +341,13 @@ const transversalTrans = computed({
       font-weight: normal;
     }
   }
+}
+
+.isCantileverEnabled-toggle {
+  grid-auto-flow: column;
+}
+.support-toggle {
+  border: 0px;
 }
 
 

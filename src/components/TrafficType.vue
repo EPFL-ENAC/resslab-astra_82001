@@ -180,19 +180,15 @@ const phyCal = computed(() => (phyCalOptions.value[0]));
 .traffic-toggle {
   display: inline-grid;
   grid-auto-flow: column;
-  /* width: -webkit-fill-available; */
+  :deep(button) {
+    text-transform: none;
+  }
   width: 100%;
   width: -moz-available;
   width: -webkit-fill-available;
-  // :deep(.q-btn) {
-  //   border-right: 1px solid $primary;
-  // }
-  // :deep(.q-btn:last-of-type) {
-  //   border-right: 0px;
-  // }
   background-color: white;
   border-radius: $button-border-radius;
-  // border: 1px solid $primary;
+  border: 1px solid $black;
   @media screen and (max-width: 600px) {
     grid-auto-flow: row;
   }
@@ -201,10 +197,7 @@ const phyCal = computed(() => (phyCalOptions.value[0]));
 :deep(.q-btn[aria-pressed='true']) {
   background-color: rgba($primary, 0.1);
   color: $secondary;
-  // border-radius: 6px;
-
   .bridge-text {
-    // color: $secondary;
     font-size: 1rem;
     font-weight: bold;
   }
@@ -216,24 +209,6 @@ const phyCal = computed(() => (phyCalOptions.value[0]));
     font-weight: normal;
   }
 }
-
-// :deep(.q-btn[aria-pressed="true"]) {
-//     background-color: $primary;
-//     // border-radius: 6px;
-
-//     .bridge-text {
-//       // color: $secondary;
-//       font-size: 1rem;
-//       font-weight: bold;
-//     }
-// }
-// :deep(.q-btn[aria-pressed="false"]) {
-//     .bridge-text {
-//       color: #000;
-//       font-size: 1rem;
-//       font-weight: normal;
-//     }
-// }
 
 .traffic-type {
   grid-area: a;
@@ -273,6 +248,7 @@ const phyCal = computed(() => (phyCalOptions.value[0]));
   grid-template-columns: 0.2fr 1fr;
   grid-template-rows: 1fr 1fr;
   display: grid;
-  padding-top: 1rem;
+  padding-top: 10px;
+  grid-gap: 10px 0px;
 }
 </style>
