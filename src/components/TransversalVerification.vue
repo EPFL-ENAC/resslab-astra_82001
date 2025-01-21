@@ -105,10 +105,10 @@
       <ul class="alpha-list" v-else>
         <!-- / -->
         <li class="alpha-item">
-          &alpha;<sub>q,Mx,Mid</sub> &equals; {{ roundCeilWith2Decimals(alphaLong?.MxMid?.[0]?.[selectedClass])  }}
+          &alpha;<sub>q,Mx,Mid</sub> &equals; {{ roundCeilWith2Decimals(alphaLong?.MxMid?.[selectedClass])  }}
         </li>
         <li class="alpha-item">
-          &alpha;<sub>q,Mx,Medge</sub> &equals; {{ roundCeilWith2Decimals(alphaLong?.MxEdg?.[0]?.[selectedClass])  }}
+          &alpha;<sub>q,Mx,Medge</sub> &equals; {{ roundCeilWith2Decimals(alphaLong?.MxEdg?.[selectedClass])  }}
         </li>
       </ul>
   </section>
@@ -192,11 +192,6 @@ const span = computed({
   get: () => verificationStore.spanTransversal,
   set: (value) => verificationStore.setTransversalSpan(value)
 })
-
-const transversalTrans = computed({
-  get: () => verificationStore.trans,
-  set: (value) => verificationStore.setTransversalTrans(value)
-});
 
 </script>
 
