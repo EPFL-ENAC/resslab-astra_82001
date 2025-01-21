@@ -47,7 +47,7 @@ const props = defineProps<{
   beta?: number;
 }>();
 
-
+// TODO: move that to the store!
 const minAlphaQ = computed(() => props.trafficClass === 'ClassOW' ? 0.3001 : 0.3001);
 
 const finalAlphaQ = computed(() => {

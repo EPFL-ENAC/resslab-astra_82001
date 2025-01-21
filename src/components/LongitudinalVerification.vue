@@ -104,6 +104,7 @@
 <script setup lang="ts">
 import { computed, type ComputedRef } from 'vue';
 import { BridgeType, classResult, useVerificationStore } from '../stores/verification-store';
+import { roundCeilWith2Decimals } from '../utils/math';
 
 const verificationStore = useVerificationStore();
 
@@ -113,9 +114,6 @@ const minSpan = computed(() => verificationStore.getMinSpan);
 const maxWidth = computed(() => verificationStore.getMaxWidth);
 const minWidth = computed(() => verificationStore.getMinWidth);
 
-
-
-const roundCeilWith2Decimals = (value: number) => Math.ceil(value * 100) / 100;
 
 const alpha = computed(() => verificationStore.getLongitudinalAlpha);
 const rBau = computed(() => verificationStore.rBau);
