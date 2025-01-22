@@ -7,39 +7,37 @@
           <span class="text-h6 q-pa-md q-mt-lg">ASTRA 82001</span>
           <span class="text-caption">v{{ version }}</span>
           <span class="text-caption q-mx-md">|</span>
-          <span class="text-caption">data version: V7_PM_20250109</span>
+          <span class="text-caption">{{$t('data_version')}}: {{ dataVersion }}</span>
         </q-toolbar-title>
 
         <q-btn-toggle  color="dark" text-color="dark" toggle-color="dark" toggle-text-color="primary" class="q-mr-md" v-model="lang" flat :options="langOptions" />
         <q-btn
           flat
           round
-          icon="download"
           :href="linkToAstra82001fPDF"
           target="_blank"
           download
           class="q-ml-md"
         >
         <template v-slot:default>
+            <q-img height="24px" fit="contain" src="/epfl-designed/Canard/svg/c-info.svg" :alt="$t('download_reference_documentation')" />
             <q-tooltip>
-              <span>Download reference to linkToAstra82001fPDF</span>
-              <q-img src="/epfl-designed/Canard/svg/c-info.svg" alt="download pdf" />
+              <span>{{ $t('download_reference_documentation') }} </span>
             </q-tooltip>
           </template>
         </q-btn>
         <q-btn
           flat
           round
-          icon="insert_drive_file"
           :href="linkToCSV"
           target="_blank"
-          download="data-astra-82001f.csv"
+          :download="downloadFileName"
           class="q-ml-md"
         >
           <template v-slot:default>
+            <q-img height="24px" fit="contain" src="/epfl-designed/Canard/svg/c-csv.svg" :alt="$t('download_reference_data')" />
             <q-tooltip>
-              <span>Download CSV</span>
-              <q-img src="/epfl-designed/Canard/svg/c-csv.svg" alt="Download csv" />
+              <span>{{ $t('download_reference_data') }} </span>
             </q-tooltip>
           </template>
         </q-btn>
@@ -56,6 +54,7 @@
 import { ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { version } from '../../package.json'
+import { dataVersion } from 'src/utils/constants';
 
 
 const { locale } = useI18n();
@@ -67,6 +66,7 @@ const langOptions = [
   { label: 'IT', value: 'it' },
 ];
 const lang = ref(langOptions[0].value);
+const downloadFileName = `data-astra-82001f_${dataVersion}.csv`;
 
 watch(lang, (newLang) => {
   locale.value = newLang;

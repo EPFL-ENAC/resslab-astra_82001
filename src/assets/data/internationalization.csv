@@ -10,7 +10,8 @@ subtype_of_bridge,Subtype of bridge,Sous-type de pont,Untertyp,Sottotipo di pont
 stand,Standard,Standard,Standard,Standard,Standard,Standard,Standard,Standard
 long,Long,Longue,Long,Lungo,Long,Longue,Long,Lungo
 short,Short,Court,Short,Corto,Short,Court,Short,Corto
-conc,Concrete,Beton,Beton,Calcestruzzo,Concrete,Beton,Beton,Calcestruzzo
+concrete,Concrete,Beton,Beton,Calcestruzzo,Concrete,Beton,Beton,Calcestruzzo
+composite,Composite,Composite,Verbund,Composito,Composite,Composite,Verbund,Composito
 width,Width,Largeur,Breite,Larghezza,Width,Largeur,Breite,Larghezza
 traffic,Traffic,Trafic,Verkehr,Traffico,Traffic,Trafic,Verkehr,Traffico
 lanes,Lanes,Voies,Fahrspuren,Corsie,Lanes,Voies,Fahrspuren,Corsie
@@ -52,3 +53,6 @@ r_bau_disabled, R Bau disabled,R construction désactivée,,R Bau deaktiviert,Co
 r_bau_enabled, R Bau enabled,R construction activée,R Bau aktiviert,Costruzione r disattivata
 slab-between-beams,Slab between beams,Dalle entre poutres,Platte zwischen Balken,Piastra tra travi
 cantilever,Cantilever,Cantilier,Kante,Tonda
+data_version,Data version,Version des données,Datenversion,Versione dei dati
+download_reference_documentation,Download reference documentation,Télécharger la documentation de référence,Download Referenzdokumentation,Scarica la documentazione di riferimento
+download_reference_data,Download reference data,Télécharger les données de référence,Download Referenzdaten,Scarica i dati di riferimento
