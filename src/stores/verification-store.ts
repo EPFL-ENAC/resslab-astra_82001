@@ -38,10 +38,10 @@ import { Traffic, TrafficClass } from 'src/types/Selected';
 interface StructuralAnalysis {
   AE: AE;
   Span: number;
-  SubType: BridgeComposition;
+  SubType: BridgeComposition | SubTypeTransversal;
   Support: SupportType;
   Traffic: LaneType;
-  Trans: LongValue;
+  Trans: LongValue | TransValue;
   Type: BridgeType;
   VerificationType: VerificationType; // we don't use it
   Width: number;
@@ -85,54 +85,62 @@ function getMatrixTransversal(
   subtype: SubTypeTransversal,
   traffic: Traffic,
   support: TransValue,
-  width: number
-) {
-  const AE = ['V', 'Mp', 'Mn', 'M'];
-  const resultMatrix: Record<string, any[]> = {};
-  // subtype,traffic,bridgeType,selectedLane
-  // PorteAFaux,Bi2L,1.22,Simp,AR0,M
-  AE.forEach((ae) => {
-    let filtered = [];
-    if (bridgeType !== 'Slab') {
-      // for slab we don't have data here ?
-      filtered = data.filter(
-        (x) =>
-          x.Type === bridgeType &&
-          x.AE === ae &&
-          x.Traffic === traffic &&
-          x.SubType === subtype &&
-          x.Trans === support
-      );
-    } else {
-      filtered = data.filter(
-        (x) =>
-          x.Type === bridgeType &&
-          x.AE === ae &&
-          x.Traffic === traffic &&
-          x.SubType === subtype &&
-          x.Trans === support
-      );
-    }
+  span: number
+) : Record<AE, boudingPointsResult> {
+    // return for each AE:
+    const AE: AE[] = ['V', 'Mp', 'Mn', 'MxMid', 'MxEdg', 'M'];
+    const resultMatrix: Record<string, boudingPointsResult> = {};
+    // if we want to take traffic lane into account
+    //  const filtered = data.filter(x => x.Type === bridgeType && x.Traffic === traffic && x.AE === ae);
+    // if we don't want to take traffic lane into account
 
-    const widthsAllowed = [
-      12, 18, 9, 1.22, 2.33, 3.44, 4.56, 5.67, 6.78, 3, 7.5,
-    ];
-    // depends on the bridgeType
-    // const spansAllowed = [20, 30, 40, 50, 60, 70, 80];\
-    if (widthsAllowed.includes(width)) {
-      // no interpolation needed
-      resultMatrix[ae] = filtered.filter((x) => x.Width === width);
-    } else {
-      // I guess Width is x1, x2 and Span is y1, y2 ?
-      const [p1, p2] = filtered.sort((a, b) => a.Width - b.Width);
-      const [p3, p4] = filtered.sort((a, b) => a.Span - b.Span);
-      // const [p1, p2, p3, p4] = points.sort((a, b) => a.Width - b.Width || a.Span - b.Span);
-      // we need the matrix to have width and span like this: { Width: 18, Span: 80, class: 0.167184639 }
-      resultMatrix[ae] = [p1, p2, p3, p4];
-    }
-  });
+    AE.forEach((ae) => {
+      let filtered: StructuralAnalysis[] = data as StructuralAnalysis[];
+      /* example of line
+      {
+          "VerificationType": "Transversal",
+          "Type": "DalleRoulem",
+          "SubType": "PorteAFaux",
+          "Traffic": "Bi2L",
+          "Width": 4.56,
+          "Support": "SimpForM",
+          "Trans": "AR2",
+          "AE": "M",
+          "Span": 4.56,
+          "Q1G": 0.55,
+          "Q2G": 0.55,
+          "qG+": 0.37781819,
+          "qG": 0.307675407,
+          "Q1L": 0.55,
+          "Q2L": 0.4
+        },
+      */
+      if (bridgeType !== 'Slab') {
+        // we need to convert support
+        // for slab we don't have data here ?
+        filtered = filtered.filter(
+          (x) =>
+            x.Type === bridgeType &&
+            x.SubType === subtype &&
+            x.Trans === support &&
+            x.Traffic === traffic &&
+            x.AE === ae
+        );
+      } else {
+        filtered = filtered.filter(
+          (x) =>
+            x.Type === bridgeType &&
+            x.AE === ae &&
+            x.Traffic === traffic &&
+            x.SubType === subtype &&
+            x.Trans === support
+        );
+      }
 
-  return resultMatrix;
+      resultMatrix[ae] = findBoundingPoints1D(filtered, span);
+    });
+
+    return resultMatrix;
 }
 
 interface boudingPointsResult {
@@ -142,8 +150,32 @@ interface boudingPointsResult {
   p4?: StructuralAnalysis;
   x1: number;
   x2: number;
-  y1: number;
-  y2: number;
+  y1?: number;
+  y2?: number;
+}
+
+function findBoundingPoints1D(points: StructuralAnalysis[], targetSpan: number): boudingPointsResult {
+  // Find the closest span values on either side of targetSpan
+  const spans = [...new Set(points.map((p) => p.Span))].sort((a, b) => a - b);
+  const s1 = spans.reduce(
+    (prev, curr) => (curr <= targetSpan && curr > prev ? curr : prev),
+    -Infinity
+  );
+  const s2 = spans.reduce(
+    (prev, curr) => (curr >= targetSpan && curr < prev ? curr : prev),
+    Infinity
+  );
+
+  // Find the two corner points
+  const Q1 = points.find((p) => p.Span === s1);
+  const Q2 = points.find((p) => p.Span === s2);
+
+  return {
+    p1: Q1, // bottom
+    p2: Q2, // top
+    x1: s1,
+    x2: s2,
+  };
 }
 
 function findBoundingPoints(points: StructuralAnalysis[], targetWidth: number, targetSpan: number): boudingPointsResult {
@@ -224,6 +256,32 @@ function getMatrixLongitudinal(
   return resultMatrix;
 }
 
+function linearInterpolation({ p1, p2, x1, x2 }: boudingPointsResult, targetSpan: number) {
+  const classesToInterpolate: classResult[] = ['qG', 'qG+', 'Q1G', 'Q2G', 'Q1L', 'Q2L'];
+
+  function interpolate(className: classResult,
+    { p1, p2, x1, x2 } : boudingPointsResult,
+  targetWidth: number,): number {
+
+    const Q1 = p1?.[className] ?? NaN; // bottom-left
+    const Q2 = p2?.[className] ?? NaN; // top-left
+
+    if (x1 === x2) {
+      // If both coordinates are equal, just return any of the values
+      // as they should all be the same
+      return Q1;
+    }
+
+    return Q1 + ((targetWidth - x1) / (x2 - x1)) * (Q2 - Q1);
+  }
+
+  return classesToInterpolate.reduce((acc, className) => {
+    acc[className] = interpolate(className, { p1, p2, x1, x2 }, targetSpan);
+    return acc;
+  }, {} as StructuralAnalysis);
+
+}
+
 function bilinearInterpolation(
   { p1, p2, p3, p4, x1, x2, y1, y2 } : boudingPointsResult,
   targetWidth: number,
@@ -297,7 +355,7 @@ function bilinearInterpolation(
   return result;
 }
 
-const getObjectiveTransversalWidth = (state: any) => {
+const getObjectiveTransversalSpan = (state: any) => {
   //   dalle_de_roulement:
   //     PorteAFaux:
   //       'l< 1.22': not possible
@@ -550,7 +608,7 @@ export const useVerificationStore = defineStore('verification', {
 */
 
   getters: {
-    getObjectiveTransversalWidth,
+    getObjectiveTransversalSpan,
     getObjectiveLongitudinalWidth,
     getMinSpanTransversal: (state) => {
       // state.isCantileverEnabled
@@ -631,7 +689,6 @@ export const useVerificationStore = defineStore('verification', {
     getBridgeComposition: (state) => state.bridgeComposition,
     getLongitudinalAlpha: (state) => {
       const ObjWidth = getObjectiveLongitudinalWidth(state);
-      // should be the same as the one in the state for now.
       const ObjSpan = state.span;
       if (state.bridgeType !== null) {
 
@@ -654,21 +711,11 @@ export const useVerificationStore = defineStore('verification', {
           }
           return acc;
         }, {} as Record<AE, StructuralAnalysis>);
-        return {
-          // ObjWidth,
-          // matrix,
-          // realAlphaV: alphaV,
-          V: interpolatedMatrix['V'], //matrix['V'],
-          M: interpolatedMatrix['M'],
-          Mn: interpolatedMatrix['Mn'],
-          Mp: interpolatedMatrix['Mp'],
-          MxMid: interpolatedMatrix['MxMid'],
-          MxEdg: interpolatedMatrix['MxEdg'],
-        };
+        return interpolatedMatrix;
       }
     },
     getTransversalAlpha: (state) => {
-      const ObjWidth = getObjectiveTransversalWidth(state);
+      const ObjSpan = getObjectiveTransversalSpan(state);
       if (state.bridgeType !== null) {
         const supportType = state.isCantileverEnabled
           ? mapTransCantilevr[state.supportType]
@@ -681,14 +728,19 @@ export const useVerificationStore = defineStore('verification', {
             : 'DalleEntrePoutres',
           state.selectedLane,
           supportType,
-          ObjWidth
+          ObjSpan
         );
-        return {
-          V: matrix['V'],
-          M: matrix['M'],
-          Mn: matrix['Mn'],
-          Mp: matrix['Mp'],
-        };
+        const AE: AE[] = ['V', 'M', 'Mn', 'Mp', 'MxMid', 'MxEdg'];
+        const interpolatedMatrix: Record<AE, StructuralAnalysis> = AE.reduce((acc, ae) => {
+          if (matrix?.[ae]) {
+            acc[ae] = linearInterpolation(
+              matrix[ae],
+              ObjSpan,
+            );
+          }
+          return acc;
+        }, {} as Record<AE, StructuralAnalysis>);
+        return interpolatedMatrix;
       }
     },
     getLane: (state) => state.selectedLane,

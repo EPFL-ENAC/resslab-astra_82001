@@ -86,13 +86,12 @@
   </main>
 
   <section class="transversal-verification-result transversal-results alpha-footer" aria-lable="" v-if="!rBau && bridgeType">
-      <!-- {{ alphaTrans }} -->
       <!-- show three values: alphaq sub V,M-,M+ -->
       <ul class="alpha-list" v-if="bridgeType != 'Slab'">
         <li class="alpha-item">
-          &alpha;<sub>q,V</sub> &equals; {{  roundCeilWith2Decimals(alphaTrans?.V?.[0]?.[selectedClass]) }}
+          &alpha;<sub>q,V</sub> &equals; {{  roundCeilWith2Decimals(alphaTrans?.V?.[selectedClass]) }}
 
-        <q-btn flat padding="none" @click="() => copyText($q, $t, roundCeilWith2Decimals(alphaTrans?.V?.[0]?.[selectedClass]))">
+        <q-btn flat padding="none" @click="() => copyText($q, $t, roundCeilWith2Decimals(alphaTrans?.V?.[selectedClass]))">
           <q-img height="24px" width="24px" fit="contain" src="/epfl-designed/Canard/svg/c-copy-paste.svg" />
           <q-tooltip >
             {{  $t('copy_to_clipboard') }}
@@ -100,9 +99,9 @@
         </q-btn>
         </li>
         <li class="alpha-item" v-if="!isCantileverEnabled">
-          &alpha;<sub>q,M-</sub> &equals; {{  roundCeilWith2Decimals(alphaTrans?.Mn?.[0]?.[selectedClass]) }}
+          &alpha;<sub>q,M-</sub> &equals; {{  roundCeilWith2Decimals(alphaTrans?.Mn?.[selectedClass]) }}
 
-        <q-btn flat padding="none" @click="() => copyText($q, $t, roundCeilWith2Decimals(alphaTrans?.Mn?.[0]?.[selectedClass]))">
+        <q-btn flat padding="none" @click="() => copyText($q, $t, roundCeilWith2Decimals(alphaTrans?.Mn?.[selectedClass]))">
           <q-img height="24px" width="24px" fit="contain" src="/epfl-designed/Canard/svg/c-copy-paste.svg" />
           <q-tooltip >
             {{  $t('copy_to_clipboard') }}
@@ -110,9 +109,9 @@
         </q-btn>
         </li>
         <li class="alpha-item" v-else>
-          &alpha;<sub>q,M</sub> &equals; {{  roundCeilWith2Decimals(alphaTrans?.M?.[0]?.[selectedClass]) }}
+          &alpha;<sub>q,M</sub> &equals; {{  roundCeilWith2Decimals(alphaTrans?.M?.[selectedClass]) }}
 
-        <q-btn flat padding="none" @click="() => copyText($q, $t, roundCeilWith2Decimals(alphaTrans?.M?.[0]?.[selectedClass]))">
+        <q-btn flat padding="none" @click="() => copyText($q, $t, roundCeilWith2Decimals(alphaTrans?.M?.[selectedClass]))">
           <q-img height="24px" width="24px" fit="contain" src="/epfl-designed/Canard/svg/c-copy-paste.svg" />
           <q-tooltip >
             {{  $t('copy_to_clipboard') }}
@@ -120,9 +119,9 @@
         </q-btn>
         </li>
         <li class="alpha-item" v-if="!isCantileverEnabled">
-          &alpha;<sub>q,M+</sub> &equals; {{ roundCeilWith2Decimals(alphaTrans?.Mp?.[0]?.[selectedClass]) }}
+          &alpha;<sub>q,M+</sub> &equals; {{ roundCeilWith2Decimals(alphaTrans?.Mp?.[selectedClass]) }}
 
-        <q-btn flat padding="none" @click="() => copyText($q, $t, roundCeilWith2Decimals(alphaTrans?.Mp?.[0]?.[selectedClass]))">
+        <q-btn flat padding="none" @click="() => copyText($q, $t, roundCeilWith2Decimals(alphaTrans?.Mp?.[selectedClass]))">
           <q-img height="24px" width="24px" fit="contain" src="/epfl-designed/Canard/svg/c-copy-paste.svg" />
           <q-tooltip >
             {{  $t('copy_to_clipboard') }}
