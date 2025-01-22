@@ -81,7 +81,6 @@ const options = computed(() => {
 }
 .lane-selector {
   grid-area: c;
-  // grid-area: row1;
 }
 .lane-toggle {
   margin-top: 10px;

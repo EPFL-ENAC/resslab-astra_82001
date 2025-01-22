@@ -90,12 +90,36 @@
       <ul class="alpha-list">
         <li class="alpha-item">
           &alpha;<sub>q,V</sub> &equals; {{ roundCeilWith2Decimals(alpha?.V?.[selectedClass]) }}
+
+
+        <q-btn flat padding="none" @click="() => copyText($q, $t, roundCeilWith2Decimals(alpha?.V?.[selectedClass]))">
+          <q-img height="24px" width="24px" fit="contain" src="/epfl-designed/Canard/svg/c-copy-paste.svg" />
+          <q-tooltip >
+            {{  $t('copy_to_clipboard') }}
+          </q-tooltip>
+        </q-btn>
         </li>
         <li class="alpha-item">
           &alpha;<sub>q,M-</sub> &equals; {{ roundCeilWith2Decimals(alpha?.Mn?.[selectedClass]) }}
+
+
+        <q-btn flat padding="none" @click="() => copyText($q, $t, roundCeilWith2Decimals(alpha?.Mn?.[selectedClass]))">
+          <q-img height="24px" width="24px" fit="contain" src="/epfl-designed/Canard/svg/c-copy-paste.svg" />
+          <q-tooltip >
+            {{  $t('copy_to_clipboard') }}
+          </q-tooltip>
+        </q-btn>
         </li>
         <li class="alpha-item">
           &alpha;<sub>q,M+</sub> &equals; {{ roundCeilWith2Decimals(alpha?.Mp?.[selectedClass]) }}
+
+
+        <q-btn flat padding="none" @click="() => copyText($q, $t, roundCeilWith2Decimals(alpha?.Mp?.[selectedClass]))">
+          <q-img height="24px" width="24px" fit="contain" src="/epfl-designed/Canard/svg/c-copy-paste.svg" />
+          <q-tooltip >
+            {{  $t('copy_to_clipboard') }}
+          </q-tooltip>
+        </q-btn>
         </li>
       </ul>
     </section>
@@ -105,6 +129,12 @@
 import { computed, type ComputedRef } from 'vue';
 import { BridgeType, classResult, useVerificationStore } from '../stores/verification-store';
 import { roundCeilWith2Decimals } from '../utils/math';
+import { useI18n } from 'vue-i18n';
+import { useQuasar } from 'quasar';
+import { copyText } from '../utils/clipboard';
+
+const { t: $t } = useI18n();
+const $q = useQuasar();
 
 const verificationStore = useVerificationStore();
 

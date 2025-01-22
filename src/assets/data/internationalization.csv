@@ -56,3 +56,7 @@ cantilever,Cantilever,Cantilier,Kante,Tonda
 data_version,Data version,Version des données,Datenversion,Versione dei dati
 download_reference_documentation,Download reference documentation,Télécharger la documentation de référence,Download Referenzdokumentation,Scarica la documentazione di riferimento
 download_reference_data,Download reference data,Télécharger les données de référence,Download Referenzdaten,Scarica i dati di riferimento
+copy_to_clipboard,Copy to clipboard,Copier dans le presse-papiers,In die Zwischenablage kopieren,Copia negli appunti
+copied_to_clipboard_success,Copied to clipboard successfully,Copié dans le presse-papiers avec succès,Erfolgreich in die Zwischenablage kopiert,Copiato negli appunti con successo
+copied_to_clipboard_failure,Copied to clipboard failed,Copie dans le presse-papiers échouée,Kopieren in die Zwischenablage fehlgeschlagen,Copia negli appunti fallita
+
