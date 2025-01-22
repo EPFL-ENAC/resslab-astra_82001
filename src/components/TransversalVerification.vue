@@ -26,11 +26,11 @@
           </q-badge>
         </div>
         <div class="col-7">
-          <q-slider class="transversal-slider" v-model="span" type="number" :min="minSpan" :max="maxSpan" :suffix="`m`"
+          <q-slider class="transversal-slider" v-model="spanTransversal" type="number" :min="minSpanTransversal" :max="maxSpanTransversal" :suffix="`m`"
             :step="0.01" />
         </div>
         <div class="col-3">
-          <q-input v-model.number="span" type="number" :min="minSpan" :max="maxSpan" :suffix="`m`" :step="0.1" dense
+          <q-input v-model.number="spanTransversal" type="number" :min="minSpanTransversal" :max="maxSpanTransversal" :suffix="`m`" :step="0.1" dense
             outlined />
         </div>
       </div>
@@ -167,12 +167,11 @@ import { copyText } from '../utils/clipboard';
 const { t: $t } = useI18n();
 const $q = useQuasar();
 
-
-
-
-
 const verificationStore = useVerificationStore();
 
+
+const maxSpanTransversal = computed(() => verificationStore.getMaxSpanTransversal);
+const minSpanTransversal = computed(() => verificationStore.getMinSpanTransversal);
 const alphaTrans = computed(() => verificationStore.getTransversalAlpha);
 const alphaLong = computed(() => verificationStore.getLongitudinalAlpha);
 const rBau = computed(() => verificationStore.rBau);
@@ -231,10 +230,7 @@ const supportType = computed({
   set: (value) => verificationStore.setTransversalSupportType(value)
 });
 
-const maxSpan = 9;
-const minSpan = 2;
-
-const span = computed({
+const spanTransversal = computed({
   get: () => verificationStore.spanTransversal,
   set: (value) => verificationStore.setTransversalSpan(value)
 })

@@ -314,12 +314,7 @@ const getObjectiveTransversalWidth = (state: any) => {
     if (state.spanTransversal > 6.78) {
       return NaN;
     }
-    if (state.spanTransversal < 3) {
-      return 1.22;
-    }
-    if (state.spanTransversal >= 3) {
-      return 6.78;
-    }
+    return state.spanTransversal;
   } else {
     if (state.spanTransversal < 3) {
       return NaN;
@@ -327,15 +322,7 @@ const getObjectiveTransversalWidth = (state: any) => {
     if (state.spanTransversal > 12) {
       return NaN;
     }
-    if (state.spanTransversal < 7.5) {
-      return 3;
-    }
-    if (state.spanTransversal < 10) {
-      return 7.5;
-    }
-    if (state.spanTransversal <= 12) {
-      return 12;
-    }
+    return state.spanTransversal;
   }
 };
 const getObjectiveLongitudinalWidth = (state: any) => {
@@ -526,6 +513,15 @@ export const useVerificationStore = defineStore('verification', {
     },
     setTransversalCantileverEnabled(enabled: boolean) {
       this.isCantileverEnabled = enabled;
+      // check bound of spanTransversal
+      const minSpan = this.getMinSpanTransversal;
+      const maxSpan = this.getMaxSpanTransversal;
+      if (this.spanTransversal < minSpan) {
+        this.spanTransversal = minSpan;
+      }
+      if (this.spanTransversal > maxSpan) {
+        this.spanTransversal = maxSpan;
+      }
     },
     setTransversalSupportType(supportType: SupportType) {
       this.supportType = supportType;
@@ -556,6 +552,26 @@ export const useVerificationStore = defineStore('verification', {
   getters: {
     getObjectiveTransversalWidth,
     getObjectiveLongitudinalWidth,
+    getMinSpanTransversal: (state) => {
+      // state.isCantileverEnabled
+      //       ? 'PorteAFaux'
+      //       : 'DalleEntrePoutres',
+      if (state.isCantileverEnabled) {
+        return 1.22;
+      } else {
+        return 3;
+      }
+    },
+    getMaxSpanTransversal: (state) => {
+      // state.isCantileverEnabled
+      //       ? 'PorteAFaux'
+      //       : 'DalleEntrePoutres',
+      if (state.isCantileverEnabled) {
+        return 6.78;
+      } else {
+        return 12;
+      }
+    },
     getMinSpan: (state) => {
         if (state.bridgeType === 'Box') {
           return 20;
