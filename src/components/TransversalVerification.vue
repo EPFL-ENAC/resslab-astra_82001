@@ -197,6 +197,7 @@ const span = computed({
 
 <style lang="scss" scoped>
 @import 'src/css/quasar.variables.scss';
+@import 'src/css/mixins.scss';
 
 .transversal-slider {
   width: 90%;
@@ -243,9 +244,11 @@ const span = computed({
 
 .transversal-verification {
   grid-area: transversal;
+  @include user-select(none);
 }
 .transversal-support {
   grid-area: support;
+  @include user-select(none);
 }
 
 .transversal-results {

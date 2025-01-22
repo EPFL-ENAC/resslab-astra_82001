@@ -8,7 +8,7 @@
       :options="options"
       dense
       outlined
-      class="q-mt-md"
+      class="q-mt-md lane-select"
       />
     <q-img fit="contain" :src="`/${selectedOption.value.toLowerCase()}.svg`" alt="one lane" class="track-image q-mt-md" />
   </div>
@@ -52,6 +52,9 @@ const options = computed(() => {
 </script>
 
 <style scoped lang="scss">
+@import 'src/css/mixins.scss';
+
+
 .lane-header {
   font-size: 1.5rem;
   font-weight: bold;
@@ -84,8 +87,9 @@ const options = computed(() => {
   margin-top: 10px;
   flex-direction: column;
 }
-.track-image {
-  // width: 100px;
-  // height: 100px;
+.lane-select {
+  :deep(.q-field__native) {
+    @include user-select(none);
+  }
 }
 </style>

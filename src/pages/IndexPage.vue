@@ -13,6 +13,7 @@
 
 <style lang="scss">
 @import 'src/css/quasar.variables.scss';
+@import 'src/css/mixins.scss';
 // define breakpoint-md and breakpoint-sm
 // $breakpoint-md: 1024px;
 // $breakpoint-sm: 600px;
@@ -73,41 +74,39 @@
     padding: 10px;
   }
 }
-/* Targeting specific areas */
-.area-g {
-  grid-area: g;  /* This will place it in the last column of row2 */
-}
-
-.area-h {
-  grid-area: h;  /* This will place it in the last column of row3 */
-}
-
 .traffic-type {
   grid-area: a;
+  @include user-select(none);
 }
 .bridge-selector {
   grid-area: b;
+  @include user-select(none);
 }
 .lane-selector {
   grid-area: c;
+  @include user-select(none);
 }
 .longitudinal-verification {
   grid-area: d;
   display: flex;
   flex-direction: column;
+  @include user-select(none);
 }
 .longitudinal-verification-result {
   grid-area: g;
   display: flex;
   height: 100%;
+  @include user-select(text);
 }
 .transversal-verification {
   grid-area: e;
+  @include user-select(none);
 }
 .transversal-verification-result {
   grid-area: h;
   display: flex;
   height: 100%;
+  @include user-select(text);
 }
 .items-start {
   align-items: start;

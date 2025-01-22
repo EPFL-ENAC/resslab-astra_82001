@@ -1,0 +1,17 @@
+
+@mixin user-select($value) {
+  user-select: $value;
+  -webkit-user-select: $value;
+  -moz-user-select: $value;
+  -ms-user-select: $value;
+
+    // Allow clicks on form elements while preventing text selection
+    > * {
+      pointer-events: auto;
+    }
+
+    // But prevent selection on non-form elements
+    > :not(input, select, textarea) {
+      pointer-events: auto;
+    }
+}
