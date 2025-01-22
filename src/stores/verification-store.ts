@@ -339,56 +339,61 @@ const getObjectiveTransversalWidth = (state: any) => {
   }
 };
 const getObjectiveLongitudinalWidth = (state: any) => {
-  // type_to_width:
-  //   box:
-  //     'l < 9': not possible
-  //     '9 <l< 12': use value for 12
-  //     '12<l< 18': interpolate
-  //     'l> 18': Not possible
-  //   twin:
-  //     '9 <l< 12': use value for 9
-  //   multi:
-  //     'l< 10.8': not possible
-  //     'l> 10.8': same as 10.8 (because of different beam analysis explicitly indicated)
-  //   slab:
-  //     'l < 9': not possible
-  //     '9 <l< 18': interpolate
-  //     'l> 18': not possible
+//   box:
+//     'l < 9': not possible
+//     '9 <=l<= 12': use value for 12
+//     '12 < l <= 18': use value for 18
+//     'l > 18': Not possible
+//   twin:
+//     '9 <= l <= 12': use value for 9
+//   multi:
+//     'l< 10.8': not possible
+//     'l>= 10.8': same as 10.8 (because of different beam analysis explicitly indicated)
+//   slab:
+//     'l < 9': not possible
+//     'l == 9': use value for 9
+//     '9 < l <= 18': use value for 18
+//     'l > 18': not possible
 
   if (state.bridgeType === 'Box') {
     if (state.width < 9) {
       return NaN;
     }
-    if (state.width < 12) {
+    if (state.width <= 12) {
       return 12;
     } else if (
       state.width <= 18 &&
-      state.width >= 12
+      state.width > 18
     ) {
-      // interpolate
+      // no interpolate
       return state.width;
     } else {
-      return 18;
+      return NaN;
     }
   } else if (state.bridgeType === 'Twin') {
-    return 9;
+    if (state.width >= 9 && state.width <= 12) {
+      return 9;
+    } else {
+      return NaN
+    }
   } else if (state.bridgeType === 'Multi') {
-    return 10.8;
+    if (state.width < 10.8) {
+      return NaN;
+    } else {
+      return 10.8;
+    }
   } else if (state.bridgeType === 'Slab') {
-    // 'l < 9': not possible
-    // '9 <l< 18': interpolate
-    // 'l> 18': not possible
     if (state.width < 9) {
       return NaN;
     }
-    if (state.width > 18) {
-      return NaN;
-    }
-    if (state.width < 15) {
+    if (state.width == 9) {
       return 9;
     }
-    if (state.width >= 15) {
+    if (state.width <= 18 && state.width > 9) {
       return 18;
+    }
+    if (state.width > 18) {
+      return NaN;
     }
   }
 };
@@ -599,7 +604,7 @@ export const useVerificationStore = defineStore('verification', {
       } else if (state.bridgeType === 'Twin') {
         return 9;
       } else if (state.bridgeType === 'Multi') {
-        return 9;
+        return 10.8;
       } else if (state.bridgeType === 'Slab') {
         return 9;
       }
