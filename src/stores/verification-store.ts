@@ -468,7 +468,14 @@ const getObjectiveTransversalSpan = (state: any) => {
     return state.spanTransversal;
   }
 };
-const getObjectiveLongitudinalWidth = (state: VerificationState) => {
+
+const getObjectiveLongitudinalSpan = (state: VerificationState): number => {
+  if (state.bridgeType === 'Multi' && state.span < 20) {
+    return 20;
+  }
+  return state.span;
+}
+const getObjectiveLongitudinalWidth = (state: VerificationState): number => {
   //   box:
   //     'l < 9': not possible
   //     '9 <=l<= 12': use value for 12
@@ -521,6 +528,7 @@ const getObjectiveLongitudinalWidth = (state: VerificationState) => {
       return NaN;
     }
   }
+  return NaN
 };
 
 
@@ -786,7 +794,7 @@ export const useVerificationStore = defineStore('verification', {
       } else if (state.bridgeType === 'Twin') {
         return 20;
       } else if (state.bridgeType === 'Multi') {
-        return 20;
+        return 15;
       } else if (state.bridgeType === 'Slab') {
         return 4;
       }
@@ -838,7 +846,7 @@ export const useVerificationStore = defineStore('verification', {
     getBridgeComposition: (state) => state.bridgeComposition,
     getLongitudinalAlpha: (state) => {
       const ObjWidth = getObjectiveLongitudinalWidth(state);
-      const ObjSpan = state.span;
+      const ObjSpan = getObjectiveLongitudinalSpan(state);
       if (state.bridgeType !== null) {
         const matrix = getMatrixLongitudinal(
           ObjWidth,
