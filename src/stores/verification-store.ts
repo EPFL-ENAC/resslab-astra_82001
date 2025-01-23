@@ -468,7 +468,7 @@ const getObjectiveTransversalSpan = (state: any) => {
     return state.spanTransversal;
   }
 };
-const getObjectiveLongitudinalWidth = (state: any) => {
+const getObjectiveLongitudinalWidth = (state: VerificationState) => {
   //   box:
   //     'l < 9': not possible
   //     '9 <=l<= 12': use value for 12
@@ -488,10 +488,9 @@ const getObjectiveLongitudinalWidth = (state: any) => {
   if (state.bridgeType === 'Box') {
     if (state.width < 9) {
       return NaN;
-    }
-    if (state.width <= 12) {
+    } else if (state.width <= 12) {
       return 12;
-    } else if (state.width <= 18 && state.width > 18) {
+    } else if (state.width <= 18) {
       // no interpolate
       return state.width;
     } else {
