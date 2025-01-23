@@ -1,5 +1,46 @@
 # Changelog
 
+## [1.5.0](https://github.com/EPFL-ENAC/resslab-astra_82001/compare/v1.4.1...v1.5.0) (2025-01-23)
+
+
+### Features
+
+* add clipboard copy functionality with notifications and internationalization support [DESIGN] New Mockups - Design improvements [#36](https://github.com/EPFL-ENAC/resslab-astra_82001/issues/36) ([ed1c57c](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/ed1c57c6c37a5906da5d912843b9e7c2edc311b2))
+* add getObjectiveLongitudinalSpan function and update getLongitudinalAlpha to use it Presenting of results. [#41](https://github.com/EPFL-ENAC/resslab-astra_82001/issues/41) ([4b1fe67](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/4b1fe6760ddd3832a1648dde47c05a1670d563c8))
+* add internationalization support for data version and download references in MainLayout [#36](https://github.com/EPFL-ENAC/resslab-astra_82001/issues/36) ([d92e84c](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/d92e84c4812fcdee878132030367177037148296))
+* add missing back data point ([75cb077](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/75cb077c5a07537d5723e94c2aeccc27bc5cadf5))
+* add new SVG icons and update references in components for improved UI consistency ([4d6f181](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/4d6f181478078b896083f56ab9ba736c845e31e6))
+* add new SVG icons for copy-paste, info, and CSV in multiple color variants ([56f5eb3](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/56f5eb3bd2041a58e1fb8b85081634d4f1adc6fc))
+* add user-select mixin to prevent text selection in various components ([7cf41b7](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/7cf41b7ca62287794bca83470d0d9adf0e3998ec))
+* add utility function to round numbers to two decimal places ([eb4d46f](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/eb4d46f65012b2c7201606d740983b47e655f5a6))
+* dynamic value ([c33e300](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/c33e300cfd5d1d0c755f429e727a4258d849146f))
+* enhance transversal verification logic with improved span handling and interpolation methods  [#22](https://github.com/EPFL-ENAC/resslab-astra_82001/issues/22) ([d58cd54](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/d58cd541749cf8f7d35828e4a40d3ae931843ce8))
+* **i18n:** add new translations and improve UI components for better user experience closes [#36](https://github.com/EPFL-ENAC/resslab-astra_82001/issues/36) ([1d7cd06](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/1d7cd064d395f7f5d540e48abd11e3bf1cd32d87))
+* **i18n:** add tooltips for improved user guidance in various components [#43](https://github.com/EPFL-ENAC/resslab-astra_82001/issues/43) ([5a97544](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/5a975441d93546c3db9ae6ec2d1f200566a4c40a))
+* **interpolation:** complete slab support type q-btn-toggle [#22](https://github.com/EPFL-ENAC/resslab-astra_82001/issues/22) ([4a01e81](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/4a01e8143c55bd00b90d87b4b1d630da1dbefbab))
+* **interpolation:** correct slab interpolation with highest value [#22](https://github.com/EPFL-ENAC/resslab-astra_82001/issues/22) ([00c01d2](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/00c01d2bcce7c637fad93daa1605caa8583bca2c))
+* refactor linear interpolation logic and clean up unused variables ([2b0b1f4](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/2b0b1f4381c5df51f5ec1fdedaf34da080835dac))
+* refactor transversal span handling with computed properties and validation in verification store   [#22](https://github.com/EPFL-ENAC/resslab-astra_82001/issues/22) ([94a2d3f](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/94a2d3f05919691f3b07893c1d97fe7fe0fbde14))
+* remove deprecated Info.buttons.csv file to streamline data management, it was merged into data.csv ([74a5283](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/74a52833c1b98784f9db98c0b92fc69035c31d4e))
+* update roundCeilWith2Decimals to return 'N/A' for undefined values [#41](https://github.com/EPFL-ENAC/resslab-astra_82001/issues/41) ([8f9534b](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/8f9534b422b7ff51b7434d518e1a2e080314563f))
+* **wip:** add tooltips and icons for download buttons in MainLayout component ([db56c44](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/db56c443843c11c93b59f699e09fc3f127a0a3fb))
+
+
+### Bug Fixes
+
+* add TODO for updating span and width calculations based on bridge type ([b252bac](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/b252bac87a719166cc56aff07bcf3bdf0589ea9a))
+* **design:** new layout grid ([b3598a1](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/b3598a17a42da1ea96db9ba74034722a808e3364))
+* **interpolation:** enhance bilinear interpolation handling and update default values ([1c33d15](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/1c33d15601918c973d1c4618a8c32197782176a7))
+* longitudinal fake interpolate ([fde39bd](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/fde39bdbb7a4880bdf852139e9f2ad489b4bf9fb))
+* simplify getObjectiveLongitudinalWidth logic by returning 18 for widths between 12 and 18 for Box bridge [#41](https://github.com/EPFL-ENAC/resslab-astra_82001/issues/41) ([9e10bca](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/9e10bcac144928cebdf43708b7252ed3f985d991))
+* support type and slab interpolation rules ([d3791fa](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/d3791faad29f1f44a0a2e13eaa92bb9cf7e4a83e))
+* update alpha value calculations and improve type annotations in LongitudinalVerification component ([cc72e0e](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/cc72e0e08a643b97a0f62c083b5b0539eb38b242))
+* update getObjectiveLongitudinalWidth to use VerificationState type and simplify conditional logic. [#41](https://github.com/EPFL-ENAC/resslab-astra_82001/issues/41) ([d09daf9](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/d09daf999bbc1e610390706e3663a43a62c15340))
+* update interpolation rules for slab width conditions ([be53543](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/be53543072b9713751900188be8d667585214e91))
+* update maxSpan and minSpan calculations based on bridge type ([db47b34](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/db47b34622ec28a5f94bd1261ec68c6bc90e92c0))
+* update width conditions and improve readability in verification logic [#22](https://github.com/EPFL-ENAC/resslab-astra_82001/issues/22) #issuecomment-2606678153 ([63c0cba](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/63c0cba8ed875bb2a4d7c9718a0f04027dfe0f2b))
+* wip new layout ([c238ca1](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/c238ca10ea608b8d2b346b36d54dc4d87eee05d8))
+
 ## [1.4.1](https://github.com/EPFL-ENAC/resslab-astra_82001/compare/v1.4.0...v1.4.1) (2025-01-06)
 
 
