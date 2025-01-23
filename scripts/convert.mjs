@@ -1,27 +1,6 @@
 import csv from 'csvtojson';
 import { writeFileSync } from 'fs';
 
-const widthToMeters = (widthKey) => ({
-  wid18: 18,
-  wid12: 12,
-  wid9: 9,
-  Wid108: 10.8,
-  Wid9: 9,
-  Wid18: 18,
-  Wid1_22: 1.22,
-  Wid2_33: 2.33,
-  Wid3_44: 3.44,
-  Wid4_56: 4.56,
-  Wid5_67: 5.67,
-  Wid6_78: 6.78,
-  Wid3: 3,
-  Wid7_5: 7.5,
-  Wid12: 12,
-}[widthKey]);
-
-// Verification type, Type, SubType, Lane configuration, Width, Support, Positioning of internal forces influence line, Action effect, Span, "?Q1,global", "?Q2,global", "?q,global Class+", "?q,global Class", "?Q1,local", "?Q2,local"
-// Longitudinal, Box, Composite, Uni2L, 12, Simp, p0, V, 20, 0.55, 0.35, 0.38258716, 0.22219018, 0.55, 0.4
-
 csv({ checkType: true, ignoreEmpty: true, trim: true })
   .fromFile('./src/assets/data/data.csv')
   .then((jsonObj) => {
