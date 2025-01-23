@@ -491,8 +491,7 @@ const getObjectiveLongitudinalWidth = (state: VerificationState) => {
     } else if (state.width <= 12) {
       return 12;
     } else if (state.width <= 18) {
-      // no interpolate
-      return state.width;
+      return 18;
     } else {
       return NaN;
     }
