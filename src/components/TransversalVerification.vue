@@ -1,194 +1,245 @@
 <template>
-<container class="transversal-verification">
-    <!-- <section class="transversal-header" aria-labelledby="transversal-title">
-      <h3 id="transversal-title" class="verification-title">
-        <q-toggle
-        :false-value="false"
-        :label="`${verificationStore.transversal.isEnabled ? $t('transversal_verification_enabled') : $t('transversal_verification_disabled')}`"
-        :true-value="true"
-        color="blue"
-        v-model="isEnabled"
-      />
+  <main class="transversal-verification-container row3" v-if="!rBau && bridgeType">
+    <section class="transversal-verification transversal-inputs" aria-labelledby="transversal-title">
+      <h3 class="transversal-header">{{ $t('transversal_verification') }}</h3>
 
-      </h3>
-    </section> -->
-    <section>
-      <h3 class="transversal-header">{{ $t('transversal-verification') }}</h3>
-    </section>
-
-    <section class="transversal-inputs" aria-labelledby="transversal-title" v-if="isEnabled">
-
-      <div clsss="row q-mt-md">
-        <q-btn-toggle
-        v-model="isCantileverEnabled"
-        spread
-        class="isCantileverEnabled-toggle"
-        no-caps
-        rounded
-        unelevated
-        toggle-color="primary"
-        color="white"
-        text-color="primary"
-        :options="[
-          {label: $t('cantilever'), value: true},
-          {label: $t('slab-between-beams'), value: false}
-        ]"
-      />
+      <div clsss="row q-mt-sm" v-if="bridgeType != 'Slab'">
+        <q-btn-toggle v-model="isCantileverEnabled" spread class="isCantileverEnabled-toggle" no-caps flat
+          color="primary" :options="[
+            { label: $t('cantilever'), value: true },
+            { label: $t('slab-between-beams'), value: false }
+          ]" />
+        <q-tooltip> {{ $t('i8_desc') }} </q-tooltip>
       </div>
-      <div class="row q-mt-md transversal-image">
-        <img class="" src="/slab-cantilever.svg" alt="cantilever" v-if="isCantileverEnabled" />
-        <img class="" src="/slab-between-beams.svg" alt="slab between beams" v-else />
+      <div class="row q-mt-sm transversal-image" v-if="bridgeType != 'Slab'">
+        <q-img v-if="isCantileverEnabled" src="/slab-cantilever.svg" style="height: 150px;" alt="cantilever"
+          fit="contain"></q-img>
+        <q-img v-else src="/slab-between-beams.svg" style="height: 150px;" alt="cantilever" fit="contain"></q-img>
+      </div>
+      <div v-else>
+        <q-img src="/slab-transversal.svg" style="height: 250px;" alt="slab" fit="contain"></q-img>
       </div>
 
-      <div class="row q-mt-md dimension items-center">
+      <div class="row q-mt-sm dimension items-center" v-if="bridgeType != 'Slab'">
         <div class="col-2">
           <q-badge color="secondary">
             {{ $t("L") }}
           </q-badge>
         </div>
         <div class="col-7">
-          <q-slider
-            v-model="span"
-            type="number"
-            :min="minSpan"
-            :max="maxSpan"
-
-            :suffix="`m`"
-            :step="0.1"
-          />
+          <q-slider class="transversal-slider" v-model="spanTransversal" type="number" :min="minSpanTransversal" :max="maxSpanTransversal" :suffix="`m`"
+            :step="0.01" />
         </div>
         <div class="col-3">
-          <q-input
-            v-model.number="span"
-            type="number"
-            :min="minSpan"
-            :max="maxSpan"
-            :suffix="`m`"
-            :step="0.1"
-            dense
-            outlined
-          />
+          <q-input v-model.number="spanTransversal" type="number" :min="minSpanTransversal" :max="maxSpanTransversal" :suffix="`m`" :step="0.1" dense
+            outlined />
         </div>
       </div>
-      <div class="row q-mt-md support items-center">
-        <q-option-group
-              v-model="supportType"
-              class="support-type"
-              :options="[
-                  {label: $t('Simp'), value: 'Simp'},
-                  {label: $t('Fixed'), value: 'Fixed'},
-                  {label: $t('Semi'), value: 'Semi'}
-                ]"
-              color="primary"
-              inline
-            >
-          <template #label-0>
-            <div class="label-container">
-
-              <span>{{ $t('Simp') }}</span>
-              <img class="transversal-support-image" :src="`/${transversalTypeName}-1.png`" alt="support type" />
+    </section>
+    <section class="transversal-support" v-if="bridgeType != 'Slab'">
+        <h3 class="transversal-header">{{ $t('support') }}</h3>
+        <q-tooltip> {{ $t('i11_desc') }} </q-tooltip>
+        <q-btn-toggle class="support-toggle" v-model="supportType" color="primary" flat padding="md" :options="supportOptions">
+          <template v-slot:one>
+            <div class="col items-center no-wrap">
+              <q-img  :height="supportTypeHeightImage" fit="contain" position="50% 50%" class="transversal-support-image" :src="`/${transversalTypeName}-1.svg`" alt="support type" />
             </div>
           </template>
-          <template #label-1>
-            <div class="label-container">
 
-              <span>{{ $t('Fixed') }}</span>
-              <img class="transversal-support-image" :src="`/${transversalTypeName}-2.png`" alt="support type" />
+          <template v-slot:two>
+            <div class="col items-center no-wrap">
+              <q-img  :height="supportTypeHeightImage" fit="contain" position="50% 50%" class="transversal-support-image" :src="`/${transversalTypeName}-2.svg`" alt="support type" />
+
             </div>
           </template>
-          <template #label-2>
-            <div class="label-container">
+          <template v-slot:three>
+            <div class="col items-center no-wrap">
+              <q-img  :height="supportTypeHeightImage" fit="contain" position="50% 50%" class="transversal-support-image" :src="`/${transversalTypeName}-3.svg`" alt="support type" />
 
-              <span>{{ $t('Semi') }}</span>
-              <img class="transversal-support-image" :src="`/${transversalTypeName}-3.png`" alt="support type" />
             </div>
           </template>
-          </q-option-group>
+        </q-btn-toggle>
+    </section>
+    <section v-else>
+      <div class="row q-mt-sm dimension items-center">
+        <h3 class="transversal-header">{{ $t('support') }}</h3>
+        <q-btn-toggle class="support-toggle" v-model="supportType" color="primary" flat padding="md" :options="supportOptions">
+          <template v-slot:one>
+            <div class="col items-center no-wrap">
+             M<sub>support</sub> &LessSlantEqual; 50% M<sub>fully fixed</sub>
+            </div>
+          </template>
 
+          <template v-slot:two>
+            <div class="col items-center no-wrap">
+              50% M<sub>fully fixed</sub>  &LessSlantEqual; M<sub>support</sub> &LessSlantEqual; M<sub>fully fixed</sub>
+
+            </div>
+          </template>
+          <template v-slot:three>
+            <div class="col items-center no-wrap">
+              M<sub>support</sub> &equals; M<sub>fully fixed</sub>
+
+            </div>
+          </template>
+        </q-btn-toggle>
       </div>
     </section>
-    <section class="transversal-results alpha-footer" aria-lable=""  v-if="isEnabled">
+  </main>
 
+  <section class="transversal-verification-result transversal-results alpha-footer" aria-lable="" v-if="!rBau && bridgeType">
       <!-- show three values: alphaq sub V,M-,M+ -->
-      <ul class="alpha-list">
-      <li class="alpha-item">
-        &alpha;<sub>V</sub> &equals; {{ alpha.alphaV }}
-      </li>
-      <li class="alpha-item">
-        &alpha;<sub>M-</sub> &equals; {{ alpha.alphaMn }}
-      </li>
-      <li class="alpha-item">
-        &alpha;<sub>M+</sub> &equals; {{ alpha.alphaMp }}
-      </li>
-    </ul>
-    </section>
-  </container>
+      <q-tooltip> {{ $t('i10_desc') }} </q-tooltip>
+      <ul class="alpha-list" v-if="bridgeType != 'Slab'">
+        <li class="alpha-item">
+          &alpha;<sub>q,V</sub> &equals; {{  roundCeilWith2Decimals(alphaTrans?.V?.[selectedClass]) }}
+
+        <q-btn flat padding="none" @click="() => copyText($q, $t, roundCeilWith2Decimals(alphaTrans?.V?.[selectedClass]))">
+          <q-img height="24px" width="24px" fit="contain" src="/mdi-icons/content_copy.svg" />
+          <q-tooltip >
+            {{  $t('copy_to_clipboard') }}
+          </q-tooltip>
+        </q-btn>
+        </li>
+        <li class="alpha-item" v-if="!isCantileverEnabled">
+          &alpha;<sub>q,M-</sub> &equals; {{  roundCeilWith2Decimals(alphaTrans?.Mn?.[selectedClass]) }}
+
+        <q-btn flat padding="none" @click="() => copyText($q, $t, roundCeilWith2Decimals(alphaTrans?.Mn?.[selectedClass]))">
+          <q-img height="24px" width="24px" fit="contain" src="/mdi-icons/content_copy.svg" />
+          <q-tooltip >
+            {{  $t('copy_to_clipboard') }}
+          </q-tooltip>
+        </q-btn>
+        </li>
+        <li class="alpha-item" v-else>
+          &alpha;<sub>q,M</sub> &equals; {{  roundCeilWith2Decimals(alphaTrans?.M?.[selectedClass]) }}
+
+        <q-btn flat padding="none" @click="() => copyText($q, $t, roundCeilWith2Decimals(alphaTrans?.M?.[selectedClass]))">
+          <q-img height="24px" width="24px" fit="contain" src="/mdi-icons/content_copy.svg" />
+          <q-tooltip >
+            {{  $t('copy_to_clipboard') }}
+          </q-tooltip>
+        </q-btn>
+        </li>
+        <li class="alpha-item" v-if="!isCantileverEnabled">
+          &alpha;<sub>q,M+</sub> &equals; {{ roundCeilWith2Decimals(alphaTrans?.Mp?.[selectedClass]) }}
+
+        <q-btn flat padding="none" @click="() => copyText($q, $t, roundCeilWith2Decimals(alphaTrans?.Mp?.[selectedClass]))">
+          <q-img height="24px" width="24px" fit="contain" src="/mdi-icons/content_copy.svg" />
+          <q-tooltip >
+            {{  $t('copy_to_clipboard') }}
+          </q-tooltip>
+        </q-btn>
+        </li>
+      </ul>
+      <ul class="alpha-list" v-else>
+        <!-- / -->
+        <li class="alpha-item">
+          &alpha;<sub>q,Mx,Mid</sub> &equals; {{ roundCeilWith2Decimals(alphaLong?.MxMid?.[selectedClass])  }}
+
+        <q-btn flat padding="none" @click="() => copyText($q, $t, roundCeilWith2Decimals(alphaLong?.MxMid?.[selectedClass]))">
+          <q-img height="24px" width="24px" fit="contain" src="/mdi-icons/content_copy.svg" />
+          <q-tooltip >
+            {{  $t('copy_to_clipboard') }}
+          </q-tooltip>
+        </q-btn>
+        </li>
+        <li class="alpha-item">
+          &alpha;<sub>q,Mx,Medge</sub> &equals; {{ roundCeilWith2Decimals(alphaLong?.MxEdg?.[selectedClass])  }}
+
+        <q-btn flat padding="none" @click="() => copyText($q, $t, roundCeilWith2Decimals(alphaLong?.MxEdg?.[selectedClass]))">
+          <q-img height="24px" width="24px" fit="contain" src="/mdi-icons/content_copy.svg" />
+          <q-tooltip >
+            {{  $t('copy_to_clipboard') }}
+          </q-tooltip>
+        </q-btn>
+        </li>
+      </ul>
+  </section>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useVerificationStore } from '../stores/verification-store';
+import { useI18n } from 'vue-i18n';
+import { roundCeilWith2Decimals } from '../utils/math';
+import { useQuasar } from 'quasar';
+import { copyText } from '../utils/clipboard';
+
+const { t: $t } = useI18n();
+const $q = useQuasar();
 
 const verificationStore = useVerificationStore();
 
-const alpha = computed(() => verificationStore.getTransversalAlpha);
 
+const maxSpanTransversal = computed(() => verificationStore.getMaxSpanTransversal);
+const minSpanTransversal = computed(() => verificationStore.getMinSpanTransversal);
+const alphaTrans = computed(() => verificationStore.getTransversalAlpha);
+const alphaLong = computed(() => verificationStore.getLongitudinalAlpha);
+const rBau = computed(() => verificationStore.rBau);
+const bridgeType = computed(() => verificationStore.bridgeType);
+const selectedClass = computed(() => verificationStore.selectedClass === 'Class' ? 'qG' : 'qG+');
+
+const supportTypeHeightImage = '50px';
 
 const transversalTypeName = computed({
-  get: () => verificationStore.transversal.isCantileverEnabled ? 'cantilever' : 'slab-between-beams',
+  get: () => verificationStore.isCantileverEnabled ? 'cantilever' : 'slab-between-beams',
   set: () => null,
 });
 
-const isEnabled = computed({
-  get: () => verificationStore.transversal.isEnabled,
-  set: (value) => verificationStore.setTransversalEnabled(value)
+
+const supportOptions = computed(() => {
+  if (bridgeType.value !== 'Slab') {
+    if (transversalTypeName.value === 'cantilever') {
+      // AR-0 is Fixed, AR-2 is Semi and BR-1 is Simp
+      return [
+        { slot: 'one', label: $t('AR-0'), value: 'Fixed' },
+        { slot: 'two', label: $t('AR-2'), value: 'Semi' },
+        { slot: 'three', label: $t('BR-1'), value: 'Simp' }
+      ];
+    } else {
+      // PENC is Fixed, SENC is Semi and SMPL is Simp
+      return [
+        { slot: 'one', label: $t('PENC'), value: 'Fixed' },
+        { slot: 'two', label: $t('SENC'), value: 'Semi' },
+        { slot: 'three', label: $t('SMPL'), value: 'Simp' }
+      ];
+    }
+  }
+  else {
+    return [
+      { slot: 'one', value: 'Semi' },        //     M<sub>support</sub> &LessSlantEqual; 50% M<sub>fully fixed</sub>
+      { slot: 'two', value: 'Simp' },         //     50% M<sub>fully fixed</sub>  &LessSlantEqual; M<sub>support</sub> &LessSlantEqual; M<sub>fully fixed</sub>
+      { slot: 'three', value: 'Fixed' },       //       M<sub>support</sub> &equals; M<sub>fully fixed</sub>
+    ];
+  }
 });
 
 
+
 const isCantileverEnabled = computed({
-  get: () => verificationStore.transversal.isCantileverEnabled,
+  get: () => verificationStore.isCantileverEnabled,
   set: (value) => verificationStore.setTransversalCantileverEnabled(value)
 });
 
 const supportType = computed({
-  get: () => verificationStore.transversal.supportType,
+  get: () => verificationStore.supportType,
   set: (value) => verificationStore.setTransversalSupportType(value)
 });
 
-const maxSpan = 9;
-const minSpan = 2;
-
-const span = computed({
-  get: () => verificationStore.transversal.span,
+const spanTransversal = computed({
+  get: () => verificationStore.spanTransversal,
   set: (value) => verificationStore.setTransversalSpan(value)
 })
 
 </script>
 
 <style lang="scss" scoped>
-.transversal-verification {
-  grid-area: e;
-}
+@import 'src/css/quasar.variables.scss';
+@import 'src/css/mixins.scss';
 
-:deep(.support-type > div > .q-radio) {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  .q-radio__label {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    height: auto;
-    .label-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
-      img {
-        height: 60px;
-      }
-    }
-  }
+.transversal-slider {
+  width: 90%;
 }
 
 
@@ -196,44 +247,71 @@ const span = computed({
   max-width: 100px;
   min-width: 100px;
 
-  padding: 1rem;
+  // padding: 1rem;
   border: 1px solid var(--q-color-grey-3);
 }
+
 .transversal-image {
-  padding: 1rem;
+  // padding: 1rem;
   border: 1px solid var(--q-color-grey-3);
+
   /* set maximum and min width to avoid flickering of screen */
   img {
-    max-width: 300px;
+    // max-width: 300px;
     min-width: 300px;
     height: 100px;
     width: stretch;
   }
 }
 
-.transversal-verification {
-  padding: 1rem;
-  border: 1px solid var(--q-color-grey-3);
-  /* set maximum and min width to avoid flickering of screen */
-  /* max-width: 400px;
-  min-width: 400px; */
+.transversal-verification-container {
+  grid-area: e;
+  display: grid;
+  // grid-template-rows: auto 1fr auto;
+  grid-template-areas: "transversal support";
+  grid-template-columns: 1fr 1fr;
+  min-height: 100%; // This is important
+  height: 100%; // This ensures full height
+  gap: 1rem;
+}
+.transversal-header {
+  // grid-area: header;
+}
+.transversal-inputs {
+  // grid-area: content;
 }
 
+.transversal-verification {
+  grid-area: transversal;
+  @include user-select(none);
+}
+.transversal-support {
+  grid-area: support;
+  @include user-select(none);
+}
+
+.transversal-results {
+  // grid-area: footer;
+  align-self: end;
+}
+
+
+.transversal-radio {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
 .verification-title {
   margin: 0 0 1rem;
   font-size: 1.2rem;
   font-weight: 500;
 }
+
 .dimension {
   display: flex;
   flex-direction: row;
   flex: auto;
   width: 100%;
-}
-
-.row {
-  display: flex;
-  flex-direction: row;
 }
 
 .col-2 {
@@ -250,30 +328,62 @@ const span = computed({
   align-items: center;
 }
 
-
-.alpha-footer {
-  grid-area: f;
-  padding: 1rem;
-  border: 1px solid #FFB6C1;
-  border-radius: 8px;
-  background: #fff;
-}
-
-.alpha-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  gap: 2rem;
-}
-
-.alpha-item {
-  line-height: 1.4;
-}
-
 .transversal-header {
-  margin: 0 0 1rem;
-  font-size: 1.2rem;
-  font-weight: 500;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0px;
+  margin-bottom: 0rem;
 }
+
+
+.support-toggle,
+.isCantileverEnabled-toggle {
+  display: inline-grid;
+  :deep(button) {
+    text-transform: none;
+  }
+  width: 100%;
+  width: -moz-available;
+  width: -webkit-fill-available;
+
+  grid-auto-flow: row;
+  background-color: white;
+  border-radius: $button-border-radius;
+  border: 1px solid $black;
+  @media screen and (max-width: 600px) {
+    grid-auto-flow: row;
+  }
+  :deep(.q-btn > .q-btn__content) {
+    display: flex;
+    flex-direction: row;
+  }
+  :deep(.q-btn[aria-pressed="true"]) {
+    background-color: rgba($primary, 0.1);
+    color: $secondary;
+
+    .block {
+      font-size: 1rem;
+      font-weight: bold;
+    }
+  }
+  :deep(.q-btn[aria-pressed="false"]) {
+    .block {
+      color: #000;
+      font-size: 1rem;
+      font-weight: normal;
+    }
+  }
+}
+
+.isCantileverEnabled-toggle {
+  grid-auto-flow: column;
+}
+.support-toggle {
+  border: 0px;
+}
+
+
+
+
+
 </style>

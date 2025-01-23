@@ -1,51 +1,94 @@
 id,en,fr,de,it,desc_en,desc_fr,desc_de,desc_it
-type_of_bridge,Type of bridge,Type de pont,Brücke,Tipo di ponte,Type of bridge,Type de pont,Brücke,Tipo di ponte
+type_of_bridge,Bridge type,Type de pont,Brücke,Tipo di ponte,Bridge type,Type de pont,Brücke,Tipo di ponte
 box,Box,Caisson,Hohlkasten,Cassone,Box,Caisson,Hohlkasten,Cassone
 multi,Multigirder,Multipoutre,mehrstegiger Plattenbalken,Multitrave,Multigirder,Multipoutre,mehrstegiger Plattenbalken,Multitrave
 multi-girder,Multigirder,Multipoutre,mehrstegiger Plattenbalken,Multitrave,Multigirder,Multipoutre,mehrstegiger Plattenbalken,Multitrave
 slab,Slab,Dalle,Platte,Piastra,Slab,Dalle,Platte,Piastra
 twin,Twingirder,Bipoutre,Doppelträger,Doppia trave,Twingirder,Bipoutre,Doppelträger,Doppia trave
 twin-girder,Twingirder,Bipoutre,Doppelträger,Doppia trave,Twingirder,Bipoutre,Doppelträger,Doppia trave
-subtype_of_bridge,Subtype of bridge,Sous-type de pont,Untertyp,Sottotipo di ponte,Subtype of bridge,Sous-type de pont,Untertyp,Sottotipo di ponte
-stand,Standard,Standard,Standard,Standard,Standard,Standard,Standard,Standard
-long,Long,Longue,Long,Lungo,Long,Longue,Long,Lungo
-short,Short,Court,Short,Corto,Short,Court,Short,Corto
-conc,Concrete,Beton,Beton,Calcestruzzo,Concrete,Beton,Beton,Calcestruzzo
+subtype_of_bridge,Bridge subtype,Sous-type de pont,Untertyp,Sottotipo di ponte,Bridge subtype,Sous-type de pont,Untertyp,Sottotipo di ponte
+composite,Steel-concrete composite,Mixte acier-béton,Stahlbetonverbund,composito acciaio-calcestruzzo,Steel-concrete composite,Mixte acier-béton,Stahlbetonverbund,composito acciaio-calcestruzzo
+long,Long,Longue,Lange,Lungo,Long,Longue,Lange,Lungo
+short,Short,Court,Kurz,Corto,Short,Court,Kurz,Corto
+concrete,Concrete,Beton,Beton,Calcestruzzo,Concrete,Beton,Beton,Calcestruzzo
 width,Width,Largeur,Breite,Larghezza,Width,Largeur,Breite,Larghezza
-traffic,Traffic,Trafic,Verkehr,Traffico,Traffic,Trafic,Verkehr,Traffico
-uni2l,One way two lanes, Unilatéral deux voies,Einseitig zwei Fahrspuren,Unilaterale due corsie,Unilateral two lanes,Unilatéral deux voies,Einseitig zwei Fahrspuren,Unilaterale due corsie,Unilateral two lanes
-bi2l, Two way and two lanes, Bilatéral deux voies,Zweiseitig zwei Fahrspuren,Bilaterale due corsie,Bilateral two lanes, Bilatéral deux voies,Zweiseitig zwei Fahrspuren,Bilaterale due corsie
-bi4l, Two way and four lanes, Bilatéral quatre voies,Zweiseitig vier Fahrspuren,Bilaterale quattro corsie,Bilateral four lanes, Bilatéral quatre voies,Zweiseitig vier Fahrspuren,Bilaterale quattro corsie
-support,Support,Support,Unterstützung,Supporto,Support,Support,Unterstützung,Supporto
-simp,Simply_Supported,Simply_Supported,Simply_Supported,Appoggio_Semplice,Simply_Supported,Simply_Supported,Simply_Supported,Appoggio_Semplice
-trans,Transversal_location_of_load,Trans,Trans,Posizione_trasversale_carico,Transversal_location_of_load,Trans,Trans,Posizione_trasversale_carico
-p0,p0,p0,p0,p0,p0,p0,p0,p0
-p1,p1,p1,p1,p1,p1,p1,p1,p1
-p2,p2,p2,p2,p2,p2,p2,p2,p2
-p3,p3,p3,p3,p3,p3,p3,p3,p3
-P1,P1,P1,P1,P1,P1,P1,P1,P1
-P2,P2,P2,P2,P2,P2,P2,P2,P2
-P3,P3,P3,P3,P3,P3,P3,P3,P3
-ae,Action_Effect,Action_Effect,Tipo_di_sollecitazione,Action_Effect,Action_Effect,Action_Effect,Tipo_di_sollecitazione
-v,Shear Force,Force poinçonnement,Querkraft,Forza tagliante,The vertical force acting perpendicular to the bridge's longitudinal axis,Force verticale agissant perpendiculairement à l'axe longitudinal du pont,Die senkrecht zur Längsachse des Brücke wirkende Kraft,La forza verticale agente perpendicolarmente all'asse longitudinale del ponte
-mp, Midspan Moment, Moment en travée,Biegemoment im Feld,Momento positivo,The maximum moment that a beam can resist before it starts to yield,Le moment maximum qu'une poutre peut résister avant de commencer à céder,Der maximale Moment, den ein Balken widerstehen kann, bevor er zu erliegen beginnt,Il momento massimo che una trave può resistere prima di iniziare a cedere
-mn, Support Moment, Moment sur appui, Biegemoment am Auflager,Momento negativo,The maximum moment that a beam can resist before it starts to yield,Le moment maximum qu'une poutre peut résister avant de commencer à céder,Der maximale Moment, den ein Balken widerstehen kann, bevor er zu erliegen beginnt,Il momento massimo che una trave può resistere prima di iniziare a cederemxmid, Midspan moment, Moment en milieu de portée,Moment in der Mitte des Spannweite,Momento in mezzeria,The moment at the midspan of the bridge,Le moment au milieu de la portée du pont,Der Moment in der Mitte des Brücke,Il momento al centro della luce del ponte
-mxmid, Midspan transverse moment, Moment transversal à mi-travée, Biegemoment in der Mitte der Spannweite in Querrichtung,Momento in mezzeria,The moment at the midspan of the bridge,Le moment au milieu de la portée du pont,Biegemoment in der Mitte des Spannweite in Querrichtung,Il momento al centro della luce del ponte
-mxedg, Edge moment, Moment en bord de portée,Moment am Rand der Spannweite,Momento al bordo,The moment at the edge of the bridge,moment de flexion transversal à mi-travée (pour une dalle),Der Moment am Rand des Brücke,Il momento al bordo della luce del ponte
+traffic,Traffic type,Trafic,Verkehr,Tipo di traffico,Traffic,Trafic,Verkehr,Tipo di traffico
+lanes,Lane configuration,Disposition des voies,Fahrspurkonfiguration,Configurazione corsie,Traffic lane configuration,Disposition des voies de circulation,Konfiguration der Fahrspur,Configurazione delle corsie di traffico
+uni2l,One way two lanes, Unilatéral deux voies,Einseitig zwei Fahrspuren,Unilaterale due corsie,Unilateral two lanes,Unilatéral deux voies,Einseitig zwei Fahrspuren,Unilaterale due corsie
+bi2l,Two way and two lanes,Bilatéral deux voies,Zweiseitig zwei Fahrspuren,Bilaterale due corsie,Bilateral two lanes,Bilatéral deux voies,Zweiseitig zwei Fahrspuren,Bilaterale due corsie
+bi4l,Two way and four lanes, Bilatéral quatre voies,Zweiseitig vier Fahrspuren,Bilaterale quattro corsie,Bilateral four lanes, Bilatéral quatre voies,Zweiseitig vier Fahrspuren,Bilaterale quattro corsie
+support,Support conditions,Conditions d'appui,Auflagerbedingung,Condizioni di supporto,Support,Appuis,Lagerung,Supporto
+simp,Simply supported,simplément appuyé,einfach gestützt,Appoggio semplice,Simply_Supported,simplément appuyé,einfach gestützt,Appoggio semplice
+trans,Transversal location of load,Positionnement transversal de la charge,Querposition der Last,Posizione trasversale carico,Position of the load in the transversal direction,Positionnement de la charge dans la direction transversale,Lastanordnung in Querrichtung,Posizione del carico nella direzione trasversale
+ae,Action effect,Effet d'action,Auswirkung,Tipo di sollecitazione,Action effect,Effet d'action,Auswirkung,Tipo di sollecitazione
+v,Shear Force,Effort tranchant,Querkraft,Forza tagliante,The vertical force acting perpendicular to the bridge's longitudinal axis,Force verticale agissante perpendiculairement à l'axe longitudinal du pont,Die senkrecht zur Längsachse des Brücke wirkende Kraft,La forza verticale agente perpendicolarmente all'asse longitudinale del ponte
+mp,Midspan Moment,Moment en travée,Biegemoment im Feld,Momento positivo,The maximum positive moment along the span,Le moment positif maximal le long de la travée,Der maximale positive Moment entlang der Spannweite,Momento positivo massimo in campata
+mn,Support Moment,Moment sur appui, Biegemoment am Auflager,Momento negativo,The maximum negative moment on the supports,Le moment négatif maximal sur les supports,Der maximale negative Moment auf den Auflagern,Momento negativo massimo ai supporti
+mxmid, Midspan transverse moment, Moment transversal à mi-travée, Biegemoment in der Mitte der Spannweite in Querrichtung,Momento trasversale in mezzeria,The transversal moment at the midspan of the slab bridge,Le moment au milieu de la portée du pont,Biegemoment in der Mitte des Spannweite in Querrichtung,Il momento positivo trasversale in mezzeria del ponte a piastra
+mxedg, Edge transverse moment,Moment en bord de portée,Moment am Rand der Spannweite,Momento trasversale al bordo,The transversal moment at the edge of the slab bridge,moment de flexion transversal à mi-travée (pour une dalle),Der Moment am Rand der Brücke,Il momento negativo trasversale al bordo del ponte a piastra
 span,Span,Portée,Spannweite,Portata,Span,Portée,Spannweite,Portata
 traffic_class,Traffic class,Classe de trafic,Verkehrsklasse,Classe di traffico,Traffic class,Classe de trafic,Verkehrsklasse,Classe di traffico
 class,Standard Class (40T max),Classe standard (40T max),Standardklasse (40T max),Classe standard (40T max),Standard Class (40T max),Classe standard (40T max),Standardklasse (40T max),Classe standard (40T max)
-classow,Class+ (40T + Mobile Crane up to 96T),Classe+ (40T + Grue mobile jusqu'à 96T),Klasse+ (40T + Mobilkran bis 96T),Classe+ (40T + Gru mobile fino a 96T),Class+ (40T + Mobile Crane up to 96T),Classe+ (40T + Grue mobile jusqu'à 96T),Klasse+ (40T + Mobilkran bis 96T),Classe+ (40T + Gru mobile fino a 96T)
+classow,Class+ (40T + Mobile Crane up to 96T),Classe+ (40T + Grue mobile jusqu'à  96T),Klasse+ (40T + Mobilkran bis 96T),Classe+ (40T + Gru mobile fino a 96T),Class+ (40T + Mobile Crane up to 96T),Classe+ (40T + Grue mobile jusqu'à  96T),Klasse+ (40T + Mobilkran bis 96T),Classe+ (40T + Gru mobile fino a 96T)
 longitudinal,Longitudinal,Longitudinal,Longitudinal,Longitudinale,Longitudinal,Longitudinal,Longitudinal,Longitudinale
-longitudinal (poutres),Longitudinal (beams),Longitudinal (poutres),Longitudinal (Balken),Longitudinale (travi),Longitudinal (beams),Longitudinal (poutres),Longitudinal (Balken),Longitudinale (travi)
+longitudinal (poutres),Longitudinal (beams),Longitudinal (poutres),Längsrichtung (Balken),Longitudinale (travi),Longitudinal (beams),Longitudinal (poutres),Längsrichtung (Balken),Longitudinale (travi)
 alpha_values,Alpha values,Alpha valeurs,Alpha Werte,Valori alfa,Alpha values,Alpha valeurs,Alpha Werte,Valori alfa
-good_quality_road,Very good quality road,Route de très bonne qualité,Das Gute Straßenqualität,Strada di buona qualità
-bad_quality_road,Bad quality road,Mauvaise route,Schlechte Straßenqualität,Strada di cattiva qualità
-longitudinal_verification_enabled,Longitudinal verification enabled,Vérification longitudinale activée,Längsrichtung Überprüfung aktiviert,Verifica longitudinale attivata
-longitudinal_verification_disabled,Longitudinal verification disabled,Vérification longitudinale désactivée,Längsrichtung Überprüfung deaktiviert,Verifica longitudinale disattivata
-longitudinal_verification,Longitudinal verification,Vérification longitudinale,Längsrichtung Überprüfung,Verifica longitudinale
-transversal_verification_enabled,Transversal verification enabled,Vérification transversale activée,Querrichtung Überprüfung aktiviert,Verifica trasversale attivata
-transversal_verification_disabled,Transversal verification disabled,Vérification transversale désactivée,Querrichtung Überprüfung deaktiviert,Verifica trasversale disattivata
-transversal_verification,Transversal verification,Vérification transversale,Querrichtung Überprüfung,Verifica trasversale
-r_bau_disabled, R Bau disabled,R construction désactivée,,R Bau deaktiviert,Costruzione r attivata
-r_bau_enabled, R Bau enabled,R construction activée,R Bau aktiviert,Costruzione r disattivata
+good_quality_road,Good road quality?,Bonne qualité de la route ?,Gute Fahrbahnqualität?,Strada di buona qualità?,,,,
+longitudinal_verification,Longitudinal verification,Vérification longitudinale, Überprüfung in Längsrichtung,Verifica longitudinale,,,,
+transversal_verification,Transversal verification,Vérification transversale,Überprüfung in Querrichtung,Verifica trasversale,,,,
+r_bau_enabled,REL enabled,R-BAU activée,PUN aktiviert,Corsia di emergenza aperta al traffico,,,,
+r_bau_disabled,REL disabled,R-BAU deactivée,PUN nicht aktiv,Corsia di emergenza chiusa al traffico,,,,
+enabled,Enabled,Activée,Aktiviert,Attivato,,,,
+disabled,Disabled,Désactivée,Deaktiviert,Disattivato,,,,
+r_bau,REL,R-BAU,PUN,CorsDin,reuse of emergency lane,réaffectation de la bande d'arrêt d'urgence,Pannenstreifenumnutzung,La corsia di emergenza si apre al traffico
+cantilever,Cantilever,Porte-à-faux,Kragarm,Sbalzo,,,,
+slab-between-beams,Slab between beams,Dalle entre poutres,Platte zwischen Balken,Piastra tra le travi,,,,
+data_version,Data version,Version des données,Datenversion,Versione dei dati
+download_reference_documentation,Download reference documentation,Télécharger la documentation de référence,Download Referenzdokumentation,Scarica la documentazione di riferimento
+download_reference_data,Download reference data,Télécharger les données de référence,Download Referenzdaten,Scarica i dati di riferimento
+copy_to_clipboard,Copy to clipboard,Copier dans le presse-papiers,In die Zwischenablage kopieren,Copia negli appunti
+copied_to_clipboard_success,Copied to clipboard successfully,Copié dans le presse-papiers avec succès,Erfolgreich in die Zwischenablage kopiert,Copiato negli appunti con successo
+copied_to_clipboard_failure,Copied to clipboard failed,Copie dans le presse-papiers échouée,Kopieren in die Zwischenablage fehlgeschlagen,Copia negli appunti fallita
+not,Not,Non,Nicht,Non
+type_3,Cat 3 Building,Ouvrage de Cat. 3,Bauwerk der Kat. 3,Opera di Cat. 3,,,,
+i1,Traffic type,Type de trafic,Verkehrsart,Tipo di traffico,"For definition of Class and Class+ traffic, refer to ASTRA 82001 §4.3","Pour la définition du trafic Class et Class+, se référer à ASTRA 82001 §4.3",Für die Definition von Class- und Class+-Verkehr siehe ASTRA 82001 §4.3,Per la definizione di Class e Class+ si faccia riferimento a ASTRA 82001 §4.3
+i2,Good road quality?,Bonne qualité de la route ?,Gute Fahrbahnqualität?,Strada di buona qualità?,"For definition of road quality, refer to standard SN 40 525","Pour la définition de la qualité des routes, se référer à la norme SN 40 525","Zur Definition der Strassenqualität siehe Norm SN  ""VSS 40 525 (2019) : Eigenschaften der Fahrbahnoberflächen - Anforderungen""",Per la definizione della qualità della strada si faccia riferimento allo standard SN 40 525
+i3,REL,R-BAU,PUN,Corsia di emergenza aperta al traffico?,Is the reaffected emergency lane allowed to be used for regular traffic under any circumstances?,La bande d'arrêt d'urgence réaffectée peut-elle en tout état de cause être utilisée pour la circulation normale ?,Darf der wiederhergestellte Pannenstreifen unter allen Umständen für den regulären Verkehr genutzt werden?,È possibile che la corsia di emergenza sia aperta al traffico normale?
+i4,"?Q2, local","?Q2, local","?Q2, lokal","?Q2, local",This value is to be used for punching shear verifications and other local verifications. Refer to ASTRA 82001 §7.2.2,Cette valeur doit être utilisée pour les vérifications du poinçonnement et autres vérifications locales. Voir ASTRA 82001 §7.2.2,Dieser Wert ist für Durchstanznachweise und andere lokale Nachweise zu verwenden. Siehe ASTRA 82001 §7.2.2,Questo valore deve essere usato per la verifica al punzonamento ed ogni altra verifica locale. Si faccia riferimento a ASTRA 82001 §7.2.2
+i5,"?Q2, global","?Q2, global","?Q2, global","?Q2, global","This value is to be used for all global verifications (shear, moments, etc.).","Cette valeur doit être utilisée pour toutes les vérifications globales ( effort tranchant, moments, etc.).","Dieser Wert ist für alle globalen Nachweise (Schub, Momente usw.) zu verwenden.","Questo valore deve essere usato per tutte le verifiche globali (taglio, momento, etc.)."
+i6,Lane configuration,Configuration des voies des chaussées,Fahrspuranordnung,Configurazione corsie,Refer to ASTRA 82001 §5.3.4,Voir ASTRA 82001 §5.3.4,Siehe ASTRA 82001 §5.3.4,Si faccia riferimento a ASTRA 82001 §5.3.4
+i7,? = 4.2,? = 4.2,? = 4.2,? = 4.2,"The default value of 4.2 for the target reliability index correspond to an average case. For the choice of ?, refer to SIA 269 Appendix B. For additional information on other ? values refer to ASTRA 82001 Annexe III.","La valeur par défaut de 4.2 pour l'indice de fiabilité cible correspond à un cas moyen. Pour le choix de ?, se référer à la SIA 269 Annexe B. Pour des informations complémentaires sur d'autres valeurs ?, voir ASTRA 82001 Annexe III.","Der Standardwert von 4,.2 für den Zielzuverlässigkeitsindex entspricht einem Normalfall. Zur Wahl von ? siehe SIA 269 Anhang B. Weitere Informationen zu anderen ?-Werten finden Sie in ASTRA 82001 Anhang III.",Il valore di default 4.2 per l'indice di affidabilità target corrisponde ad un tipo di situazione media. Per la scelta di b si faccia riferimento a SIA 269 Appendice B. Per ulteriori informazioni su altri valori di b si faccia riferimento a ASTRA 82001 Annexe III.
+i8,Cantilever/Slab between beams,Porte-à-faux/Slab entre poutres,Kragarm/Platte zwischen Balken,Sbalzo-Piastra tra le travi,"Both verifications required. For details and definitions refer to L. Mathevet & A. Nussbaumer, Modélisation des dalles de roulement des ponts-poutres, Documentation 82001, Rapport annexe n° 306891-3 (2024 V1.02), 2024, §2.1","Les deux vérifications sont nécessaires. Pour plus de détails et de définitions, voir L. Mathevet & A. Nussbaumer,  Modélisation des dalles de roulement des ponts-poutres, Documentation 82001, Rapport annexe n° 306891-3 (2024 V1.02), 2024, §2.1","Beidem Überprüfungen sind erforderlich. Für Details und Definitionen beziehen Sie sich auf L. Mathevet & A. Nussbaumer, Modélisation des dalles de roulement des ponts-poutres, Documentation 82001, Rapport annexe n° 306891-3 (2024 V1.02), 2024, §2.1","Entrambe le verifiche sono necessarie. Per ulteriori dettagli e definizioni si faccia riferimento a  L. Mathevet & A. Nussbaumer, Modélisation des dalles de roulement des ponts-poutres, Documentation 82001, Rapport annexe n° 306891-3 (2024 V1.02), 2024, §2.1"
+i9,Action effects for longitudinal verification,Effets d'action pour la vérification longitudinale,"Auswirkungen für die Überprüfung
+ in Längsrichtung",Effetto delle sollecitazioni per verifica longitudinale,"The action effects to be considered for longitudinal verification are the following:
+- Flexural moment M-  [kNm] at supports
+- Flexural moment M+ [kNm] at midspan
+- Shear force V  [kN] near support","Les effets d'action à considérer pour la vérification longitudinale sont les suivants :
+- Moment de flexion M- [kNm] aux appuis
+- Moment de flexion M+ [kNm] à mi-portée
+- Effort de cisaillement V [kN] près des appuis","Die folgenden Auswirkungen sind bei der Überprüfung in Längsrichtung zu berücksichtigen:
+- Biegemoment M- [kNm] an den Auflagern
+- Biegemoment M+ [kNm] in Feldmitte
+- Querkraft V [kN] in der Nähe des Auflagers",Nella verifica longitudinale devono essere considerati i seguenti effetti delle sollecitazioni:                                                                    -Momento flettente M- [kNm] ai supporti                -Momento flettente M+ [kNm] in mezzeria                                                                                    -Taglio V [kN] vicino ai supporti
+i10,Action effects for transversal verification,Effets d'action pour la vérification transversale,"Auswirkungen für die Überprüfung
+ in Querrichtung",Effetto delle sollecitazioni per verifica trasversale,"The action effects to be considered for transversal verification of beam and box beam bridges are the following:
+- Flexural moment M-  [kNm] at supports
+- Flexural moment M+ [kNm] at midspan (only for slab between beams)
+- Shear force V  [kN] near support
+The action effects to be considered for transversal verification of slab bridges are the following:
+- Transversal moment at midspan, Mx,Mid [kNm/m]
+- Transversal moment at edges, Mx,Edg [kNm/m]","Les effets d'action à prendre en compte pour la vérificatione des ponts à poutres et à caissons dans le sens transversal sont les suivants :
+- Moment de flexion M- [kNm] aux appuis
+- Moment de flexion M+ [kNm] à mi-portée (uniquement pour la dalle entre les poutres)
+- Effort tranchant V [kN] près de l'appui
+Les effets d'action à prendre en compte pour la vérification des ponts dalles dans le sens transversal sont les suivants :
+- Moment transversal à mi-portée, Mx,Mid [kNm/m]
+- Moment transversal aux bords, Mx,Edg [kNm/m]","Die folgenden Auswirkungen sind für den Nachweis der Querträger und Hohlkastenbrücken in Querrichtung zu berücksichtigen:
+- Biegemoment M- [kNm] an den Auflagern
+- Biegemoment M+ [kNm] in Feldmitte (nur für Platten zwischen Trägern)
+- Querkraft V [kN] in der Nähe des Auflagers
+Die folgenden Auswirkungen sind für den Nachweis von Plattenbrücken in Querrichtung zu berücksichtigen:
+- Quermoment in Feldmitte, Mx,Mid [kNm/m]
+- Quermoment an den Rändern, Mx,Edg [kNm/m]","Nella verifica trasversale dei ponti a trave e a cassone devono essere considerati i seguenti effetti delle sollecitazioni:                                                                    -Momento flettente M- [kNm] ai supporti                -Momento flettente M+ [kNm] in mezzeria (solo per il caso di piastra tra le travi)                                                                       -Taglio V [kN] vicino ai supporti                                                   Nella verifica trasversale dei ponti a piastra devono essere considerati i seguenti effetti delle sollecitazioni:                                                                          -Momento trasversale in mezzeria Mx,Mid [kNm/m]                                                                                 -Momento trasversale ai supporti Mx,Edg [kNm/m]"
+i11,Support condition,Condition d'appui,Auflagerbedingung,Condizione di supporto,"Refer to L. Mathevet & A. Nussbaumer, Modélisation des dalles de roulement des ponts-poutres, Documentation 82001, Rapport annexe n° 306891-3 (2024 V1.02), 2024, §2.1","Voir L. Mathevet & A. Nussbaumer, Modélisation des dalles de roulement des ponts-poutres, Documentation 82001, Rapport annexe n° 306891-3 (2024 V1.02), 2024, §2.1","Siehe L. Mathevet & A. Nussbaumer, Modélisation des dalles de roulement des ponts-poutres, Documentation 82001, Rapport annexe n° 306891-3 (2024 V1.02), 2024, §2.1","Si faccia riferimento a  L. Mathevet & A. Nussbaumer, Modélisation des dalles de roulement des ponts-poutres, Documentation 82001, Rapport annexe n° 306891-3 (2024 V1.02), 2024, §2.1"
+i12,Beam under consideration for multibeam bridge,Poutre envisagée pour pont multi-poutres,In Betracht gezogener Träger für Plattenbalkenbrücke,Trave sotto verifica nel caso di ponti multitrave,"According to what beam is being investigated, traffic lane configuration changes to guarantee the most critical load to be affecting the beam investigated.","En fonction de la poutre étudiée, la configuration des voies de circulation change pour garantir que la charge la plus critique affecte la poutre étudiée.","Je nachdem, welcher Balken untersucht wird, ändert sich die Konfiguration der Fahrspur, um sicherzustellen, dass die kritischste Last auf den untersuchten Balken einwirkt.","A seconda di quale trave si sta verificando, la configurazione delle corsie di traffico cambia per garantire la condizione di carico più critica per la trave considerata."

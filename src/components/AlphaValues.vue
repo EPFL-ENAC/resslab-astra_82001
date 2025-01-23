@@ -1,5 +1,6 @@
 <template>
-  <div class="alpha-values">
+  <!-- DEPRECATED, We keep as reference until fully migrated -->
+  <div class="alpha-values" v-if="false">
     <div class="alpha-header">
       {{$t('alpha_values')}}
     </div>
@@ -46,7 +47,7 @@ const props = defineProps<{
   beta?: number;
 }>();
 
-
+// TODO: move that to the store!
 const minAlphaQ = computed(() => props.trafficClass === 'ClassOW' ? 0.3001 : 0.3001);
 
 const finalAlphaQ = computed(() => {

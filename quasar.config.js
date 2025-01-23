@@ -102,9 +102,17 @@ module.exports = configure(function (/* ctx */) {
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#framework
     framework: {
+      plugins: [
+        'Dialog',
+        'Loading',
+        'Notify',
+        'LocalStorage',
+        'SessionStorage',
+        'Meta'
+      ],
       config: {
         brand: {
-          primary: '#B51F1F',
+          // primary: '#B51F1F',
           // ... other colors
         }
       }

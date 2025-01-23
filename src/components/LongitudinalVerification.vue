@@ -1,144 +1,240 @@
 <template>
-  <container class="longitudinal-verification">
-    <!-- <section class="longitudinal-header" aria-labelledby="longitudinal-title">
-      <h3 id="longitudinal-title" class="verification-title">
-        <q-toggle
-        :false-value="false"
-        :label="`${verificationStore.longitudinal.isEnabled ? $t('longitudinal_verification_enabled') : $t('longitudinal_verification_disabled')}`"
-        :true-value="true"
-        color="blue"
-        v-model="isEnabled"
-      />
+  <section class="longitudinal-verification row2"  v-if="!rBau && bridgeType">
 
-      </h3>
-    </section> -->
-    <section>
-      <h3 class="longitudinal-header">{{ $t('longitudinal-verification') }}</h3>
-    </section>
+    <section class="longitudinal-content">
+      <section class="longitudinal-inputs" aria-labelledby="longitudinal-inputs">
 
-    <section class="longitudinal-inputs" aria-labelledby="longitudinal-title" v-if="isEnabled">
-      <div class="row q-mt-md dimension items-center">
-        <div class="col-2">
-          <q-badge color="secondary">
-            {{ $t("span") }}
-          </q-badge>
+      <h3 class="longitudinal-header">{{ $t('longitudinal_verification') }}</h3>
+        <div class="row q-mt-sm dimension items-center">
+          <div class="col-2">
+            <q-badge color="secondary">
+              {{ $t("span") }}
+            </q-badge>
+          </div>
+          <div class="col-7">
+            <q-slider class="longitudinal-slider" v-model="span" type="number" :min="minSpan" :max="maxSpan"
+              :suffix="`m`" :step="0.1" />
+          </div>
+          <div class="col-3">
+            <q-input class="longitudinal-slider-input" v-model.number="span" type="number" :min="minSpan" :max="maxSpan"
+              :suffix="`m`" :step="0.1" dense outlined />
+          </div>
         </div>
-        <div class="col-7">
-          <q-slider
-            v-model="span"
-            type="number"
-            :min="minSpan"
-            :max="maxSpan"
 
-            :suffix="`m`"
-            :step="0.1"
+        <div class="row q-mt-sm dimension items-center">
+          <div class="col-2">
+            <q-badge color="secondary">
+              {{ $t("width") }}
+            </q-badge>
+          </div>
+          <div class="col-7">
+            <q-slider class="longitudinal-slider" v-model="width" type="number" :min="minWidth" :max="maxWidth"
+              :step="0.1" />
+          </div>
+          <div class="col-3">
+            <q-input class="longitudinal-slider-input" v-model.number="width" type="number" :min="minWidth"
+              :max="maxWidth" :step="0.1" :suffix="`m`" dense outlined />
+          </div>
+        </div>
+        <div class="q-mt-sm" v-if="bridgeType === 'Twin'">
+          <!-- select between composite and concrete -->
+          <q-btn-toggle
+            v-model="isConcrete"
+            spread
+            no-caps
+            rounded
+            toggle-color="primary"
+            color="white"
+            text-color="black"
+            :options="[
+              {label: $t('concrete'), value: true},
+              {label: $t('composite'), value: false}
+            ]"
           />
         </div>
-        <div class="col-3">
-          <q-input
-            v-model.number="span"
-            type="number"
-            :min="minSpan"
-            :max="maxSpan"
-            :suffix="`m`"
-            :step="0.1"
-            dense
-            outlined
-          />
-        </div>
-      </div>
-
-      <div class="row q-mt-md dimension items-center">
-        <div class="col-2">
-          <q-badge color="secondary">
-            {{ $t("width") }}
-          </q-badge>
-        </div>
-        <div class="col-7">
-          <q-slider
-            v-model="width"
-            type="number"
-            :min="minWidth"
-            :max="maxWidth"
-            :step="0.1"
-          />
-        </div>
-        <div class="col-3">
-          <q-input
-            v-model.number="width"
-            type="number"
-            :min="minWidth"
-            :max="maxWidth"
-            :step="0.1"
-            :suffix="`m`"
-            dense
-            outlined
-          />
-        </div>
-      </div>
-      <div class="row " v-if="bridgeType === 'Twin'">
-        <!-- select between composite and concrete -->
-
-      </div>
-    </section>
-    <section class="longitudinal-image" aria-label="longitudinal-image" v-if="isEnabled">
-      <img src="/box-longitudinal.svg" alt="Longitudinal Verification" />
       </section>
-    <section class="longitudinal-results alpha-footer" aria-lable=""  v-if="isEnabled">
-      <!-- {{ alpha }} -->
-      <!-- show three values: alphaq sub V,M-,M+ -->
-      <ul class="alpha-list">
-      <li class="alpha-item">
-        &alpha;<sub>V</sub> &equals; {{ alpha.alphaV }}
-      </li>
-      <li class="alpha-item">
-        &alpha;<sub>M-</sub> &equals; {{ alpha.alphaMn }}
-      </li>
-      <li class="alpha-item">
-        &alpha;<sub>M+</sub> &equals; {{ alpha.alphaMp }}
-      </li>
-    </ul>
+      <section class="longitudinal-image" aria-label="longitudinal-image">
+        <h3 class="longitudinal-image-header"  v-if="bridgeType === 'Slab' || bridgeType === 'Multi'">
+          {{ $t('positioning_of_internal_forces_influence_line')}}
+        </h3>
+        <q-img src="/box-longitudinal.svg" alt="Longitudinal Verification" v-if="bridgeType === 'Box'"
+          style="height: 150px;" fit="contain" /> <!-- this is the image -->
+        <q-img src="/twin-girder-longitudinal-composite.svg" alt="Twin girder composite"
+          v-else-if="bridgeType === 'Twin' && bridgeComposition === 'Composite'" style="height: 150px;" fit="contain" />
+        <q-img src="/twin-girder-longitudinal-concrete.svg" alt="twin girder concrete"
+          v-else-if="bridgeType === 'Twin' && bridgeComposition === 'Concrete'" style="height: 150px;" fit="contain" />
+        <p v-else-if="bridgeType === 'Multi'">
+          <q-img src="/multi-girder-longitudinal-1.svg" alt="Multi girder " style="height: 125px;" fit="contain" />
+          <q-img src="/multi-girder-longitudinal-2.svg" alt="Multi girder " style="height: 125px;" fit="contain" />
+        </p>
+        <q-img v-else-if="bridgeType === 'Slab'" src="/slab-longitudinal.svg" alt="Slab" fit="contain"
+          style="height:150px" />
+          <q-tooltip v-if="bridgeType === 'Multi'"> {{ $t('i12_desc') }} </q-tooltip>
+
+          <section class="longitudinal-inputs longitudinal-radio q-mt-sm" aria-label="beams" v-if="bridgeType === 'Multi'">
+            <q-radio dense v-model="longitudinalTrans" val="P1" label="beam 1" />
+            <q-radio dense v-model="longitudinalTrans" val="P2" label="beam 2" />
+            <q-radio dense v-model="longitudinalTrans" val="P3" label="beam 3" />
+          </section>
+          <section class="longitudinal-inputs longitudinal-radio q-mt-sm" aria-label="point" v-if="bridgeType === 'Slab'">
+            <q-radio dense v-model="longitudinalTrans" val="p1" label="point 1" />
+            <q-radio dense v-model="longitudinalTrans" val="p2" label="point 2" />
+            <q-radio dense v-model="longitudinalTrans" val="p3" label="point 3" />
+          </section>
+      </section>
+
     </section>
-  </container>
+  </section>
+
+  <section class="longitudinal-verification-result longitudinal-results alpha-footer" aria-lable="" v-if="!rBau && bridgeType">
+      <!-- show three values: alphaq sub V,M-,M+ -->
+      <q-tooltip> {{ $t('i9_desc') }} </q-tooltip>
+      <ul class="alpha-list">
+        <li class="alpha-item">
+          &alpha;<sub>q,V</sub> &equals; {{ roundCeilWith2Decimals(alpha?.V?.[selectedClass]) }}
+
+
+        <q-btn flat padding="none" @click="() => copyText($q, $t, roundCeilWith2Decimals(alpha?.V?.[selectedClass]))">
+          <q-img height="24px" width="24px" fit="contain" src="/mdi-icons/content_copy.svg" />
+          <q-tooltip >
+            {{  $t('copy_to_clipboard') }}
+          </q-tooltip>
+        </q-btn>
+        </li>
+        <li class="alpha-item">
+          &alpha;<sub>q,M-</sub> &equals; {{ roundCeilWith2Decimals(alpha?.Mn?.[selectedClass]) }}
+
+
+        <q-btn flat padding="none" @click="() => copyText($q, $t, roundCeilWith2Decimals(alpha?.Mn?.[selectedClass]))">
+          <q-img height="24px" width="24px" fit="contain" src="/mdi-icons/content_copy.svg" />
+          <q-tooltip >
+            {{  $t('copy_to_clipboard') }}
+          </q-tooltip>
+        </q-btn>
+        </li>
+        <li class="alpha-item">
+          &alpha;<sub>q,M+</sub> &equals; {{ roundCeilWith2Decimals(alpha?.Mp?.[selectedClass]) }}
+
+
+        <q-btn flat padding="none" @click="() => copyText($q, $t, roundCeilWith2Decimals(alpha?.Mp?.[selectedClass]))">
+          <q-img height="24px" width="24px" fit="contain" src="/mdi-icons/content_copy.svg" />
+          <q-tooltip >
+            {{  $t('copy_to_clipboard') }}
+          </q-tooltip>
+        </q-btn>
+        </li>
+      </ul>
+    </section>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
-import { useVerificationStore } from '../stores/verification-store';
+import { computed, type ComputedRef } from 'vue';
+import { BridgeType, classResult, useVerificationStore } from '../stores/verification-store';
+import { roundCeilWith2Decimals } from '../utils/math';
+import { useI18n } from 'vue-i18n';
+import { useQuasar } from 'quasar';
+import { copyText } from '../utils/clipboard';
+
+const { t: $t } = useI18n();
+const $q = useQuasar();
 
 const verificationStore = useVerificationStore();
 
-const maxSpan = 80;
-const minSpan = 4;
 
-const maxWidth = 18;
-const minWidth = 9;
+const maxSpan = computed(() => verificationStore.getMaxSpan);
+const minSpan = computed(() => verificationStore.getMinSpan);
+const maxWidth = computed(() => verificationStore.getMaxWidth);
+const minWidth = computed(() => verificationStore.getMinWidth);
+
 
 const alpha = computed(() => verificationStore.getLongitudinalAlpha);
+const rBau = computed(() => verificationStore.rBau);
 // Create computed properties for two-way binding
-const isEnabled = computed({
-  get: () => verificationStore.longitudinal.isEnabled,
-  set: (value) => verificationStore.setLongitudinalEnabled(value)
-});
+
 
 const span = computed({
-  get: () => verificationStore.longitudinal.span,
+  get: () => verificationStore.span,
   set: (value) => verificationStore.setLongitudinalSpan(value)
 });
 
 const width = computed({
-  get: () => verificationStore.longitudinal.width,
+  get: () => verificationStore.width,
   set: (value) => verificationStore.setLongitudinalWidth(value)
 });
 
-const bridgeType = computed(() => verificationStore.bridgeType);
+const bridgeType = computed({
+  get: () => verificationStore.bridgeType,
+  set: (value: BridgeType) => verificationStore.setBridgeType(value)
+});
+const bridgeComposition = computed(() => verificationStore.bridgeComposition);
+const isConcrete = computed({
+  get: () => verificationStore.bridgeComposition === 'Concrete',
+  set: (value) => verificationStore.setBridgeComposition(value ? 'Concrete' : 'Composite')
+});
+const selectedClass: ComputedRef<classResult> = computed(() => verificationStore.selectedClass === 'Class' ? 'qG' : 'qG+');
+
+const longitudinalTrans = computed({
+  get: () => verificationStore.trans,
+  set: (value) => verificationStore.setLongitudinalTrans(value)
+});
 </script>
 
 <style lang="scss" scoped>
+@import 'src/css/quasar.variables.scss';
+
+.longitudinal-radio {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.longitudinal-slider {
+  // width: 312px;
+  // padding-right: 1rem;
+  width: 90%;
+}
+
+.longitudinal-verification {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  min-height: 100%; // This is important
+  height: 100%; // This ensures full height
+  gap: 1rem;
+}
+
+
+.longitudinal-header {
+  // child-1
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0px;
+  margin-bottom: 0rem;
+
+  // grid-area: header;
+}
+
+.longitudinal-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1rem;
+}
+
+
+
+.longitudinal-results {
+  align-self: end;
+}
+
+.longitudinal-image-header {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0px;
+  margin-bottom: 0rem;
+}
 
 .longitudinal-image {
-  padding: 1rem;
-  border: 1px solid var(--q-color-grey-3);
+  display: grid;
+  grid-auto-rows: auto;
+
   /* set maximum and min width to avoid flickering of screen */
   img {
     max-width: 300px;
@@ -147,29 +243,18 @@ const bridgeType = computed(() => verificationStore.bridgeType);
   }
 }
 
-.longitudinal-verification {
-  padding: 1rem;
-  border: 1px solid var(--q-color-grey-3);
-  /* set maximum and min width to avoid flickering of screen */
-  /* max-width: 400px;
-  min-width: 400px; */
-}
 
 .verification-title {
   margin: 0 0 1rem;
   font-size: 1.2rem;
   font-weight: 500;
 }
+
 .dimension {
   display: flex;
   flex-direction: row;
   flex: auto;
   width: 100%;
-}
-
-.row {
-  display: flex;
-  flex-direction: row;
 }
 
 .col-2 {
@@ -187,29 +272,4 @@ const bridgeType = computed(() => verificationStore.bridgeType);
 }
 
 
-.alpha-footer {
-  grid-area: f;
-  padding: 1rem;
-  border: 1px solid #FFB6C1;
-  border-radius: 8px;
-  background: #fff;
-}
-
-.alpha-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  gap: 2rem;
-}
-
-.alpha-item {
-  line-height: 1.4;
-}
-
-.longitudinal-header {
-  margin: 0 0 1rem;
-  font-size: 1.2rem;
-  font-weight: 500;
-}
 </style>

@@ -62,18 +62,19 @@ Under active development. [Report bugs here](https://github.com/EPFL-ENAC/ressla
 type_to_width:
   box:
     'l < 9': not possible
-    '9 <l< 12': use value for 12
-    '12<l< 18': interpolate
-    'l> 18': Not possible
+    '9 <=l<= 12': use value for 12
+    '12 < l <= 18': use value for 18
+    'l > 18': Not possible
   twin:
-    '9 <l< 12': use value for 9
+    '9 <= l <= 12': use value for 9
   multi:
     'l< 10.8': not possible
-    'l> 10.8': same as 10.8 (because of different beam analysis explicitly indicated)
+    'l>= 10.8': same as 10.8 (because of different beam analysis explicitly indicated)
   slab:
     'l < 9': not possible
-    '9 < l < 18': interpolate
-    'l> 18': not possible
+    'l == 9': use value for 9
+    '9 < l <= 18': use value for 18
+    'l > 18': not possible
   dalle_de_roulement:
     porte_a_faux:
       'l< 1.22': not possible
@@ -92,7 +93,6 @@ type_to_support:
     semi_or_fixed:
     'M-  < 50% < M_fully fixed': use Semi
     '50% M_< 100% M_fully fixed': use highest alpha between the two'
-
 ```
 
 ## Data graph
@@ -170,11 +170,11 @@ graph TD
 
 ```mermaid
 ---
-title: Type to Layout
+title: Type to Traffic
 ---
 
 graph TD
-    %% Layout
+    %% Traffic
     %% Box -> [ 'Uni2L', 'Bi2L', 'Bi4L' ]
     %% Twin -> [ 'Uni2L', 'Bi2L' ]
     %% Multi -> [ 'Uni2L', 'Bi2L' ]

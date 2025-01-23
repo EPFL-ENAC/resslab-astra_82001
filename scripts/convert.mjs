@@ -1,24 +1,6 @@
 import csv from 'csvtojson';
 import { writeFileSync } from 'fs';
 
-const widthToMeters = (widthKey) => ({
-  wid18: 18,
-  wid12: 12,
-  wid9: 9,
-  Wid108: 10.8,
-  Wid9: 9,
-  Wid18: 18,
-  Wid1_22: 1.22,
-  Wid2_33: 2.33,
-  Wid3_44: 3.44,
-  Wid4_56: 4.56,
-  Wid5_67: 5.67,
-  Wid6_78: 6.78,
-  Wid3: 3,
-  Wid7_5: 7.5,
-  Wid12: 12,
-}[widthKey]);
-
 csv({ checkType: true, ignoreEmpty: true, trim: true })
   .fromFile('./src/assets/data/data.csv')
   .then((jsonObj) => {
@@ -26,16 +8,22 @@ csv({ checkType: true, ignoreEmpty: true, trim: true })
     const result = [];
     jsonObj.forEach((obj) => {
       result.push({
+        'VerificationType': obj['Verification type'],
         'Type': obj.Type,
         'SubType': obj.SubType,
-        'Width': widthToMeters(obj.Width),
+        'Traffic': obj['Lane configuration'],
+        'Width': obj.Width,
         'Support': obj.Support,
-        'Trans': obj.Trans,
-        'AE': obj.AE,
-        'Traffic': obj.Traffic,
+        'Trans': obj['Positioning of internal forces influence line'],
+        'AE': obj['Action effect'],
         'Span': obj.Span,
-        'ClassOW': obj.ClassOW,
-        'Class': obj.Class,
+        // alpha_Q1,global","alpha_Q2,global","alpha_q,global Class+","alpha_q,global Class","alpha_Q1,local","alpha_Q2,local
+        'Q1G': obj['alpha_Q1,global'],
+        'Q2G': obj['alpha_Q2,global'],
+        'qG+': obj['alpha_q,global Class+'],
+        'qG': obj['alpha_q,global Class'],
+        'Q1L': obj['alpha_Q1,local'],
+        'Q2L': obj['alpha_Q2,local']
       })
     });
     writeFileSync(path, JSON.stringify(result));

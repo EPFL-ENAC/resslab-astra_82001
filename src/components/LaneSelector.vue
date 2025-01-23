@@ -1,66 +1,67 @@
 <template>
-  <div class="lane-selector">
-    <h3>
-      {{ $t('lane-configuration') }}
+  <div class="lane-selector area-c" v-if="!rBau && bridgeType">
+    <h3 class="lane-header">
+      {{ $t('lanes') }}
+      <q-tooltip> {{ $t('i6_desc') }} </q-tooltip>
     </h3>
-    <q-btn-toggle
-      class="lane-toggle"
-      v-model="selectedLane"
-      color="primary"
-      flat
+    <q-select
+      v-model="selectedOption"
+      :options="options"
       dense
-      :options="[
-        {value: 'Uni2L', slot: 'one'},
-        {value: 'Bi2L', slot: 'two'},
-        {value: 'Bi4L', slot: 'three'},
-      ]">
-      <template v-slot:one>
-        <div class="col items-center no-wrap q-pa-md">
-          <div class="text-center lane-text text-small">
-            {{ $t('uni2l') }}
-          </div>
-          <img :src="`/images/uni2l.png`" alt="one lane" class="track-image" />
-          <!-- <span v-if="selectedLane === 'uni2l'">(–)</span> -->
-        </div>
-      </template>
-      <template v-slot:two>
-        <div class="col items-center no-wrap">
-          <div class="text-center lane-text text-small">
-            {{ $t('bi2l') }}
-          </div>
-          <img src="/images/bi2l.png" alt="two lanes" class="track-image" />
-          <!-- <span v-if="selectedLane === 'bi2l'">(–)</span> -->
-
-        </div>
-        </template>
-      <template v-slot:three>
-        <div class="col items-center no-wrap">
-          <div class="text-center lane-text text-small">
-            {{  $t('bi4l') }}
-          </div>
-          <img src="/images/bi4l.png" alt="three lanes" class="track-image" />
-          <!-- <span v-if="selectedLane === 'bi4l'">(–)</span> -->
-        </div>
-        </template>
-    </q-btn-toggle>
+      outlined
+      class="q-mt-md lane-select"
+      />
+    <q-img fit="contain" :src="`/${selectedOption.value.toLowerCase()}.svg`" alt="one lane" class="track-image q-mt-md" />
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { useVerificationStore } from '../stores/verification-store';
 
+
+const { t: $t } = useI18n();
 const verificationStore = useVerificationStore();
 
 
-const selectedLane = computed({
-  get: () => verificationStore.selectedLane,
-  set: (value) => verificationStore.setLane(value)
+const rBau = computed(() => verificationStore.rBau);
+
+const selectedOption = computed({
+  get: () => ({ 'label': $t(verificationStore.selectedLane.toLowerCase()), 'value': verificationStore.selectedLane }),
+  set: (option) => {
+    verificationStore.setLane(option.value)
+  }
 });
+
+const bridgeType = computed(() => verificationStore.bridgeType);
+
+const options = computed(() => {
+  const result = [
+        {label: $t('uni2l'), value: 'Uni2L'},
+        {label: $t('bi2l'), value: 'Bi2L'},
+      ]
+
+  if (bridgeType.value === 'Box' || bridgeType.value === 'Slab') {
+    result.push(
+      {label: $t('bi4l'), value: 'Bi4L'})
+  }
+
+  return result;
+})
 
 </script>
 
 <style scoped lang="scss">
+@import 'src/css/mixins.scss';
+
+
+.lane-header {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0px;
+  margin-bottom: 0rem;
+}
 /* have proper display color of selected lane */
 
 :deep(.q-btn[aria-pressed="true"]) {
@@ -86,8 +87,9 @@ const selectedLane = computed({
   margin-top: 10px;
   flex-direction: column;
 }
-.track-image {
-  width: 100px;
-  height: 100px;
+.lane-select {
+  :deep(.q-field__native) {
+    @include user-select(none);
+  }
 }
 </style>
