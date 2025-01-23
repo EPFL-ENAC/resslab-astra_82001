@@ -1,6 +1,6 @@
 export const roundCeilWith2Decimals = (value?: number) => {
 
-  if (!value) return 0;
+  if (!value) return 'N/A';
 
   // Convert to string to check decimal places
   const strValue = value.toString();
