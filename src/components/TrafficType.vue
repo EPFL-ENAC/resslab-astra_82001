@@ -38,8 +38,8 @@
         class="q-mr-md"
       >
       <template #selected>
-        {{
-          beta.label
+        β={{
+          beta.toFixed(2)
         }}
         <q-tooltip class="description beta">
           {{ $t('i7_desc') }}
@@ -66,13 +66,23 @@
         </template>
       </q-toggle>
       <q-select
-        v-model="phyCal"
-        :options="phyCalOptions"
+        v-model="phi"
+        :options="[phi]"
         :disable="true"
         dense
         outlined
         class="q-mr-md"
-      />
+      >
+      <template #selected>
+        Φ={{
+          phi.toFixed(2)
+        }}
+        <q-tooltip class="description phi">
+          {{ $t('phi_desc') }}
+        </q-tooltip>
+      </template>
+      </q-select>
+      <!-- `Φ${phyCalDynamicValue.toFixed(2)}` -->
       <q-toggle
         class="r-bau"
         :false-value="false"
@@ -119,62 +129,27 @@ const rBau = computed({
 });
 
 
+const beta = computed({
+  get: () => verificationStore.beta,
+  set: (value) => verificationStore.setBeta(value),
+});
 
-// TODO: Move to store
+const phi = computed({
+  get: () => verificationStore.getPhi,
+  set: (value) => verificationStore.setPhi(value),
+});
+
+
 
 // default is 4.2 we can change it to 4.7 for bridge of category 3
 // cf 6.24 p 83 of 120 of the 82001f
-const betaOptions = [
-  { label: 'β=4.20', value: 4.2 },
-  { label: 'β=4.70', value: 4.7 }, // cas le plus defavorable +2.2 à +7% pour les ponts de catégorie 3 (on utilise +7% for now)
+const betaOptions = [4.2, 4.7];
+  // { label: 'β=4.20', value: 4.2 },
+  // { label: 'β=4.70', value: 4.7 }, // cas le plus defavorable +2.2 à +7% pour les ponts de catégorie 3 (on utilise +7% for now)
   // III.1.2 Résultats pour deux voies de circulation, pour une bande de 1.4 m –
   // (Q1 + Q2)act cf p99/120
-];
-const beta = ref(betaOptions[0]);
-
-// show phycal options for bridge with a span <= 20m
-/*
-** 𝐿 ≤ 10 𝑚, 𝑐𝑎𝑙 = 1.15
-** 10 < 𝐿 ≤ 20 𝑚, 𝜑𝑐𝑎𝑙 = 1.15 − 0.015 ∙ (𝐿 − 10)
-** 𝐿 > 20 𝑚, 𝜑𝑐𝑎𝑙 = 1.00
-** Par défaut c'est 1.00
-*/
-const defaultPhyCalOptions = [
-  { label: 'Φ=1.00', value: 1.00},
-]
-
-const defaultGoodRoadPhyCal = 1.0;
-const defaultSmallRoadPhyCal = 1.15;
-const phyCalOptions = computed(() => {
-  return defaultPhyCalOptions;
-  // if (selected.value.Span === null) {
-  //   return defaultPhyCalOptions;
-  // }
-  // if (selected.value.Span === undefined) {
-  //   return defaultPhyCalOptions;
-  // }
-  // // 10 < 𝐿 ≤ 20 𝑚, 𝜑𝑐𝑎𝑙 = 1.15 − 0.015 ∙ (𝐿 − 10)
-  // let phyCalDynamicValue = defaultSmallRoadPhyCal - 0.015 * (selected.value.Span.value - 10);
-  // if (selected.value.Span.value <= 10) {
-  //   phyCalDynamicValue = defaultSmallRoadPhyCal; // 𝐿 ≤ 10 𝑚, 𝑐𝑎𝑙 = 1.15
-  // }
-  // if (selected.value.Span.value >= 20) {
-  //   phyCalDynamicValue = defaultGoodRoadPhyCal; // 𝐿 > 20 𝑚, 𝜑𝑐𝑎𝑙 = 1.00
-  // }
-
-  // if (goodQualityRoad.value === true) {
-  //   phyCalDynamicValue = defaultGoodRoadPhyCal;
-  // }
-  // if (phyCalDynamicValue === undefined) {
-  //   return defaultPhyCalOptions;
-  // }
-//   return [
-//   { label: `Φ${phyCalDynamicValue.toFixed(2)}`, value: phyCalDynamicValue}
-// ]
-});
-
-// const phyCal = ref(phyCalOptions.value[0]);
-const phyCal = computed(() => (phyCalOptions.value[0]));
+// ];
+// const beta = ref(betaOptions[0]);
 
 
 </script>

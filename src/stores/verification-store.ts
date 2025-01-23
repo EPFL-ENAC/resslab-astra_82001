@@ -59,6 +59,8 @@ interface VerificationState {
   bridgeType: BridgeType | null;
   bridgeComposition: BridgeComposition;
   goodQualityRoad: boolean;
+  beta: number;
+  phi: number;
   rBau: boolean;
   // longitidunal
   span: number;
@@ -528,11 +530,15 @@ function getSelectedClassKey(state: VerificationState) {
 
 export const useVerificationStore = defineStore('verification', {
   // STATE_DEFINITION
+  // let alphaQ2 = ref(0.35);
+  // let alphaQ1 = ref(0.55);
   state: (): VerificationState => ({
     selectedLane: 'Uni2L', // Traffic: LaneType;
     selectedClass: 'Class',
     bridgeType: 'Box', //Type: BridgeType; default value should be null
     goodQualityRoad: false,
+    beta: 4.2,
+    phi: 1.0,
     rBau: false,
     bridgeComposition: 'Composite', // SubType: BridgeComposition;
     span: 30, // Span: number;
@@ -552,6 +558,12 @@ export const useVerificationStore = defineStore('verification', {
     },
     setRBAU(roadBau: boolean) {
       this.rBau = roadBau;
+    },
+    setBeta(beta: number) {
+      this.beta = beta;
+    },
+    setPhi(phi: number) {
+      this.phi = phi;
     },
     setSelectedClass(selectedClass: TrafficClass) {
       this.selectedClass = selectedClass;
@@ -686,6 +698,42 @@ export const useVerificationStore = defineStore('verification', {
   getters: {
     getObjectiveTransversalSpan,
     getObjectiveLongitudinalWidth,
+    getPhi: (state) => {
+      // show phycal options for bridge with a span <= 20m
+      /*
+      ** 𝐿 ≤ 10 𝑚, 𝑐𝑎𝑙 = 1.15
+      ** 10 < 𝐿 ≤ 20 𝑚, 𝜑𝑐𝑎𝑙 = 1.15 − 0.015 ∙ (𝐿 − 10)
+      ** 𝐿 > 20 𝑚, 𝜑𝑐𝑎𝑙 = 1.00
+      ** Par défaut c'est 1.00
+      */
+      // const defaultPhyCalOptions = [{ label: 'Φ1.00', value: 1.0 }];
+
+      const defaultGoodRoadPhyCal = 1.0;
+      const defaultSmallRoadPhyCal = 1.15;
+      if (state.span === null) {
+        return defaultGoodRoadPhyCal;
+      }
+      if (state.span === undefined) {
+        return defaultGoodRoadPhyCal;
+      }
+      // 10 < 𝐿 ≤ 20 𝑚, 𝜑𝑐𝑎𝑙 = 1.15 − 0.015 ∙ (𝐿 − 10)
+      let phyCalDynamicValue =
+        defaultSmallRoadPhyCal - 0.015 * (state.span - 10);
+      if (state.span <= 10) {
+        phyCalDynamicValue = defaultSmallRoadPhyCal; // 𝐿 ≤ 10 𝑚, 𝑐𝑎𝑙 = 1.15
+      }
+      if (state.span >= 20) {
+        phyCalDynamicValue = defaultGoodRoadPhyCal; // 𝐿 > 20 𝑚, 𝜑𝑐𝑎𝑙 = 1.00
+      }
+
+      if (state.goodQualityRoad === true) {
+        phyCalDynamicValue = defaultGoodRoadPhyCal;
+      }
+      if (phyCalDynamicValue === undefined) {
+        return defaultGoodRoadPhyCal;
+      }
+      return phyCalDynamicValue;
+    },
     getMinSpanTransversal: (state) => {
       // state.isCantileverEnabled
       //       ? 'PorteAFaux'

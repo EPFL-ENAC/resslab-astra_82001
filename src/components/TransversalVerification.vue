@@ -95,7 +95,7 @@
           &alpha;<sub>q,V</sub> &equals; {{  roundCeilWith2Decimals(alphaTrans?.V?.[selectedClass]) }}
 
         <q-btn flat padding="none" @click="() => copyText($q, $t, roundCeilWith2Decimals(alphaTrans?.V?.[selectedClass]))">
-          <q-img height="24px" width="24px" fit="contain" src="/epfl-designed/Canard/svg/c-copy-paste.svg" />
+          <q-img height="24px" width="24px" fit="contain" src="/mdi-icons/content_copy.svg" />
           <q-tooltip >
             {{  $t('copy_to_clipboard') }}
           </q-tooltip>
@@ -105,7 +105,7 @@
           &alpha;<sub>q,M-</sub> &equals; {{  roundCeilWith2Decimals(alphaTrans?.Mn?.[selectedClass]) }}
 
         <q-btn flat padding="none" @click="() => copyText($q, $t, roundCeilWith2Decimals(alphaTrans?.Mn?.[selectedClass]))">
-          <q-img height="24px" width="24px" fit="contain" src="/epfl-designed/Canard/svg/c-copy-paste.svg" />
+          <q-img height="24px" width="24px" fit="contain" src="/mdi-icons/content_copy.svg" />
           <q-tooltip >
             {{  $t('copy_to_clipboard') }}
           </q-tooltip>
@@ -115,7 +115,7 @@
           &alpha;<sub>q,M</sub> &equals; {{  roundCeilWith2Decimals(alphaTrans?.M?.[selectedClass]) }}
 
         <q-btn flat padding="none" @click="() => copyText($q, $t, roundCeilWith2Decimals(alphaTrans?.M?.[selectedClass]))">
-          <q-img height="24px" width="24px" fit="contain" src="/epfl-designed/Canard/svg/c-copy-paste.svg" />
+          <q-img height="24px" width="24px" fit="contain" src="/mdi-icons/content_copy.svg" />
           <q-tooltip >
             {{  $t('copy_to_clipboard') }}
           </q-tooltip>
@@ -125,7 +125,7 @@
           &alpha;<sub>q,M+</sub> &equals; {{ roundCeilWith2Decimals(alphaTrans?.Mp?.[selectedClass]) }}
 
         <q-btn flat padding="none" @click="() => copyText($q, $t, roundCeilWith2Decimals(alphaTrans?.Mp?.[selectedClass]))">
-          <q-img height="24px" width="24px" fit="contain" src="/epfl-designed/Canard/svg/c-copy-paste.svg" />
+          <q-img height="24px" width="24px" fit="contain" src="/mdi-icons/content_copy.svg" />
           <q-tooltip >
             {{  $t('copy_to_clipboard') }}
           </q-tooltip>
@@ -138,7 +138,7 @@
           &alpha;<sub>q,Mx,Mid</sub> &equals; {{ roundCeilWith2Decimals(alphaLong?.MxMid?.[selectedClass])  }}
 
         <q-btn flat padding="none" @click="() => copyText($q, $t, roundCeilWith2Decimals(alphaLong?.MxMid?.[selectedClass]))">
-          <q-img height="24px" width="24px" fit="contain" src="/epfl-designed/Canard/svg/c-copy-paste.svg" />
+          <q-img height="24px" width="24px" fit="contain" src="/mdi-icons/content_copy.svg" />
           <q-tooltip >
             {{  $t('copy_to_clipboard') }}
           </q-tooltip>
@@ -148,7 +148,7 @@
           &alpha;<sub>q,Mx,Medge</sub> &equals; {{ roundCeilWith2Decimals(alphaLong?.MxEdg?.[selectedClass])  }}
 
         <q-btn flat padding="none" @click="() => copyText($q, $t, roundCeilWith2Decimals(alphaLong?.MxEdg?.[selectedClass]))">
-          <q-img height="24px" width="24px" fit="contain" src="/epfl-designed/Canard/svg/c-copy-paste.svg" />
+          <q-img height="24px" width="24px" fit="contain" src="/mdi-icons/content_copy.svg" />
           <q-tooltip >
             {{  $t('copy_to_clipboard') }}
           </q-tooltip>
