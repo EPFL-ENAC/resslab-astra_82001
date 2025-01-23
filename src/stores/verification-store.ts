@@ -33,6 +33,7 @@ export const mapTransBetweenBeams: Record<SupportType, TransValue> = {
 };
 import data from '../assets/data/data.json';
 import { Traffic, TrafficClass } from 'src/types/Selected';
+import { X } from 'app/dist/spa/assets/index.65332175';
 
 // this is the interface of the data (json) we have StructuralAnalysis[]
 interface StructuralAnalysis {
@@ -50,7 +51,7 @@ interface StructuralAnalysis {
   Q2G: number;
   Q2L: number;
   qG: number;
-  'qG+': number;  // Note the quotes due to the + character
+  'qG+': number; // Note the quotes due to the + character
 }
 interface VerificationState {
   selectedLane: LaneType;
@@ -86,17 +87,17 @@ function getMatrixTransversal(
   traffic: Traffic,
   support: TransValue,
   span: number
-) : Record<AE, boudingPointsResult> {
-    // return for each AE:
-    const AE: AE[] = ['V', 'Mp', 'Mn', 'MxMid', 'MxEdg', 'M'];
-    const resultMatrix: Record<string, boudingPointsResult> = {};
-    // if we want to take traffic lane into account
-    //  const filtered = data.filter(x => x.Type === bridgeType && x.Traffic === traffic && x.AE === ae);
-    // if we don't want to take traffic lane into account
+): Record<AE, boudingPointsResult> {
+  // return for each AE:
+  const AE: AE[] = ['V', 'Mp', 'Mn', 'MxMid', 'MxEdg', 'M'];
+  const resultMatrix: Record<string, boudingPointsResult> = {};
+  // if we want to take traffic lane into account
+  //  const filtered = data.filter(x => x.Type === bridgeType && x.Traffic === traffic && x.AE === ae);
+  // if we don't want to take traffic lane into account
 
-    AE.forEach((ae) => {
-      let filtered: StructuralAnalysis[] = data as StructuralAnalysis[];
-      /* example of line
+  AE.forEach((ae) => {
+    let filtered: StructuralAnalysis[] = data as StructuralAnalysis[];
+    /* example of line
       {
           "VerificationType": "Transversal",
           "Type": "DalleRoulem",
@@ -115,32 +116,32 @@ function getMatrixTransversal(
           "Q2L": 0.4
         },
       */
-      if (bridgeType !== 'Slab') {
-        // we need to convert support
-        // for slab we don't have data here ?
-        filtered = filtered.filter(
-          (x) =>
-            x.Type === bridgeType &&
-            x.SubType === subtype &&
-            x.Trans === support &&
-            x.Traffic === traffic &&
-            x.AE === ae
-        );
-      } else {
-        filtered = filtered.filter(
-          (x) =>
-            x.Type === bridgeType &&
-            x.AE === ae &&
-            x.Traffic === traffic &&
-            x.SubType === subtype &&
-            x.Trans === support
-        );
-      }
+    if (bridgeType !== 'Slab') {
+      // we need to convert support
+      // for slab we don't have data here ?
+      filtered = filtered.filter(
+        (x) =>
+          x.Type === bridgeType &&
+          x.SubType === subtype &&
+          x.Trans === support &&
+          x.Traffic === traffic &&
+          x.AE === ae
+      );
+    } else {
+      filtered = filtered.filter(
+        (x) =>
+          x.Type === bridgeType &&
+          x.AE === ae &&
+          x.Traffic === traffic &&
+          x.SubType === subtype &&
+          x.Trans === support
+      );
+    }
 
-      resultMatrix[ae] = findBoundingPoints1D(filtered, span);
-    });
+    resultMatrix[ae] = findBoundingPoints1D(filtered, span);
+  });
 
-    return resultMatrix;
+  return resultMatrix;
 }
 
 interface boudingPointsResult {
@@ -154,7 +155,10 @@ interface boudingPointsResult {
   y2?: number;
 }
 
-function findBoundingPoints1D(points: StructuralAnalysis[], targetSpan: number): boudingPointsResult {
+function findBoundingPoints1D(
+  points: StructuralAnalysis[],
+  targetSpan: number
+): boudingPointsResult {
   // Find the closest span values on either side of targetSpan
   const spans = [...new Set(points.map((p) => p.Span))].sort((a, b) => a - b);
   const s1 = spans.reduce(
@@ -178,7 +182,11 @@ function findBoundingPoints1D(points: StructuralAnalysis[], targetSpan: number):
   };
 }
 
-function findBoundingPoints(points: StructuralAnalysis[], targetWidth: number, targetSpan: number): boudingPointsResult {
+function findBoundingPoints(
+  points: StructuralAnalysis[],
+  targetWidth: number,
+  targetSpan: number
+): boudingPointsResult {
   // Find the closest width values on either side of targetWidth
   const widths = [...new Set(points.map((p) => p.Width))].sort((a, b) => a - b);
   const w1 = widths.reduce(
@@ -225,16 +233,45 @@ function getMatrixLongitudinal(
   traffic: Traffic,
   bridgeType: BridgeType,
   bridgeComposition: BridgeComposition,
-  trans: LongValue = 'p0'
-): Record<AE, boudingPointsResult> {
+  trans: LongValue = 'p0',
+  support?: SupportType
+): Record<AE, boudingPointsResult> | Record<AE, boudingPointsResult>[] {
   // return for each AE:
   const AE: AE[] = ['V', 'Mp', 'Mn', 'MxMid', 'MxEdg', 'M'];
-  const resultMatrix: Record<string, boudingPointsResult> = {};
+  const resultMatrix: Record<AE, boudingPointsResult> = {
+    V: {} as boudingPointsResult,
+    Mp: {} as boudingPointsResult,
+    Mn: {} as boudingPointsResult,
+    MxMid: {} as boudingPointsResult,
+    MxEdg: {} as boudingPointsResult,
+    M: {} as boudingPointsResult,
+  };
+  const resultMatrixSemi: Record<AE, boudingPointsResult>[] = [];
+  if (bridgeType === 'Slab' && support === 'Simp') {
+    const resFixed: Record<AE, boudingPointsResult> = {
+      V: {} as boudingPointsResult,
+      Mp: {} as boudingPointsResult,
+      Mn: {} as boudingPointsResult,
+      MxMid: {} as boudingPointsResult,
+      MxEdg: {} as boudingPointsResult,
+      M: {} as boudingPointsResult,
+    };
+    const resSemi: Record<AE, boudingPointsResult> = {
+      V: {} as boudingPointsResult,
+      Mp: {} as boudingPointsResult,
+      Mn: {} as boudingPointsResult,
+      MxMid: {} as boudingPointsResult,
+      MxEdg: {} as boudingPointsResult,
+      M: {} as boudingPointsResult,
+    };
+    resultMatrixSemi[0] = resFixed;
+    resultMatrixSemi[1] = resSemi;
+  }
   // if we want to take traffic lane into account
   //  const filtered = data.filter(x => x.Type === bridgeType && x.Traffic === traffic && x.AE === ae);
   // if we don't want to take traffic lane into account
 
-  AE.forEach((ae) => {
+  AE.forEach((ae: AE) => {
     let filtered: StructuralAnalysis[] = data as StructuralAnalysis[];
     if (bridgeType !== 'Slab') {
       filtered = filtered.filter(
@@ -242,27 +279,63 @@ function getMatrixLongitudinal(
           x.Type === bridgeType &&
           x.AE === ae &&
           x.SubType === bridgeComposition &&
-          x.Trans === trans && x.Traffic === traffic
+          x.Trans === trans &&
+          x.Traffic === traffic
       );
+      resultMatrix[ae] = findBoundingPoints(filtered, width, span);
     } else {
-      filtered = filtered.filter(
-        (x) => x.Type === bridgeType && x.AE === ae && x.Trans === trans && x.Traffic === traffic
-      );
-    }
+      // WE ONLY have FIXED and SEMI for slab, not Simp, Simp is alias for highest value
 
-    resultMatrix[ae] = findBoundingPoints(filtered, width, span);
+      /* aliases, not real values
+        Semi = <= 50% Mfully fixed --> we use Semi
+        Simp = 50% Mfully fixed <= Msupport <= Mfully fixed --> we use highest alpha between the SEMI and FIXED
+        Fixed = Msupport = Mfully fixed --> we used fixed Fixed
+      */
+      if (support != 'Simp') {
+        filtered = filtered.filter(
+          (x) =>
+            x.Type === bridgeType &&
+            x.AE === ae &&
+            x.Trans === trans &&
+            x.Traffic === traffic &&
+            x.Support === support
+        );
+        resultMatrix[ae] = findBoundingPoints(filtered, width, span);
+      } else {
+        const filteredSemi = filtered.filter((x) => x.Support === 'Semi');
+        const filteredFixed = filtered.filter((X) => X.Support === 'Fixed');
+        const semi = findBoundingPoints(filteredSemi, width, span);
+        const fixed = findBoundingPoints(filteredFixed, width, span);
+        resultMatrixSemi[0][ae] = fixed;
+        resultMatrixSemi[1][ae] = semi;
+      }
+    }
   });
 
+  if (bridgeType === 'Slab' && support === 'Simp') {
+    return resultMatrixSemi;
+  }
   return resultMatrix;
 }
 
-function linearInterpolation({ p1, p2, x1, x2 }: boudingPointsResult, targetSpan: number) {
-  const classesToInterpolate: classResult[] = ['qG', 'qG+', 'Q1G', 'Q2G', 'Q1L', 'Q2L'];
+function linearInterpolation(
+  { p1, p2, x1, x2 }: boudingPointsResult,
+  targetSpan: number
+) {
+  const classesToInterpolate: classResult[] = [
+    'qG',
+    'qG+',
+    'Q1G',
+    'Q2G',
+    'Q1L',
+    'Q2L',
+  ];
 
-  function interpolate(className: classResult,
-    { p1, p2, x1, x2 } : boudingPointsResult,
-  targetWidth: number,): number {
-
+  function interpolate(
+    className: classResult,
+    { p1, p2, x1, x2 }: boudingPointsResult,
+    targetWidth: number
+  ): number {
     const Q1 = p1?.[className] ?? NaN; // bottom-left
     const Q2 = p2?.[className] ?? NaN; // top-left
 
@@ -279,23 +352,29 @@ function linearInterpolation({ p1, p2, x1, x2 }: boudingPointsResult, targetSpan
     acc[className] = interpolate(className, { p1, p2, x1, x2 }, targetSpan);
     return acc;
   }, {} as StructuralAnalysis);
-
 }
 
 function bilinearInterpolation(
-  { p1, p2, p3, p4, x1, x2, y1, y2 } : boudingPointsResult,
+  { p1, p2, p3, p4, x1, x2, y1, y2 }: boudingPointsResult,
   targetWidth: number,
   targetSpan: number
 ): StructuralAnalysis {
   // cf https://archive.org/details/numericalrecipes0865unse/page/122/mode/2up for more details
   // Find the four surrounding points
   // x is WIDTH, y is SPAN
-  const classesToInterpolate: classResult[] = ['qG', 'qG+', 'Q1G', 'Q2G', 'Q1L', 'Q2L'];
+  const classesToInterpolate: classResult[] = [
+    'qG',
+    'qG+',
+    'Q1G',
+    'Q2G',
+    'Q1L',
+    'Q2L',
+  ];
   function interpolate(
     className: classResult,
-    { p1, p2, p3, p4, x1, x2, y1, y2 } : boudingPointsResult,
-  targetWidth: number,
-  targetSpan: number
+    { p1, p2, p3, p4, x1, x2, y1, y2 }: boudingPointsResult,
+    targetWidth: number,
+    targetSpan: number
   ): number {
     const Q11 = p1?.[className] ?? NaN; // bottom-left
     const Q12 = p2?.[className] ?? NaN; // top-left
@@ -384,21 +463,21 @@ const getObjectiveTransversalSpan = (state: any) => {
   }
 };
 const getObjectiveLongitudinalWidth = (state: any) => {
-//   box:
-//     'l < 9': not possible
-//     '9 <=l<= 12': use value for 12
-//     '12 < l <= 18': use value for 18
-//     'l > 18': Not possible
-//   twin:
-//     '9 <= l <= 12': use value for 9
-//   multi:
-//     'l< 10.8': not possible
-//     'l>= 10.8': same as 10.8 (because of different beam analysis explicitly indicated)
-//   slab:
-//     'l < 9': not possible
-//     'l == 9': use value for 9
-//     '9 < l <= 18': use value for 18
-//     'l > 18': not possible
+  //   box:
+  //     'l < 9': not possible
+  //     '9 <=l<= 12': use value for 12
+  //     '12 < l <= 18': use value for 18
+  //     'l > 18': Not possible
+  //   twin:
+  //     '9 <= l <= 12': use value for 9
+  //   multi:
+  //     'l< 10.8': not possible
+  //     'l>= 10.8': same as 10.8 (because of different beam analysis explicitly indicated)
+  //   slab:
+  //     'l < 9': not possible
+  //     'l == 9': use value for 9
+  //     '9 < l <= 18': use value for 18
+  //     'l > 18': not possible
 
   if (state.bridgeType === 'Box') {
     if (state.width < 9) {
@@ -406,10 +485,7 @@ const getObjectiveLongitudinalWidth = (state: any) => {
     }
     if (state.width <= 12) {
       return 12;
-    } else if (
-      state.width <= 18 &&
-      state.width > 18
-    ) {
+    } else if (state.width <= 18 && state.width > 18) {
       // no interpolate
       return state.width;
     } else {
@@ -419,7 +495,7 @@ const getObjectiveLongitudinalWidth = (state: any) => {
     if (state.width >= 9 && state.width <= 12) {
       return 9;
     } else {
-      return NaN
+      return NaN;
     }
   } else if (state.bridgeType === 'Multi') {
     if (state.width < 10.8) {
@@ -460,8 +536,8 @@ export const useVerificationStore = defineStore('verification', {
     rBau: false,
     bridgeComposition: 'Composite', // SubType: BridgeComposition;
     span: 30, // Span: number;
-    width: 12,  // Width: number;
-    trans: 'p0',  // Trans: LongValue;
+    width: 12, // Width: number;
+    trans: 'p0', // Trans: LongValue;
     isCantileverEnabled: false,
     spanTransversal: 3,
     supportType: 'Simp', // Support: SupportType;
@@ -500,15 +576,15 @@ export const useVerificationStore = defineStore('verification', {
         if (this.span > maxSpan) {
           this.span = maxSpan;
         }
-      }
-      const resetWidth = () =>  {
+      };
+      const resetWidth = () => {
         if (this.width < minWidth) {
           this.width = minWidth;
         }
         if (this.width > maxWidth) {
           this.width = maxWidth;
         }
-      }
+      };
       if (bridgeType === 'Box') {
         // selectedLane could be all values
         this.bridgeComposition = 'Composite';
@@ -519,7 +595,7 @@ export const useVerificationStore = defineStore('verification', {
 
       if (bridgeType === 'Twin') {
         if (this.selectedLane === 'Bi4L') {
-            this.selectedLane = 'Uni2L';
+          this.selectedLane = 'Uni2L';
         }
         resetSpan();
         resetWidth();
@@ -528,7 +604,7 @@ export const useVerificationStore = defineStore('verification', {
 
       if (bridgeType === 'Multi') {
         if (this.selectedLane === 'Bi4L') {
-            this.selectedLane = 'Uni2L';
+          this.selectedLane = 'Uni2L';
         }
         this.bridgeComposition = 'Composite';
         resetSpan();
@@ -631,19 +707,19 @@ export const useVerificationStore = defineStore('verification', {
       }
     },
     getMinSpan: (state) => {
-        if (state.bridgeType === 'Box') {
-          return 20;
-        } else if (state.bridgeType === 'Twin') {
-          return 20;
-        } else if (state.bridgeType === 'Multi') {
-          return 20
-        } else if (state.bridgeType === 'Slab') {
-          return 4;
-        }
-        // else if (state.bridgeType === 'DalleRoulem') {
-        //   return 1.22;
-        // }
-        return 9;
+      if (state.bridgeType === 'Box') {
+        return 20;
+      } else if (state.bridgeType === 'Twin') {
+        return 20;
+      } else if (state.bridgeType === 'Multi') {
+        return 20;
+      } else if (state.bridgeType === 'Slab') {
+        return 4;
+      }
+      // else if (state.bridgeType === 'DalleRoulem') {
+      //   return 1.22;
+      // }
+      return 9;
     },
     getMaxSpan: (state) => {
       if (state.bridgeType === 'Box') {
@@ -685,33 +761,78 @@ export const useVerificationStore = defineStore('verification', {
       return 9;
     },
 
-
     getBridgeComposition: (state) => state.bridgeComposition,
     getLongitudinalAlpha: (state) => {
       const ObjWidth = getObjectiveLongitudinalWidth(state);
       const ObjSpan = state.span;
       if (state.bridgeType !== null) {
-
         const matrix = getMatrixLongitudinal(
           ObjWidth,
           ObjSpan,
           state.selectedLane,
           state.bridgeType,
           state.bridgeComposition,
-          state.trans
+          state.trans,
+          state.supportType
         );
-        const AE: AE[] = ['V', 'M', 'Mn', 'Mp', 'MxMid', 'MxEdg'];
-        const interpolatedMatrix: Record<AE, StructuralAnalysis> = AE.reduce((acc, ae) => {
-          if (matrix?.[ae]) {
-            acc[ae] = bilinearInterpolation(
-              matrix[ae],
-              ObjWidth,
-              ObjSpan
-            );
-          }
-          return acc;
-        }, {} as Record<AE, StructuralAnalysis>);
-        return interpolatedMatrix;
+        // if we have slab and support is Simp we need highest value between Semi and Fixed so we need to interpolate for both
+        if (Array.isArray(matrix)) {
+          // Special case for Slab with Simp support - need to interpolate both Semi and Fixed values
+          const matrixArray = matrix as Record<AE, boudingPointsResult>[];
+          const fixedMatrix = matrixArray[0];
+          const semiMatrix = matrixArray[1];
+
+          const AE: AE[] = ['V', 'M', 'Mn', 'Mp', 'MxMid', 'MxEdg'];
+          const interpolatedMatrixFixed = AE.reduce((acc, ae) => {
+            if (fixedMatrix?.[ae]) {
+              acc[ae] = bilinearInterpolation(
+                fixedMatrix[ae],
+                ObjWidth,
+                ObjSpan
+              );
+            }
+            return acc;
+          }, {} as Record<AE, StructuralAnalysis>);
+
+          const interpolatedMatrixSemi = AE.reduce((acc, ae) => {
+            if (semiMatrix?.[ae]) {
+              acc[ae] = bilinearInterpolation(
+                semiMatrix[ae],
+                ObjWidth,
+                ObjSpan
+              );
+            }
+            return acc;
+          }, {} as Record<AE, StructuralAnalysis>);
+
+          // return [interpolatedMatrixFixed, interpolatedMatrixSemi];
+          // Compare the corresponding values from Fixed and Semi matrices and return the one with higher values
+          return AE.reduce((acc, ae) => {
+            const fixedValue =
+              interpolatedMatrixFixed[ae]?.[getSelectedClassKey(state)] ??
+              -Infinity;
+            const semiValue =
+              interpolatedMatrixSemi[ae]?.[getSelectedClassKey(state)] ??
+              -Infinity;
+            acc[ae] =
+              fixedValue > semiValue
+                ? interpolatedMatrixFixed[ae]
+                : interpolatedMatrixSemi[ae];
+            return acc;
+          }, {} as Record<AE, StructuralAnalysis>);
+        } else {
+          const AE: AE[] = ['V', 'M', 'Mn', 'Mp', 'MxMid', 'MxEdg'];
+          const interpolatedMatrix: Record<AE, StructuralAnalysis> = AE.reduce(
+            (acc, ae) => {
+              if (matrix?.[ae]) {
+                acc[ae] = bilinearInterpolation(matrix[ae], ObjWidth, ObjSpan);
+              }
+              return acc;
+            },
+            {} as Record<AE, StructuralAnalysis>
+          );
+          return interpolatedMatrix;
+        }
       }
     },
     getTransversalAlpha: (state) => {
@@ -723,23 +844,21 @@ export const useVerificationStore = defineStore('verification', {
 
         const matrix = getMatrixTransversal(
           'DalleRoulem', // state.bridgeType,
-          state.isCantileverEnabled
-            ? 'PorteAFaux'
-            : 'DalleEntrePoutres',
+          state.isCantileverEnabled ? 'PorteAFaux' : 'DalleEntrePoutres',
           state.selectedLane,
           supportType,
           ObjSpan
         );
         const AE: AE[] = ['V', 'M', 'Mn', 'Mp', 'MxMid', 'MxEdg'];
-        const interpolatedMatrix: Record<AE, StructuralAnalysis> = AE.reduce((acc, ae) => {
-          if (matrix?.[ae]) {
-            acc[ae] = linearInterpolation(
-              matrix[ae],
-              ObjSpan,
-            );
-          }
-          return acc;
-        }, {} as Record<AE, StructuralAnalysis>);
+        const interpolatedMatrix: Record<AE, StructuralAnalysis> = AE.reduce(
+          (acc, ae) => {
+            if (matrix?.[ae]) {
+              acc[ae] = linearInterpolation(matrix[ae], ObjSpan);
+            }
+            return acc;
+          },
+          {} as Record<AE, StructuralAnalysis>
+        );
         return interpolatedMatrix;
       }
     },

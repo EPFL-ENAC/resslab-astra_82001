@@ -186,11 +186,6 @@ const transversalTypeName = computed({
 
 
 const supportOptions = computed(() => {
-  const options = [
-          { slot: 'one', label: $t('PENC'), value: 'Simp' },
-          { slot: 'two', label: $t('SENC'), value: 'Fixed' },
-        ];
-
   if (bridgeType.value !== 'Slab') {
     if (transversalTypeName.value === 'cantilever') {
       // AR-0 is Fixed, AR-2 is Semi and BR-1 is Simp
@@ -210,9 +205,9 @@ const supportOptions = computed(() => {
   }
   else {
     return [
-      { slot: 'one', value: 'Fixed' },
-      { slot: 'two', value: 'Semi' },
-      { slot: 'three', value: 'Simp' },
+      { slot: 'one', value: 'Semi' },        //     M<sub>support</sub> &LessSlantEqual; 50% M<sub>fully fixed</sub>
+      { slot: 'two', value: 'Simp' },         //     50% M<sub>fully fixed</sub>  &LessSlantEqual; M<sub>support</sub> &LessSlantEqual; M<sub>fully fixed</sub>
+      { slot: 'three', value: 'Fixed' },       //       M<sub>support</sub> &equals; M<sub>fully fixed</sub>
     ];
   }
 });
