@@ -323,6 +323,7 @@ function getMatrixLongitudinal(
 }
 
 function linearInterpolation(
+  state: VerificationState,
   { p1, p2, x1, x2 }: boudingPointsResult,
   targetSpan: number
 ) {
@@ -353,7 +354,7 @@ function linearInterpolation(
   }
 
   return classesToInterpolate.reduce((acc, className) => {
-    acc[className] = interpolate(className, { p1, p2, x1, x2 }, targetSpan);
+    acc[className] = getFinalAlphaQ(state, interpolate(className, { p1, p2, x1, x2 }, targetSpan));
     return acc;
   }, {} as StructuralAnalysis);
 }
@@ -931,7 +932,7 @@ export const useVerificationStore = defineStore('verification', {
         const interpolatedMatrix: Record<AE, StructuralAnalysis> = AE.reduce(
           (acc, ae) => {
             if (matrix?.[ae]) {
-              acc[ae] = linearInterpolation(matrix[ae], ObjSpan);
+              acc[ae] = linearInterpolation(state, matrix[ae], ObjSpan);
             }
             return acc;
           },

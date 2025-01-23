@@ -135,10 +135,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import { useVerificationStore } from '../stores/verification-store';
 
-import { useI18n } from 'vue-i18n';
+import { useI18n }    from 'vue-i18n';
 
 const { t: $t } = useI18n();
 
@@ -173,7 +173,7 @@ const phi = computed({
 
 // default is 4.2 we can change it to 4.7 for bridge of category 3
 // cf 6.24 p 83 of 120 of the 82001f
-const betaOptions = [4.2, 4.7];
+// const betaOptions = [4.2, 4.7];
 // { label: 'β=4.20', value: 4.2 },
 // { label: 'β=4.70', value: 4.7 }, // cas le plus defavorable +2.2 à +7% pour les ponts de catégorie 3 (on utilise +7% for now)
 // III.1.2 Résultats pour deux voies de circulation, pour une bande de 1.4 m –
