@@ -16,21 +16,56 @@
     >
       <template v-slot:one>
         <div class="col items-center no-wrap">
-          <q-img fit="contain" position="top left" :src="classImage" alt="class" class="track-image" />
+          <q-img
+            fit="contain"
+            position="top left"
+            :src="classImage"
+            alt="class"
+            class="track-image"
+          />
           <div class="text-center text-subtitle2">class</div>
         </div>
       </template>
 
       <template v-slot:two>
         <div class="col items-center no-wrap">
-          <q-img fit="contain" position="top left" :src="classPlusImage" alt="class plus" class="track-image" />
+          <q-img
+            fit="contain"
+            position="top left"
+            :src="classPlusImage"
+            alt="class plus"
+            class="track-image"
+          />
           <div class="text-center text-subtitle2">class+</div>
         </div>
       </template>
     </q-btn-toggle>
     <div class="traffic-toggle-sub">
-
-      <q-select
+      <q-toggle
+        class="good-road-quality"
+        :left-label="true"
+        color="primary"
+        v-model="beta"
+        :true-value="4.7"
+        :false-value="4.2"
+      >
+        <template #default>
+          <q-img
+            v-if="beta === 4.7"
+            height="24px"
+            width="24px"
+            fit="contain"
+            src="/mdi-icons/home_health.svg"
+          />
+          {{
+            (beta === 4.7 ? $t('type_3') + ' ' : '') + `(β=${beta.toFixed(2)})`
+          }}
+          <q-tooltip class="description good beta">
+            {{ $t('i7_desc') }}
+          </q-tooltip>
+        </template>
+      </q-toggle>
+      <!-- <q-select
         v-model="beta"
         :options="betaOptions"
         dense
@@ -45,20 +80,21 @@
           {{ $t('i7_desc') }}
         </q-tooltip>
       </template>
-      </q-select>
+      </q-select> -->
 
       <q-toggle
         class="good-road-quality"
         :false-value="false"
         :true-value="true"
         :left-label="true"
-
         color="primary"
         v-model="goodQualityRoad"
       >
         <template #default>
           {{
-            $t('good_quality_road') + ' ' + (goodQualityRoad ? $t('enabled') : $t('disabled'))
+            $t('good_quality_road') +
+            ' ' +
+            (goodQualityRoad ? $t('enabled') : $t('disabled'))
           }}
           <q-tooltip class="description good qualityRoad">
             {{ $t('i2_desc') }}
@@ -73,14 +109,12 @@
         outlined
         class="q-mr-md"
       >
-      <template #selected>
-        Φ={{
-          phi.toFixed(2)
-        }}
-        <q-tooltip class="description phi">
-          {{ $t('phi_desc') }}
-        </q-tooltip>
-      </template>
+        <template #selected>
+          Φ={{ phi.toFixed(2) }}
+          <q-tooltip class="description phi">
+            {{ $t('phi_desc') }}
+          </q-tooltip>
+        </template>
       </q-select>
       <!-- `Φ${phyCalDynamicValue.toFixed(2)}` -->
       <q-toggle
@@ -96,13 +130,12 @@
           <q-tooltip> {{ $t('i3_desc') }} </q-tooltip>
         </template>
       </q-toggle>
-
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed,ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useVerificationStore } from '../stores/verification-store';
 
 import { useI18n } from 'vue-i18n';
@@ -128,7 +161,6 @@ const rBau = computed({
   set: (value) => verificationStore.setRBAU(value),
 });
 
-
 const beta = computed({
   get: () => verificationStore.beta,
   set: (value) => verificationStore.setBeta(value),
@@ -139,19 +171,15 @@ const phi = computed({
   set: (value) => verificationStore.setPhi(value),
 });
 
-
-
 // default is 4.2 we can change it to 4.7 for bridge of category 3
 // cf 6.24 p 83 of 120 of the 82001f
 const betaOptions = [4.2, 4.7];
-  // { label: 'β=4.20', value: 4.2 },
-  // { label: 'β=4.70', value: 4.7 }, // cas le plus defavorable +2.2 à +7% pour les ponts de catégorie 3 (on utilise +7% for now)
-  // III.1.2 Résultats pour deux voies de circulation, pour une bande de 1.4 m –
-  // (Q1 + Q2)act cf p99/120
+// { label: 'β=4.20', value: 4.2 },
+// { label: 'β=4.70', value: 4.7 }, // cas le plus defavorable +2.2 à +7% pour les ponts de catégorie 3 (on utilise +7% for now)
+// III.1.2 Résultats pour deux voies de circulation, pour une bande de 1.4 m –
+// (Q1 + Q2)act cf p99/120
 // ];
 // const beta = ref(betaOptions[0]);
-
-
 </script>
 
 <style scoped lang="scss">
@@ -233,7 +261,7 @@ const betaOptions = [4.2, 4.7];
 }
 
 .traffic-toggle-sub {
-  grid-template-columns: 0.2fr 1fr;
+  grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   display: grid;
   padding-top: 10px;
