@@ -23,7 +23,7 @@
       </li>
       <li class="alpha-item">
         &alpha;<sub>Q2, global</sub> &equals; {{ roundCeilWith2Decimals(alpha?.V?.Q2G) }}
-
+        <q-tooltip> {{ $t('i5_desc') }} </q-tooltip>
 
         <q-btn flat padding="none" @click="() => copyText($q, $t, roundCeilWith2Decimals(alpha?.V?.Q2G))">
           <q-img height="24px" width="24px" fit="contain" src="/epfl-designed/Canard/svg/c-copy-paste.svg" />
@@ -34,7 +34,7 @@
       </li>
       <li class="alpha-item">
         &alpha;<sub>Q2, local</sub> &equals; {{ roundCeilWith2Decimals(alpha?.V?.Q2L) }}
-
+        <q-tooltip> {{ $t('i4_desc') }} </q-tooltip>
         <q-btn flat padding="none" @click="() => copyText($q, $t, roundCeilWith2Decimals(alpha?.V?.Q2L))">
           <q-img height="24px" width="24px" fit="contain" src="/epfl-designed/Canard/svg/c-copy-paste.svg" />
           <q-tooltip >

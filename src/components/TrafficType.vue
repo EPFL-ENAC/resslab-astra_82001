@@ -1,7 +1,7 @@
 <template>
   <div class="traffic-type">
     <h3 class="traffic-title">
-      {{ $t('traffic') }}<q-tooltip> description </q-tooltip>
+      {{ $t('traffic') }}<q-tooltip> {{ $t('i1_desc') }} </q-tooltip>
     </h3>
     <q-btn-toggle
       class="traffic-toggle"
@@ -24,7 +24,7 @@
       <template v-slot:two>
         <div class="col items-center no-wrap">
           <q-img fit="contain" position="top left" :src="classPlusImage" alt="class plus" class="track-image" />
-          <div class="text-center text-subtitle2">class+</div>  
+          <div class="text-center text-subtitle2">class+</div>
         </div>
       </template>
     </q-btn-toggle>
@@ -36,20 +36,32 @@
         dense
         outlined
         class="q-mr-md"
-      />
+      >
+      <template #selected>
+        {{
+          beta.label
+        }}
+        <q-tooltip class="description beta">
+          {{ $t('i7_desc') }}
+        </q-tooltip>
+      </template>
+      </q-select>
+
       <q-toggle
         class="good-road-quality"
         :false-value="false"
         :true-value="true"
+        :left-label="true"
+
         color="primary"
         v-model="goodQualityRoad"
       >
         <template #default>
           {{
-            goodQualityRoad ? $t('good_quality_road') : $t('bad_quality_road')
+            $t('good_quality_road') + ' ' + (goodQualityRoad ? $t('enabled') : $t('disabled'))
           }}
           <q-tooltip class="description good qualityRoad">
-            description goodQualityRoad
+            {{ $t('i2_desc') }}
           </q-tooltip>
         </template>
       </q-toggle>
@@ -65,12 +77,13 @@
         class="r-bau"
         :false-value="false"
         :true-value="true"
+        :left-label="true"
         color="secondary"
         v-model="rBau"
       >
         <template #default>
           {{ rBau ? $t('r_bau_enabled') : $t('r_bau_disabled') }}
-          <q-tooltip> description rBau </q-tooltip>
+          <q-tooltip> {{ $t('i3_desc') }} </q-tooltip>
         </template>
       </q-toggle>
 

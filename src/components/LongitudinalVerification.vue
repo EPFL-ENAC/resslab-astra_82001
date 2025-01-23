@@ -69,6 +69,7 @@
         </p>
         <q-img v-else-if="bridgeType === 'Slab'" src="/slab-longitudinal.svg" alt="Slab" fit="contain"
           style="height:150px" />
+          <q-tooltip v-if="bridgeType === 'Multi'"> {{ $t('i12_desc') }} </q-tooltip>
 
           <section class="longitudinal-inputs longitudinal-radio q-mt-sm" aria-label="beams" v-if="bridgeType === 'Multi'">
             <q-radio dense v-model="longitudinalTrans" val="P1" label="beam 1" />
@@ -87,6 +88,7 @@
 
   <section class="longitudinal-verification-result longitudinal-results alpha-footer" aria-lable="" v-if="!rBau && bridgeType">
       <!-- show three values: alphaq sub V,M-,M+ -->
+      <q-tooltip> {{ $t('i9_desc') }} </q-tooltip>
       <ul class="alpha-list">
         <li class="alpha-item">
           &alpha;<sub>q,V</sub> &equals; {{ roundCeilWith2Decimals(alpha?.V?.[selectedClass]) }}

@@ -38,6 +38,8 @@ longitudinal_verification,Longitudinal verification,Vérification longitudinale,
 transversal_verification,Transversal verification,Vérification transversale,Überprüfung in Querrichtung,Verifica trasversale,,,,
 r_bau_enabled,REL enabled,R-BAU activée,PUN aktiviert,Corsia di emergenza aperta al traffico,,,,
 r_bau_disabled,REL disabled,R-BAU deactivée,PUN nicht aktiv,Corsia di emergenza chiusa al traffico,,,,
+enabled,Enabled,Activée,Aktiviert,Attivato,,,,
+disabled,Disabled,Désactivée,Deaktiviert,Disattivato,,,,
 r_bau,REL,R-BAU,PUN,CorsDin,reuse of emergency lane,réaffectation de la bande d'arrêt d'urgence,Pannenstreifenumnutzung,La corsia di emergenza si apre al traffico
 cantilever,Cantilever,Porte-à-faux,Kragarm,Sbalzo,,,,
 slab-between-beams,Slab between beams,Dalle entre poutres,Platte zwischen Balken,Piastra tra le travi,,,,

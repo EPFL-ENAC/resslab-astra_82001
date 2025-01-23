@@ -2,6 +2,7 @@
   <div class="lane-selector area-c" v-if="!rBau && bridgeType">
     <h3 class="lane-header">
       {{ $t('lanes') }}
+      <q-tooltip> {{ $t('i6_description') }} </q-tooltip>
     </h3>
     <q-select
       v-model="selectedOption"

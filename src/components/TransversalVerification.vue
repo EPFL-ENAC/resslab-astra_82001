@@ -9,6 +9,7 @@
             { label: $t('cantilever'), value: true },
             { label: $t('slab-between-beams'), value: false }
           ]" />
+        <q-tooltip> {{ $t('i8_desc') }} </q-tooltip>
       </div>
       <div class="row q-mt-sm transversal-image" v-if="bridgeType != 'Slab'">
         <q-img v-if="isCantileverEnabled" src="/slab-cantilever.svg" style="height: 150px;" alt="cantilever"
@@ -37,6 +38,7 @@
     </section>
     <section class="transversal-support" v-if="bridgeType != 'Slab'">
         <h3 class="transversal-header">{{ $t('support') }}</h3>
+        <q-tooltip> {{ $t('i11_desc') }} </q-tooltip>
         <q-btn-toggle class="support-toggle" v-model="supportType" color="primary" flat padding="md" :options="supportOptions">
           <template v-slot:one>
             <div class="col items-center no-wrap">
@@ -87,6 +89,7 @@
 
   <section class="transversal-verification-result transversal-results alpha-footer" aria-lable="" v-if="!rBau && bridgeType">
       <!-- show three values: alphaq sub V,M-,M+ -->
+      <q-tooltip> {{ $t('i10_desc') }} </q-tooltip>
       <ul class="alpha-list" v-if="bridgeType != 'Slab'">
         <li class="alpha-item">
           &alpha;<sub>q,V</sub> &equals; {{  roundCeilWith2Decimals(alphaTrans?.V?.[selectedClass]) }}
