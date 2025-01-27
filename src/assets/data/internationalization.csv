@@ -51,7 +51,7 @@ copy_to_clipboard,Copy to clipboard,Copier dans le presse-papiers,In die Zwische
 copied_to_clipboard_success,Copied to clipboard successfully,Copié dans le presse-papiers avec succès,Erfolgreich in die Zwischenablage kopiert,Copiato negli appunti con successo
 copied_to_clipboard_failure,Copied to clipboard failed,Copie dans le presse-papiers échouée,Kopieren in die Zwischenablage fehlgeschlagen,Copia negli appunti fallita
 not,Not,Non,Nicht,Non
-type_3,Cat.3 Building,Ouvrage de Cat. 3,Bauwerk der Kat. 3,Opera di Cat. 3,,,,
+type_3,Bridge class III,Classe d'ouvrage III,Bauwerksklasse III,Classe d'opera III,,,,
 positioning_of_internal_forces_influence_line,Positioning of internal forces influence line,Positionnement de la ligne d'influence des efforts internes,Positionierung der inneren Kräfte Einflusslinie,Posizionamento della linea di influenza delle forze interne,,,,
 normal,Normal,Normal,Normal,Normal,,,,
 i1,Traffic type,Type de trafic,Verkehrsart,Tipo di traffico,"For definition of Class and Class+ traffic, refer to ASTRA 82001 §4.3","Pour la définition du trafic Class et Class+, se référer à ASTRA 82001 §4.3",Für die Definition von Class- und Class+-Verkehr siehe ASTRA 82001 §4.3,Per la definizione di Class e Class+ si faccia riferimento a ASTRA 82001 §4.3
