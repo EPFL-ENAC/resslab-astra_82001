@@ -65,7 +65,8 @@
   .grid-astra {
     display: grid;
     grid-template-rows: repeat(3, max-content);
-    grid-template-columns: 1fr  2.8fr 1fr;
+    // grid-template-columns: 1fr  2.8fr 1fr;
+    grid-template-columns: 1.4fr  2.8fr 1fr;
     grid-template-areas:
       'a b f'
       'c d g'

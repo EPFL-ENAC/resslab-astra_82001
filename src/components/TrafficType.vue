@@ -259,7 +259,7 @@ const phi = computed({
 
 /* Add some spacing between text and icon in the button */
 .row.items-center.no-wrap {
-  gap: 8px;
+  gap: 4px;
 }
 
 .traffic-toggle-sub {
