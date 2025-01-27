@@ -56,6 +56,10 @@
       <section class="longitudinal-image" aria-label="longitudinal-image">
         <h3 class="longitudinal-image-header"  v-if="bridgeType === 'Slab' || bridgeType === 'Multi'">
           {{ $t('positioning_of_internal_forces_influence_line')}}
+          <q-icon  v-if="bridgeType === 'Multi'" class="cursor-pointer" :name="mdiInformationVariantCircleOutline" >
+            <q-tooltip class="text-body1" html>
+              <span v-html="$t('i12_desc')"></span></q-tooltip>
+          </q-icon>
         </h3>
         <q-img src="/box-longitudinal.svg" alt="Longitudinal Verification" v-if="bridgeType === 'Box'"
           style="height: 150px;" fit="contain" /> <!-- this is the image -->
@@ -69,19 +73,16 @@
         </p>
         <q-img v-else-if="bridgeType === 'Slab'" src="/slab-longitudinal.svg" alt="Slab" fit="contain"
           style="height:150px" />
-          <q-icon  v-if="bridgeType === 'Multi'" class="cursor-pointer" :name="mdiInformationVariantCircleOutline" >
-            <q-tooltip class="text-body1" html>
-              <span v-html="$t('i12_desc')"></span></q-tooltip>
-          </q-icon>
+
           <section class="longitudinal-inputs longitudinal-radio q-mt-sm" aria-label="beams" v-if="bridgeType === 'Multi'">
-            <q-radio dense v-model="longitudinalTrans" val="P1" label="beam 1" />
-            <q-radio dense v-model="longitudinalTrans" val="P2" label="beam 2" />
-            <q-radio dense v-model="longitudinalTrans" val="P3" label="beam 3" />
+            <q-radio dense v-model="longitudinalTrans" val="P1" label="Beam 1" />
+            <q-radio dense v-model="longitudinalTrans" val="P2" label="Beam 2" />
+            <q-radio dense v-model="longitudinalTrans" val="P3" label="Beam 3" />
           </section>
           <section class="longitudinal-inputs longitudinal-radio q-mt-sm" aria-label="point" v-if="bridgeType === 'Slab'">
-            <q-radio dense v-model="longitudinalTrans" val="p1" label="point 1" />
-            <q-radio dense v-model="longitudinalTrans" val="p2" label="point 2" />
-            <q-radio dense v-model="longitudinalTrans" val="p3" label="point 3" />
+            <q-radio dense v-model="longitudinalTrans" val="p1" label="p1" />
+            <q-radio dense v-model="longitudinalTrans" val="p2" label="p2" />
+            <q-radio dense v-model="longitudinalTrans" val="p3" label="p3" />
           </section>
       </section>
 
@@ -235,6 +236,11 @@ const longitudinalTrans = computed({
   font-weight: bold;
   margin: 0px;
   margin-bottom: 0rem;
+
+  display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
 }
 
 .longitudinal-image {

@@ -1,6 +1,6 @@
 <template>
   <div class="alpha-footer alpha-global"  v-if="rBau || bridgeType">
-    <q-icon class="cursor-pointer top-right-absolute q-pa-md" :name="mdiInformationVariantCircleOutline" >
+    <q-icon class="text-body1 cursor-pointer top-right-absolute q-pa-md" :name="mdiInformationVariantCircleOutline" >
         <q-tooltip class="text-body1" html>
           <p>
             &alpha;<sub>Q2, local</sub>: <span v-html="$t('i4_desc')"></span>
