@@ -1,7 +1,9 @@
 <template>
   <div class="traffic-type">
     <h3 class="traffic-title">
-      {{ $t('traffic') }}<q-tooltip> {{ $t('i1_desc') }} </q-tooltip>
+      {{ $t('traffic') }}
+      <q-icon name="mdi-information" ></q-icon>
+      <q-tooltip> {{ $t('i1_desc') }} </q-tooltip>
     </h3>
     <q-btn-toggle
       class="traffic-toggle"
@@ -43,22 +45,15 @@
     <div class="traffic-toggle-sub">
       <q-toggle
         class="good-road-quality"
-        :left-label="true"
+        :left-label="false"
         color="primary"
         v-model="beta"
         :true-value="4.7"
         :false-value="4.2"
       >
         <template #default>
-          <q-img
-            v-if="beta === 4.7"
-            height="24px"
-            width="24px"
-            fit="contain"
-            src="/mdi-icons/home_health.svg"
-          />
           {{
-            (beta === 4.7 ? $t('type_3') + ' ' : '') + `(β=${beta.toFixed(2)})`
+            (beta === 4.7 ? $t('type_3') + ' ' : $t('normal')  + ' ') + `(β=${beta.toFixed(2)})`
           }}
           <q-tooltip class="description good beta">
             {{ $t('i7_desc') }}
@@ -86,15 +81,13 @@
         class="good-road-quality"
         :false-value="false"
         :true-value="true"
-        :left-label="true"
+        :left-label="false"
         color="primary"
         v-model="goodQualityRoad"
       >
         <template #default>
           {{
-            $t('good_quality_road') +
-            ' ' +
-            (goodQualityRoad ? $t('enabled') : $t('disabled'))
+            goodQualityRoad ? $t('good_quality_road') : $t('bad_quality_road')
           }}
           <q-tooltip class="description good qualityRoad">
             {{ $t('i2_desc') }}
@@ -121,12 +114,12 @@
         class="r-bau"
         :false-value="false"
         :true-value="true"
-        :left-label="true"
+        :left-label="false"
         color="secondary"
         v-model="rBau"
       >
         <template #default>
-          {{ rBau ? $t('r_bau_enabled') : $t('r_bau_disabled') }}
+          {{$t('r_bau') }}
           <q-tooltip> {{ $t('i3_desc') }} </q-tooltip>
         </template>
       </q-toggle>
