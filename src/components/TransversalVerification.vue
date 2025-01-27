@@ -162,19 +162,19 @@
         >
           <template v-slot:one>
             <div class="col items-center no-wrap">
-              M<sub>support</sub> &LessSlantEqual; 50% M<sub>fully fixed</sub>
+              M<sub>{{  $t('M_support') }}</sub> &LessSlantEqual; 50% M<sub>{{  $t('M_fully_fixed') }}</sub>
             </div>
           </template>
 
           <template v-slot:two>
             <div class="col items-center no-wrap">
-              50% M<sub>fully fixed</sub> &LessSlantEqual; M<sub>support</sub>
-              &LessSlantEqual; M<sub>fully fixed</sub>
+              50% M<sub>{{  $t('M_fully_fixed') }}</sub> &LessSlantEqual; M<sub>{{  $t('M_support') }}</sub>
+              &LessSlantEqual; M<sub>{{  $t('M_fully_fixed') }}</sub>
             </div>
           </template>
           <template v-slot:three>
             <div class="col items-center no-wrap">
-              M<sub>support</sub> &equals; M<sub>fully fixed</sub>
+              M<sub>{{  $t('M_support') }}</sub> &equals; M<sub>{{  $t('M_fully_fixed') }}</sub>
             </div>
           </template>
         </q-btn-toggle>

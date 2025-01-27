@@ -55,7 +55,7 @@
       </section>
       <section class="longitudinal-image" aria-label="longitudinal-image">
         <h3 class="longitudinal-image-header"  v-if="bridgeType === 'Slab' || bridgeType === 'Multi'">
-          {{ $t('positioning_of_internal_forces_influence_line')}}
+          {{ $t('trans')}} <!-- cf https://github.com/EPFL-ENAC/resslab-astra_82001/issues/43 -->
           <q-icon  v-if="bridgeType === 'Multi'" class="cursor-pointer" :name="mdiInformationVariantCircleOutline" >
             <q-tooltip class="text-body1" html>
               <span v-html="$t('i12_desc')"></span></q-tooltip>
