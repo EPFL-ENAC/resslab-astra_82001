@@ -96,6 +96,7 @@
   grid-area: g;
   display: flex;
   height: 100%;
+  position: relative;
   @include user-select(text);
 }
 .transversal-verification {
@@ -106,6 +107,7 @@
   grid-area: h;
   display: flex;
   height: 100%;
+  position: relative;
   @include user-select(text);
 }
 .items-start {

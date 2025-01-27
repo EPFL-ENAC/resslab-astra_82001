@@ -9,7 +9,10 @@
             { label: $t('cantilever'), value: true },
             { label: $t('slab-between-beams'), value: false }
           ]" />
-        <q-tooltip> {{ $t('i8_desc') }} </q-tooltip>
+        <q-icon class="cursor-pointer" :name="mdiInformationVariantCircleOutline" >
+            <q-tooltip class="text-body1" html>
+              <span v-html="$t('i8_desc')"></span></q-tooltip>
+          </q-icon>
       </div>
       <div class="row q-mt-sm transversal-image" v-if="bridgeType != 'Slab'">
         <q-img v-if="isCantileverEnabled" src="/slab-cantilever.svg" style="height: 150px;" alt="cantilever"
@@ -37,8 +40,12 @@
       </div>
     </section>
     <section class="transversal-support" v-if="bridgeType != 'Slab'">
-        <h3 class="transversal-header">{{ $t('support') }}</h3>
-        <q-tooltip> {{ $t('i11_desc') }} </q-tooltip>
+        <h3 class="transversal-header">{{ $t('support') }}
+          <q-icon class="cursor-pointer" :name="mdiInformationVariantCircleOutline" >
+            <q-tooltip class="text-body1" html>
+              <span v-html="$t('i11_desc')"></span></q-tooltip>
+          </q-icon>
+        </h3>
         <q-btn-toggle class="support-toggle" v-model="supportType" color="primary" flat padding="md" :options="supportOptions">
           <template v-slot:one>
             <div class="col items-center no-wrap">
@@ -89,7 +96,10 @@
 
   <section class="transversal-verification-result transversal-results alpha-footer" aria-lable="" v-if="!rBau && bridgeType">
       <!-- show three values: alphaq sub V,M-,M+ -->
-      <q-tooltip> {{ $t('i10_desc') }} </q-tooltip>
+      <q-icon class="cursor-pointer top-right-absolute q-pa-md" :name="mdiInformationVariantCircleOutline" >
+            <q-tooltip class="text-body1" html>
+              <span v-html="$t('i10_desc')"></span></q-tooltip>
+          </q-icon>
       <ul class="alpha-list" v-if="bridgeType != 'Slab'">
         <li class="alpha-item">
           &alpha;<sub>q,V</sub> &equals; {{  roundCeilWith2Decimals(alphaTrans?.V?.[selectedClass]) }}
@@ -165,6 +175,7 @@ import { useI18n } from 'vue-i18n';
 import { roundCeilWith2Decimals } from '../utils/math';
 import { useQuasar } from 'quasar';
 import { copyText } from '../utils/clipboard';
+import { mdiInformationVariantCircleOutline } from '@mdi/js';
 
 const { t: $t } = useI18n();
 const $q = useQuasar();

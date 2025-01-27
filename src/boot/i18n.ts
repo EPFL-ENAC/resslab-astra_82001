@@ -31,6 +31,9 @@ export default boot(({ app }) => {
     messages,
     fallbackLocale: 'en',
     warnHtmlMessage: false,
+    wrapperComponent: 'i18n',
+    escapeParameter: true,
+    useI18nComponentName: true,
     missingWarn: false,
     fallbackWarn: false, // deactivate to see missing keys
   });

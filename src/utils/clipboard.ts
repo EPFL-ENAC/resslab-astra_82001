@@ -13,7 +13,7 @@ interface TranslateFunction {
   (key: string): string;
 }
 
-export function copyText($q: QuasarInstance, $t: TranslateFunction, textToCopy: number): Promise<void> {
+export function copyText($q: QuasarInstance, $t: TranslateFunction, textToCopy: number|string): Promise<void> {
   return copyToClipboard(textToCopy.toString())
     .then(() => {
       // Optional: show success message

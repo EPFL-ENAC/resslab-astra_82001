@@ -16,6 +16,7 @@
     "convert": "node scripts/convert.mjs"
   },
   "dependencies": {
+    "@mdi/js": "^7.4.47",
     "@quasar/extras": "^1.16.4",
     "pinia": "^2.0.11",
     "quasar": "^2.6.0",

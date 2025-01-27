@@ -2,8 +2,10 @@
   <div class="traffic-type">
     <h3 class="traffic-title">
       {{ $t('traffic') }}
-      <q-icon name="mdi-information" ></q-icon>
-      <q-tooltip> {{ $t('i1_desc') }} </q-tooltip>
+      <q-icon class="cursor-pointer" :name="mdiInformationVariantCircleOutline" >
+        <q-tooltip class="text-body1" html>
+          <span v-html="$t('i1_desc')"></span></q-tooltip>
+      </q-icon>
     </h3>
     <q-btn-toggle
       class="traffic-toggle"
@@ -55,9 +57,10 @@
           {{
             (beta === 4.7 ? $t('type_3') + ' ' : $t('normal')  + ' ') + `(β=${beta.toFixed(2)})`
           }}
-          <q-tooltip class="description good beta">
-            {{ $t('i7_desc') }}
-          </q-tooltip>
+          <q-icon class="cursor-pointer" :name="mdiInformationVariantCircleOutline" >
+            <q-tooltip class="text-body1" html>
+              <span v-html="$t('i7_desc')"></span></q-tooltip>
+          </q-icon>
         </template>
       </q-toggle>
       <!-- <q-select
@@ -71,9 +74,10 @@
         β={{
           beta.toFixed(2)
         }}
-        <q-tooltip class="description beta">
-          {{ $t('i7_desc') }}
-        </q-tooltip>
+        <q-icon class="cursor-pointer" :name="mdiInformationVariantCircleOutline" >
+            <q-tooltip class="text-body1" html>
+              <span v-html="$t('i7_desc')"></span></q-tooltip>
+          </q-icon>
       </template>
       </q-select> -->
 
@@ -89,9 +93,10 @@
           {{
             goodQualityRoad ? $t('good_quality_road') : $t('bad_quality_road')
           }}
-          <q-tooltip class="description good qualityRoad">
-            {{ $t('i2_desc') }}
-          </q-tooltip>
+          <q-icon class="cursor-pointer" :name="mdiInformationVariantCircleOutline" >
+            <q-tooltip class="text-body1" html>
+              <span v-html="$t('i2_desc')"></span></q-tooltip>
+          </q-icon>
         </template>
       </q-toggle>
       <q-select
@@ -120,7 +125,10 @@
       >
         <template #default>
           {{$t('r_bau') }}
-          <q-tooltip> {{ $t('i3_desc') }} </q-tooltip>
+          <q-icon class="cursor-pointer" :name="mdiInformationVariantCircleOutline" >
+            <q-tooltip class="text-body1" html>
+              <span v-html="$t('i3_desc')"></span></q-tooltip>
+          </q-icon>
         </template>
       </q-toggle>
     </div>
@@ -130,6 +138,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useVerificationStore } from '../stores/verification-store';
+import { mdiInformationVariantCircleOutline } from '@mdi/js'
 
 import { useI18n }    from 'vue-i18n';
 

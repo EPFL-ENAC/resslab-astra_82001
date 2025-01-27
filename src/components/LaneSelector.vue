@@ -2,7 +2,10 @@
   <div class="lane-selector area-c" v-if="!rBau && bridgeType">
     <h3 class="lane-header">
       {{ $t('lanes') }}
-      <q-tooltip> {{ $t('i6_desc') }} </q-tooltip>
+      <q-icon class="cursor-pointer" :name="mdiInformationVariantCircleOutline" >
+            <q-tooltip class="text-body1" html>
+              <span v-html="$t('i6_desc')"></span></q-tooltip>
+          </q-icon>
     </h3>
     <q-select
       v-model="selectedOption"
@@ -19,7 +22,7 @@
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useVerificationStore } from '../stores/verification-store';
-
+import { mdiInformationVariantCircleOutline } from '@mdi/js';
 
 const { t: $t } = useI18n();
 const verificationStore = useVerificationStore();

@@ -69,8 +69,10 @@
         </p>
         <q-img v-else-if="bridgeType === 'Slab'" src="/slab-longitudinal.svg" alt="Slab" fit="contain"
           style="height:150px" />
-          <q-tooltip v-if="bridgeType === 'Multi'"> {{ $t('i12_desc') }} </q-tooltip>
-
+          <q-icon  v-if="bridgeType === 'Multi'" class="cursor-pointer" :name="mdiInformationVariantCircleOutline" >
+            <q-tooltip class="text-body1" html>
+              <span v-html="$t('i12_desc')"></span></q-tooltip>
+          </q-icon>
           <section class="longitudinal-inputs longitudinal-radio q-mt-sm" aria-label="beams" v-if="bridgeType === 'Multi'">
             <q-radio dense v-model="longitudinalTrans" val="P1" label="beam 1" />
             <q-radio dense v-model="longitudinalTrans" val="P2" label="beam 2" />
@@ -88,7 +90,10 @@
 
   <section class="longitudinal-verification-result longitudinal-results alpha-footer" aria-lable="" v-if="!rBau && bridgeType">
       <!-- show three values: alphaq sub V,M-,M+ -->
-      <q-tooltip> {{ $t('i9_desc') }} </q-tooltip>
+      <q-icon class="cursor-pointer top-right-absolute q-pa-md" :name="mdiInformationVariantCircleOutline" >
+            <q-tooltip class="text-body1" html>
+              <span v-html="$t('i9_desc')"></span></q-tooltip>
+          </q-icon>
       <ul class="alpha-list">
         <li class="alpha-item">
           &alpha;<sub>q,V</sub> &equals; {{ roundCeilWith2Decimals(alpha?.V?.[selectedClass]) }}
@@ -134,6 +139,7 @@ import { roundCeilWith2Decimals } from '../utils/math';
 import { useI18n } from 'vue-i18n';
 import { useQuasar } from 'quasar';
 import { copyText } from '../utils/clipboard';
+import { mdiInformationVariantCircleOutline } from '@mdi/js';
 
 const { t: $t } = useI18n();
 const $q = useQuasar();
