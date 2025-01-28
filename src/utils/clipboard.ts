@@ -1,4 +1,4 @@
-import { copyToClipboard } from  'quasar';
+import { copyToClipboard } from 'quasar';
 
 interface NotifyOptions {
   message: string;
@@ -13,19 +13,23 @@ interface TranslateFunction {
   (key: string): string;
 }
 
-export function copyText($q: QuasarInstance, $t: TranslateFunction, textToCopy: number|string): Promise<void> {
+export function copyText(
+  $q: QuasarInstance,
+  $t: TranslateFunction,
+  textToCopy: number | string
+): Promise<void> {
   return copyToClipboard(textToCopy.toString())
     .then(() => {
       // Optional: show success message
       $q.notify({
         message: $t('copied_to_clipboard_success'),
-        color: 'primary'
-      })
+        color: 'primary',
+      });
     })
     .catch(() => {
       $q.notify({
         message: $t('copied_to_clipboard_failure'),
-        color: 'negative'
-      })
-    })
+        color: 'negative',
+      });
+    });
 }

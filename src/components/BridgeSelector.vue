@@ -2,52 +2,82 @@
   <div class="bridge-selector">
     <h3 class="bridge-header">{{ $t('type_of_bridge') }}</h3>
     <q-btn-toggle
-        v-model="bridgeToggle"
-        class="bridge-toggle"
-        color="primary"
-        flat
-        padding="md"
-        :options="[
-          {value: 'Box', slot: 'one'},
-          {value: 'Twin', slot: 'two'},
-          {value: 'Multi', slot: 'three'},
-          {value: 'Slab', slot: 'four'},
-        ]"
-      >
-        <template #one="">
-          <div class="bridge-item col items-center no-wrap" :title="$t('box')">
-            <q-img fit="contain" position="top left" src="/box.svg" alt="box" class="track-image"/>
-            <div class="text-center bridge-text" >
-              {{ $t('box') }}
-            </div>
+      v-model="bridgeToggle"
+      class="bridge-toggle"
+      color="primary"
+      flat
+      padding="md"
+      :options="[
+        { value: 'Box', slot: 'one' },
+        { value: 'Twin', slot: 'two' },
+        { value: 'Multi', slot: 'three' },
+        { value: 'Slab', slot: 'four' },
+      ]"
+    >
+      <template #one="">
+        <div class="bridge-item col items-center no-wrap" :title="$t('box')">
+          <q-img
+            fit="contain"
+            position="top left"
+            src="/box.svg"
+            alt="box"
+            class="track-image"
+          />
+          <div class="text-center bridge-text">
+            {{ $t('box') }}
           </div>
-        </template>
+        </div>
+      </template>
 
-        <template #two>
-          <div class="bridge-item col items-center no-wrap" :title="$t('twin-girder')">
-            <q-img fit="contain" position="top left" src="/twin-girder.svg" alt="twin girder" class="track-image" />
-            <div class="text-center bridge-text">
-              {{$t('twin-girder')}}
-            </div>
+      <template #two>
+        <div
+          class="bridge-item col items-center no-wrap"
+          :title="$t('twin-girder')"
+        >
+          <q-img
+            fit="contain"
+            position="top left"
+            src="/twin-girder.svg"
+            alt="twin girder"
+            class="track-image"
+          />
+          <div class="text-center bridge-text">
+            {{ $t('twin-girder') }}
           </div>
-        </template>
-        <template #three>
-          <div class="bridge-item col items-center no-wrap" :title="$t('multi-girder')">
-            <q-img fit="contain" position="top left" src="/multi-girder.svg" alt="multi girder" class="track-image" />
-            <div class="text-center bridge-text">
-              {{$t('multi-girder')}}
-            </div>
+        </div>
+      </template>
+      <template #three>
+        <div
+          class="bridge-item col items-center no-wrap"
+          :title="$t('multi-girder')"
+        >
+          <q-img
+            fit="contain"
+            position="top left"
+            src="/multi-girder.svg"
+            alt="multi girder"
+            class="track-image"
+          />
+          <div class="text-center bridge-text">
+            {{ $t('multi-girder') }}
           </div>
-        </template>
-        <template #four>
-          <div class="bridge-item col items-center no-wrap"  :title="$t('slab')">
-            <q-img fit="contain" position="top left" src="/slab.svg" alt="slab" class="track-image" />
-            <div class="text-center bridge-text">
-              {{$t('slab')}}
-            </div>
+        </div>
+      </template>
+      <template #four>
+        <div class="bridge-item col items-center no-wrap" :title="$t('slab')">
+          <q-img
+            fit="contain"
+            position="top left"
+            src="/slab.svg"
+            alt="slab"
+            class="track-image"
+          />
+          <div class="text-center bridge-text">
+            {{ $t('slab') }}
           </div>
-        </template>
-      </q-btn-toggle>
+        </div>
+      </template>
+    </q-btn-toggle>
   </div>
 </template>
 
@@ -59,7 +89,7 @@ const verificationStore = useVerificationStore();
 
 const bridgeToggle = computed({
   get: () => verificationStore.bridgeType,
-  set: (value) => verificationStore.setBridgeType(value)
+  set: (value) => verificationStore.setBridgeType(value),
 });
 </script>
 
@@ -101,13 +131,12 @@ const bridgeToggle = computed({
   @media screen and (max-width: $breakpoint-sm) {
     grid-template-columns: 1fr;
   }
-
 }
 .bridge-text {
   margin-top: 0.8rem;
 }
 
-:deep(.q-btn[aria-pressed="true"]) {
+:deep(.q-btn[aria-pressed='true']) {
   background-color: rgba($primary, 0.1);
   color: $secondary;
 
@@ -116,7 +145,7 @@ const bridgeToggle = computed({
     font-weight: bold;
   }
 }
-:deep(.q-btn[aria-pressed="false"]) {
+:deep(.q-btn[aria-pressed='false']) {
   .bridge-text {
     color: #000;
     font-size: 1rem;

@@ -1,11 +1,11 @@
 <template>
   <q-page class="grid items-start">
     <div class="grid-astra">
-      <TrafficType  />
-      <BridgeSelector  />
-      <AlphaGlobal  />
-      <LaneSelector  />
-      <LongitudinalVerification  />
+      <TrafficType />
+      <BridgeSelector />
+      <AlphaGlobal />
+      <LaneSelector />
+      <LongitudinalVerification />
       <TransversalVerification />
     </div>
   </q-page>
@@ -18,7 +18,6 @@ import AlphaGlobal from '../components/AlphaGlobal.vue';
 import LaneSelector from '../components/LaneSelector.vue';
 import LongitudinalVerification from '../components/LongitudinalVerification.vue';
 import TransversalVerification from '../components/TransversalVerification.vue';
-
 </script>
 
 <style lang="scss">
@@ -78,7 +77,7 @@ import TransversalVerification from '../components/TransversalVerification.vue';
     display: grid;
     grid-template-rows: repeat(3, max-content);
     // grid-template-columns: 1fr  2.8fr 1fr;
-    grid-template-columns: 1.4fr  2.8fr 1fr;
+    grid-template-columns: 1.4fr 2.8fr 1fr;
     grid-template-areas:
       'a b f'
       'c d g'

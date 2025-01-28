@@ -162,19 +162,25 @@
         >
           <template #one>
             <div class="col items-center no-wrap">
-              M<sub>{{  $t('M_support') }}</sub> &LessSlantEqual; 50% M<sub>{{  $t('M_fully_fixed') }}</sub>
+              M<sub>{{ $t('M_support') }}</sub> &LessSlantEqual; 50% M<sub>{{
+                $t('M_fully_fixed')
+              }}</sub>
             </div>
           </template>
 
           <template #two>
             <div class="col items-center no-wrap">
-              50% M<sub>{{  $t('M_fully_fixed') }}</sub> &LessSlantEqual; M<sub>{{  $t('M_support') }}</sub>
-              &LessSlantEqual; M<sub>{{  $t('M_fully_fixed') }}</sub>
+              50% M<sub>{{ $t('M_fully_fixed') }}</sub> &LessSlantEqual; M<sub
+                >{{ $t('M_support') }}</sub
+              >
+              &LessSlantEqual; M<sub>{{ $t('M_fully_fixed') }}</sub>
             </div>
           </template>
           <template #three>
             <div class="col items-center no-wrap">
-              M<sub>{{  $t('M_support') }}</sub> &equals; M<sub>{{  $t('M_fully_fixed') }}</sub>
+              M<sub>{{ $t('M_support') }}</sub> &equals; M<sub>{{
+                $t('M_fully_fixed')
+              }}</sub>
             </div>
           </template>
         </q-btn-toggle>

@@ -4,6 +4,7 @@
 #   https://github.com/evilmartians/lefthook/blob/master/docs/configuration.md
 #
 pre-push:
+  parallel: true
   commands:
     eslint-audit:
       tags: frontend eslint
@@ -16,6 +17,12 @@ pre-commit:
   parallel: true
   commands:
     eslint:
-      glob: "*.{js,ts,jsx,tsx,css,scss,vue}"
+      # glob: '*.{js,ts,jsx,tsx,css,scss,vue}'
+      glob: '*.{js,ts,jsx,tsx,css,vue}'
       tags: frontend eslint
       run: npx eslint {staged_files} --fix
+    typecheck:
+      glob: '*.{js,ts,vue}'
+      run: npm run type-check
+    test:
+      run: npm run test
