@@ -1,7 +1,7 @@
 <template>
   <main
-    class="transversal-verification-container row3"
     v-if="!rBau && bridgeType"
+    class="transversal-verification-container row3"
   >
     <section
       class="transversal-verification transversal-inputs"
@@ -9,7 +9,7 @@
     >
       <h3 class="transversal-header">{{ $t('transversal_verification') }}</h3>
 
-      <div class="row q-mt-sm cantilever-toggle" v-if="bridgeType != 'Slab'">
+      <div v-if="bridgeType != 'Slab'" class="row q-mt-sm cantilever-toggle">
         <q-btn-toggle
           v-model="isCantileverEnabled"
           spread
@@ -31,7 +31,7 @@
           ></q-tooltip>
         </q-icon>
       </div>
-      <div class="row q-mt-sm transversal-image" v-if="bridgeType != 'Slab'">
+      <div v-if="bridgeType != 'Slab'" class="row q-mt-sm transversal-image">
         <q-img
           v-if="isCantileverEnabled"
           src="/slab-cantilever.svg"
@@ -57,8 +57,8 @@
       </div>
 
       <div
-        class="row q-mt-sm dimension items-center"
         v-if="bridgeType != 'Slab'"
+        class="row q-mt-sm dimension items-center"
       >
         <div class="col-2">
           <q-badge color="secondary">
@@ -67,8 +67,8 @@
         </div>
         <div class="col-7">
           <q-slider
-            class="transversal-slider"
             v-model="spanTransversal"
+            class="transversal-slider"
             type="number"
             :min="minSpanTransversal"
             :max="maxSpanTransversal"
@@ -90,7 +90,7 @@
         </div>
       </div>
     </section>
-    <section class="transversal-support" v-if="bridgeType != 'Slab'">
+    <section v-if="bridgeType != 'Slab'" class="transversal-support">
       <h3 class="transversal-header">
         {{ $t('support') }}
         <q-icon
@@ -103,14 +103,14 @@
         </q-icon>
       </h3>
       <q-btn-toggle
-        class="support-toggle"
         v-model="supportType"
+        class="support-toggle"
         color="primary"
         flat
         padding="md"
         :options="supportOptions"
       >
-        <template v-slot:one>
+        <template #one>
           <div class="col items-center no-wrap">
             <q-img
               :height="supportTypeHeightImage"
@@ -123,7 +123,7 @@
           </div>
         </template>
 
-        <template v-slot:two>
+        <template #two>
           <div class="col items-center no-wrap">
             <q-img
               :height="supportTypeHeightImage"
@@ -135,7 +135,7 @@
             />
           </div>
         </template>
-        <template v-slot:three>
+        <template #three>
           <div class="col items-center no-wrap">
             <q-img
               :height="supportTypeHeightImage"
@@ -153,26 +153,26 @@
       <div class="row q-mt-sm dimension items-center">
         <h3 class="transversal-header">{{ $t('support') }}</h3>
         <q-btn-toggle
-          class="support-toggle"
           v-model="supportType"
+          class="support-toggle"
           color="primary"
           flat
           padding="md"
           :options="supportOptions"
         >
-          <template v-slot:one>
+          <template #one>
             <div class="col items-center no-wrap">
               M<sub>{{  $t('M_support') }}</sub> &LessSlantEqual; 50% M<sub>{{  $t('M_fully_fixed') }}</sub>
             </div>
           </template>
 
-          <template v-slot:two>
+          <template #two>
             <div class="col items-center no-wrap">
               50% M<sub>{{  $t('M_fully_fixed') }}</sub> &LessSlantEqual; M<sub>{{  $t('M_support') }}</sub>
               &LessSlantEqual; M<sub>{{  $t('M_fully_fixed') }}</sub>
             </div>
           </template>
-          <template v-slot:three>
+          <template #three>
             <div class="col items-center no-wrap">
               M<sub>{{  $t('M_support') }}</sub> &equals; M<sub>{{  $t('M_fully_fixed') }}</sub>
             </div>
@@ -183,9 +183,9 @@
   </main>
 
   <section
+    v-if="!rBau && bridgeType"
     class="transversal-verification-result transversal-results alpha-footer"
     aria-lable=""
-    v-if="!rBau && bridgeType"
   >
     <!-- show three values: alphaq sub V,M-,M+ -->
     <q-icon
@@ -196,7 +196,7 @@
         <span v-html="$t('i10_desc')"></span
       ></q-tooltip>
     </q-icon>
-    <ul class="alpha-list" v-if="bridgeType != 'Slab'">
+    <ul v-if="bridgeType != 'Slab'" class="alpha-list">
       <li class="alpha-item">
         &alpha;<sub>q,V</sub> &equals;
         {{ roundCeilWith2Decimals(alphaTrans?.V?.[selectedClass]) }}
@@ -224,7 +224,7 @@
           </q-tooltip>
         </q-btn>
       </li>
-      <li class="alpha-item" v-if="!isCantileverEnabled">
+      <li v-if="!isCantileverEnabled" class="alpha-item">
         &alpha;<sub>q,M-</sub> &equals;
         {{ roundCeilWith2Decimals(alphaTrans?.Mn?.[selectedClass]) }}
 
@@ -251,7 +251,7 @@
           </q-tooltip>
         </q-btn>
       </li>
-      <li class="alpha-item" v-else>
+      <li v-else class="alpha-item">
         &alpha;<sub>q,M</sub> &equals;
         {{ roundCeilWith2Decimals(alphaTrans?.M?.[selectedClass]) }}
 
@@ -278,7 +278,7 @@
           </q-tooltip>
         </q-btn>
       </li>
-      <li class="alpha-item" v-if="!isCantileverEnabled">
+      <li v-if="!isCantileverEnabled" class="alpha-item">
         &alpha;<sub>q,M+</sub> &equals;
         {{ roundCeilWith2Decimals(alphaTrans?.Mp?.[selectedClass]) }}
 
@@ -306,7 +306,7 @@
         </q-btn>
       </li>
     </ul>
-    <ul class="alpha-list" v-else>
+    <ul v-else class="alpha-list">
       <!-- / -->
       <li class="alpha-item">
         &alpha;<sub>q,Mx,Mid</sub> &equals;

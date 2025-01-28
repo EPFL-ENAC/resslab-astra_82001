@@ -8,8 +8,8 @@
       </q-icon>
     </h3>
     <q-btn-toggle
-      class="traffic-toggle"
       v-model="trafficToggle"
+      class="traffic-toggle"
       color="primary"
       flat
       padding="sm"
@@ -18,7 +18,7 @@
         { value: 'Class+', slot: 'two' },
       ]"
     >
-      <template v-slot:one>
+      <template #one>
         <div class="col items-center no-wrap">
           <q-img
             fit="contain"
@@ -31,7 +31,7 @@
         </div>
       </template>
 
-      <template v-slot:two>
+      <template #two>
         <div class="col items-center no-wrap">
           <q-img
             fit="contain"
@@ -46,10 +46,10 @@
     </q-btn-toggle>
     <div class="traffic-toggle-sub">
       <q-toggle
+        v-model="beta"
         class="good-road-quality"
         :left-label="false"
         color="primary"
-        v-model="beta"
         :true-value="4.7"
         :false-value="4.2"
       >
@@ -82,12 +82,12 @@
       </q-select> -->
 
       <q-toggle
+        v-model="goodQualityRoad"
         class="good-road-quality"
         :false-value="false"
         :true-value="true"
         :left-label="false"
         color="primary"
-        v-model="goodQualityRoad"
       >
         <template #default>
           {{
@@ -116,12 +116,12 @@
       </q-select>
       <!-- `Φ${phyCalDynamicValue.toFixed(2)}` -->
       <q-toggle
+        v-model="rBau"
         class="r-bau"
         :false-value="false"
         :true-value="true"
         :left-label="false"
         color="secondary"
-        v-model="rBau"
       >
         <template #default>
           {{$t('r_bau') }}

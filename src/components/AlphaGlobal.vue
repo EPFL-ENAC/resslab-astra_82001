@@ -1,5 +1,5 @@
 <template>
-  <div class="alpha-footer alpha-global"  v-if="rBau || bridgeType">
+  <div v-if="rBau || bridgeType"  class="alpha-footer alpha-global">
     <q-icon class="text-body1 cursor-pointer top-right-absolute q-pa-md" :name="mdiInformationVariantCircleOutline" >
         <q-tooltip class="text-body1" html>
           <p>
@@ -10,7 +10,7 @@
           </p>
         </q-tooltip>
     </q-icon>
-    <ul class="alpha-list" v-if="!rBau && bridgeType">
+    <ul v-if="!rBau && bridgeType" class="alpha-list">
       <li class="alpha-item">
         &alpha;<sub>Q1, global</sub> &equals; {{ roundCeilWith2Decimals(alpha?.V?.Q1G) }}
 
@@ -50,7 +50,7 @@
         </q-btn>
       </li>
     </ul>
-    <ul class="alpha-list" v-if="rBau">
+    <ul v-if="rBau" class="alpha-list">
       <li class="alpha-item">
         <!-- Hack to use phi and beta  -->
         &alpha;<sub>act,unique </sub> &equals;  {{ roundCeilWith2Decimals(alpha?.M?.Q1G) }}

@@ -11,6 +11,16 @@
   </q-page>
 </template>
 
+<script setup lang="ts">
+import TrafficType from '../components/TrafficType.vue';
+import BridgeSelector from '../components/BridgeSelector.vue';
+import AlphaGlobal from '../components/AlphaGlobal.vue';
+import LaneSelector from '../components/LaneSelector.vue';
+import LongitudinalVerification from '../components/LongitudinalVerification.vue';
+import TransversalVerification from '../components/TransversalVerification.vue';
+
+</script>
+
 <style lang="scss">
 @import 'src/css/quasar.variables.scss';
 @import 'src/css/mixins.scss';
@@ -117,13 +127,3 @@
   align-items: start;
 }
 </style>
-
-<script setup lang="ts">
-import TrafficType from '../components/TrafficType.vue';
-import BridgeSelector from '../components/BridgeSelector.vue';
-import AlphaGlobal from '../components/AlphaGlobal.vue';
-import LaneSelector from '../components/LaneSelector.vue';
-import LongitudinalVerification from '../components/LongitudinalVerification.vue';
-import TransversalVerification from '../components/TransversalVerification.vue';
-
-</script>

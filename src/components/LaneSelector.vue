@@ -1,5 +1,5 @@
 <template>
-  <div class="lane-selector area-c" v-if="!rBau && bridgeType">
+  <div v-if="!rBau && bridgeType" class="lane-selector area-c">
     <h3 class="lane-header">
       {{ $t('lanes') }}
       <q-icon class="cursor-pointer" :name="mdiInformationVariantCircleOutline" >

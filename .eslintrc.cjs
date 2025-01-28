@@ -75,7 +75,9 @@ module.exports = {
   }],
   // add your custom rules here
   rules: {
-
+    'vue/no-v-html': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/no-unused-vars': 'warn',
     'prefer-promise-reject-errors': 'off',
 
     quotes: ['warn', 'single', { avoidEscape: true }],

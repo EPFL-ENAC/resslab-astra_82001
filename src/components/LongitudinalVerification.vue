@@ -1,5 +1,5 @@
 <template>
-  <section class="longitudinal-verification row2"  v-if="!rBau && bridgeType">
+  <section v-if="!rBau && bridgeType"  class="longitudinal-verification row2">
 
     <section class="longitudinal-content">
       <section class="longitudinal-inputs" aria-labelledby="longitudinal-inputs">
@@ -12,11 +12,13 @@
             </q-badge>
           </div>
           <div class="col-7">
-            <q-slider class="longitudinal-slider" v-model="span" type="number" :min="minSpan" :max="maxSpan"
+            <q-slider
+v-model="span" class="longitudinal-slider" type="number" :min="minSpan" :max="maxSpan"
               :suffix="`m`" :step="0.1" />
           </div>
           <div class="col-3">
-            <q-input class="longitudinal-slider-input" v-model.number="span" type="number" :min="minSpan" :max="maxSpan"
+            <q-input
+v-model.number="span" class="longitudinal-slider-input" type="number" :min="minSpan" :max="maxSpan"
               :suffix="`m`" :step="0.1" dense outlined />
           </div>
         </div>
@@ -28,15 +30,17 @@
             </q-badge>
           </div>
           <div class="col-7">
-            <q-slider class="longitudinal-slider" v-model="width" type="number" :min="minWidth" :max="maxWidth"
+            <q-slider
+v-model="width" class="longitudinal-slider" type="number" :min="minWidth" :max="maxWidth"
               :step="0.1" />
           </div>
           <div class="col-3">
-            <q-input class="longitudinal-slider-input" v-model.number="width" type="number" :min="minWidth"
+            <q-input
+v-model.number="width" class="longitudinal-slider-input" type="number" :min="minWidth"
               :max="maxWidth" :step="0.1" :suffix="`m`" dense outlined />
           </div>
         </div>
-        <div class="q-mt-sm" v-if="bridgeType === 'Twin'">
+        <div v-if="bridgeType === 'Twin'" class="q-mt-sm">
           <!-- select between composite and concrete -->
           <q-btn-toggle
             v-model="isConcrete"
@@ -54,42 +58,46 @@
         </div>
       </section>
       <section class="longitudinal-image" aria-label="longitudinal-image">
-        <h3 class="longitudinal-image-header"  v-if="bridgeType === 'Slab' || bridgeType === 'Multi'">
+        <h3 v-if="bridgeType === 'Slab' || bridgeType === 'Multi'"  class="longitudinal-image-header">
           {{ $t('trans')}} <!-- cf https://github.com/EPFL-ENAC/resslab-astra_82001/issues/43 -->
           <q-icon  v-if="bridgeType === 'Multi'" class="cursor-pointer" :name="mdiInformationVariantCircleOutline" >
             <q-tooltip class="text-body1" html>
               <span v-html="$t('i12_desc')"></span></q-tooltip>
           </q-icon>
         </h3>
-        <q-img src="/box-longitudinal.svg" alt="Longitudinal Verification" v-if="bridgeType === 'Box'"
+        <q-img
+v-if="bridgeType === 'Box'" src="/box-longitudinal.svg" alt="Longitudinal Verification"
           style="height: 150px;" fit="contain" /> <!-- this is the image -->
-        <q-img src="/twin-girder-longitudinal-composite.svg" alt="Twin girder composite"
-          v-else-if="bridgeType === 'Twin' && bridgeComposition === 'Composite'" style="height: 150px;" fit="contain" />
-        <q-img src="/twin-girder-longitudinal-concrete.svg" alt="twin girder concrete"
-          v-else-if="bridgeType === 'Twin' && bridgeComposition === 'Concrete'" style="height: 150px;" fit="contain" />
+        <q-img
+v-else-if="bridgeType === 'Twin' && bridgeComposition === 'Composite'" src="/twin-girder-longitudinal-composite.svg"
+          alt="Twin girder composite" style="height: 150px;" fit="contain" />
+        <q-img
+v-else-if="bridgeType === 'Twin' && bridgeComposition === 'Concrete'" src="/twin-girder-longitudinal-concrete.svg"
+          alt="twin girder concrete" style="height: 150px;" fit="contain" />
         <p v-else-if="bridgeType === 'Multi'">
           <q-img src="/multi-girder-longitudinal-1.svg" alt="Multi girder " style="height: 125px;" fit="contain" />
           <q-img src="/multi-girder-longitudinal-2.svg" alt="Multi girder " style="height: 125px;" fit="contain" />
         </p>
-        <q-img v-else-if="bridgeType === 'Slab'" src="/slab-longitudinal.svg" alt="Slab" fit="contain"
+        <q-img
+v-else-if="bridgeType === 'Slab'" src="/slab-longitudinal.svg" alt="Slab" fit="contain"
           style="height:150px" />
 
-          <section class="longitudinal-inputs longitudinal-radio q-mt-sm" aria-label="beams" v-if="bridgeType === 'Multi'">
-            <q-radio dense v-model="longitudinalTrans" val="P1" label="Beam 1" />
-            <q-radio dense v-model="longitudinalTrans" val="P2" label="Beam 2" />
-            <q-radio dense v-model="longitudinalTrans" val="P3" label="Beam 3" />
+          <section v-if="bridgeType === 'Multi'" class="longitudinal-inputs longitudinal-radio q-mt-sm" aria-label="beams">
+            <q-radio v-model="longitudinalTrans" dense val="P1" label="Beam 1" />
+            <q-radio v-model="longitudinalTrans" dense val="P2" label="Beam 2" />
+            <q-radio v-model="longitudinalTrans" dense val="P3" label="Beam 3" />
           </section>
-          <section class="longitudinal-inputs longitudinal-radio q-mt-sm" aria-label="point" v-if="bridgeType === 'Slab'">
-            <q-radio dense v-model="longitudinalTrans" val="p1" label="p1" />
-            <q-radio dense v-model="longitudinalTrans" val="p2" label="p2" />
-            <q-radio dense v-model="longitudinalTrans" val="p3" label="p3" />
+          <section v-if="bridgeType === 'Slab'" class="longitudinal-inputs longitudinal-radio q-mt-sm" aria-label="point">
+            <q-radio v-model="longitudinalTrans" dense val="p1" label="p1" />
+            <q-radio v-model="longitudinalTrans" dense val="p2" label="p2" />
+            <q-radio v-model="longitudinalTrans" dense val="p3" label="p3" />
           </section>
       </section>
 
     </section>
   </section>
 
-  <section class="longitudinal-verification-result longitudinal-results alpha-footer" aria-lable="" v-if="!rBau && bridgeType">
+  <section v-if="!rBau && bridgeType" class="longitudinal-verification-result longitudinal-results alpha-footer" aria-lable="">
       <!-- show three values: alphaq sub V,M-,M+ -->
       <q-icon class="cursor-pointer top-right-absolute q-pa-md" :name="mdiInformationVariantCircleOutline" >
             <q-tooltip class="text-body1" html>
