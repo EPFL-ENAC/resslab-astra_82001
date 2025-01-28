@@ -7,7 +7,6 @@
   "private": true,
   "scripts": {
     "lint": "eslint --ext .js,.ts,.vue ./",
-    "type-check": "tsc --noEmit --skipLibCheck",
     "format-check": "prettier --check \"**/*.{js,ts,vue,scss,html,md,json}\" --ignore-path .gitignore",
     "format": "prettier --write \"**/*.{js,ts,vue,scss,html,md,json}\" --ignore-path .gitignore",
     "test": "echo \"No test specified\" && exit 0",
@@ -17,7 +16,8 @@
     "build": "quasar build",
     "convert": "node scripts/convert.mjs",
     "prepare": "lefthook install",
-    "lefthook": "lefthook run pre-commit"
+    "lefthook": "lefthook run pre-commit",
+    "type-check": "npm run convert && tsc --noEmit --skipLibCheck"
   },
   "dependencies": {
     "@mdi/js": "^7.4.47",
