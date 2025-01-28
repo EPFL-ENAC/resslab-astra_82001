@@ -19,7 +19,7 @@ export type MessageSchema = (typeof messages)['en-US'];
 //   export interface DefineNumberFormat {}
 // }
 
-const getNavigatorLanguage = () =>
+export const getNavigatorLanguage = () =>
   navigator.languages && navigator.languages.length
     ? navigator.languages[0]
     : navigator.language || 'en-US';

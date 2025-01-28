@@ -75,6 +75,7 @@ import { ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { version } from '../../package.json';
 import { dataVersion } from 'src/utils/constants';
+import { getNavigatorLanguage } from 'src/boot/i18n';
 
 const { locale } = useI18n();
 
@@ -84,7 +85,7 @@ const langOptions = [
   { label: 'FR', value: 'fr' },
   { label: 'IT', value: 'it' },
 ];
-const lang = ref(langOptions[0].value);
+const lang = ref(getNavigatorLanguage().split('-')[0]);
 const downloadFileName = `data-astra-82001f_${dataVersion}.csv`;
 
 watch(lang, (newLang) => {
