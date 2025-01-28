@@ -474,6 +474,12 @@ const getObjectiveLongitudinalSpan = (state: VerificationState): number => {
   if (state.bridgeType === 'Multi' && state.span < 20) {
     return 20;
   }
+  if (state.bridgeType === 'Multi' && state.span > 30 && state.span <= 35) {
+    return 35;
+  }
+  if (state.bridgeType === 'Multi' && state.span > 35) {
+    return NaN;
+  }
   return state.span;
 };
 const getObjectiveLongitudinalWidth = (state: VerificationState): number => {
@@ -811,7 +817,7 @@ export const useVerificationStore = defineStore('verification', {
       } else if (state.bridgeType === 'Twin') {
         return 80;
       } else if (state.bridgeType === 'Multi') {
-        return 30;
+        return 35;
       } else if (state.bridgeType === 'Slab') {
         return 30;
       }
