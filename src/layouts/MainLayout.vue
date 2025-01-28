@@ -36,7 +36,7 @@
               src="/epfl-designed/Canard/svg/c-info.svg"
               :alt="$t('download_reference_documentation')"
             />
-            <q-tooltip>
+            <q-tooltip class="text-body1">
               <span>{{ $t('download_reference_documentation') }} </span>
             </q-tooltip>
           </template>
@@ -56,7 +56,7 @@
               src="/epfl-designed/Canard/svg/c-csv.svg"
               :alt="$t('download_reference_data')"
             />
-            <q-tooltip>
+            <q-tooltip class="text-body1">
               <span>{{ $t('download_reference_data') }} </span>
             </q-tooltip>
           </template>
