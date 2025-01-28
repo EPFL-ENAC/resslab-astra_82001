@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.6.0](https://github.com/EPFL-ENAC/resslab-astra_82001/compare/v1.5.0...v1.6.0) (2025-01-28)
+
+
+### Features
+
+* add tooltips and improve UI components for better user experience ([6360159](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/636015941c4e89769be546986af518ed21cd5670))
+* enhance internationalization and improve traffic type component UI ([099b7ef](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/099b7ef361b24e931005ed5fcd3566df4b6921e2))
+* enhance internationalization support and improve UI responsiveness with tooltips ([9075eff](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/9075effb953ec010e88547999f4b3091f54e494d))
+* enhance internationalization terms for support conditions in verification components [#43](https://github.com/EPFL-ENAC/resslab-astra_82001/issues/43) ([d000ed1](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/d000ed1a89ca44a997b3cda182d1535faa2a2481))
+* update grid layout and responsiveness, enhance alpha calculation logic  [#41](https://github.com/EPFL-ENAC/resslab-astra_82001/issues/41) ([49d900c](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/49d900ca532eb6092bf0b28f71283ed48ceb64f7))
+* update internationalization terms for traffic type and building classification ([a7e5573](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/a7e5573f1e7cb40348656983e24a7ffdb10444c8))
+
+
+### Bug Fixes
+
+* adjust spacing in button and update grid layout for improved responsiveness ([73cf7e1](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/73cf7e13807f7368829d8e67b7a8f9c85c0c2fa6))
+
 ## [1.5.0](https://github.com/EPFL-ENAC/resslab-astra_82001/compare/v1.4.1...v1.5.0) (2025-01-23)
 
 ### Features
