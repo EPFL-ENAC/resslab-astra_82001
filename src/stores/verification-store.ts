@@ -36,7 +36,7 @@ export type Traffic = 'Uni2L' | 'Bi2L' | 'Bi4L';
 export type TrafficClass = 'ClassOW' | 'Class';
 export type TrafficClassOption = { value: TrafficClass; label: string };
 
-const RBAU_DEFAULT_FACTOR = 0.65;
+const RBAU_DEFAULT_FACTOR = 0.6;
 
 // this is the interface of the data (json) we have StructuralAnalysis[]
 interface StructuralAnalysis {
