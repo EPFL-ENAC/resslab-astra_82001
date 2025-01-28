@@ -9,5 +9,6 @@
   "makefile.configureOnOpen": false,
   "[scss]": {
     "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
-  }
+  },
+  "vue.trace.server": "messages"
 }

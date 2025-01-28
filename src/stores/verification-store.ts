@@ -32,8 +32,11 @@ export const mapTransBetweenBeams: Record<SupportType, TransValue> = {
   Semi: 'SENC',
 };
 import data from '../assets/data/data.json';
-import { Traffic, TrafficClass } from 'src/types/Selected';
-import { X } from 'app/dist/spa/assets/index.65332175';
+export type Traffic = 'Uni2L' | 'Bi2L' | 'Bi4L';
+export type TrafficClass = 'ClassOW' | 'Class';
+export type TrafficClassOption = { value: TrafficClass; label: string };
+
+const RBAU_DEFAULT_FACTOR = 0.65;
 
 // this is the interface of the data (json) we have StructuralAnalysis[]
 interface StructuralAnalysis {
@@ -73,17 +76,6 @@ interface VerificationState {
   supportType: SupportType;
   spanTransversal: number;
 }
-
-// Example usage
-// const matrix = [
-//   { Width: 12, Span: 70, class: 0.117858204 },
-//   { Width: 12, Span: 80, class: 0.132028865 },
-//   { Width: 18, Span: 70, class: 0.175164259 },
-//   { Width: 18, Span: 80, class: 0.167184639 }
-// ];
-
-// const targetWidth = 15;
-// const targetSpan = 75;
 
 function getMatrixTransversal(
   bridgeType: BridgeType,
@@ -354,7 +346,10 @@ function linearInterpolation(
   }
 
   return classesToInterpolate.reduce((acc, className) => {
-    acc[className] = getFinalAlphaQ(state, interpolate(className, { p1, p2, x1, x2 }, targetSpan));
+    acc[className] = getFinalAlphaQ(
+      state,
+      interpolate(className, { p1, p2, x1, x2 }, targetSpan)
+    );
     return acc;
   }, {} as StructuralAnalysis);
 }
@@ -393,7 +388,7 @@ function bilinearInterpolation(
       return Q11;
     }
 
-    if (x1 === x2) {
+    if (x1 === x2 && y2 != undefined && y1 != undefined) {
       // Linear interpolation along y-axis only
       return (
         ((y2 - targetSpan) / (y2 - y1)) * Q11 +
@@ -409,6 +404,9 @@ function bilinearInterpolation(
       );
     }
 
+    if (y1 == undefined || y2 == undefined) {
+      return NaN;
+    }
     // Standard bilinear interpolation when no coordinates are equal
     const R1 =
       ((x2 - targetWidth) / (x2 - x1)) * Q11 +
@@ -426,12 +424,15 @@ function bilinearInterpolation(
   }
 
   const result = classesToInterpolate.reduce((acc, className) => {
-    acc[className] = getFinalAlphaQ(state, interpolate(
-      className,
-      { p1, p2, p3, p4, x1, x2, y1, y2 },
-      targetWidth,
-      targetSpan
-    ));
+    acc[className] = getFinalAlphaQ(
+      state,
+      interpolate(
+        className,
+        { p1, p2, p3, p4, x1, x2, y1, y2 },
+        targetWidth,
+        targetSpan
+      )
+    );
     return acc;
   }, {} as StructuralAnalysis);
 
@@ -440,7 +441,7 @@ function bilinearInterpolation(
   return result;
 }
 
-const getObjectiveTransversalSpan = (state: any) => {
+const getObjectiveTransversalSpan = (state: VerificationState) => {
   //   dalle_de_roulement:
   //     PorteAFaux:
   //       'l< 1.22': not possible
@@ -474,7 +475,7 @@ const getObjectiveLongitudinalSpan = (state: VerificationState): number => {
     return 20;
   }
   return state.span;
-}
+};
 const getObjectiveLongitudinalWidth = (state: VerificationState): number => {
   //   box:
   //     'l < 9': not possible
@@ -528,48 +529,49 @@ const getObjectiveLongitudinalWidth = (state: VerificationState): number => {
       return NaN;
     }
   }
-  return NaN
+  return NaN;
 };
 
-
 function getPhi(state: VerificationState) {
-    // show phycal options for bridge with a span <= 20m
-    /*
-    ** 𝐿 ≤ 10 𝑚, 𝑐𝑎𝑙 = 1.15
-    ** 10 < 𝐿 ≤ 20 𝑚, 𝜑𝑐𝑎𝑙 = 1.15 − 0.015 ∙ (𝐿 − 10)
-    ** 𝐿 > 20 𝑚, 𝜑𝑐𝑎𝑙 = 1.00
-    ** Par défaut c'est 1.00
-    */
-    // const defaultPhyCalOptions = [{ label: 'Φ1.00', value: 1.0 }];
+  // show phycal options for bridge with a span <= 20m
+  /*
+   ** 𝐿 ≤ 10 𝑚, 𝑐𝑎𝑙 = 1.15
+   ** 10 < 𝐿 ≤ 20 𝑚, 𝜑𝑐𝑎𝑙 = 1.15 − 0.015 ∙ (𝐿 − 10)
+   ** 𝐿 > 20 𝑚, 𝜑𝑐𝑎𝑙 = 1.00
+   ** Par défaut c'est 1.00
+   */
+  // const defaultPhyCalOptions = [{ label: 'Φ1.00', value: 1.0 }];
 
-    const defaultGoodRoadPhyCal = 1.0;
-    const defaultSmallRoadPhyCal = 1.15;
-    if (state.span === null) {
-      return defaultGoodRoadPhyCal;
-    }
-    if (state.span === undefined) {
-      return defaultGoodRoadPhyCal;
-    }
-    // 10 < 𝐿 ≤ 20 𝑚, 𝜑𝑐𝑎𝑙 = 1.15 − 0.015 ∙ (𝐿 − 10)
-    let phyCalDynamicValue =
-      defaultSmallRoadPhyCal - 0.015 * (state.span - 10);
-    if (state.span <= 10) {
-      phyCalDynamicValue = defaultSmallRoadPhyCal; // 𝐿 ≤ 10 𝑚, 𝑐𝑎𝑙 = 1.15
-    }
-    if (state.span >= 20) {
-      phyCalDynamicValue = defaultGoodRoadPhyCal; // 𝐿 > 20 𝑚, 𝜑𝑐𝑎𝑙 = 1.00
-    }
+  const defaultGoodRoadPhyCal = 1.0;
+  const defaultSmallRoadPhyCal = 1.15;
+  if (state.span === null) {
+    return defaultGoodRoadPhyCal;
+  }
+  if (state.span === undefined) {
+    return defaultGoodRoadPhyCal;
+  }
+  // 10 < 𝐿 ≤ 20 𝑚, 𝜑𝑐𝑎𝑙 = 1.15 − 0.015 ∙ (𝐿 − 10)
+  let phyCalDynamicValue = defaultSmallRoadPhyCal - 0.015 * (state.span - 10);
+  if (state.span <= 10) {
+    phyCalDynamicValue = defaultSmallRoadPhyCal; // 𝐿 ≤ 10 𝑚, 𝑐𝑎𝑙 = 1.15
+  }
+  if (state.span >= 20) {
+    phyCalDynamicValue = defaultGoodRoadPhyCal; // 𝐿 > 20 𝑚, 𝜑𝑐𝑎𝑙 = 1.00
+  }
 
-    if (state.goodQualityRoad === true) {
-      phyCalDynamicValue = defaultGoodRoadPhyCal;
-    }
-    if (phyCalDynamicValue === undefined) {
-      return defaultGoodRoadPhyCal;
-    }
-    return phyCalDynamicValue;
+  if (state.goodQualityRoad === true) {
+    phyCalDynamicValue = defaultGoodRoadPhyCal;
+  }
+  if (phyCalDynamicValue === undefined) {
+    return defaultGoodRoadPhyCal;
+  }
+  return phyCalDynamicValue;
 }
 
-function getFinalAlphaQ(state: VerificationState, currentAlphaQ: number): number {
+export function getFinalAlphaQ(
+  state: VerificationState,
+  currentAlphaQ: number
+): number {
   const minAlphaQ = state.selectedClass === 'ClassOW' ? 0.3001 : 0.3001;
 
   let alphaQ = currentAlphaQ ?? minAlphaQ;
@@ -581,7 +583,7 @@ function getFinalAlphaQ(state: VerificationState, currentAlphaQ: number): number
     alphaQ = minAlphaQ;
   }
   // we apply the beta 4.7 factor after the minAlphaQ check
-  if (state.beta  === 4.7 && state.dynamicFactorEnabled) {
+  if (state.beta === 4.7 && state.dynamicFactorEnabled) {
     alphaQ = 1.07 * alphaQ; // 7% increase
   }
 
@@ -847,6 +849,18 @@ export const useVerificationStore = defineStore('verification', {
     getLongitudinalAlpha: (state) => {
       const ObjWidth = getObjectiveLongitudinalWidth(state);
       const ObjSpan = getObjectiveLongitudinalSpan(state);
+
+      if (state.rBau === true) {
+        const result: Record<AE, StructuralAnalysis> = {} as Record<
+          AE,
+          StructuralAnalysis
+        >;
+        //
+        result.M = {
+          Q1G: getFinalAlphaQ(state, RBAU_DEFAULT_FACTOR),
+        } as StructuralAnalysis;
+        return result;
+      }
       if (state.bridgeType !== null) {
         const matrix = getMatrixLongitudinal(
           ObjWidth,
@@ -873,7 +887,6 @@ export const useVerificationStore = defineStore('verification', {
                 ObjWidth,
                 ObjSpan
               );
-
             }
             return acc;
           }, {} as Record<AE, StructuralAnalysis>);
@@ -910,7 +923,12 @@ export const useVerificationStore = defineStore('verification', {
           const interpolatedMatrix: Record<AE, StructuralAnalysis> = AE.reduce(
             (acc, ae) => {
               if (matrix?.[ae]) {
-                acc[ae] = bilinearInterpolation(state, matrix[ae], ObjWidth, ObjSpan);
+                acc[ae] = bilinearInterpolation(
+                  state,
+                  matrix[ae],
+                  ObjWidth,
+                  ObjSpan
+                );
               }
               return acc;
             },

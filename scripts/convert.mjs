@@ -45,13 +45,13 @@ csv({ checkType: true, ignoreEmpty: true, trim: true })
     jsonObj.forEach((obj) => {
       // id,en,fr,de,it,desc_en,desc_fr,desc_de,desc_it
       result_lang['en'][obj.id] = obj.en;
-      result_lang['en'][obj.id + '_desc'] = obj.desc_en;
+      result_lang['en'][obj.id + '_desc'] = obj.desc_en?.replace(/\n/g, '<br>');;
       result_lang['fr'][obj.id] = obj.fr;
-      result_lang['fr'][obj.id + '_desc'] = obj.desc_fr;
+      result_lang['fr'][obj.id + '_desc'] = obj.desc_fr?.replace(/\n/g, '<br>');;
       result_lang['de'][obj.id] = obj.de;
-      result_lang['de'][obj.id + '_desc'] = obj.desc_de;
+      result_lang['de'][obj.id + '_desc'] = obj.desc_de?.replace(/\n/g, '<br>');;
       result_lang['it'][obj.id] = obj.it;
-      result_lang['it'][obj.id + '_desc'] = obj.desc_it;
+      result_lang['it'][obj.id + '_desc'] = obj.desc_it?.replace(/\n/g, '<br>');;
     });
 
     langs.forEach((lang) => {

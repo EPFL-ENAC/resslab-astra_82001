@@ -5,11 +5,11 @@ import deCH from './de-CH';
 
 export default {
   'en-US': enUS,
-  'en': enUS,
+  en: enUS,
   'fr-CH': frCH,
-  'fr': frCH,
+  fr: frCH,
   'it-CH': itCH,
-  'it': itCH,
+  it: itCH,
   'de-CH': deCH,
-  'de': deCH
+  de: deCH,
 };

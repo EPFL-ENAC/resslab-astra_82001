@@ -3,5 +3,5 @@
 import deCH from '../../assets/data/internationalization_de.json';
 
 export default {
-  ...deCH
+  ...deCH,
 };

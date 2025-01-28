@@ -1,85 +1,186 @@
 <template>
-  <main class="transversal-verification-container row3" v-if="!rBau && bridgeType">
-    <section class="transversal-verification transversal-inputs" aria-labelledby="transversal-title">
+  <main
+    v-if="!rBau && bridgeType"
+    class="transversal-verification-container row3"
+  >
+    <section
+      class="transversal-verification transversal-inputs"
+      aria-labelledby="transversal-title"
+    >
       <h3 class="transversal-header">{{ $t('transversal_verification') }}</h3>
 
-      <div clsss="row q-mt-sm" v-if="bridgeType != 'Slab'">
-        <q-btn-toggle v-model="isCantileverEnabled" spread class="isCantileverEnabled-toggle" no-caps flat
-          color="primary" :options="[
+      <div v-if="bridgeType != 'Slab'" class="row q-mt-sm cantilever-toggle">
+        <q-btn-toggle
+          v-model="isCantileverEnabled"
+          spread
+          class="isCantileverEnabled-toggle"
+          no-caps
+          flat
+          color="primary"
+          :options="[
             { label: $t('cantilever'), value: true },
-            { label: $t('slab-between-beams'), value: false }
-          ]" />
-        <q-tooltip> {{ $t('i8_desc') }} </q-tooltip>
+            { label: $t('slab-between-beams'), value: false },
+          ]"
+        />
+        <q-icon
+          class="cursor-pointer"
+          :name="mdiInformationVariantCircleOutline"
+        >
+          <q-tooltip class="text-body1" html>
+            <span v-html="$t('i8_desc')"></span
+          ></q-tooltip>
+        </q-icon>
       </div>
-      <div class="row q-mt-sm transversal-image" v-if="bridgeType != 'Slab'">
-        <q-img v-if="isCantileverEnabled" src="/slab-cantilever.svg" style="height: 150px;" alt="cantilever"
-          fit="contain"></q-img>
-        <q-img v-else src="/slab-between-beams.svg" style="height: 150px;" alt="cantilever" fit="contain"></q-img>
+      <div v-if="bridgeType != 'Slab'" class="row q-mt-sm transversal-image">
+        <q-img
+          v-if="isCantileverEnabled"
+          src="/slab-cantilever.svg"
+          style="height: 150px"
+          alt="cantilever"
+          fit="contain"
+        ></q-img>
+        <q-img
+          v-else
+          src="/slab-between-beams.svg"
+          style="height: 150px"
+          alt="cantilever"
+          fit="contain"
+        ></q-img>
       </div>
       <div v-else>
-        <q-img src="/slab-transversal.svg" style="height: 250px;" alt="slab" fit="contain"></q-img>
+        <q-img
+          src="/slab-transversal.svg"
+          style="height: 250px"
+          alt="slab"
+          fit="contain"
+        ></q-img>
       </div>
 
-      <div class="row q-mt-sm dimension items-center" v-if="bridgeType != 'Slab'">
+      <div
+        v-if="bridgeType != 'Slab'"
+        class="row q-mt-sm dimension items-center"
+      >
         <div class="col-2">
           <q-badge color="secondary">
-            {{ $t("L") }}
+            {{ $t('L') }}
           </q-badge>
         </div>
         <div class="col-7">
-          <q-slider class="transversal-slider" v-model="spanTransversal" type="number" :min="minSpanTransversal" :max="maxSpanTransversal" :suffix="`m`"
-            :step="0.01" />
+          <q-slider
+            v-model="spanTransversal"
+            class="transversal-slider"
+            type="number"
+            :min="minSpanTransversal"
+            :max="maxSpanTransversal"
+            :suffix="`m`"
+            :step="0.01"
+          />
         </div>
         <div class="col-3">
-          <q-input v-model.number="spanTransversal" type="number" :min="minSpanTransversal" :max="maxSpanTransversal" :suffix="`m`" :step="0.1" dense
-            outlined />
+          <q-input
+            v-model.number="spanTransversal"
+            type="number"
+            :min="minSpanTransversal"
+            :max="maxSpanTransversal"
+            :suffix="`m`"
+            :step="0.1"
+            dense
+            outlined
+          />
         </div>
       </div>
     </section>
-    <section class="transversal-support" v-if="bridgeType != 'Slab'">
-        <h3 class="transversal-header">{{ $t('support') }}</h3>
-        <q-tooltip> {{ $t('i11_desc') }} </q-tooltip>
-        <q-btn-toggle class="support-toggle" v-model="supportType" color="primary" flat padding="md" :options="supportOptions">
-          <template v-slot:one>
-            <div class="col items-center no-wrap">
-              <q-img  :height="supportTypeHeightImage" fit="contain" position="50% 50%" class="transversal-support-image" :src="`/${transversalTypeName}-1.svg`" alt="support type" />
-            </div>
-          </template>
+    <section v-if="bridgeType != 'Slab'" class="transversal-support">
+      <h3 class="transversal-header">
+        {{ $t('support') }}
+        <q-icon
+          class="cursor-pointer"
+          :name="mdiInformationVariantCircleOutline"
+        >
+          <q-tooltip class="text-body1" html>
+            <span v-html="$t('i11_desc')"></span
+          ></q-tooltip>
+        </q-icon>
+      </h3>
+      <q-btn-toggle
+        v-model="supportType"
+        class="support-toggle"
+        color="primary"
+        flat
+        padding="md"
+        :options="supportOptions"
+      >
+        <template #one>
+          <div class="col items-center no-wrap">
+            <q-img
+              :height="supportTypeHeightImage"
+              fit="contain"
+              position="50% 50%"
+              class="transversal-support-image"
+              :src="`/${transversalTypeName}-1.svg`"
+              alt="support type"
+            />
+          </div>
+        </template>
 
-          <template v-slot:two>
-            <div class="col items-center no-wrap">
-              <q-img  :height="supportTypeHeightImage" fit="contain" position="50% 50%" class="transversal-support-image" :src="`/${transversalTypeName}-2.svg`" alt="support type" />
-
-            </div>
-          </template>
-          <template v-slot:three>
-            <div class="col items-center no-wrap">
-              <q-img  :height="supportTypeHeightImage" fit="contain" position="50% 50%" class="transversal-support-image" :src="`/${transversalTypeName}-3.svg`" alt="support type" />
-
-            </div>
-          </template>
-        </q-btn-toggle>
+        <template #two>
+          <div class="col items-center no-wrap">
+            <q-img
+              :height="supportTypeHeightImage"
+              fit="contain"
+              position="50% 50%"
+              class="transversal-support-image"
+              :src="`/${transversalTypeName}-2.svg`"
+              alt="support type"
+            />
+          </div>
+        </template>
+        <template #three>
+          <div class="col items-center no-wrap">
+            <q-img
+              :height="supportTypeHeightImage"
+              fit="contain"
+              position="50% 50%"
+              class="transversal-support-image"
+              :src="`/${transversalTypeName}-3.svg`"
+              alt="support type"
+            />
+          </div>
+        </template>
+      </q-btn-toggle>
     </section>
     <section v-else>
       <div class="row q-mt-sm dimension items-center">
         <h3 class="transversal-header">{{ $t('support') }}</h3>
-        <q-btn-toggle class="support-toggle" v-model="supportType" color="primary" flat padding="md" :options="supportOptions">
-          <template v-slot:one>
+        <q-btn-toggle
+          v-model="supportType"
+          class="support-toggle"
+          color="primary"
+          flat
+          padding="md"
+          :options="supportOptions"
+        >
+          <template #one>
             <div class="col items-center no-wrap">
-             M<sub>support</sub> &LessSlantEqual; 50% M<sub>fully fixed</sub>
+              M<sub>{{ $t('M_support') }}</sub> &LessSlantEqual; 50% M<sub>{{
+                $t('M_fully_fixed')
+              }}</sub>
             </div>
           </template>
 
-          <template v-slot:two>
+          <template #two>
             <div class="col items-center no-wrap">
-              50% M<sub>fully fixed</sub>  &LessSlantEqual; M<sub>support</sub> &LessSlantEqual; M<sub>fully fixed</sub>
-
+              50% M<sub>{{ $t('M_fully_fixed') }}</sub> &LessSlantEqual; M<sub
+                >{{ $t('M_support') }}</sub
+              >
+              &LessSlantEqual; M<sub>{{ $t('M_fully_fixed') }}</sub>
             </div>
           </template>
-          <template v-slot:three>
+          <template #three>
             <div class="col items-center no-wrap">
-              M<sub>support</sub> &equals; M<sub>fully fixed</sub>
-
+              M<sub>{{ $t('M_support') }}</sub> &equals; M<sub>{{
+                $t('M_fully_fixed')
+              }}</sub>
             </div>
           </template>
         </q-btn-toggle>
@@ -87,74 +188,187 @@
     </section>
   </main>
 
-  <section class="transversal-verification-result transversal-results alpha-footer" aria-lable="" v-if="!rBau && bridgeType">
-      <!-- show three values: alphaq sub V,M-,M+ -->
-      <q-tooltip> {{ $t('i10_desc') }} </q-tooltip>
-      <ul class="alpha-list" v-if="bridgeType != 'Slab'">
-        <li class="alpha-item">
-          &alpha;<sub>q,V</sub> &equals; {{  roundCeilWith2Decimals(alphaTrans?.V?.[selectedClass]) }}
+  <section
+    v-if="!rBau && bridgeType"
+    class="transversal-verification-result transversal-results alpha-footer"
+    aria-lable=""
+  >
+    <!-- show three values: alphaq sub V,M-,M+ -->
+    <q-icon
+      class="cursor-pointer top-right-absolute q-pa-md"
+      :name="mdiInformationVariantCircleOutline"
+    >
+      <q-tooltip class="text-body1" html>
+        <span v-html="$t('i10_desc')"></span
+      ></q-tooltip>
+    </q-icon>
+    <ul v-if="bridgeType != 'Slab'" class="alpha-list">
+      <li class="alpha-item">
+        &alpha;<sub>q,V</sub> &equals;
+        {{ roundCeilWith2Decimals(alphaTrans?.V?.[selectedClass]) }}
 
-        <q-btn flat padding="none" @click="() => copyText($q, $t, roundCeilWith2Decimals(alphaTrans?.V?.[selectedClass]))">
-          <q-img height="24px" width="24px" fit="contain" src="/mdi-icons/content_copy.svg" />
-          <q-tooltip >
-            {{  $t('copy_to_clipboard') }}
+        <q-btn
+          flat
+          padding="none"
+          @click="
+            () =>
+              copyText(
+                $q,
+                $t,
+                roundCeilWith2Decimals(alphaTrans?.V?.[selectedClass])
+              )
+          "
+        >
+          <q-img
+            height="24px"
+            width="24px"
+            fit="contain"
+            src="/mdi-icons/content_copy.svg"
+          />
+          <q-tooltip>
+            {{ $t('copy_to_clipboard') }}
           </q-tooltip>
         </q-btn>
-        </li>
-        <li class="alpha-item" v-if="!isCantileverEnabled">
-          &alpha;<sub>q,M-</sub> &equals; {{  roundCeilWith2Decimals(alphaTrans?.Mn?.[selectedClass]) }}
+      </li>
+      <li v-if="!isCantileverEnabled" class="alpha-item">
+        &alpha;<sub>q,M-</sub> &equals;
+        {{ roundCeilWith2Decimals(alphaTrans?.Mn?.[selectedClass]) }}
 
-        <q-btn flat padding="none" @click="() => copyText($q, $t, roundCeilWith2Decimals(alphaTrans?.Mn?.[selectedClass]))">
-          <q-img height="24px" width="24px" fit="contain" src="/mdi-icons/content_copy.svg" />
-          <q-tooltip >
-            {{  $t('copy_to_clipboard') }}
+        <q-btn
+          flat
+          padding="none"
+          @click="
+            () =>
+              copyText(
+                $q,
+                $t,
+                roundCeilWith2Decimals(alphaTrans?.Mn?.[selectedClass])
+              )
+          "
+        >
+          <q-img
+            height="24px"
+            width="24px"
+            fit="contain"
+            src="/mdi-icons/content_copy.svg"
+          />
+          <q-tooltip>
+            {{ $t('copy_to_clipboard') }}
           </q-tooltip>
         </q-btn>
-        </li>
-        <li class="alpha-item" v-else>
-          &alpha;<sub>q,M</sub> &equals; {{  roundCeilWith2Decimals(alphaTrans?.M?.[selectedClass]) }}
+      </li>
+      <li v-else class="alpha-item">
+        &alpha;<sub>q,M</sub> &equals;
+        {{ roundCeilWith2Decimals(alphaTrans?.M?.[selectedClass]) }}
 
-        <q-btn flat padding="none" @click="() => copyText($q, $t, roundCeilWith2Decimals(alphaTrans?.M?.[selectedClass]))">
-          <q-img height="24px" width="24px" fit="contain" src="/mdi-icons/content_copy.svg" />
-          <q-tooltip >
-            {{  $t('copy_to_clipboard') }}
+        <q-btn
+          flat
+          padding="none"
+          @click="
+            () =>
+              copyText(
+                $q,
+                $t,
+                roundCeilWith2Decimals(alphaTrans?.M?.[selectedClass])
+              )
+          "
+        >
+          <q-img
+            height="24px"
+            width="24px"
+            fit="contain"
+            src="/mdi-icons/content_copy.svg"
+          />
+          <q-tooltip>
+            {{ $t('copy_to_clipboard') }}
           </q-tooltip>
         </q-btn>
-        </li>
-        <li class="alpha-item" v-if="!isCantileverEnabled">
-          &alpha;<sub>q,M+</sub> &equals; {{ roundCeilWith2Decimals(alphaTrans?.Mp?.[selectedClass]) }}
+      </li>
+      <li v-if="!isCantileverEnabled" class="alpha-item">
+        &alpha;<sub>q,M+</sub> &equals;
+        {{ roundCeilWith2Decimals(alphaTrans?.Mp?.[selectedClass]) }}
 
-        <q-btn flat padding="none" @click="() => copyText($q, $t, roundCeilWith2Decimals(alphaTrans?.Mp?.[selectedClass]))">
-          <q-img height="24px" width="24px" fit="contain" src="/mdi-icons/content_copy.svg" />
-          <q-tooltip >
-            {{  $t('copy_to_clipboard') }}
+        <q-btn
+          flat
+          padding="none"
+          @click="
+            () =>
+              copyText(
+                $q,
+                $t,
+                roundCeilWith2Decimals(alphaTrans?.Mp?.[selectedClass])
+              )
+          "
+        >
+          <q-img
+            height="24px"
+            width="24px"
+            fit="contain"
+            src="/mdi-icons/content_copy.svg"
+          />
+          <q-tooltip>
+            {{ $t('copy_to_clipboard') }}
           </q-tooltip>
         </q-btn>
-        </li>
-      </ul>
-      <ul class="alpha-list" v-else>
-        <!-- / -->
-        <li class="alpha-item">
-          &alpha;<sub>q,Mx,Mid</sub> &equals; {{ roundCeilWith2Decimals(alphaLong?.MxMid?.[selectedClass])  }}
+      </li>
+    </ul>
+    <ul v-else class="alpha-list">
+      <!-- / -->
+      <li class="alpha-item">
+        &alpha;<sub>q,Mx,Mid</sub> &equals;
+        {{ roundCeilWith2Decimals(alphaLong?.MxMid?.[selectedClass]) }}
 
-        <q-btn flat padding="none" @click="() => copyText($q, $t, roundCeilWith2Decimals(alphaLong?.MxMid?.[selectedClass]))">
-          <q-img height="24px" width="24px" fit="contain" src="/mdi-icons/content_copy.svg" />
-          <q-tooltip >
-            {{  $t('copy_to_clipboard') }}
+        <q-btn
+          flat
+          padding="none"
+          @click="
+            () =>
+              copyText(
+                $q,
+                $t,
+                roundCeilWith2Decimals(alphaLong?.MxMid?.[selectedClass])
+              )
+          "
+        >
+          <q-img
+            height="24px"
+            width="24px"
+            fit="contain"
+            src="/mdi-icons/content_copy.svg"
+          />
+          <q-tooltip>
+            {{ $t('copy_to_clipboard') }}
           </q-tooltip>
         </q-btn>
-        </li>
-        <li class="alpha-item">
-          &alpha;<sub>q,Mx,Medge</sub> &equals; {{ roundCeilWith2Decimals(alphaLong?.MxEdg?.[selectedClass])  }}
+      </li>
+      <li class="alpha-item">
+        &alpha;<sub>q,Mx,Medge</sub> &equals;
+        {{ roundCeilWith2Decimals(alphaLong?.MxEdg?.[selectedClass]) }}
 
-        <q-btn flat padding="none" @click="() => copyText($q, $t, roundCeilWith2Decimals(alphaLong?.MxEdg?.[selectedClass]))">
-          <q-img height="24px" width="24px" fit="contain" src="/mdi-icons/content_copy.svg" />
-          <q-tooltip >
-            {{  $t('copy_to_clipboard') }}
+        <q-btn
+          flat
+          padding="none"
+          @click="
+            () =>
+              copyText(
+                $q,
+                $t,
+                roundCeilWith2Decimals(alphaLong?.MxEdg?.[selectedClass])
+              )
+          "
+        >
+          <q-img
+            height="24px"
+            width="24px"
+            fit="contain"
+            src="/mdi-icons/content_copy.svg"
+          />
+          <q-tooltip>
+            {{ $t('copy_to_clipboard') }}
           </q-tooltip>
         </q-btn>
-        </li>
-      </ul>
+      </li>
+    </ul>
   </section>
 </template>
 
@@ -165,28 +379,34 @@ import { useI18n } from 'vue-i18n';
 import { roundCeilWith2Decimals } from '../utils/math';
 import { useQuasar } from 'quasar';
 import { copyText } from '../utils/clipboard';
+import { mdiInformationVariantCircleOutline } from '@mdi/js';
 
 const { t: $t } = useI18n();
 const $q = useQuasar();
 
 const verificationStore = useVerificationStore();
 
-
-const maxSpanTransversal = computed(() => verificationStore.getMaxSpanTransversal);
-const minSpanTransversal = computed(() => verificationStore.getMinSpanTransversal);
+const maxSpanTransversal = computed(
+  () => verificationStore.getMaxSpanTransversal
+);
+const minSpanTransversal = computed(
+  () => verificationStore.getMinSpanTransversal
+);
 const alphaTrans = computed(() => verificationStore.getTransversalAlpha);
 const alphaLong = computed(() => verificationStore.getLongitudinalAlpha);
 const rBau = computed(() => verificationStore.rBau);
 const bridgeType = computed(() => verificationStore.bridgeType);
-const selectedClass = computed(() => verificationStore.selectedClass === 'Class' ? 'qG' : 'qG+');
+const selectedClass = computed(() =>
+  verificationStore.selectedClass === 'Class' ? 'qG' : 'qG+'
+);
 
 const supportTypeHeightImage = '50px';
 
 const transversalTypeName = computed({
-  get: () => verificationStore.isCantileverEnabled ? 'cantilever' : 'slab-between-beams',
+  get: () =>
+    verificationStore.isCantileverEnabled ? 'cantilever' : 'slab-between-beams',
   set: () => null,
 });
-
 
 const supportOptions = computed(() => {
   if (bridgeType.value !== 'Slab') {
@@ -195,43 +415,39 @@ const supportOptions = computed(() => {
       return [
         { slot: 'one', label: $t('AR-0'), value: 'Fixed' },
         { slot: 'two', label: $t('AR-2'), value: 'Semi' },
-        { slot: 'three', label: $t('BR-1'), value: 'Simp' }
+        { slot: 'three', label: $t('BR-1'), value: 'Simp' },
       ];
     } else {
       // PENC is Fixed, SENC is Semi and SMPL is Simp
       return [
         { slot: 'one', label: $t('PENC'), value: 'Fixed' },
         { slot: 'two', label: $t('SENC'), value: 'Semi' },
-        { slot: 'three', label: $t('SMPL'), value: 'Simp' }
+        { slot: 'three', label: $t('SMPL'), value: 'Simp' },
       ];
     }
-  }
-  else {
+  } else {
     return [
-      { slot: 'one', value: 'Semi' },        //     M<sub>support</sub> &LessSlantEqual; 50% M<sub>fully fixed</sub>
-      { slot: 'two', value: 'Simp' },         //     50% M<sub>fully fixed</sub>  &LessSlantEqual; M<sub>support</sub> &LessSlantEqual; M<sub>fully fixed</sub>
-      { slot: 'three', value: 'Fixed' },       //       M<sub>support</sub> &equals; M<sub>fully fixed</sub>
+      { slot: 'one', value: 'Semi' }, //     M<sub>support</sub> &LessSlantEqual; 50% M<sub>fully fixed</sub>
+      { slot: 'two', value: 'Simp' }, //     50% M<sub>fully fixed</sub>  &LessSlantEqual; M<sub>support</sub> &LessSlantEqual; M<sub>fully fixed</sub>
+      { slot: 'three', value: 'Fixed' }, //       M<sub>support</sub> &equals; M<sub>fully fixed</sub>
     ];
   }
 });
 
-
-
 const isCantileverEnabled = computed({
   get: () => verificationStore.isCantileverEnabled,
-  set: (value) => verificationStore.setTransversalCantileverEnabled(value)
+  set: (value) => verificationStore.setTransversalCantileverEnabled(value),
 });
 
 const supportType = computed({
   get: () => verificationStore.supportType,
-  set: (value) => verificationStore.setTransversalSupportType(value)
+  set: (value) => verificationStore.setTransversalSupportType(value),
 });
 
 const spanTransversal = computed({
   get: () => verificationStore.spanTransversal,
-  set: (value) => verificationStore.setTransversalSpan(value)
-})
-
+  set: (value) => verificationStore.setTransversalSpan(value),
+});
 </script>
 
 <style lang="scss" scoped>
@@ -241,7 +457,6 @@ const spanTransversal = computed({
 .transversal-slider {
   width: 90%;
 }
-
 
 .transversal-support-image {
   max-width: 100px;
@@ -268,19 +483,12 @@ const spanTransversal = computed({
   grid-area: e;
   display: grid;
   // grid-template-rows: auto 1fr auto;
-  grid-template-areas: "transversal support";
+  grid-template-areas: 'transversal support';
   grid-template-columns: 1fr 1fr;
   min-height: 100%; // This is important
   height: 100%; // This ensures full height
   gap: 1rem;
 }
-.transversal-header {
-  // grid-area: header;
-}
-.transversal-inputs {
-  // grid-area: content;
-}
-
 .transversal-verification {
   grid-area: transversal;
   @include user-select(none);
@@ -294,7 +502,6 @@ const spanTransversal = computed({
   // grid-area: footer;
   align-self: end;
 }
-
 
 .transversal-radio {
   display: flex;
@@ -327,7 +534,6 @@ const spanTransversal = computed({
 .items-center {
   align-items: center;
 }
-
 .transversal-header {
   font-size: 1.5rem;
   font-weight: bold;
@@ -335,6 +541,14 @@ const spanTransversal = computed({
   margin-bottom: 0rem;
 }
 
+.cantilever-toggle {
+  display: flex;
+  flex-direction: row;
+  flex-flow: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
 
 .support-toggle,
 .isCantileverEnabled-toggle {
@@ -357,7 +571,7 @@ const spanTransversal = computed({
     display: flex;
     flex-direction: row;
   }
-  :deep(.q-btn[aria-pressed="true"]) {
+  :deep(.q-btn[aria-pressed='true']) {
     background-color: rgba($primary, 0.1);
     color: $secondary;
 
@@ -366,7 +580,7 @@ const spanTransversal = computed({
       font-weight: bold;
     }
   }
-  :deep(.q-btn[aria-pressed="false"]) {
+  :deep(.q-btn[aria-pressed='false']) {
     .block {
       color: #000;
       font-size: 1rem;
@@ -381,9 +595,4 @@ const spanTransversal = computed({
 .support-toggle {
   border: 0px;
 }
-
-
-
-
-
 </style>

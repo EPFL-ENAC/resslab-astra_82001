@@ -3,5 +3,5 @@
 import en_US from '../../assets/data/internationalization_en.json';
 
 export default {
-  ...en_US
+  ...en_US,
 };

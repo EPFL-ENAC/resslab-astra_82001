@@ -8,8 +8,7 @@ declare namespace NodeJS {
   }
 }
 
-
 // vite-env.d.ts
 declare module 'package.json' {
-  export const version: string
+  export const version: string;
 }

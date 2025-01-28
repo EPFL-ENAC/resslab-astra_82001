@@ -7,15 +7,20 @@
   "private": true,
   "scripts": {
     "lint": "eslint --ext .js,.ts,.vue ./",
+    "format-check": "prettier --check \"**/*.{js,ts,vue,scss,html,md,json}\" --ignore-path .gitignore",
     "format": "prettier --write \"**/*.{js,ts,vue,scss,html,md,json}\" --ignore-path .gitignore",
     "test": "echo \"No test specified\" && exit 0",
     "predev": "npm run convert",
     "dev": "quasar dev",
     "prebuild": "npm run convert",
     "build": "quasar build",
-    "convert": "node scripts/convert.mjs"
+    "convert": "node scripts/convert.mjs",
+    "prepare": "lefthook install",
+    "lefthook": "lefthook run pre-commit",
+    "type-check": "npm run convert && tsc --noEmit --skipLibCheck"
   },
   "dependencies": {
+    "@mdi/js": "^7.4.47",
     "@quasar/extras": "^1.16.4",
     "pinia": "^2.0.11",
     "quasar": "^2.6.0",
@@ -24,21 +29,25 @@
     "vue-router": "^4.0.0"
   },
   "devDependencies": {
+    "@evilmartians/lefthook": "^1.10.10",
     "@intlify/vite-plugin-vue-i18n": "^3.3.1",
     "@quasar/app-vite": "^1.3.0",
     "@types/node": "^12.20.21",
-    "@typescript-eslint/eslint-plugin": "^5.10.0",
-    "@typescript-eslint/parser": "^5.10.0",
+    "@typescript-eslint/eslint-plugin": "^8.22.0",
+    "@typescript-eslint/parser": "^8.22.0",
     "autoprefixer": "^10.4.2",
     "csvtojson": "^2.0.10",
     "eslint": "^8.10.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-vue": "^9.0.0",
     "prettier": "^2.5.1",
+    "stylelint": "^16.14.1",
+    "stylelint-config-prettier-scss": "^1.0.0",
+    "stylelint-config-standard-scss": "^14.0.0",
     "typescript": "5.5"
   },
   "engines": {
-    "node": ">=16.0.0 < 21.0.0",
+    "node": ">=16.0.0 < 23.0.0",
     "npm": ">= 6.13.4",
     "yarn": ">= 1.21.1"
   }

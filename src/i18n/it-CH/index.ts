@@ -3,7 +3,6 @@
 
 import it_CH from '../../assets/data/internationalization_it.json';
 
-
 export default {
-  ...it_CH
+  ...it_CH,
 };
