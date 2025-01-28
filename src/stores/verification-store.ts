@@ -475,7 +475,7 @@ const getObjectiveLongitudinalSpan = (state: VerificationState): number => {
     return 20;
   }
   if (state.bridgeType === 'Multi' && state.span > 30 && state.span <= 35) {
-    return 35;
+    return 30;
   }
   if (state.bridgeType === 'Multi' && state.span > 35) {
     return NaN;
