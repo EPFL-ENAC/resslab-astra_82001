@@ -7,9 +7,10 @@ La plublication de la documentation OFROU 82001 en 2024 a permis de définir un 
 
 ## Contributors
 
-- EPFL - RESSLAB : Alain Nussbaumer, Paola Miglietta
-- EPFL - ENAC-IT4R : Pierre Guilbert, Charlie Weil
-- OFROU : Dimitrios Papastergiou
+- OFROU (Funder & technical need) : Dimitrios Papastergiou
+- EPFL - RESSLAB (Technical specifications) : Alain Nussbaumer, Paola Miglietta
+- EPFL - ENAC-IT4R (Webtool implementation) : Pierre Guilbert, Charlie Weil
+- EPFL - Mediacom (Design contributions) : Mathias Udriot
 
 ## Tech stack
 
