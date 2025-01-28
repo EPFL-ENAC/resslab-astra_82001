@@ -64,7 +64,7 @@
       </q-toolbar>
     </q-header>
 
-    <q-page-container>
+    <q-page-container container class="layout-container">
       <router-view />
     </q-page-container>
   </q-layout>
@@ -97,4 +97,10 @@ const linkToAstra82001fPDF =
   'https://www.astra.admin.ch/dam/astra/de/dokumente/standards_fuer_nationalstrassen/astra_82001_ueberpruefungbestehenderstrassenbruecken2006.pdf.download.pdf/astra_82001f.pdf';
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.layout-container {
+  height: 100vh;
+  max-width: 1800px;
+  margin: auto;
+}
+</style>
