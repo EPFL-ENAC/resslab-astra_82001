@@ -950,11 +950,19 @@ export const useVerificationStore = defineStore('verification', {
         const supportType = state.isCantileverEnabled
           ? mapTransCantilevr[state.supportType]
           : mapTransBetweenBeams[state.supportType];
-
+        let selectedLane = state.selectedLane;
+        if (state.bridgeType && state.span > 12 && state.isCantileverEnabled) {
+          selectedLane = 'Uni2L';
+        }
+        if (state.bridgeType && state.span > 12 && !state.isCantileverEnabled) {
+          if (state.spanTransversal <= 9) {
+            selectedLane = 'Uni2L';
+          }
+        }
         const matrix = getMatrixTransversal(
           'DalleRoulem', // state.bridgeType,
           state.isCantileverEnabled ? 'PorteAFaux' : 'DalleEntrePoutres',
-          state.selectedLane,
+          selectedLane,
           supportType,
           ObjSpan
         );
@@ -963,6 +971,16 @@ export const useVerificationStore = defineStore('verification', {
           (acc, ae) => {
             if (matrix?.[ae]) {
               acc[ae] = linearInterpolation(state, matrix[ae], ObjSpan);
+              if (
+                state.spanTransversal > 9 &&
+                state.bridgeType === 'Box' &&
+                state.selectedLane === 'Bi4L'
+              ) {
+                acc[ae] = {
+                  qG: getFinalAlphaQ(state, RBAU_DEFAULT_FACTOR),
+                  'qG+': getFinalAlphaQ(state, RBAU_DEFAULT_FACTOR),
+                } as StructuralAnalysis;
+              }
             }
             return acc;
           },
