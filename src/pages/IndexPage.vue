@@ -57,11 +57,13 @@
       'e e'
       'h h';
     grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+    padding: 10px;
   }
 }
 
 // media for desktop > md
-@media only screen and (min-width: 1024px) {
+@media only screen and (min-width: $breakpoint-md) {
   .grid-astra {
     display: grid;
     grid-template-rows: repeat(3, max-content);

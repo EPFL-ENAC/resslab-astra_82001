@@ -33,7 +33,7 @@ export const mapTransBetweenBeams: Record<SupportType, TransValue> = {
 };
 import data from '../assets/data/data.json';
 import { Traffic, TrafficClass } from 'src/types/Selected';
-import { X } from 'app/dist/spa/assets/index.65332175';
+const RBAU_DEFAULT_FACTOR = 0.65;
 
 // this is the interface of the data (json) we have StructuralAnalysis[]
 interface StructuralAnalysis {
@@ -73,17 +73,6 @@ interface VerificationState {
   supportType: SupportType;
   spanTransversal: number;
 }
-
-// Example usage
-// const matrix = [
-//   { Width: 12, Span: 70, class: 0.117858204 },
-//   { Width: 12, Span: 80, class: 0.132028865 },
-//   { Width: 18, Span: 70, class: 0.175164259 },
-//   { Width: 18, Span: 80, class: 0.167184639 }
-// ];
-
-// const targetWidth = 15;
-// const targetSpan = 75;
 
 function getMatrixTransversal(
   bridgeType: BridgeType,
@@ -569,7 +558,7 @@ function getPhi(state: VerificationState) {
     return phyCalDynamicValue;
 }
 
-function getFinalAlphaQ(state: VerificationState, currentAlphaQ: number): number {
+export function getFinalAlphaQ(state: VerificationState, currentAlphaQ: number): number {
   const minAlphaQ = state.selectedClass === 'ClassOW' ? 0.3001 : 0.3001;
 
   let alphaQ = currentAlphaQ ?? minAlphaQ;
@@ -847,6 +836,15 @@ export const useVerificationStore = defineStore('verification', {
     getLongitudinalAlpha: (state) => {
       const ObjWidth = getObjectiveLongitudinalWidth(state);
       const ObjSpan = getObjectiveLongitudinalSpan(state);
+
+      if (state.rBau === true) {
+        const result: Record<AE, StructuralAnalysis> = {} as Record<AE, StructuralAnalysis>;
+        //
+        result.M = {
+          Q1G: getFinalAlphaQ(state, RBAU_DEFAULT_FACTOR),
+        } as StructuralAnalysis;
+        return result;
+      }
       if (state.bridgeType !== null) {
         const matrix = getMatrixLongitudinal(
           ObjWidth,
@@ -919,6 +917,7 @@ export const useVerificationStore = defineStore('verification', {
           return interpolatedMatrix;
         }
       }
+
     },
     getTransversalAlpha: (state) => {
       const ObjSpan = getObjectiveTransversalSpan(state);

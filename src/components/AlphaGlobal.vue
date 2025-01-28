@@ -52,10 +52,9 @@
     </ul>
     <ul class="alpha-list" v-if="rBau">
       <li class="alpha-item">
-        &alpha;<sub>act,unique </sub> &equals; 0.60
-
-
-        <q-btn flat padding="none" @click="() => copyText($q, $t, 0.60)">
+        <!-- Hack to use phi and beta  -->
+        &alpha;<sub>act,unique </sub> &equals;  {{ roundCeilWith2Decimals(alpha?.M?.Q1G) }}
+        <q-btn flat padding="none" @click="() => copyText($q, $t, roundCeilWith2Decimals(alpha?.M?.Q1G))">
           <q-img height="24px" width="24px" fit="contain" src="/mdi-icons/content_copy.svg" />
           <q-tooltip >
             {{  $t('copy_to_clipboard') }}
