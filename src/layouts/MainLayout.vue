@@ -21,6 +21,7 @@
           flat
           :options="langOptions"
         />
+        <AboutDialog />
         <q-btn
           flat
           round
@@ -76,6 +77,7 @@ import { useI18n } from 'vue-i18n';
 import { version } from '../../package.json';
 import { dataVersion } from 'src/utils/constants';
 import { getNavigatorLanguage } from 'src/boot/i18n';
+import AboutDialog from 'src/components/AboutDialog.vue';
 
 const { locale } = useI18n();
 

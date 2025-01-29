@@ -5,6 +5,7 @@
   "productName": "Astra 82001",
   "author": "Guilbert Pierre <pierre.guilbert@epfl.ch>",
   "private": true,
+  "type": "module",
   "scripts": {
     "lint": "eslint --ext .js,.ts,.vue ./",
     "format-check": "prettier --check \"**/*.{js,ts,vue,scss,html,md,json}\" --ignore-path .gitignore",
@@ -31,7 +32,8 @@
   "devDependencies": {
     "@evilmartians/lefthook": "^1.10.10",
     "@intlify/vite-plugin-vue-i18n": "^3.3.1",
-    "@quasar/app-vite": "^1.3.0",
+    "@quasar/app-vite": "^2.0.8",
+    "@quasar/quasar-app-extension-qmarkdown": "^2.0.4",
     "@types/node": "^12.20.21",
     "@typescript-eslint/eslint-plugin": "^8.22.0",
     "@typescript-eslint/parser": "^8.22.0",
