@@ -26,9 +26,6 @@ In particular, this tool is recommended when an **intermediate level of verifica
 
 ## Developing Team
 
-- **Charlie** – EPFL ENAC-IT4R, Technical Project Manager
-- **Pierre** – EPFL ENAC-IT4R, Lead Developer
-
-## Design Suggestions:
-
-- **Mathias Udriot** – Mediacom
+- **Charlie Weil** – EPFL ENAC-IT4R, Technical Project Manager
+- **Pierre Guilbert** – EPFL ENAC-IT4R, Lead Developer
+- **Mathias Udriot** – Mediacom, Design Suggestions
