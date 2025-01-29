@@ -26,9 +26,6 @@ Dieses Tool wird insbesondere empfohlen, wenn eine **mittlere Überprüfungsstuf
 
 ## Entwicklungsteam
 
-- **Charlie** – EPFL ENAC-IT4R, Technical Project Manager
-- **Pierre** – EPFL ENAC-IT4R, Lead Developer
-
-## Designvorschläge:
-
-- **Mathias Udriot** – Mediacom
+- **Charlie Weil** – EPFL ENAC-IT4R, Technischer Projektleiter
+- **Pierre Guilbert** – EPFL ENAC-IT4R, Leitender Entwickler
+- **Mathias Udriot** – Mediacom, Designvorschläge

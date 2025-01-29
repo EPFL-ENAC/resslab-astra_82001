@@ -3,7 +3,13 @@
     <q-icon class="cursor-pointer" :name="mdiBookOpenBlankVariantOutline">
     </q-icon>
   </q-btn>
-  <q-dialog v-model="isOpen" persisten full-width full-height>
+  <q-dialog
+    v-model="isOpen"
+    persisten
+    width="80%"
+    max-width="600px"
+    class="q-ma-md"
+  >
     <q-card class="about-dialog">
       <q-card-section class="row items-center q-pb-none">
         <div class="text-h6">{{ $t('about') }}</div>
