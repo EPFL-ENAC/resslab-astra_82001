@@ -98,3 +98,5 @@ i11,Support condition,Condition d'appui,Auflagerbedingung,Condizione di supporto
 i12,Beam under consideration for multibeam bridge,Poutre envisagée pour pont multi-poutres,In Betracht gezogener Träger für Plattenbalkenbrücke,Trave sotto verifica nel caso di ponti multitrave,"According to what beam is being investigated, traffic lane configuration changes to guarantee the most critical load to be affecting the beam investigated.","En fonction de la poutre étudiée, la configuration des voies de circulation change pour garantir que la charge la plus critique affecte la poutre étudiée.","Je nachdem, welcher Balken untersucht wird, ändert sich die Konfiguration der Fahrspur, um sicherzustellen, dass die kritischste Last auf den untersuchten Balken einwirkt.","A seconda di quale trave si sta verificando, la configurazione delle corsie di traffico cambia per garantire la condizione di carico più critica per la trave considerata."
 M_fully_fixed,fully fixed,,,incastro perfetto,,,,
 M_support,support,,,supporto,,,,
+about,About,À propos de,Über,Informazioni su
+common_close,Close,Fermer,Schließen,Chiudi

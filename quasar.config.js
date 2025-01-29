@@ -8,10 +8,10 @@
 // Configuration for your app
 // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js
 
-const { configure } = require('quasar/wrappers');
-const path = require('path');
+import { defineConfig } from '#q-app/wrappers'
+import path from 'path';
 
-module.exports = configure(function (/* ctx */) {
+export default defineConfig(function (/* ctx */) {
   return {
     eslint: {
       // fix: true,
@@ -51,7 +51,7 @@ module.exports = configure(function (/* ctx */) {
     build: {
       target: {
         browser: ['es2019', 'edge88', 'firefox78', 'chrome87', 'safari13.1'],
-        node: 'node16',
+        node: 'node22',
       },
 
       vueRouterMode: 'hash', // available values: 'hash', 'history'

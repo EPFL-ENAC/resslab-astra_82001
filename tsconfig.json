@@ -1,5 +1,5 @@
 {
-  "extends": "@quasar/app-vite/tsconfig-preset",
+  "extends": "./.quasar/tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
     "target": "ES2022",
@@ -8,7 +8,5 @@
     "useDefineForClassFields": true,
     "moduleResolution": "bundler",
     "strict": true
-  },
-  "exclude": ["node_modules", "dist", ".quasar"],
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]
+  }
 }
