@@ -27,7 +27,7 @@
             fit="contain"
             src="/mdi-icons/content_copy.svg"
           />
-          <q-tooltip>
+          <q-tooltip class="text-body1">
             {{ $t('copy_to_clipboard') }}
           </q-tooltip>
         </q-btn>
@@ -47,7 +47,7 @@
             fit="contain"
             src="/mdi-icons/content_copy.svg"
           />
-          <q-tooltip>
+          <q-tooltip class="text-body1">
             {{ $t('copy_to_clipboard') }}
           </q-tooltip>
         </q-btn>
@@ -66,7 +66,7 @@
             fit="contain"
             src="/mdi-icons/content_copy.svg"
           />
-          <q-tooltip>
+          <q-tooltip class="text-body1">
             {{ $t('copy_to_clipboard') }}
           </q-tooltip>
         </q-btn>
@@ -85,7 +85,7 @@
             fit="contain"
             src="/mdi-icons/content_copy.svg"
           />
-          <q-tooltip>
+          <q-tooltip class="text-body1">
             {{ $t('copy_to_clipboard') }}
           </q-tooltip>
         </q-btn>
@@ -107,7 +107,7 @@
             fit="contain"
             src="/mdi-icons/content_copy.svg"
           />
-          <q-tooltip>
+          <q-tooltip class="text-body1">
             {{ $t('copy_to_clipboard') }}
           </q-tooltip>
         </q-btn>

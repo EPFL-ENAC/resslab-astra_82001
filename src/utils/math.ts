@@ -8,10 +8,10 @@ export const roundCeilWith2Decimals = (value?: number) => {
     : 0;
 
   // If more than 3 decimal places, round to 2
-  if (decimalPlaces > 3) {
-    return Math.round(value * 100) / 100;
+  if (decimalPlaces >= 3) {
+    return (Math.ceil(value * 100) / 100).toFixed(2);
   }
 
   // Otherwise return original value
-  return value;
+  return value.toFixed(2);
 };

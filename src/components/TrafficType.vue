@@ -56,7 +56,7 @@
       >
         <template #default>
           {{
-            (beta === 4.7 ? $t('type_3') + ' ' : $t('normal') + ' ') +
+            (beta === 4.7 ? $t('type_3') + ' ' : $t('type_2') + ' ') +
             `(β=${beta.toFixed(2)})`
           }}
           <q-icon

@@ -21,6 +21,7 @@
           flat
           :options="langOptions"
         />
+        <AboutDialog />
         <q-btn
           flat
           round
@@ -36,7 +37,7 @@
               src="/epfl-designed/Canard/svg/c-info.svg"
               :alt="$t('download_reference_documentation')"
             />
-            <q-tooltip>
+            <q-tooltip class="text-body1">
               <span>{{ $t('download_reference_documentation') }} </span>
             </q-tooltip>
           </template>
@@ -56,7 +57,7 @@
               src="/epfl-designed/Canard/svg/c-csv.svg"
               :alt="$t('download_reference_data')"
             />
-            <q-tooltip>
+            <q-tooltip class="text-body1">
               <span>{{ $t('download_reference_data') }} </span>
             </q-tooltip>
           </template>
@@ -64,7 +65,7 @@
       </q-toolbar>
     </q-header>
 
-    <q-page-container>
+    <q-page-container container class="layout-container">
       <router-view />
     </q-page-container>
   </q-layout>
@@ -75,6 +76,8 @@ import { ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { version } from '../../package.json';
 import { dataVersion } from 'src/utils/constants';
+import { getNavigatorLanguage } from 'src/boot/i18n';
+import AboutDialog from 'src/components/AboutDialog.vue';
 
 const { locale } = useI18n();
 
@@ -84,7 +87,7 @@ const langOptions = [
   { label: 'FR', value: 'fr' },
   { label: 'IT', value: 'it' },
 ];
-const lang = ref(langOptions[0].value);
+const lang = ref(getNavigatorLanguage().split('-')[0]);
 const downloadFileName = `data-astra-82001f_${dataVersion}.csv`;
 
 watch(lang, (newLang) => {
@@ -96,4 +99,10 @@ const linkToAstra82001fPDF =
   'https://www.astra.admin.ch/dam/astra/de/dokumente/standards_fuer_nationalstrassen/astra_82001_ueberpruefungbestehenderstrassenbruecken2006.pdf.download.pdf/astra_82001f.pdf';
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.layout-container {
+  height: 100vh;
+  max-width: 1800px;
+  margin: auto;
+}
+</style>
