@@ -28,7 +28,4 @@ In particolare, l’uso di questo strumento è raccomandato per i casi in cui è
 
 - **Charlie** – EPFL ENAC-IT4R, Technical Project Manager
 - **Pierre** – EPFL ENAC-IT4R, Lead Developer
-
-## Suggerimenti di design:
-
-- **Mathias Udriot** – Mediacom
+- **Mathias Udriot** – Mediacom, Suggerimenti di design

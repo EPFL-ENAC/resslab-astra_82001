@@ -26,9 +26,6 @@ En particulier, cet outil est recommandé lorsqu'un **niveau intermédiaire de v
 
 ## Équipe de développement
 
-- **Charlie** – EPFL ENAC-IT4R, Cheffe de projet technique
-- **Pierre** – EPFL ENAC-IT4R, Développeur principal
-
-## Suggestions de design:
-
-- **Mathias Udriot** – Mediacom
+- **Charlie Weil** – EPFL ENAC-IT4R, Cheffe de projet technique
+- **Pierre Guilbert** – EPFL ENAC-IT4R, Développeur principal
+- **Mathias Udriot** – Mediacom, Suggestions design
