@@ -1,5 +1,28 @@
 # Changelog
 
+## [1.7.0](https://github.com/EPFL-ENAC/resslab-astra_82001/compare/v1.6.0...v1.7.0) (2025-01-30)
+
+
+### Features
+
+* **internationalization:** add multilingual support with about content and dialog component ([5840fae](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/5840faeea4e0a6641d43a52ae5bbb0b4ae78cfc0))
+
+
+### Bug Fixes
+
+* **about:** improve clarity in English description of tool usage ([e6e5c94](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/e6e5c9471d1867cdf4c5f690a970e4541d609ee2))
+* **IndexPage:** adjust grid column layout for better responsiveness ([ee2c42a](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/ee2c42af196e15dc709c8c761bd082f12c04c765))
+* **internationalization:** add translation for Bridge class II and update TrafficType component [DESIGN](Traffic type Toggles) [#48](https://github.com/EPFL-ENAC/resslab-astra_82001/issues/48) ([8517d3e](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/8517d3eb29151c70ac46f618956bd32e05ee0530))
+* **layout:** add layout-container class for improved styling and responsiveness [#52](https://github.com/EPFL-ENAC/resslab-astra_82001/issues/52) ([875bd4c](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/875bd4cc9cb778c80e565b1d41dfafe3f52a6570))
+* **math:** update rounding logic to use ceil for values with 3 or more decimal places ([f46ce3b](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/f46ce3b89648dba0f08d9d1ec2f57fa7b489c3bf))
+* **tooltip:** add text-body1 class for improved styling consistency ([1209fd0](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/1209fd01c224af01e3570a433b7708ec7efb6e3f))
+* **verification-store:** adjust span logic for Multi bridge type to 35M max ([e2a7270](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/e2a7270fabf1b69cfe2bb496493de1ffa373f5c1))
+* **verification-store:** correct maximum span return value for Multi bridge type to 30 [#40](https://github.com/EPFL-ENAC/resslab-astra_82001/issues/40) ([511c6b2](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/511c6b2260addf764f1e14e8c496f99dcc84db3f))
+* **verification-store:** update lane selection logic based on bridge type and span conditions [#41](https://github.com/EPFL-ENAC/resslab-astra_82001/issues/41) ([bbf904e](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/bbf904ecc6c0f5d857187fb340743e87830f22d9))
+* **verification-store:** update RBAU_DEFAULT_FACTOR from 0.65 to 0.6 ([36c7a3d](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/36c7a3d0636da48ddb7e5411020203fa10d2fc5d))
+* **workflow:** update quality-checks to include quasar prepare step before type-check ([e8e3442](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/e8e3442c94d1b125b1212238b4fd71f4a420434c))
+* **workflow:** update quality-checks to include quasar prepare step before type-check ([718c5ac](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/718c5ac8efb8f108719c4bdebd8efd2645e353ad))
+
 ## [1.6.0](https://github.com/EPFL-ENAC/resslab-astra_82001/compare/v1.5.0...v1.6.0) (2025-01-28)
 
 
