@@ -1,6 +1,6 @@
 The scope of this webtool is to help professionals navigate and apply the conclusions of the recent document **ASTRA 82001 (2024)**.
 
-In particular, this tool is recommended when an **intermediate level of verification** is required—meaning the bridge under consideration necessitates a detailed evaluation of possible critical elements. However, the conditions remain general enough to allow for the bridge to be classified according to predetermined characteristics.
+In particular, this tool is recommended when an **intermediate level of verification** is required, meaning the bridge under consideration requires a detailed look to the possible critical elements, but the conditions are general enough to allow for the bridge to be classified according predetermined characteristics.
 
 ---
 
