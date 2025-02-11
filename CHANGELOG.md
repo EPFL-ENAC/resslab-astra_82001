@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.0](https://github.com/EPFL-ENAC/resslab-astra_82001/compare/v1.7.0...v1.8.0) (2025-02-11)
+
+
+### Features
+
+* enhance bridge span calculations based on bridge type [#40](https://github.com/EPFL-ENAC/resslab-astra_82001/issues/40) ([1b8145e](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/1b8145e1662150df17e572ae795907626515b6cd))
+
 ## [1.7.0](https://github.com/EPFL-ENAC/resslab-astra_82001/compare/v1.6.0...v1.7.0) (2025-01-30)
 
 
