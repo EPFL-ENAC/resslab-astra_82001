@@ -711,6 +711,7 @@ export const useVerificationStore = defineStore('verification', {
           this.supportType = 'Semi';
         }
       }
+      this.setTransversalCantileverEnabled(this.isCantileverEnabled);
     },
     setBridgeComposition(composition: BridgeComposition) {
       this.bridgeComposition = composition;
@@ -791,9 +792,21 @@ export const useVerificationStore = defineStore('verification', {
       //       ? 'PorteAFaux'
       //       : 'DalleEntrePoutres',
       if (state.isCantileverEnabled) {
-        return 6.78;
+        if (state.bridgeType === 'Twin') {
+          return 4;
+        } else if (state.bridgeType === 'Multi') {
+          return 3;
+        } else {
+          return 6.78;
+        }
       } else {
-        return 12;
+        if (state.bridgeType === 'Twin') {
+          return 9;
+        } else if (state.bridgeType === 'Multi') {
+          return 6;
+        } else {
+          return 12;
+        }
       }
     },
     getMinSpan: (state) => {
