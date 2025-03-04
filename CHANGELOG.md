@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.9.0](https://github.com/EPFL-ENAC/resslab-astra_82001/compare/v1.8.0...v1.9.0) (2025-03-04)
+
+
+### Features
+
+* add annex PDF and SVG download links in MainLayout [#53](https://github.com/EPFL-ENAC/resslab-astra_82001/issues/53) ([49801b3](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/49801b37b4cf9e01ba94444c1394ad20381f34bb))
+* update PDF links to support multiple languages in MainLayout  [#59](https://github.com/EPFL-ENAC/resslab-astra_82001/issues/59) ([81f3dff](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/81f3dffcf4de581523d740f1fb7df342e04e3e08))
+
 ## [1.8.0](https://github.com/EPFL-ENAC/resslab-astra_82001/compare/v1.7.0...v1.8.0) (2025-02-11)
 
 
