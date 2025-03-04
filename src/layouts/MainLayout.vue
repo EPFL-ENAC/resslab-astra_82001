@@ -25,7 +25,7 @@
         <q-btn
           flat
           round
-          :href="linkToAstra82001fPDF"
+          :href="linksToAstra82001fPDF[lang]"
           target="_blank"
           download
           class="q-ml-md"
@@ -72,7 +72,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { ref, watch, Ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { version } from '../../package.json';
 import { dataVersion } from 'src/utils/constants';
@@ -87,7 +87,7 @@ const langOptions = [
   { label: 'FR', value: 'fr' },
   { label: 'IT', value: 'it' },
 ];
-const lang = ref(getNavigatorLanguage().split('-')[0]);
+const lang: Ref<string> = ref(getNavigatorLanguage().split('-')[0]);
 const downloadFileName = `data-astra-82001f_${dataVersion}.csv`;
 
 watch(lang, (newLang) => {
@@ -95,8 +95,13 @@ watch(lang, (newLang) => {
 });
 
 const linkToCSV = '/src/assets/data/data.csv';
-const linkToAstra82001fPDF =
-  'https://www.astra.admin.ch/dam/astra/de/dokumente/standards_fuer_nationalstrassen/astra_82001_ueberpruefungbestehenderstrassenbruecken2006.pdf.download.pdf/astra_82001f.pdf';
+
+const linksToAstra82001fPDF: Record<string, string> = {
+  en: 'https://www.astra.admin.ch/dam/astra/fr/dokumente/standards_fuer_nationalstrassen/astra_82001_ueberpruefungbestehenderstrassenbruecken2006.pdf.download.pdf/astra_82001e.pdf',
+  de: 'https://www.astra.admin.ch/dam/astra/de/dokumente/standards_fuer_nationalstrassen/astra_82001_ueberpruefungbestehenderstrassenbruecken2006.pdf.download.pdf/astra_82001f.pdf',
+  fr: 'https://www.astra.admin.ch/dam/astra/fr/dokumente/standards_fuer_nationalstrassen/astra_82001_ueberpruefungbestehenderstrassenbruecken2006.pdf.download.pdf/astra_82001f.pdf',
+  it: 'https://www.astra.admin.ch/dam/astra/fr/dokumente/standards_fuer_nationalstrassen/astra_82001_ueberpruefungbestehenderstrassenbruecken2006.pdf.download.pdf/astra_82001f.pdf',
+};
 </script>
 
 <style lang="scss" scoped>
