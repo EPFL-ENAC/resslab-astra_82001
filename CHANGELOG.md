@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.1](https://github.com/EPFL-ENAC/resslab-astra_82001/compare/v1.9.0...v1.9.1) (2025-04-03)
+
+
+### Bug Fixes
+
+* correct HTML entity for less than symbol in TransversalVerification component [#63](https://github.com/EPFL-ENAC/resslab-astra_82001/issues/63) ([82d59b6](https://github.com/EPFL-ENAC/resslab-astra_82001/commit/82d59b6f1d6219c67486c51b903e52819301eb8c))
+
 ## [1.9.0](https://github.com/EPFL-ENAC/resslab-astra_82001/compare/v1.8.0...v1.9.0) (2025-03-04)
 
 
