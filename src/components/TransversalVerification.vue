@@ -162,7 +162,7 @@
         >
           <template #one>
             <div class="col items-center no-wrap">
-              M<sub>{{ $t('M_support') }}</sub> &LessSlantEqual; 50% M<sub>{{
+              M<sub>{{ $t('M_support') }}</sub> &lt; 50% M<sub>{{
                 $t('M_fully_fixed')
               }}</sub>
             </div>
@@ -173,7 +173,7 @@
               50% M<sub>{{ $t('M_fully_fixed') }}</sub> &LessSlantEqual; M<sub
                 >{{ $t('M_support') }}</sub
               >
-              &LessSlantEqual; M<sub>{{ $t('M_fully_fixed') }}</sub>
+              &lt; M<sub>{{ $t('M_fully_fixed') }}</sub>
             </div>
           </template>
           <template #three>
