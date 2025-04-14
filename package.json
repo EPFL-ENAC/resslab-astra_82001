@@ -1,6 +1,6 @@
 {
   "name": "astra-82001",
-  "version": "1.9.1",
+  "version": "1.9.3",
   "description": "Outil de visualisation des données de l'Astra 82001f",
   "productName": "Astra 82001",
   "author": "Guilbert Pierre <pierre.guilbert@epfl.ch>",
