@@ -29,3 +29,7 @@ In particular, this tool is recommended when an **intermediate level of verifica
 - **Charlie Weil** – EPFL ENAC-IT4R, Technical Project Manager
 - **Pierre Guilbert** – EPFL ENAC-IT4R, Lead Developer
 - **Mathias Udriot** – Mediacom, Design Suggestions
+
+
+
+Ask questions and report bugs via [Github Issues](https://github.com/EPFL-ENAC/resslab-astra_82001/issues)

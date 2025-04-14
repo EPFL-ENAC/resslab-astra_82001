@@ -29,3 +29,6 @@ Dieses Tool wird insbesondere empfohlen, wenn eine **mittlere Überprüfungsstuf
 - **Charlie Weil** – EPFL ENAC-IT4R, Technischer Projektleiter
 - **Pierre Guilbert** – EPFL ENAC-IT4R, Leitender Entwickler
 - **Mathias Udriot** – Mediacom, Designvorschläge
+
+
+Stellen Sie Ihre Fragen und melden Sie Fehler über [Github Issues](https://github.com/EPFL-ENAC/resslab-astra_82001/issues)
