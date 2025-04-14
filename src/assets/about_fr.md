@@ -29,3 +29,5 @@ En particulier, cet outil est recommandé lorsqu'un **niveau intermédiaire de v
 - **Charlie Weil** – EPFL ENAC-IT4R, Cheffe de projet technique
 - **Pierre Guilbert** – EPFL ENAC-IT4R, Développeur principal
 - **Mathias Udriot** – Mediacom, Suggestions design
+
+Posez vos questions et signalez les bugs via [Github Issues](https://github.com/EPFL-ENAC/resslab-astra_82001/issues)
