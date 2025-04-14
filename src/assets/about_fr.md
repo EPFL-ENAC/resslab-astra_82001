@@ -2,6 +2,8 @@ L'objectif de cet outil web est d'aider le professionnel à naviguer et à appli
 
 En particulier, cet outil est recommandé lorsqu'un **niveau intermédiaire de vérification** est requis, ce qui signifie que le pont considéré nécessite un examen détaillé des éléments critiques possibles, mais que les conditions sont suffisamment générales pour permettre de classer le pont en fonction de caractéristiques prédéterminées.
 
+Posez vos questions et signalez les bugs via [Github Issues](https://github.com/EPFL-ENAC/resslab-astra_82001/issues)
+
 ---
 
 ## Groupe de recherche
@@ -29,5 +31,3 @@ En particulier, cet outil est recommandé lorsqu'un **niveau intermédiaire de v
 - **Charlie Weil** – EPFL ENAC-IT4R, Cheffe de projet technique
 - **Pierre Guilbert** – EPFL ENAC-IT4R, Développeur principal
 - **Mathias Udriot** – Mediacom, Suggestions design
-
-Posez vos questions et signalez les bugs via [Github Issues](https://github.com/EPFL-ENAC/resslab-astra_82001/issues)

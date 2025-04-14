@@ -2,6 +2,8 @@ Dieses Webtool soll Fachleuten dabei helfen, sich in den Schlussfolgerungen der 
 
 Dieses Tool wird insbesondere empfohlen, wenn eine **mittlere Überprüfungsstufe erforderlich ist**, d. h. wenn die betreffende Brücke einer detaillierten Betrachtung der möglichen kritischen Elemente bedarf, die Bedingungen jedoch allgemein genug sind, um eine Klassifizierung der Brücke nach vorgegebenen Merkmalen zu ermöglichen.
 
+Stellen Sie Ihre Fragen und melden Sie Fehler über [Github Issues](https://github.com/EPFL-ENAC/resslab-astra_82001/issues)
+
 ---
 
 ## Forschungsgruppe
@@ -29,6 +31,3 @@ Dieses Tool wird insbesondere empfohlen, wenn eine **mittlere Überprüfungsstuf
 - **Charlie Weil** – EPFL ENAC-IT4R, Technischer Projektleiter
 - **Pierre Guilbert** – EPFL ENAC-IT4R, Leitender Entwickler
 - **Mathias Udriot** – Mediacom, Designvorschläge
-
-
-Stellen Sie Ihre Fragen und melden Sie Fehler über [Github Issues](https://github.com/EPFL-ENAC/resslab-astra_82001/issues)

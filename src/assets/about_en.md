@@ -2,6 +2,8 @@ The scope of this webtool is to help professionals navigate and apply the conclu
 
 In particular, this tool is recommended when an **intermediate level of verification** is required, meaning the bridge under consideration requires a detailed look to the possible critical elements, but the conditions are general enough to allow for the bridge to be classified according predetermined characteristics.
 
+Ask questions and report bugs via [Github Issues](https://github.com/EPFL-ENAC/resslab-astra_82001/issues)
+
 ---
 
 ## Research Team
@@ -29,7 +31,3 @@ In particular, this tool is recommended when an **intermediate level of verifica
 - **Charlie Weil** – EPFL ENAC-IT4R, Technical Project Manager
 - **Pierre Guilbert** – EPFL ENAC-IT4R, Lead Developer
 - **Mathias Udriot** – Mediacom, Design Suggestions
-
-
-
-Ask questions and report bugs via [Github Issues](https://github.com/EPFL-ENAC/resslab-astra_82001/issues)

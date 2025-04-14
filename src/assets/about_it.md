@@ -2,6 +2,8 @@ Lo scopo di questo strumento in linea è quello di coadiuvare il professionista 
 
 In particolare, l’uso di questo strumento è raccomandato per i casi in cui è richiesto **un livello di verifica intermedio**, ovvero nei casi in cui il ponte in considerazione necessiti di un’analisi dettagliata dei possibili elementi critici, ma le condizioni siano comunque generali abbastanza da permettere la classificazione del ponte secondo caratteristiche predeterminate.
 
+Ponete le vostre domande e segnalate i bug tramite [Github Issues](https://github.com/EPFL-ENAC/resslab-astra_82001/issues)
+
 ---
 
 ## Gruppo di ricerca
@@ -29,6 +31,3 @@ In particolare, l’uso di questo strumento è raccomandato per i casi in cui è
 - **Charlie** – EPFL ENAC-IT4R, Technical Project Manager
 - **Pierre** – EPFL ENAC-IT4R, Lead Developer
 - **Mathias Udriot** – Mediacom, Suggerimenti di design
-
-
-Ponete le vostre domande e segnalate i bug tramite [Github Issues](https://github.com/EPFL-ENAC/resslab-astra_82001/issues)
