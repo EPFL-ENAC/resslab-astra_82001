@@ -1,5 +1,5 @@
 ---
-name: User Questions
+name: ❓ User Questions
 title: "[USER QUESTIONS] "
 about: Template for tracking user inquiries that need response
 assignees: PaolaCostanzaMiglietta
@@ -8,9 +8,9 @@ labels: user-inquiry, needs-response
 
 ## Questions/Suggestions
 
-1. 
-2. 
-3. 
+1.
+2.
+3.
 
 ## Additional Context
 <!-- Any relevant background information or context that might help in addressing these questions, screenshots welcomed -->
