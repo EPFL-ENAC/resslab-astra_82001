@@ -1,6 +1,7 @@
 ---
 name: User Questions
 title: "[USER QUESTIONS] "
+about: Template for tracking user inquiries that need response
 assignees: PaolaCostanzaMiglietta
 labels: user-inquiry, needs-response
 ---
