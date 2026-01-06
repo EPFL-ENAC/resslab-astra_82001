@@ -32,6 +32,7 @@ RUN apk add --update bash && rm -rf /var/cache/apk/*
 RUN mkdir /app
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY --from=build-stage /app/dist/spa /app
+COPY --from=build-stage /app/src/assets/data/data.csv /app/src/assets/data/data.csv
 EXPOSE 80
 
 COPY entrypoint.sh /app/entrypoint.sh
